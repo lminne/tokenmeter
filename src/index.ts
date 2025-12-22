@@ -24,6 +24,10 @@
 // Core instrumentation
 export { monitor } from "./instrumentation/proxy.js";
 
+// Cost capture utilities
+export { withCost, withCostSync } from "./client/withCost.js";
+export type { WithCostResult, CostCapture } from "./client/withCost.js";
+
 // Context management
 export {
   withAttributes,
@@ -65,6 +69,23 @@ export type {
   MonitorOptions,
   UsageData,
   ExtractionStrategy,
+  StreamingCostUpdate,
+  StreamingCostCallback,
+  // Hook context types
+  RequestContext,
+  ResponseContext,
+  ErrorContext,
+  // Provider-specific usage types
+  ProviderUsageData,
+  OpenAIUsageData,
+  AnthropicUsageData,
+  GoogleUsageData,
+  BedrockUsageData,
+  FalUsageData,
+  ElevenLabsUsageData,
+  BFLUsageData,
+  VercelAIUsageData,
+  GenericUsageData,
   // Context types
   TokenMeterAttributes,
   // Processor types
@@ -80,6 +101,18 @@ export type {
 // Semantic conventions
 export { TM_ATTRIBUTES, GEN_AI_ATTRIBUTES } from "./types.js";
 
+// Type guards for provider-specific usage data
+export {
+  isOpenAIUsage,
+  isAnthropicUsage,
+  isGoogleUsage,
+  isBedrockUsage,
+  isFalUsage,
+  isElevenLabsUsage,
+  isBFLUsage,
+  isVercelAIUsage,
+} from "./types.js";
+
 // Logger configuration
 export {
   configureLogger,
@@ -88,6 +121,17 @@ export {
   type LogLevel,
   type LoggerConfig,
 } from "./logger.js";
+
+// Provider registry (for custom providers)
+export {
+  TOKENMETER_PROVIDER,
+  registerProvider,
+  unregisterProvider,
+  getProvider,
+  getRegisteredProviders,
+  clearProviderRegistry,
+  type ProviderConfig,
+} from "./registry.js";
 
 // Extraction strategies (for custom implementations)
 export {
@@ -98,6 +142,7 @@ export {
   anthropicStrategy,
   bedrockStrategy,
   vertexAIStrategy,
+  googleGenerativeAIStrategy,
   falStrategy,
   bflStrategy,
   elevenlabsStrategy,

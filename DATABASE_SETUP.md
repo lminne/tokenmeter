@@ -7,7 +7,7 @@ tokenmeter can persist cost data to PostgreSQL for querying and billing.
 ### 1. Create the table
 
 ```sql
-CREATE TABLE tokenmeter_costs (
+CREATE TABLE tokenmeter_events (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   trace_id TEXT NOT NULL,
   span_id TEXT NOT NULL,
@@ -15,18 +15,18 @@ CREATE TABLE tokenmeter_costs (
   model TEXT NOT NULL,
   organization_id TEXT,
   user_id TEXT,
-  workflow_id TEXT,
   cost_usd NUMERIC(10, 6) NOT NULL,
-  input_tokens INTEGER,
-  output_tokens INTEGER,
+  input_units INTEGER,
+  output_units INTEGER,
+  metadata JSONB,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
-CREATE INDEX idx_tokenmeter_org ON tokenmeter_costs(organization_id);
-CREATE INDEX idx_tokenmeter_user ON tokenmeter_costs(user_id);
-CREATE INDEX idx_tokenmeter_workflow ON tokenmeter_costs(workflow_id);
-CREATE INDEX idx_tokenmeter_created ON tokenmeter_costs(created_at);
-CREATE INDEX idx_tokenmeter_provider ON tokenmeter_costs(provider);
+CREATE INDEX idx_tokenmeter_org ON tokenmeter_events(organization_id);
+CREATE INDEX idx_tokenmeter_user ON tokenmeter_events(user_id);
+CREATE INDEX idx_tokenmeter_trace ON tokenmeter_events(trace_id);
+CREATE INDEX idx_tokenmeter_created ON tokenmeter_events(created_at);
+CREATE INDEX idx_tokenmeter_provider ON tokenmeter_events(provider);
 ```
 
 ### 2. Configure the exporter
@@ -34,16 +34,14 @@ CREATE INDEX idx_tokenmeter_provider ON tokenmeter_costs(provider);
 ```typescript
 import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
 import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
-import { TokenMeterProcessor } from 'tokenmeter';
 import { PostgresExporter } from 'tokenmeter/exporter';
 
 const provider = new NodeTracerProvider();
 
-provider.addSpanProcessor(new TokenMeterProcessor());
 provider.addSpanProcessor(new BatchSpanProcessor(
   new PostgresExporter({
     connectionString: process.env.DATABASE_URL,
-    tableName: 'tokenmeter_costs', // default
+    // tableName: 'tokenmeter_events', // default
   })
 ));
 
@@ -86,10 +84,10 @@ const workflowCost = await client.getWorkflowCost('workflow_abc');
 | `model` | TEXT | Model identifier |
 | `organization_id` | TEXT | From `withAttributes({ 'org.id': ... })` |
 | `user_id` | TEXT | From `withAttributes({ 'user.id': ... })` |
-| `workflow_id` | TEXT | From `withAttributes({ 'workflow.id': ... })` |
 | `cost_usd` | NUMERIC(10,6) | Cost in USD |
-| `input_tokens` | INTEGER | Input token count |
-| `output_tokens` | INTEGER | Output token count |
+| `input_units` | INTEGER | Input units (tokens, characters, etc.) |
+| `output_units` | INTEGER | Output units (tokens, images, etc.) |
+| `metadata` | JSONB | Additional custom attributes |
 | `created_at` | TIMESTAMPTZ | Timestamp |
 
 ## Production Considerations
@@ -111,7 +109,7 @@ DATABASE_URL="postgresql://user:pass@ep-xyz.us-east-1.aws.neon.tech/db?sslmode=r
 For high-volume usage, partition by month:
 
 ```sql
-CREATE TABLE tokenmeter_costs (
+CREATE TABLE tokenmeter_events (
   id UUID DEFAULT gen_random_uuid(),
   trace_id TEXT NOT NULL,
   span_id TEXT NOT NULL,
@@ -119,18 +117,18 @@ CREATE TABLE tokenmeter_costs (
   model TEXT NOT NULL,
   organization_id TEXT,
   user_id TEXT,
-  workflow_id TEXT,
   cost_usd NUMERIC(10, 6) NOT NULL,
-  input_tokens INTEGER,
-  output_tokens INTEGER,
+  input_units INTEGER,
+  output_units INTEGER,
+  metadata JSONB,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   PRIMARY KEY (id, created_at)
 ) PARTITION BY RANGE (created_at);
 
 -- Monthly partitions
-CREATE TABLE tokenmeter_costs_2024_01 PARTITION OF tokenmeter_costs
+CREATE TABLE tokenmeter_events_2024_01 PARTITION OF tokenmeter_events
   FOR VALUES FROM ('2024-01-01') TO ('2024-02-01');
-CREATE TABLE tokenmeter_costs_2024_02 PARTITION OF tokenmeter_costs
+CREATE TABLE tokenmeter_events_2024_02 PARTITION OF tokenmeter_events
   FOR VALUES FROM ('2024-02-01') TO ('2024-03-01');
 -- etc.
 ```
@@ -141,7 +139,7 @@ Archive or delete old data to manage storage:
 
 ```sql
 -- Delete data older than 90 days
-DELETE FROM tokenmeter_costs WHERE created_at < NOW() - INTERVAL '90 days';
+DELETE FROM tokenmeter_events WHERE created_at < NOW() - INTERVAL '90 days';
 ```
 
 ## Query Examples
@@ -153,7 +151,7 @@ SELECT
   organization_id,
   SUM(cost_usd) as total_cost,
   COUNT(*) as request_count
-FROM tokenmeter_costs
+FROM tokenmeter_events
 WHERE created_at >= date_trunc('month', NOW())
 GROUP BY organization_id
 ORDER BY total_cost DESC;
@@ -166,9 +164,9 @@ SELECT
   provider,
   model,
   SUM(cost_usd) as total_cost,
-  SUM(input_tokens) as total_input,
-  SUM(output_tokens) as total_output
-FROM tokenmeter_costs
+  SUM(input_units) as total_input,
+  SUM(output_units) as total_output
+FROM tokenmeter_events
 WHERE created_at >= NOW() - INTERVAL '7 days'
 GROUP BY provider, model
 ORDER BY total_cost DESC;
@@ -180,7 +178,7 @@ ORDER BY total_cost DESC;
 SELECT 
   date_trunc('day', created_at) as day,
   SUM(cost_usd) as daily_cost
-FROM tokenmeter_costs
+FROM tokenmeter_events
 WHERE user_id = 'user_123'
   AND created_at >= NOW() - INTERVAL '30 days'
 GROUP BY day

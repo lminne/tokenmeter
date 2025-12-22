@@ -5,6 +5,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { TokenMeterProcessor } from "../processor/TokenMeterProcessor.js";
 import { TM_ATTRIBUTES, GEN_AI_ATTRIBUTES } from "../types.js";
+import { configureLogger, resetLogger } from "../logger.js";
 import type { ReadableSpan, Span } from "@opentelemetry/sdk-trace-base";
 import type { Context, HrTime, SpanContext, SpanKind, SpanStatus, Link, Attributes } from "@opentelemetry/api";
 
@@ -41,17 +42,28 @@ function createMockSpan(attributes: Attributes = {}): ReadableSpan {
 }
 
 describe("TokenMeterProcessor", () => {
-  let consoleDebugSpy: ReturnType<typeof vi.spyOn>;
-  let consoleWarnSpy: ReturnType<typeof vi.spyOn>;
+  let debugSpy: ReturnType<typeof vi.fn>;
+  let warnSpy: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
-    consoleDebugSpy = vi.spyOn(console, "debug").mockImplementation(() => {});
-    consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    debugSpy = vi.fn();
+    warnSpy = vi.fn();
+
+    // Configure custom logger that captures calls
+    configureLogger({
+      level: "debug",
+      custom: (level: string, message: string, ...args: unknown[]) => {
+        if (level === "debug") {
+          debugSpy(message, ...args);
+        } else if (level === "warn") {
+          warnSpy(message, ...args);
+        }
+      },
+    });
   });
 
   afterEach(() => {
-    consoleDebugSpy.mockRestore();
-    consoleWarnSpy.mockRestore();
+    resetLogger();
   });
 
   describe("Constructor", () => {
@@ -98,7 +110,7 @@ describe("TokenMeterProcessor", () => {
 
       // Should not throw or log
       processor.onEnd(span);
-      expect(consoleDebugSpy).not.toHaveBeenCalled();
+      expect(debugSpy).not.toHaveBeenCalled();
     });
 
     it("should process spans with tokenmeter attributes", () => {
@@ -123,8 +135,8 @@ describe("TokenMeterProcessor", () => {
 
       processor.onEnd(span);
 
-      expect(consoleDebugSpy).toHaveBeenCalled();
-      const logCall = consoleDebugSpy.mock.calls[0][0] as string;
+      expect(debugSpy).toHaveBeenCalled();
+      const logCall = debugSpy.mock.calls[0][0] as string;
       expect(logCall).toContain("openai/gpt-4o");
     });
 
@@ -150,7 +162,7 @@ describe("TokenMeterProcessor", () => {
 
       processor.onEnd(span);
 
-      expect(consoleDebugSpy).toHaveBeenCalled();
+      expect(debugSpy).toHaveBeenCalled();
     });
 
     it("should use pricing overrides", () => {
@@ -175,7 +187,7 @@ describe("TokenMeterProcessor", () => {
 
       processor.onEnd(span);
 
-      const logCall = consoleDebugSpy.mock.calls[0][0] as string;
+      const logCall = debugSpy.mock.calls[0][0] as string;
       // (1M / 1M) * 100 + (500k / 1M) * 200 = 100 + 100 = $200
       expect(logCall).toContain("$200");
     });
@@ -194,7 +206,7 @@ describe("TokenMeterProcessor", () => {
       processor.onEnd(span);
 
       // Should warn about no pricing
-      expect(consoleWarnSpy).toHaveBeenCalled();
+      expect(warnSpy).toHaveBeenCalled();
     });
   });
 
@@ -233,7 +245,7 @@ describe("TokenMeterProcessor", () => {
 
       processor.onEnd(span);
 
-      const logCall = consoleDebugSpy.mock.calls[0][0] as string;
+      const logCall = debugSpy.mock.calls[0][0] as string;
       // (50000 / 1000000) * 0.02 = 0.001
       expect(logCall).toContain("$0.001");
     });
@@ -258,7 +270,7 @@ describe("TokenMeterProcessor", () => {
 
       processor.onEnd(span);
 
-      const logCall = consoleDebugSpy.mock.calls[0][0] as string;
+      const logCall = debugSpy.mock.calls[0][0] as string;
       // 4 * 0.04 = 0.16
       expect(logCall).toContain("$0.16");
     });

@@ -5,12 +5,13 @@
  */
 
 import type { ExtractionStrategy, UsageData } from "../../types.js";
+import { PROVIDERS, DEFAULT_MODELS } from "../../constants.js";
 
 /**
  * OpenAI extraction strategy
  */
 export const openaiStrategy: ExtractionStrategy = {
-  provider: "openai",
+  provider: PROVIDERS.OPENAI,
 
   canHandle(methodPath: string[], result: unknown): boolean {
     // Handle chat.completions.create, completions.create, embeddings.create, etc.
@@ -55,7 +56,7 @@ export const openaiStrategy: ExtractionStrategy = {
     }
 
     return {
-      provider: "openai",
+      provider: PROVIDERS.OPENAI,
       model,
       inputUnits: r.usage.prompt_tokens,
       outputUnits: r.usage.completion_tokens,
@@ -71,7 +72,7 @@ export const openaiStrategy: ExtractionStrategy = {
  * Anthropic extraction strategy
  */
 export const anthropicStrategy: ExtractionStrategy = {
-  provider: "anthropic",
+  provider: PROVIDERS.ANTHROPIC,
 
   canHandle(methodPath: string[], result: unknown): boolean {
     if (!result || typeof result !== "object") return false;
@@ -113,7 +114,7 @@ export const anthropicStrategy: ExtractionStrategy = {
     }
 
     return {
-      provider: "anthropic",
+      provider: PROVIDERS.ANTHROPIC,
       model,
       inputUnits: r.usage.input_tokens,
       outputUnits: r.usage.output_tokens,
@@ -129,7 +130,7 @@ export const anthropicStrategy: ExtractionStrategy = {
  * fal.ai extraction strategy
  */
 export const falStrategy: ExtractionStrategy = {
-  provider: "fal",
+  provider: PROVIDERS.FAL,
 
   canHandle(methodPath: string[], result: unknown): boolean {
     if (!result || typeof result !== "object") return false;
@@ -180,7 +181,7 @@ export const falStrategy: ExtractionStrategy = {
     }
 
     return {
-      provider: "fal",
+      provider: PROVIDERS.FAL,
       model,
       outputUnits,
       metadata: {
@@ -194,7 +195,7 @@ export const falStrategy: ExtractionStrategy = {
  * ElevenLabs extraction strategy
  */
 export const elevenlabsStrategy: ExtractionStrategy = {
-  provider: "elevenlabs",
+  provider: PROVIDERS.ELEVENLABS,
 
   canHandle(methodPath: string[], result: unknown): boolean {
     // ElevenLabs returns audio buffers, we detect by method path
@@ -214,7 +215,7 @@ export const elevenlabsStrategy: ExtractionStrategy = {
     // The result is typically a Buffer/ArrayBuffer
 
     let text = "";
-    let model = "eleven_multilingual_v2"; // Default model
+    let model: string = DEFAULT_MODELS[PROVIDERS.ELEVENLABS]; // Default model
 
     // Extract from args based on method signature
     if (args.length >= 2) {
@@ -242,7 +243,7 @@ export const elevenlabsStrategy: ExtractionStrategy = {
     }
 
     return {
-      provider: "elevenlabs",
+      provider: PROVIDERS.ELEVENLABS,
       model,
       inputUnits: text.length, // Character count
       metadata: {
@@ -276,7 +277,7 @@ function parseBedrockModelId(modelId: string): string {
  * AWS Bedrock extraction strategy
  */
 export const bedrockStrategy: ExtractionStrategy = {
-  provider: "bedrock",
+  provider: PROVIDERS.BEDROCK,
 
   canHandle(methodPath: string[], result: unknown): boolean {
     if (!result || typeof result !== "object") return false;
@@ -327,7 +328,7 @@ export const bedrockStrategy: ExtractionStrategy = {
     const canonicalModel = parseBedrockModelId(model);
 
     return {
-      provider: "bedrock",
+      provider: PROVIDERS.BEDROCK,
       model: canonicalModel,
       inputUnits: r.usage.inputTokens,
       outputUnits: r.usage.outputTokens,
@@ -340,23 +341,89 @@ export const bedrockStrategy: ExtractionStrategy = {
 };
 
 /**
+ * Helper type for Google AI usage metadata
+ */
+interface GoogleUsageMetadata {
+  promptTokenCount?: number;
+  candidatesTokenCount?: number;
+  totalTokenCount?: number;
+  cachedContentTokenCount?: number;
+}
+
+/**
+ * Helper to check if an object has valid Google usageMetadata
+ */
+function hasGoogleUsageMetadata(
+  obj: unknown,
+): obj is { usageMetadata: GoogleUsageMetadata } {
+  if (!obj || typeof obj !== "object") return false;
+  const r = obj as Record<string, unknown>;
+  return (
+    "usageMetadata" in r &&
+    typeof r.usageMetadata === "object" &&
+    r.usageMetadata !== null &&
+    "promptTokenCount" in (r.usageMetadata as object)
+  );
+}
+
+/**
+ * Helper to extract model name from Google AI SDK responses and args
+ *
+ * Handles multiple patterns:
+ * - result.modelVersion (Vertex AI)
+ * - result.model (new @google/genai SDK)
+ * - args model parameter (various formats)
+ */
+function extractGoogleModel(result: unknown, args: unknown[]): string {
+  const r = result as Record<string, unknown>;
+
+  // Check result for model info
+  if (r.modelVersion && typeof r.modelVersion === "string") {
+    return r.modelVersion;
+  }
+  if (r.model && typeof r.model === "string") {
+    return r.model;
+  }
+
+  // Check args for model - handle various SDK patterns
+  if (args.length > 0) {
+    const firstArg = args[0];
+
+    // @google/genai style: { model: "gemini-2.0-flash", contents: ... }
+    if (firstArg && typeof firstArg === "object") {
+      const params = firstArg as { model?: string };
+      if (params.model) {
+        return params.model;
+      }
+    }
+
+    // @google/generative-ai style: model is set on GenerativeModel instance
+    // The model name may be in the proxy path or passed separately
+    if (typeof firstArg === "string") {
+      // Could be a prompt string, check if it looks like a model name
+      if (firstArg.startsWith("gemini-") || firstArg.startsWith("models/")) {
+        return firstArg.replace("models/", "");
+      }
+    }
+  }
+
+  return "unknown";
+}
+
+/**
  * Google Vertex AI / Gemini extraction strategy
+ *
+ * Handles responses from:
+ * - Google Vertex AI SDK
+ * - @google/genai (new unified SDK)
+ *
+ * Response structure: { usageMetadata: { promptTokenCount, candidatesTokenCount, ... } }
  */
 export const vertexAIStrategy: ExtractionStrategy = {
-  provider: "google",
+  provider: PROVIDERS.GOOGLE,
 
   canHandle(methodPath: string[], result: unknown): boolean {
-    if (!result || typeof result !== "object") return false;
-
-    const r = result as Record<string, unknown>;
-
-    // Vertex AI / Gemini responses have usageMetadata with promptTokenCount/candidatesTokenCount
-    return (
-      "usageMetadata" in r &&
-      typeof r.usageMetadata === "object" &&
-      r.usageMetadata !== null &&
-      "promptTokenCount" in (r.usageMetadata as object)
-    );
+    return hasGoogleUsageMetadata(result);
   },
 
   extract(
@@ -365,30 +432,17 @@ export const vertexAIStrategy: ExtractionStrategy = {
     args: unknown[],
   ): UsageData | null {
     const r = result as {
-      usageMetadata?: {
-        promptTokenCount?: number;
-        candidatesTokenCount?: number;
-        totalTokenCount?: number;
-        cachedContentTokenCount?: number;
-      };
+      usageMetadata?: GoogleUsageMetadata;
       modelVersion?: string;
+      model?: string;
     };
 
     if (!r.usageMetadata) return null;
 
-    // Try to extract model from result or args
-    let model = "unknown";
-    if (r.modelVersion) {
-      model = r.modelVersion;
-    } else if (args.length > 0) {
-      const params = args[0] as { model?: string } | undefined;
-      if (params?.model) {
-        model = params.model;
-      }
-    }
+    const model = extractGoogleModel(result, args);
 
     return {
-      provider: "google",
+      provider: PROVIDERS.GOOGLE,
       model,
       inputUnits: r.usageMetadata.promptTokenCount,
       outputUnits: r.usageMetadata.candidatesTokenCount,
@@ -401,13 +455,102 @@ export const vertexAIStrategy: ExtractionStrategy = {
 };
 
 /**
+ * Google Generative AI SDK extraction strategy
+ *
+ * Handles responses from @google/generative-ai (deprecated SDK)
+ * where the response is wrapped: result.response.usageMetadata
+ *
+ * This strategy specifically handles the wrapped response format used by:
+ * - GoogleGenerativeAI.getGenerativeModel().generateContent()
+ * - GoogleGenerativeAI.getGenerativeModel().generateContentStream()
+ */
+export const googleGenerativeAIStrategy: ExtractionStrategy = {
+  provider: PROVIDERS.GOOGLE,
+
+  canHandle(methodPath: string[], result: unknown): boolean {
+    if (!result || typeof result !== "object") return false;
+
+    const r = result as Record<string, unknown>;
+
+    // @google/generative-ai SDK wraps response: { response: { usageMetadata: {...} } }
+    if (
+      "response" in r &&
+      typeof r.response === "object" &&
+      r.response !== null
+    ) {
+      return hasGoogleUsageMetadata(r.response);
+    }
+
+    return false;
+  },
+
+  extract(
+    methodPath: string[],
+    result: unknown,
+    args: unknown[],
+  ): UsageData | null {
+    const r = result as {
+      response?: {
+        usageMetadata?: GoogleUsageMetadata;
+        modelVersion?: string;
+        candidates?: Array<{
+          content?: unknown;
+        }>;
+      };
+    };
+
+    if (!r.response?.usageMetadata) return null;
+
+    // Try to extract model from response or args
+    let model = "unknown";
+
+    if (r.response.modelVersion) {
+      model = r.response.modelVersion;
+    } else if (args.length > 0) {
+      // For @google/generative-ai, the model is typically set when creating
+      // the GenerativeModel instance, but we can check args for generateContent calls
+      const firstArg = args[0];
+      if (firstArg && typeof firstArg === "object") {
+        // Check for model in request params
+        const params = firstArg as { model?: string };
+        if (params.model) {
+          model = params.model;
+        }
+      }
+    }
+
+    // Try to extract model from methodPath - the path includes the model name
+    // when the GenerativeModel was created via getGenerativeModel
+    if (model === "unknown") {
+      for (const segment of methodPath) {
+        if (segment.startsWith("gemini-") || segment.startsWith("models/")) {
+          model = segment.replace("models/", "");
+          break;
+        }
+      }
+    }
+
+    return {
+      provider: PROVIDERS.GOOGLE,
+      model,
+      inputUnits: r.response.usageMetadata.promptTokenCount,
+      outputUnits: r.response.usageMetadata.candidatesTokenCount,
+      cachedInputUnits: r.response.usageMetadata.cachedContentTokenCount,
+      metadata: {
+        totalTokens: r.response.usageMetadata.totalTokenCount,
+      },
+    };
+  },
+};
+
+/**
  * BFL (Black Forest Labs) extraction strategy
  *
  * Note: BFL responses are similar to fal.ai but use "id" (not "requestId")
  * and have "sample" field for images. fal.ai uses "requestId" (camelCase).
  */
 export const bflStrategy: ExtractionStrategy = {
-  provider: "bfl",
+  provider: PROVIDERS.BFL,
 
   canHandle(methodPath: string[], result: unknown): boolean {
     if (!result || typeof result !== "object") return false;
@@ -437,7 +580,7 @@ export const bflStrategy: ExtractionStrategy = {
     };
 
     // Extract model from args (BFL uses model in request body or endpoint)
-    let model = "flux-pro"; // Default
+    let model: string = DEFAULT_MODELS[PROVIDERS.BFL]; // Default
     if (args.length > 0) {
       const params = args[0] as
         | { model?: string; endpoint?: string }
@@ -462,7 +605,7 @@ export const bflStrategy: ExtractionStrategy = {
     }
 
     return {
-      provider: "bfl",
+      provider: PROVIDERS.BFL,
       model,
       outputUnits,
       metadata: {
@@ -477,7 +620,7 @@ export const bflStrategy: ExtractionStrategy = {
  * Handles generateText, streamText, generateObject, streamObject results
  */
 export const vercelAIStrategy: ExtractionStrategy = {
-  provider: "vercel-ai",
+  provider: PROVIDERS.VERCEL_AI,
 
   canHandle(methodPath: string[], result: unknown): boolean {
     if (!result || typeof result !== "object") return false;
@@ -511,8 +654,8 @@ export const vercelAIStrategy: ExtractionStrategy = {
     if (!r.usage) return null;
 
     // Try to determine provider and model
-    let provider = "unknown";
-    let model = "unknown";
+    let provider: string = PROVIDERS.UNKNOWN;
+    let model: string = PROVIDERS.UNKNOWN;
 
     if (r.response?.modelId) {
       model = r.response.modelId;
@@ -522,11 +665,11 @@ export const vercelAIStrategy: ExtractionStrategy = {
         model.startsWith("o1") ||
         model.startsWith("o3")
       ) {
-        provider = "openai";
+        provider = PROVIDERS.OPENAI;
       } else if (model.startsWith("claude-")) {
-        provider = "anthropic";
+        provider = PROVIDERS.ANTHROPIC;
       } else if (model.startsWith("gemini-")) {
-        provider = "google";
+        provider = PROVIDERS.GOOGLE;
       }
     }
 
@@ -554,11 +697,16 @@ export const vercelAIStrategy: ExtractionStrategy = {
 
 /**
  * All registered strategies
+ *
+ * Note: Order matters! More specific strategies should come before general ones.
+ * googleGenerativeAIStrategy checks for wrapped response format and must come
+ * before vertexAIStrategy which handles the unwrapped format.
  */
 export const strategies: ExtractionStrategy[] = [
   openaiStrategy,
   anthropicStrategy,
   bedrockStrategy,
+  googleGenerativeAIStrategy, // Must come before vertexAIStrategy (more specific)
   vertexAIStrategy,
   falStrategy,
   bflStrategy,
@@ -582,6 +730,27 @@ export function findStrategy(
 }
 
 /**
+ * Registry strategy resolver type.
+ * Allows the caller to provide a function to look up registered strategies
+ * without creating a circular dependency.
+ */
+export type RegistryStrategyResolver = (
+  provider: string,
+) => ExtractionStrategy | undefined;
+
+// Registry resolver - set by the caller (proxy.ts) to avoid circular dependency
+let registryResolver: RegistryStrategyResolver | null = null;
+
+/**
+ * Set the registry strategy resolver.
+ * Called by proxy.ts at initialization to provide access to registered strategies.
+ * @internal
+ */
+export function setRegistryResolver(resolver: RegistryStrategyResolver): void {
+  registryResolver = resolver;
+}
+
+/**
  * Extract usage data using the appropriate strategy
  */
 export function extractUsage(
@@ -592,13 +761,22 @@ export function extractUsage(
 ): UsageData | null {
   // If provider hint is given, try that strategy first
   if (providerHint) {
+    // Check registered strategies from the registry
+    if (registryResolver) {
+      const registeredStrategy = registryResolver(providerHint);
+      if (registeredStrategy?.canHandle(methodPath, result)) {
+        return registeredStrategy.extract(methodPath, result, args);
+      }
+    }
+
+    // Check built-in strategies
     const hintedStrategy = strategies.find((s) => s.provider === providerHint);
     if (hintedStrategy?.canHandle(methodPath, result)) {
       return hintedStrategy.extract(methodPath, result, args);
     }
   }
 
-  // Otherwise, try all strategies
+  // Otherwise, try all built-in strategies
   const strategy = findStrategy(methodPath, result);
   if (strategy) {
     return strategy.extract(methodPath, result, args);

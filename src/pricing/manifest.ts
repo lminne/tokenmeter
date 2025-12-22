@@ -1,17 +1,41 @@
 /**
- * Pricing Manifest Fetcher
+ * Pricing Manifest Manager
  *
- * Remote-first pricing with local fallback for reliability.
- * Fetches latest pricing from CDN, falls back to bundled data if unavailable.
+ * Bundled-first pricing with remote updates for reliability.
+ * Pricing is always available synchronously via bundled data.
+ * Remote fetching updates the cache in the background.
  */
 
-import type {
-  PricingManifest,
-  ModelPricing,
-  ProviderPricing,
-  PricingUnit,
-} from "../types.js";
+import type { PricingManifest, ModelPricing, PricingUnit } from "../types.js";
 import { logger } from "../logger.js";
+import { BUNDLED_MANIFEST } from "./manifest.bundled.js";
+
+/**
+ * Divisor mapping for pricing units.
+ * Defines how many units constitute the pricing base for each unit type.
+ *
+ * Used in cost calculation to convert raw unit counts to the appropriate
+ * scale for multiplying with pricing rates.
+ *
+ * @example
+ * // "1m_tokens" has divisor 1_000_000, so price is per million tokens
+ * const costPerToken = price / UNIT_DIVISORS["1m_tokens"];
+ *
+ * // "1k_characters" has divisor 1_000, so price is per thousand characters
+ * const costPerChar = price / UNIT_DIVISORS["1k_characters"];
+ *
+ * @internal
+ */
+const UNIT_DIVISORS: Record<PricingUnit, number> = {
+  "1m_tokens": 1_000_000,
+  "1k_tokens": 1_000,
+  "1k_characters": 1_000,
+  request: 1,
+  megapixel: 1,
+  second: 1,
+  minute: 1,
+  image: 1,
+};
 
 /**
  * Default Pricing API URL.
@@ -100,13 +124,79 @@ let globalConfig: PricingConfig = {};
 // Model alias storage for fast lookup
 let modelAliases: Record<string, ModelAlias> = {};
 
-// Cache for the loaded manifest
-let cachedManifest: PricingManifest | null = null;
+// Cache for the loaded manifest - initialized with bundled data (always available)
+let cachedManifest: PricingManifest = BUNDLED_MANIFEST;
 let manifestLoadPromise: Promise<PricingManifest> | null = null;
-let cacheTimestamp: number | null = null;
+let cacheTimestamp: number = Date.now();
+
+/**
+ * Allowed URL hosts for pricing manifest fetching (SSRF protection)
+ */
+const ALLOWED_MANIFEST_HOSTS = new Set([
+  "pricing.tokenmeter.dev",
+  "cdn.jsdelivr.net",
+  "unpkg.com",
+  "raw.githubusercontent.com",
+]);
+
+/**
+ * Validate a URL for manifest fetching
+ */
+function isValidManifestUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+
+    // Must be HTTPS (except localhost for development)
+    if (
+      parsed.protocol !== "https:" &&
+      parsed.hostname !== "localhost" &&
+      parsed.hostname !== "127.0.0.1"
+    ) {
+      return false;
+    }
+
+    // Check against allowlist (skip for localhost)
+    if (parsed.hostname !== "localhost" && parsed.hostname !== "127.0.0.1") {
+      const isAllowed =
+        ALLOWED_MANIFEST_HOSTS.has(parsed.hostname) ||
+        Array.from(ALLOWED_MANIFEST_HOSTS).some((host) =>
+          parsed.hostname.endsWith(`.${host}`),
+        );
+      if (!isAllowed) {
+        return false;
+      }
+    }
+
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Validate a URL configuration field.
+ * Throws an error if the URL is invalid.
+ *
+ * @param url - The URL value to validate
+ * @param fieldName - The name of the field for error messages
+ * @throws {Error} If URL is defined but invalid
+ *
+ * @internal
+ */
+function validateConfigUrl(url: string | undefined, fieldName: string): void {
+  if (url !== undefined) {
+    if (typeof url !== "string" || !isValidManifestUrl(url)) {
+      throw new Error(
+        `Invalid ${fieldName}: ${url}. Must be HTTPS from allowed domains.`,
+      );
+    }
+  }
+}
 
 /**
  * Configure global pricing settings.
+ *
+ * @throws {Error} If configuration is invalid
  *
  * @example
  * ```typescript
@@ -127,6 +217,62 @@ let cacheTimestamp: number | null = null;
  * ```
  */
 export function configurePricing(config: PricingConfig): void {
+  // Validate URLs
+  validateConfigUrl(config.apiUrl, "apiUrl");
+  validateConfigUrl(config.cdnUrl, "cdnUrl");
+  validateConfigUrl(config.manifestUrl, "manifestUrl");
+
+  // Validate timeouts
+  if (config.fetchTimeout !== undefined) {
+    if (
+      typeof config.fetchTimeout !== "number" ||
+      config.fetchTimeout < 0 ||
+      config.fetchTimeout > 120000
+    ) {
+      throw new Error(
+        `Invalid fetchTimeout: ${config.fetchTimeout}. Must be 0-120000ms.`,
+      );
+    }
+  }
+
+  if (config.cacheTimeout !== undefined) {
+    if (
+      typeof config.cacheTimeout !== "number" ||
+      config.cacheTimeout < 0 ||
+      config.cacheTimeout > 86400000
+    ) {
+      throw new Error(
+        `Invalid cacheTimeout: ${config.cacheTimeout}. Must be 0-86400000ms (24h).`,
+      );
+    }
+  }
+
+  // Validate model aliases
+  if (config.modelAliases !== undefined) {
+    if (
+      typeof config.modelAliases !== "object" ||
+      config.modelAliases === null
+    ) {
+      throw new Error("modelAliases must be an object");
+    }
+
+    for (const [key, alias] of Object.entries(config.modelAliases)) {
+      if (!alias || typeof alias !== "object") {
+        throw new Error(`Invalid model alias "${key}": must be an object`);
+      }
+      if (!alias.provider || typeof alias.provider !== "string") {
+        throw new Error(
+          `Invalid model alias "${key}": missing or invalid provider`,
+        );
+      }
+      if (!alias.model || typeof alias.model !== "string") {
+        throw new Error(
+          `Invalid model alias "${key}": missing or invalid model`,
+        );
+      }
+    }
+  }
+
   globalConfig = { ...globalConfig, ...config };
 
   // Update model aliases if provided
@@ -143,117 +289,6 @@ export function configurePricing(config: PricingConfig): void {
  */
 export function getPricingConfig(): PricingConfig {
   return { ...globalConfig };
-}
-
-/**
- * Build a manifest from the bundled provider JSON files (local fallback)
- */
-async function buildLocalManifest(): Promise<PricingManifest> {
-  // Import existing provider pricing files
-  const [
-    openaiPricing,
-    anthropicPricing,
-    googlePricing,
-    elevenlabsPricing,
-    falPricing,
-    bedrockPricing,
-    bflPricing,
-  ] = await Promise.all([
-    import("./providers/openai.json", { with: { type: "json" } }),
-    import("./providers/anthropic.json", { with: { type: "json" } }),
-    import("./providers/google.json", { with: { type: "json" } }),
-    import("./providers/elevenlabs.json", { with: { type: "json" } }),
-    import("./providers/fal.json", { with: { type: "json" } }),
-    import("./providers/bedrock.json", { with: { type: "json" } }),
-    import("./providers/bfl.json", { with: { type: "json" } }),
-  ]);
-
-  // Convert to manifest format
-  const manifest: PricingManifest = {
-    version: "1.0.0",
-    updatedAt: new Date().toISOString(),
-    providers: {},
-  };
-
-  // Helper to convert old format to new format
-  const convertProvider = (
-    providerData: { models: Record<string, unknown> },
-    defaultUnit: PricingUnit,
-  ): ProviderPricing => {
-    const pricing: ProviderPricing = {};
-
-    for (const [modelId, model] of Object.entries(providerData.models)) {
-      const m = model as {
-        unit?: string;
-        aliases?: string[];
-        pricing?: Array<{
-          input?: number;
-          output?: number;
-          cachedInput?: number;
-          cost?: number;
-        }>;
-      };
-
-      if (!m.pricing || m.pricing.length === 0) continue;
-
-      const currentPricing = m.pricing[m.pricing.length - 1];
-      if (!currentPricing) continue;
-
-      // Map old units to new units
-      let unit: PricingUnit = defaultUnit;
-      if (m.unit === "tokens") unit = "1m_tokens";
-      else if (m.unit === "characters") unit = "1k_characters";
-      else if (m.unit === "images") unit = "image";
-      else if (m.unit === "seconds") unit = "second";
-      else if (m.unit === "minutes") unit = "minute";
-      else if (m.unit === "megapixels") unit = "megapixel";
-      else if (m.unit === "requests") unit = "request";
-
-      const modelPricing: ModelPricing = {
-        input: currentPricing.input,
-        output: currentPricing.output,
-        cachedInput: currentPricing.cachedInput,
-        cost: currentPricing.cost,
-        unit,
-      };
-
-      pricing[modelId] = modelPricing;
-
-      // Also add aliases
-      if (m.aliases) {
-        for (const alias of m.aliases) {
-          pricing[alias] = modelPricing;
-        }
-      }
-    }
-
-    return pricing;
-  };
-
-  manifest.providers.openai = convertProvider(
-    openaiPricing.default,
-    "1m_tokens",
-  );
-  manifest.providers.anthropic = convertProvider(
-    anthropicPricing.default,
-    "1m_tokens",
-  );
-  manifest.providers.google = convertProvider(
-    googlePricing.default,
-    "1m_tokens",
-  );
-  manifest.providers.elevenlabs = convertProvider(
-    elevenlabsPricing.default,
-    "1k_characters",
-  );
-  manifest.providers.fal = convertProvider(falPricing.default, "request");
-  manifest.providers.bedrock = convertProvider(
-    bedrockPricing.default,
-    "1m_tokens",
-  );
-  manifest.providers.bfl = convertProvider(bflPricing.default, "image");
-
-  return manifest;
 }
 
 /**
@@ -368,14 +403,14 @@ async function fetchFromAPI(
 /**
  * Load the pricing manifest.
  *
- * Fetches from Pricing API first, then CDN, with automatic fallback
- * to bundled local data if all remote sources are unavailable.
+ * Returns immediately with bundled data. If the cache is stale,
+ * fetches updated pricing from remote sources in the background.
  *
  * @param options.apiUrl - Override the API URL
  * @param options.cdnUrl - Override the CDN URL
  * @param options.manifestUrl - Legacy: Override the manifest URL (deprecated)
- * @param options.forceRefresh - Force reload even if cached
- * @param options.offlineMode - Skip remote fetch, use local only
+ * @param options.forceRefresh - Force reload from remote sources
+ * @param options.offlineMode - Skip remote fetch, use bundled only
  */
 export async function loadManifest(
   options: {
@@ -391,14 +426,11 @@ export async function loadManifest(
   const cacheTimeout = config.cacheTimeout ?? 5 * 60 * 1000; // 5 minutes default
 
   // Check if cache is still valid
-  const isCacheValid =
-    cachedManifest &&
-    cacheTimestamp &&
-    Date.now() - cacheTimestamp < cacheTimeout;
+  const isCacheValid = Date.now() - cacheTimestamp < cacheTimeout;
 
-  // Return cached if available, valid, and not forcing refresh
+  // Return cached if valid and not forcing refresh
   if (isCacheValid && !config.forceRefresh) {
-    return cachedManifest!;
+    return cachedManifest;
   }
 
   // If already loading, wait for that
@@ -406,23 +438,22 @@ export async function loadManifest(
     return manifestLoadPromise;
   }
 
-  manifestLoadPromise = (async () => {
-    // If offline mode, skip remote fetch
-    if (config.offlineMode) {
-      logger.debug("Offline mode enabled, using bundled pricing");
-      cachedManifest = await buildLocalManifest();
-      cacheTimestamp = Date.now();
-      return cachedManifest;
-    }
+  // If offline mode, just return bundled data
+  if (config.offlineMode) {
+    logger.debug("Offline mode enabled, using bundled pricing");
+    return cachedManifest;
+  }
 
+  manifestLoadPromise = (async () => {
     const timeout = config.fetchTimeout ?? 5000;
 
     // Try Pricing API first
     const apiUrl = config.apiUrl || DEFAULT_API_URL;
     try {
-      cachedManifest = await fetchFromAPI(apiUrl, timeout);
+      const manifest = await fetchFromAPI(apiUrl, timeout);
+      cachedManifest = manifest;
       cacheTimestamp = Date.now();
-      logger.info("Loaded pricing manifest from API");
+      logger.info("Updated pricing manifest from API");
       return cachedManifest;
     } catch (apiError) {
       logger.debug("API unavailable, trying CDN:", apiError);
@@ -431,18 +462,17 @@ export async function loadManifest(
     // Try CDN as fallback
     const cdnUrl = config.cdnUrl || config.manifestUrl || DEFAULT_CDN_URL;
     try {
-      cachedManifest = await fetchRemoteManifest(cdnUrl, timeout);
+      const manifest = await fetchRemoteManifest(cdnUrl, timeout);
+      cachedManifest = manifest;
       cacheTimestamp = Date.now();
-      logger.info("Loaded pricing manifest from CDN");
+      logger.info("Updated pricing manifest from CDN");
       return cachedManifest;
     } catch (cdnError) {
       logger.debug("CDN unavailable, using bundled pricing:", cdnError);
     }
 
-    // Fallback to local bundled pricing
+    // All remote sources failed - keep using bundled data
     logger.warn("All remote sources unavailable, using bundled pricing");
-    cachedManifest = await buildLocalManifest();
-    cacheTimestamp = Date.now();
     return cachedManifest;
   })();
 
@@ -458,7 +488,11 @@ export function getModelPricing(
   manifest: PricingManifest,
 ): ModelPricing | null {
   // 1. Check custom model aliases first
-  const alias = modelAliases[model];
+  // Try provider-specific alias first (e.g., "openai:gpt-4o"), then generic
+  const providerSpecificAlias = modelAliases[`${provider}:${model}`];
+  const genericAlias = modelAliases[model];
+  const alias = providerSpecificAlias || genericAlias;
+
   if (alias) {
     const aliasProviderPricing = manifest.providers[alias.provider];
     if (aliasProviderPricing?.[alias.model]) {
@@ -492,7 +526,47 @@ export function getModelPricing(
 }
 
 /**
+ * Validate and normalize a numeric value
+ * Returns 0 for invalid/negative values
+ */
+function normalizeUnits(value: number | undefined): number {
+  if (value === undefined || value === null) {
+    return 0;
+  }
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    return 0;
+  }
+  // Negative units don't make sense for usage
+  return Math.max(0, value);
+}
+
+/**
+ * Validate pricing value
+ * Returns undefined for invalid values
+ */
+function normalizePricing(value: number | undefined): number | undefined {
+  if (value === undefined || value === null) {
+    return undefined;
+  }
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    return undefined;
+  }
+  // Negative pricing doesn't make sense
+  return value >= 0 ? value : undefined;
+}
+
+/**
  * Calculate cost based on usage and pricing
+ *
+ * Handles two pricing models:
+ * 1. Request-based: Flat cost per request/image (uses `pricing.cost`)
+ *    - For image generation, multiplied by outputUnits (number of images)
+ * 2. Unit-based: Cost per input/output unit (uses `pricing.input`/`pricing.output`)
+ *    - Divided by unit size (1M for tokens, 1K for characters)
+ *
+ * @param usage - Usage data with input/output units
+ * @param pricing - Pricing configuration for the model
+ * @returns Calculated cost in USD (always non-negative)
  */
 export function calculateCost(
   usage: {
@@ -504,61 +578,65 @@ export function calculateCost(
 ): number {
   let cost = 0;
 
+  // Validate and normalize inputs
+  const inputUnits = normalizeUnits(usage.inputUnits);
+  const outputUnits = normalizeUnits(usage.outputUnits);
+  const cachedInputUnits = normalizeUnits(usage.cachedInputUnits);
+
+  // Validate pricing values
+  const inputPrice = normalizePricing(pricing.input);
+  const outputPrice = normalizePricing(pricing.output);
+  const cachedInputPrice = normalizePricing(pricing.cachedInput);
+  const flatCost = normalizePricing(pricing.cost);
+
   // Get the divisor based on unit
-  const getDivisor = (unit: string): number => {
-    switch (unit) {
-      case "1m_tokens":
-        return 1_000_000;
-      case "1k_tokens":
-      case "1k_characters":
-        return 1_000;
-      default:
-        return 1;
-    }
-  };
+  const divisor = UNIT_DIVISORS[pricing.unit] ?? 1;
 
-  const divisor = getDivisor(pricing.unit);
-
-  // Flat cost (request-based pricing)
-  if (pricing.cost !== undefined) {
-    cost += pricing.cost;
+  // Flat cost (request-based pricing for images, etc.)
+  // For image generation: cost per image * number of images
+  // For flat request pricing: just the flat cost
+  if (flatCost !== undefined) {
+    const multiplier =
+      pricing.unit === "image" || pricing.unit === "request"
+        ? Math.max(1, outputUnits)
+        : 1;
+    cost += flatCost * multiplier;
   }
 
-  // Input cost
-  if (usage.inputUnits !== undefined && pricing.input !== undefined) {
-    cost += (usage.inputUnits / divisor) * pricing.input;
+  // Input cost (token/character-based pricing)
+  if (inputUnits > 0 && inputPrice !== undefined) {
+    cost += (inputUnits / divisor) * inputPrice;
   }
 
-  // Output cost
-  if (usage.outputUnits !== undefined && pricing.output !== undefined) {
-    cost += (usage.outputUnits / divisor) * pricing.output;
+  // Output cost (token/character-based pricing)
+  if (outputUnits > 0 && outputPrice !== undefined) {
+    cost += (outputUnits / divisor) * outputPrice;
   }
 
   // Cached input cost
-  if (
-    usage.cachedInputUnits !== undefined &&
-    pricing.cachedInput !== undefined
-  ) {
-    cost += (usage.cachedInputUnits / divisor) * pricing.cachedInput;
+  if (cachedInputUnits > 0 && cachedInputPrice !== undefined) {
+    cost += (cachedInputUnits / divisor) * cachedInputPrice;
   }
 
-  return cost;
+  // Ensure we never return a negative cost
+  return Math.max(0, cost);
 }
 
 /**
- * Get the cached manifest (or null if not loaded)
+ * Get the cached manifest.
+ * Always returns a valid manifest (bundled data is always available).
  */
-export function getCachedManifest(): PricingManifest | null {
+export function getCachedManifest(): PricingManifest {
   return cachedManifest;
 }
 
 /**
- * Clear the manifest cache
+ * Clear the manifest cache (resets to bundled data)
  */
 export function clearManifestCache(): void {
-  cachedManifest = null;
+  cachedManifest = BUNDLED_MANIFEST;
   manifestLoadPromise = null;
-  cacheTimestamp = null;
+  cacheTimestamp = Date.now();
 }
 
 /**
@@ -575,9 +653,7 @@ export function clearManifestCache(): void {
  * });
  * ```
  */
-export function setModelAliases(
-  aliases: Record<string, ModelAlias>,
-): void {
+export function setModelAliases(aliases: Record<string, ModelAlias>): void {
   modelAliases = { ...modelAliases, ...aliases };
 }
 

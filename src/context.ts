@@ -10,10 +10,29 @@ import {
   propagation,
   ROOT_CONTEXT,
   type Context,
-  type Baggage,
-  type BaggageEntry,
 } from "@opentelemetry/api";
 import type { TokenMeterAttributes } from "./types.js";
+
+/**
+ * Create a new context with the given attributes added to the baggage.
+ * This is the shared logic used by both withAttributes and withAttributesSync.
+ *
+ * @param attributes - Key-value pairs to add to the baggage
+ * @returns A new context with the updated baggage
+ *
+ * @internal
+ */
+function createBaggageContext(attributes: TokenMeterAttributes): Context {
+  const currentContext = context.active();
+  let baggage =
+    propagation.getBaggage(currentContext) || propagation.createBaggage();
+
+  for (const [key, value] of Object.entries(attributes)) {
+    baggage = baggage.setEntry(key, { value: String(value) });
+  }
+
+  return propagation.setBaggage(currentContext, baggage);
+}
 
 /**
  * Run a function with custom attributes that will be added to all spans created within.
@@ -43,23 +62,7 @@ export async function withAttributes<T>(
   attributes: TokenMeterAttributes,
   fn: () => Promise<T>,
 ): Promise<T> {
-  // Get current baggage or create new one
-  const currentContext = context.active();
-  let baggage =
-    propagation.getBaggage(currentContext) || propagation.createBaggage();
-
-  // Add attributes to baggage
-  for (const [key, value] of Object.entries(attributes)) {
-    baggage = baggage.setEntry(key, {
-      value: String(value),
-    });
-  }
-
-  // Create new context with updated baggage
-  const newContext = propagation.setBaggage(currentContext, baggage);
-
-  // Run function within the new context
-  return context.with(newContext, fn);
+  return context.with(createBaggageContext(attributes), fn);
 }
 
 /**
@@ -73,18 +76,7 @@ export function withAttributesSync<T>(
   attributes: TokenMeterAttributes,
   fn: () => T,
 ): T {
-  const currentContext = context.active();
-  let baggage =
-    propagation.getBaggage(currentContext) || propagation.createBaggage();
-
-  for (const [key, value] of Object.entries(attributes)) {
-    baggage = baggage.setEntry(key, {
-      value: String(value),
-    });
-  }
-
-  const newContext = propagation.setBaggage(currentContext, baggage);
-  return context.with(newContext, fn);
+  return context.with(createBaggageContext(attributes), fn);
 }
 
 /**

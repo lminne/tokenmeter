@@ -1,0 +1,13351 @@
+/**
+ * Bundled Pricing Manifest
+ *
+ * AUTO-GENERATED FILE - DO NOT EDIT MANUALLY
+ * Generated at: 2025-12-22T22:32:28.192Z
+ *
+ * This file contains all pricing data embedded for synchronous access.
+ * Regenerate with: npx tsx scripts/build-manifest.ts
+ */
+
+import type { PricingManifest } from "../types.js";
+
+/**
+ * Bundled pricing manifest with all provider data.
+ * Always available synchronously - no network requests needed.
+ */
+export const BUNDLED_MANIFEST: PricingManifest = {
+  "version": "1.0.0",
+  "updatedAt": "2025-12-22T22:32:28.192Z",
+  "providers": {
+    "anthropic": {
+      "claude-opus-4.5": {
+        "unit": "1m_tokens",
+        "input": 5,
+        "output": 25,
+        "cachedInput": 0.5,
+        "cacheWrite": 6.25
+      },
+      "claude-opus-4-5-20251101": {
+        "unit": "1m_tokens",
+        "input": 5,
+        "output": 25,
+        "cachedInput": 0.5,
+        "cacheWrite": 6.25
+      },
+      "anthropic/claude-opus-4-5-20251101": {
+        "unit": "1m_tokens",
+        "input": 5,
+        "output": 25,
+        "cachedInput": 0.5,
+        "cacheWrite": 6.25
+      },
+      "anthropic/claude-opus-4.5": {
+        "unit": "1m_tokens",
+        "input": 5,
+        "output": 25,
+        "cachedInput": 0.5,
+        "cacheWrite": 6.25
+      },
+      "claude-opus-4.1": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 75,
+        "cachedInput": 1.5,
+        "cacheWrite": 18.75
+      },
+      "claude-opus-4-1-20250414": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 75,
+        "cachedInput": 1.5,
+        "cacheWrite": 18.75
+      },
+      "anthropic/claude-opus-4-1-20250414": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 75,
+        "cachedInput": 1.5,
+        "cacheWrite": 18.75
+      },
+      "anthropic/claude-opus-4.1": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 75,
+        "cachedInput": 1.5,
+        "cacheWrite": 18.75
+      },
+      "claude-opus-4": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 75,
+        "cachedInput": 1.5,
+        "cacheWrite": 18.75
+      },
+      "claude-opus-4-20250514": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 75,
+        "cachedInput": 1.5,
+        "cacheWrite": 18.75
+      },
+      "anthropic/claude-opus-4-20250514": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 75,
+        "cachedInput": 1.5,
+        "cacheWrite": 18.75
+      },
+      "anthropic/claude-opus-4": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 75,
+        "cachedInput": 1.5,
+        "cacheWrite": 18.75
+      },
+      "claude-sonnet-4.5": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15,
+        "cachedInput": 0.3,
+        "cacheWrite": 3.75
+      },
+      "claude-sonnet-4-5-20251022": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15,
+        "cachedInput": 0.3,
+        "cacheWrite": 3.75
+      },
+      "anthropic/claude-sonnet-4-5-20251022": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15,
+        "cachedInput": 0.3,
+        "cacheWrite": 3.75
+      },
+      "anthropic/claude-sonnet-4.5": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15,
+        "cachedInput": 0.3,
+        "cacheWrite": 3.75
+      },
+      "claude-sonnet-4": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15,
+        "cachedInput": 0.3,
+        "cacheWrite": 3.75
+      },
+      "claude-sonnet-4-20250514": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15,
+        "cachedInput": 0.3,
+        "cacheWrite": 3.75
+      },
+      "anthropic/claude-sonnet-4-20250514": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15,
+        "cachedInput": 0.3,
+        "cacheWrite": 3.75
+      },
+      "anthropic/claude-sonnet-4": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15,
+        "cachedInput": 0.3,
+        "cacheWrite": 3.75
+      },
+      "claude-3.7-sonnet": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15,
+        "cachedInput": 0.3,
+        "cacheWrite": 3.75
+      },
+      "claude-3-7-sonnet-20250219": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15,
+        "cachedInput": 0.3,
+        "cacheWrite": 3.75
+      },
+      "anthropic/claude-3-7-sonnet-20250219": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15,
+        "cachedInput": 0.3,
+        "cacheWrite": 3.75
+      },
+      "anthropic/claude-3.7-sonnet": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15,
+        "cachedInput": 0.3,
+        "cacheWrite": 3.75
+      },
+      "claude-haiku-4.5": {
+        "unit": "1m_tokens",
+        "input": 1,
+        "output": 5,
+        "cachedInput": 0.1,
+        "cacheWrite": 1.25
+      },
+      "claude-haiku-4-5-20251022": {
+        "unit": "1m_tokens",
+        "input": 1,
+        "output": 5,
+        "cachedInput": 0.1,
+        "cacheWrite": 1.25
+      },
+      "anthropic/claude-haiku-4-5-20251022": {
+        "unit": "1m_tokens",
+        "input": 1,
+        "output": 5,
+        "cachedInput": 0.1,
+        "cacheWrite": 1.25
+      },
+      "anthropic/claude-haiku-4.5": {
+        "unit": "1m_tokens",
+        "input": 1,
+        "output": 5,
+        "cachedInput": 0.1,
+        "cacheWrite": 1.25
+      },
+      "claude-3.5-haiku": {
+        "unit": "1m_tokens",
+        "input": 0.8,
+        "output": 4,
+        "cachedInput": 0.08,
+        "cacheWrite": 1
+      },
+      "claude-3-5-haiku-20241022": {
+        "unit": "1m_tokens",
+        "input": 0.8,
+        "output": 4,
+        "cachedInput": 0.08,
+        "cacheWrite": 1
+      },
+      "anthropic/claude-3-5-haiku-20241022": {
+        "unit": "1m_tokens",
+        "input": 0.8,
+        "output": 4,
+        "cachedInput": 0.08,
+        "cacheWrite": 1
+      },
+      "anthropic/claude-3.5-haiku": {
+        "unit": "1m_tokens",
+        "input": 0.8,
+        "output": 4,
+        "cachedInput": 0.08,
+        "cacheWrite": 1
+      },
+      "claude-3.5-sonnet": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15,
+        "cachedInput": 0.3,
+        "cacheWrite": 3.75
+      },
+      "claude-3-5-sonnet-20241022": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15,
+        "cachedInput": 0.3,
+        "cacheWrite": 3.75
+      },
+      "claude-3-5-sonnet-20240620": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15,
+        "cachedInput": 0.3,
+        "cacheWrite": 3.75
+      },
+      "anthropic/claude-3-5-sonnet-20241022": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15,
+        "cachedInput": 0.3,
+        "cacheWrite": 3.75
+      },
+      "anthropic/claude-3-5-sonnet-20240620": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15,
+        "cachedInput": 0.3,
+        "cacheWrite": 3.75
+      },
+      "anthropic/claude-3.5-sonnet": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15,
+        "cachedInput": 0.3,
+        "cacheWrite": 3.75
+      },
+      "claude-3-opus": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 75,
+        "cachedInput": 1.5,
+        "cacheWrite": 18.75
+      },
+      "claude-3-opus-20240229": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 75,
+        "cachedInput": 1.5,
+        "cacheWrite": 18.75
+      },
+      "anthropic/claude-3-opus-20240229": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 75,
+        "cachedInput": 1.5,
+        "cacheWrite": 18.75
+      },
+      "anthropic/claude-3-opus": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 75,
+        "cachedInput": 1.5,
+        "cacheWrite": 18.75
+      },
+      "claude-3-sonnet": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "claude-3-sonnet-20240229": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "anthropic/claude-3-sonnet-20240229": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "anthropic/claude-3-sonnet": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "claude-3-haiku": {
+        "unit": "1m_tokens",
+        "input": 0.25,
+        "output": 1.25,
+        "cachedInput": 0.03,
+        "cacheWrite": 0.3
+      },
+      "claude-3-haiku-20240307": {
+        "unit": "1m_tokens",
+        "input": 0.25,
+        "output": 1.25,
+        "cachedInput": 0.03,
+        "cacheWrite": 0.3
+      },
+      "anthropic/claude-3-haiku-20240307": {
+        "unit": "1m_tokens",
+        "input": 0.25,
+        "output": 1.25,
+        "cachedInput": 0.03,
+        "cacheWrite": 0.3
+      },
+      "anthropic/claude-3-haiku": {
+        "unit": "1m_tokens",
+        "input": 0.25,
+        "output": 1.25,
+        "cachedInput": 0.03,
+        "cacheWrite": 0.3
+      }
+    },
+    "bedrock": {
+      "anthropic.claude-sonnet-4-5": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "anthropic.claude-sonnet-4-5-20250929-v1:0": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "us.anthropic.claude-sonnet-4-5-20250929-v1:0": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "eu.anthropic.claude-sonnet-4-5-20250929-v1:0": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "anthropic.claude-sonnet-4": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "anthropic.claude-sonnet-4-20250514-v1:0": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "us.anthropic.claude-sonnet-4-20250514-v1:0": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "eu.anthropic.claude-sonnet-4-20250514-v1:0": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "anthropic.claude-opus-4": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 75
+      },
+      "anthropic.claude-opus-4-20250514-v1:0": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 75
+      },
+      "us.anthropic.claude-opus-4-20250514-v1:0": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 75
+      },
+      "eu.anthropic.claude-opus-4-20250514-v1:0": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 75
+      },
+      "anthropic.claude-haiku-4-5": {
+        "unit": "1m_tokens",
+        "input": 1,
+        "output": 5
+      },
+      "anthropic.claude-haiku-4-5-20251022-v1:0": {
+        "unit": "1m_tokens",
+        "input": 1,
+        "output": 5
+      },
+      "us.anthropic.claude-haiku-4-5-20251022-v1:0": {
+        "unit": "1m_tokens",
+        "input": 1,
+        "output": 5
+      },
+      "eu.anthropic.claude-haiku-4-5-20251022-v1:0": {
+        "unit": "1m_tokens",
+        "input": 1,
+        "output": 5
+      },
+      "anthropic.claude-3-5-sonnet": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "anthropic.claude-3-5-sonnet-20241022-v2:0": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "anthropic.claude-3-5-sonnet-20240620-v1:0": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "us.anthropic.claude-3-5-sonnet-20241022-v2:0": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "us.anthropic.claude-3-5-sonnet-20240620-v1:0": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "eu.anthropic.claude-3-5-sonnet-20241022-v2:0": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "eu.anthropic.claude-3-5-sonnet-20240620-v1:0": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "anthropic.claude-3-5-haiku": {
+        "unit": "1m_tokens",
+        "input": 0.8,
+        "output": 4
+      },
+      "anthropic.claude-3-5-haiku-20241022-v1:0": {
+        "unit": "1m_tokens",
+        "input": 0.8,
+        "output": 4
+      },
+      "us.anthropic.claude-3-5-haiku-20241022-v1:0": {
+        "unit": "1m_tokens",
+        "input": 0.8,
+        "output": 4
+      },
+      "eu.anthropic.claude-3-5-haiku-20241022-v1:0": {
+        "unit": "1m_tokens",
+        "input": 0.8,
+        "output": 4
+      },
+      "anthropic.claude-3-opus": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 75
+      },
+      "anthropic.claude-3-opus-20240229-v1:0": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 75
+      },
+      "us.anthropic.claude-3-opus-20240229-v1:0": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 75
+      },
+      "anthropic.claude-3-sonnet": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "anthropic.claude-3-sonnet-20240229-v1:0": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "us.anthropic.claude-3-sonnet-20240229-v1:0": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "eu.anthropic.claude-3-sonnet-20240229-v1:0": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 15
+      },
+      "anthropic.claude-3-haiku": {
+        "unit": "1m_tokens",
+        "input": 0.25,
+        "output": 1.25
+      },
+      "anthropic.claude-3-haiku-20240307-v1:0": {
+        "unit": "1m_tokens",
+        "input": 0.25,
+        "output": 1.25
+      },
+      "us.anthropic.claude-3-haiku-20240307-v1:0": {
+        "unit": "1m_tokens",
+        "input": 0.25,
+        "output": 1.25
+      },
+      "eu.anthropic.claude-3-haiku-20240307-v1:0": {
+        "unit": "1m_tokens",
+        "input": 0.25,
+        "output": 1.25
+      },
+      "amazon.titan-text-premier": {
+        "unit": "1m_tokens",
+        "input": 0.5,
+        "output": 1.5
+      },
+      "amazon.titan-text-premier-v1:0": {
+        "unit": "1m_tokens",
+        "input": 0.5,
+        "output": 1.5
+      },
+      "amazon.titan-text-express": {
+        "unit": "1m_tokens",
+        "input": 0.2,
+        "output": 0.6
+      },
+      "amazon.titan-text-express-v1": {
+        "unit": "1m_tokens",
+        "input": 0.2,
+        "output": 0.6
+      },
+      "amazon.titan-text-lite": {
+        "unit": "1m_tokens",
+        "input": 0.15,
+        "output": 0.2
+      },
+      "amazon.titan-text-lite-v1": {
+        "unit": "1m_tokens",
+        "input": 0.15,
+        "output": 0.2
+      },
+      "meta.llama3-2-90b-instruct": {
+        "unit": "1m_tokens",
+        "input": 0.72,
+        "output": 0.72
+      },
+      "meta.llama3-2-90b-instruct-v1:0": {
+        "unit": "1m_tokens",
+        "input": 0.72,
+        "output": 0.72
+      },
+      "us.meta.llama3-2-90b-instruct-v1:0": {
+        "unit": "1m_tokens",
+        "input": 0.72,
+        "output": 0.72
+      },
+      "meta.llama3-2-11b-instruct": {
+        "unit": "1m_tokens",
+        "input": 0.16,
+        "output": 0.16
+      },
+      "meta.llama3-2-11b-instruct-v1:0": {
+        "unit": "1m_tokens",
+        "input": 0.16,
+        "output": 0.16
+      },
+      "us.meta.llama3-2-11b-instruct-v1:0": {
+        "unit": "1m_tokens",
+        "input": 0.16,
+        "output": 0.16
+      },
+      "meta.llama3-1-405b-instruct": {
+        "unit": "1m_tokens",
+        "input": 2.4,
+        "output": 2.4
+      },
+      "meta.llama3-1-405b-instruct-v1:0": {
+        "unit": "1m_tokens",
+        "input": 2.4,
+        "output": 2.4
+      },
+      "us.meta.llama3-1-405b-instruct-v1:0": {
+        "unit": "1m_tokens",
+        "input": 2.4,
+        "output": 2.4
+      },
+      "meta.llama3-1-70b-instruct": {
+        "unit": "1m_tokens",
+        "input": 0.72,
+        "output": 0.72
+      },
+      "meta.llama3-1-70b-instruct-v1:0": {
+        "unit": "1m_tokens",
+        "input": 0.72,
+        "output": 0.72
+      },
+      "us.meta.llama3-1-70b-instruct-v1:0": {
+        "unit": "1m_tokens",
+        "input": 0.72,
+        "output": 0.72
+      },
+      "meta.llama3-1-8b-instruct": {
+        "unit": "1m_tokens",
+        "input": 0.22,
+        "output": 0.22
+      },
+      "meta.llama3-1-8b-instruct-v1:0": {
+        "unit": "1m_tokens",
+        "input": 0.22,
+        "output": 0.22
+      },
+      "us.meta.llama3-1-8b-instruct-v1:0": {
+        "unit": "1m_tokens",
+        "input": 0.22,
+        "output": 0.22
+      },
+      "mistral.mistral-large-2": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 9
+      },
+      "mistral.mistral-large-2407-v1:0": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 9
+      },
+      "us.mistral.mistral-large-2407-v1:0": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 9
+      },
+      "mistral.mixtral-8x7b-instruct": {
+        "unit": "1m_tokens",
+        "input": 0.45,
+        "output": 0.7
+      },
+      "mistral.mixtral-8x7b-instruct-v0:1": {
+        "unit": "1m_tokens",
+        "input": 0.45,
+        "output": 0.7
+      },
+      "us.mistral.mixtral-8x7b-instruct-v0:1": {
+        "unit": "1m_tokens",
+        "input": 0.45,
+        "output": 0.7
+      }
+    },
+    "bfl": {
+      "flux-pro-1.1-ultra": {
+        "unit": "image",
+        "output": 0.06
+      },
+      "flux/pro-1.1-ultra": {
+        "unit": "image",
+        "output": 0.06
+      },
+      "bfl/flux-pro-1.1-ultra": {
+        "unit": "image",
+        "output": 0.06
+      },
+      "flux-pro-1-1-ultra": {
+        "unit": "image",
+        "output": 0.06
+      },
+      "flux-pro-1.1": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "flux/pro-1.1": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "bfl/flux-pro-1.1": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "flux-pro-1-1": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "flux-pro": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "flux/pro": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "bfl/flux-pro": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "flux-dev": {
+        "unit": "image",
+        "output": 0.025
+      },
+      "flux/dev": {
+        "unit": "image",
+        "output": 0.025
+      },
+      "bfl/flux-dev": {
+        "unit": "image",
+        "output": 0.025
+      },
+      "flux-schnell": {
+        "unit": "image",
+        "output": 0.003
+      },
+      "flux/schnell": {
+        "unit": "image",
+        "output": 0.003
+      },
+      "bfl/flux-schnell": {
+        "unit": "image",
+        "output": 0.003
+      },
+      "flux-fill-pro": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "flux/fill-pro": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "bfl/flux-fill-pro": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "flux-canny-pro": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "flux/canny-pro": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "bfl/flux-canny-pro": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "flux-depth-pro": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "flux/depth-pro": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "bfl/flux-depth-pro": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "flux-redux-pro": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "flux/redux-pro": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "bfl/flux-redux-pro": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "flux-fill-dev": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "flux/fill-dev": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "bfl/flux-fill-dev": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "flux-canny-dev": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "flux/canny-dev": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "bfl/flux-canny-dev": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "flux-depth-dev": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "flux/depth-dev": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "bfl/flux-depth-dev": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "flux-redux-dev": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "flux/redux-dev": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "bfl/flux-redux-dev": {
+        "unit": "image",
+        "output": 0.04
+      }
+    },
+    "elevenlabs": {
+      "eleven_multilingual_v2": {
+        "unit": "1k_characters",
+        "input": 0.3
+      },
+      "elevenlabs/eleven_multilingual_v2": {
+        "unit": "1k_characters",
+        "input": 0.3
+      },
+      "multilingual_v2": {
+        "unit": "1k_characters",
+        "input": 0.3
+      },
+      "eleven_flash_v2_5": {
+        "unit": "1k_characters",
+        "input": 0.15
+      },
+      "elevenlabs/eleven_flash_v2_5": {
+        "unit": "1k_characters",
+        "input": 0.15
+      },
+      "flash_v2_5": {
+        "unit": "1k_characters",
+        "input": 0.15
+      },
+      "eleven_flash_v2.5": {
+        "unit": "1k_characters",
+        "input": 0.15
+      },
+      "eleven_turbo_v2_5": {
+        "unit": "1k_characters",
+        "input": 0.18
+      },
+      "elevenlabs/eleven_turbo_v2_5": {
+        "unit": "1k_characters",
+        "input": 0.18
+      },
+      "turbo_v2_5": {
+        "unit": "1k_characters",
+        "input": 0.18
+      },
+      "eleven_turbo_v2.5": {
+        "unit": "1k_characters",
+        "input": 0.18
+      },
+      "eleven_turbo_v2": {
+        "unit": "1k_characters",
+        "input": 0.15
+      },
+      "elevenlabs/eleven_turbo_v2": {
+        "unit": "1k_characters",
+        "input": 0.15
+      },
+      "turbo_v2": {
+        "unit": "1k_characters",
+        "input": 0.15
+      },
+      "eleven_monolingual_v1": {
+        "unit": "1k_characters",
+        "input": 0.3
+      },
+      "elevenlabs/eleven_monolingual_v1": {
+        "unit": "1k_characters",
+        "input": 0.3
+      },
+      "monolingual_v1": {
+        "unit": "1k_characters",
+        "input": 0.3
+      },
+      "eleven_multilingual_v1": {
+        "unit": "1k_characters",
+        "input": 0.3
+      },
+      "elevenlabs/eleven_multilingual_v1": {
+        "unit": "1k_characters",
+        "input": 0.3
+      },
+      "multilingual_v1": {
+        "unit": "1k_characters",
+        "input": 0.3
+      },
+      "eleven_english_sts_v2": {
+        "unit": "1k_characters",
+        "input": 0.3
+      },
+      "elevenlabs/eleven_english_sts_v2": {
+        "unit": "1k_characters",
+        "input": 0.3
+      },
+      "english_sts_v2": {
+        "unit": "1k_characters",
+        "input": 0.3
+      },
+      "eleven_multilingual_sts_v2": {
+        "unit": "1k_characters",
+        "input": 0.3
+      },
+      "elevenlabs/eleven_multilingual_sts_v2": {
+        "unit": "1k_characters",
+        "input": 0.3
+      },
+      "multilingual_sts_v2": {
+        "unit": "1k_characters",
+        "input": 0.3
+      },
+      "eleven_convai_v1": {
+        "unit": "1k_characters",
+        "input": 0.2
+      },
+      "elevenlabs/eleven_convai_v1": {
+        "unit": "1k_characters",
+        "input": 0.2
+      },
+      "convai_v1": {
+        "unit": "1k_characters",
+        "input": 0.2
+      },
+      "conversational_v1": {
+        "unit": "1k_characters",
+        "input": 0.2
+      }
+    },
+    "fal": {
+      "wan-effects": {
+        "unit": "second",
+        "output": 0.35
+      },
+      "fal-ai/wan-effects": {
+        "unit": "second",
+        "output": 0.35
+      },
+      "fal/wan-effects": {
+        "unit": "second",
+        "output": 0.35
+      },
+      "wan-pro/image-to-video": {
+        "unit": "second",
+        "output": 0.8
+      },
+      "fal-ai/wan-pro/image-to-video": {
+        "unit": "second",
+        "output": 0.8
+      },
+      "fal/wan-pro/image-to-video": {
+        "unit": "second",
+        "output": 0.8
+      },
+      "veo2/image-to-video": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal-ai/veo2/image-to-video": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal/veo2/image-to-video": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "kling-video/v1.6/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.095
+      },
+      "fal-ai/kling-video/v1.6/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.095
+      },
+      "fal/kling-video/v1.6/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.095
+      },
+      "flux-pro/v1.1-ultra": {
+        "unit": "image",
+        "output": 0.06
+      },
+      "fal-ai/flux-pro/v1.1-ultra": {
+        "unit": "image",
+        "output": 0.06
+      },
+      "fal/flux-pro/v1.1-ultra": {
+        "unit": "image",
+        "output": 0.06
+      },
+      "recraft/v3/text-to-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/recraft/v3/text-to-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/recraft/v3/text-to-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "minimax/video-01/image-to-video": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal-ai/minimax/video-01/image-to-video": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal/minimax/video-01/image-to-video": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "flux-2/lora/edit": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal-ai/flux-2/lora/edit": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal/flux-2/lora/edit": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "flux-2/lora": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal-ai/flux-2/lora": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal/flux-2/lora": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "flux-2/edit": {
+        "unit": "megapixel",
+        "output": 0.012
+      },
+      "fal-ai/flux-2/edit": {
+        "unit": "megapixel",
+        "output": 0.012
+      },
+      "fal/flux-2/edit": {
+        "unit": "megapixel",
+        "output": 0.012
+      },
+      "flux-2": {
+        "unit": "megapixel",
+        "output": 0.012
+      },
+      "fal-ai/flux-2": {
+        "unit": "megapixel",
+        "output": 0.012
+      },
+      "fal/flux-2": {
+        "unit": "megapixel",
+        "output": 0.012
+      },
+      "flux-2-pro": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal-ai/flux-2-pro": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal/flux-2-pro": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "flux-2-pro/edit": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal-ai/flux-2-pro/edit": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal/flux-2-pro/edit": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "minimax/hailuo-2.3/pro/image-to-video": {
+        "unit": "image",
+        "output": 0.49
+      },
+      "fal-ai/minimax/hailuo-2.3/pro/image-to-video": {
+        "unit": "image",
+        "output": 0.49
+      },
+      "fal/minimax/hailuo-2.3/pro/image-to-video": {
+        "unit": "image",
+        "output": 0.49
+      },
+      "wan-25-preview/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/wan-25-preview/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/wan-25-preview/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "kling-video/v2.5-turbo/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.07
+      },
+      "fal-ai/kling-video/v2.5-turbo/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.07
+      },
+      "fal/kling-video/v2.5-turbo/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.07
+      },
+      "kling-video/v2.5-turbo/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.07
+      },
+      "fal-ai/kling-video/v2.5-turbo/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.07
+      },
+      "fal/kling-video/v2.5-turbo/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.07
+      },
+      "flux-krea-trainer": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal-ai/flux-krea-trainer": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal/flux-krea-trainer": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "veo3/fast": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal-ai/veo3/fast": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal/veo3/fast": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "bria/video/background-removal": {
+        "unit": "second",
+        "output": 0.14
+      },
+      "fal/bria/video/background-removal": {
+        "unit": "second",
+        "output": 0.14
+      },
+      "minimax/hailuo-02/standard/image-to-video": {
+        "unit": "second",
+        "output": 0.045
+      },
+      "fal-ai/minimax/hailuo-02/standard/image-to-video": {
+        "unit": "second",
+        "output": 0.045
+      },
+      "fal/minimax/hailuo-02/standard/image-to-video": {
+        "unit": "second",
+        "output": 0.045
+      },
+      "minimax/hailuo-02/standard/text-to-video": {
+        "unit": "second",
+        "output": 0.045
+      },
+      "fal-ai/minimax/hailuo-02/standard/text-to-video": {
+        "unit": "second",
+        "output": 0.045
+      },
+      "fal/minimax/hailuo-02/standard/text-to-video": {
+        "unit": "second",
+        "output": 0.045
+      },
+      "bria/text-to-image/3.2": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/bria/text-to-image/3.2": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "bytedance/seedance/v1/pro/image-to-video": {
+        "unit": "image",
+        "output": 2.5
+      },
+      "fal-ai/bytedance/seedance/v1/pro/image-to-video": {
+        "unit": "image",
+        "output": 2.5
+      },
+      "fal/bytedance/seedance/v1/pro/image-to-video": {
+        "unit": "image",
+        "output": 2.5
+      },
+      "imagen4/preview/fast": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal-ai/imagen4/preview/fast": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal/imagen4/preview/fast": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "veo3": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal-ai/veo3": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal/veo3": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "kling-video/v2.1/master/image-to-video": {
+        "unit": "second",
+        "output": 0.28
+      },
+      "fal-ai/kling-video/v2.1/master/image-to-video": {
+        "unit": "second",
+        "output": 0.28
+      },
+      "fal/kling-video/v2.1/master/image-to-video": {
+        "unit": "second",
+        "output": 0.28
+      },
+      "kling-video/v2.1/standard/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/kling-video/v2.1/standard/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/kling-video/v2.1/standard/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "imagen4/preview": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/imagen4/preview": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/imagen4/preview": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "kling-video/v2/master/image-to-video": {
+        "unit": "second",
+        "output": 0.28
+      },
+      "fal-ai/kling-video/v2/master/image-to-video": {
+        "unit": "second",
+        "output": 0.28
+      },
+      "fal/kling-video/v2/master/image-to-video": {
+        "unit": "second",
+        "output": 0.28
+      },
+      "kling-video/v2/master/text-to-video": {
+        "unit": "second",
+        "output": 0.28
+      },
+      "fal-ai/kling-video/v2/master/text-to-video": {
+        "unit": "second",
+        "output": 0.28
+      },
+      "fal/kling-video/v2/master/text-to-video": {
+        "unit": "second",
+        "output": 0.28
+      },
+      "hidream-i1-full": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "fal-ai/hidream-i1-full": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "fal/hidream-i1-full": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "hidream-i1-dev": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal-ai/hidream-i1-dev": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal/hidream-i1-dev": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "hidream-i1-fast": {
+        "unit": "megapixel",
+        "output": 0.01
+      },
+      "fal-ai/hidream-i1-fast": {
+        "unit": "megapixel",
+        "output": 0.01
+      },
+      "fal/hidream-i1-fast": {
+        "unit": "megapixel",
+        "output": 0.01
+      },
+      "flux/dev": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/flux/dev": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/flux/dev": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "wan-i2v": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal-ai/wan-i2v": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal/wan-i2v": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "flux-lora-fast-training": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal-ai/flux-lora-fast-training": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal/flux-lora-fast-training": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "mmaudio-v2": {
+        "unit": "second",
+        "output": 0.001
+      },
+      "fal-ai/mmaudio-v2": {
+        "unit": "second",
+        "output": 0.001
+      },
+      "fal/mmaudio-v2": {
+        "unit": "second",
+        "output": 0.001
+      },
+      "ideogram/v2": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "fal-ai/ideogram/v2": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "fal/ideogram/v2": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "flux-lora-portrait-trainer": {
+        "unit": "request",
+        "output": 0.024
+      },
+      "fal-ai/flux-lora-portrait-trainer": {
+        "unit": "request",
+        "output": 0.024
+      },
+      "fal/flux-lora-portrait-trainer": {
+        "unit": "request",
+        "output": 0.024
+      },
+      "stable-diffusion-v35-large": {
+        "unit": "megapixel",
+        "output": 0.065
+      },
+      "fal-ai/stable-diffusion-v35-large": {
+        "unit": "megapixel",
+        "output": 0.065
+      },
+      "fal/stable-diffusion-v35-large": {
+        "unit": "megapixel",
+        "output": 0.065
+      },
+      "flux-general": {
+        "unit": "megapixel",
+        "output": 0.075
+      },
+      "fal-ai/flux-general": {
+        "unit": "megapixel",
+        "output": 0.075
+      },
+      "fal/flux-general": {
+        "unit": "megapixel",
+        "output": 0.075
+      },
+      "flux-lora": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/flux-lora": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/flux-lora": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "flux/dev/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal-ai/flux/dev/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal/flux/dev/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "aura-sr": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal-ai/aura-sr": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/aura-sr": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "clarity-upscaler": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal-ai/clarity-upscaler": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal/clarity-upscaler": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "qwen-image-layered": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/qwen-image-layered": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/qwen-image-layered": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "decart/lucy-restyle": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "fal/decart/lucy-restyle": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "z-image/turbo/inpaint/lora": {
+        "unit": "megapixel",
+        "output": 0.0115
+      },
+      "fal-ai/z-image/turbo/inpaint/lora": {
+        "unit": "megapixel",
+        "output": 0.0115
+      },
+      "fal/z-image/turbo/inpaint/lora": {
+        "unit": "megapixel",
+        "output": 0.0115
+      },
+      "z-image/turbo/inpaint": {
+        "unit": "megapixel",
+        "output": 0.01
+      },
+      "fal-ai/z-image/turbo/inpaint": {
+        "unit": "megapixel",
+        "output": 0.01
+      },
+      "fal/z-image/turbo/inpaint": {
+        "unit": "megapixel",
+        "output": 0.01
+      },
+      "trellis-2": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/trellis-2": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/trellis-2": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "scail": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/scail": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/scail": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "vibevoice/0.5b": {
+        "unit": "minute",
+        "output": 0.02
+      },
+      "fal-ai/vibevoice/0.5b": {
+        "unit": "minute",
+        "output": 0.02
+      },
+      "fal/vibevoice/0.5b": {
+        "unit": "minute",
+        "output": 0.02
+      },
+      "bria/bria_video_eraser/erase/mask": {
+        "unit": "second",
+        "output": 0.14
+      },
+      "fal/bria/bria_video_eraser/erase/mask": {
+        "unit": "second",
+        "output": 0.14
+      },
+      "bria/bria_video_eraser/erase/keypoints": {
+        "unit": "second",
+        "output": 0.14
+      },
+      "fal/bria/bria_video_eraser/erase/keypoints": {
+        "unit": "second",
+        "output": 0.14
+      },
+      "bria/bria_video_eraser/erase/prompt": {
+        "unit": "second",
+        "output": 0.14
+      },
+      "fal/bria/bria_video_eraser/erase/prompt": {
+        "unit": "second",
+        "output": 0.14
+      },
+      "hunyuan-video-v1.5/image-to-video": {
+        "unit": "second",
+        "output": 0.075
+      },
+      "fal-ai/hunyuan-video-v1.5/image-to-video": {
+        "unit": "second",
+        "output": 0.075
+      },
+      "fal/hunyuan-video-v1.5/image-to-video": {
+        "unit": "second",
+        "output": 0.075
+      },
+      "hunyuan3d-v3/text-to-3d": {
+        "unit": "request",
+        "output": 0.015
+      },
+      "fal-ai/hunyuan3d-v3/text-to-3d": {
+        "unit": "request",
+        "output": 0.015
+      },
+      "fal/hunyuan3d-v3/text-to-3d": {
+        "unit": "request",
+        "output": 0.015
+      },
+      "hunyuan3d-v3/sketch-to-3d": {
+        "unit": "image",
+        "output": 0.015
+      },
+      "fal-ai/hunyuan3d-v3/sketch-to-3d": {
+        "unit": "image",
+        "output": 0.015
+      },
+      "fal/hunyuan3d-v3/sketch-to-3d": {
+        "unit": "image",
+        "output": 0.015
+      },
+      "hunyuan3d-v3/image-to-3d": {
+        "unit": "image",
+        "output": 0.015
+      },
+      "fal-ai/hunyuan3d-v3/image-to-3d": {
+        "unit": "image",
+        "output": 0.015
+      },
+      "fal/hunyuan3d-v3/image-to-3d": {
+        "unit": "image",
+        "output": 0.015
+      },
+      "flux-2/flash/edit": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "fal-ai/flux-2/flash/edit": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "fal/flux-2/flash/edit": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "flux-2/flash": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "fal-ai/flux-2/flash": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "fal/flux-2/flash": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "gpt-image-1.5/edit": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal-ai/gpt-image-1.5/edit": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal/gpt-image-1.5/edit": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "gpt-image-1.5": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal-ai/gpt-image-1.5": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal/gpt-image-1.5": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "kling-video/create-voice": {
+        "unit": "request",
+        "output": 0.035
+      },
+      "fal-ai/kling-video/create-voice": {
+        "unit": "request",
+        "output": 0.035
+      },
+      "fal/kling-video/create-voice": {
+        "unit": "request",
+        "output": 0.035
+      },
+      "bria/fibo-lite/generate": {
+        "unit": "image",
+        "output": 0.036
+      },
+      "fal/bria/fibo-lite/generate": {
+        "unit": "image",
+        "output": 0.036
+      },
+      "flux-2/turbo/edit": {
+        "unit": "megapixel",
+        "output": 0.008
+      },
+      "fal-ai/flux-2/turbo/edit": {
+        "unit": "megapixel",
+        "output": 0.008
+      },
+      "fal/flux-2/turbo/edit": {
+        "unit": "megapixel",
+        "output": 0.008
+      },
+      "flux-2/turbo": {
+        "unit": "megapixel",
+        "output": 0.008
+      },
+      "fal-ai/flux-2/turbo": {
+        "unit": "megapixel",
+        "output": 0.008
+      },
+      "fal/flux-2/turbo": {
+        "unit": "megapixel",
+        "output": 0.008
+      },
+      "flux-2-max": {
+        "unit": "megapixel",
+        "output": 0.07
+      },
+      "fal-ai/flux-2-max": {
+        "unit": "megapixel",
+        "output": 0.07
+      },
+      "fal/flux-2-max": {
+        "unit": "megapixel",
+        "output": 0.07
+      },
+      "flux-2-max/edit": {
+        "unit": "megapixel",
+        "output": 0.07
+      },
+      "fal-ai/flux-2-max/edit": {
+        "unit": "megapixel",
+        "output": 0.07
+      },
+      "fal/flux-2-max/edit": {
+        "unit": "megapixel",
+        "output": 0.07
+      },
+      "wan/v2.6/text-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/wan/v2.6/text-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "wan/v2.6/reference-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/wan/v2.6/reference-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "qwen-image-edit-2509-lora-gallery/shirt-design": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-2509-lora-gallery/shirt-design": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-2509-lora-gallery/shirt-design": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "qwen-image-edit-2509-lora-gallery/remove-lighting": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-2509-lora-gallery/remove-lighting": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-2509-lora-gallery/remove-lighting": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "qwen-image-edit-2509-lora-gallery/remove-element": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-2509-lora-gallery/remove-element": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-2509-lora-gallery/remove-element": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "qwen-image-edit-2509-lora-gallery/lighting-restoration": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/qwen-image-edit-2509-lora-gallery/lighting-restoration": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/qwen-image-edit-2509-lora-gallery/lighting-restoration": {
+        "unit": "image",
+        "output": 0
+      },
+      "qwen-image-edit-2509-lora-gallery/integrate-product": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-2509-lora-gallery/integrate-product": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-2509-lora-gallery/integrate-product": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "qwen-image-edit-2509-lora-gallery/group-photo": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-2509-lora-gallery/group-photo": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-2509-lora-gallery/group-photo": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "qwen-image-edit-2509-lora-gallery/face-to-full-portrait": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-2509-lora-gallery/face-to-full-portrait": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-2509-lora-gallery/face-to-full-portrait": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "qwen-image-edit-2509-lora-gallery/add-background": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-2509-lora-gallery/add-background": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-2509-lora-gallery/add-background": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "qwen-image-edit-2509-lora-gallery/next-scene": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-2509-lora-gallery/next-scene": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-2509-lora-gallery/next-scene": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "qwen-image-edit-2509-lora-gallery/multiple-angles": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-2509-lora-gallery/multiple-angles": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-2509-lora-gallery/multiple-angles": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "veo3.1/fast/extend-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal-ai/veo3.1/fast/extend-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal/veo3.1/fast/extend-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "veo3.1/extend-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal-ai/veo3.1/extend-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal/veo3.1/extend-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "qwen-image-edit-2509-lora": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-2509-lora": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-2509-lora": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "qwen-image-edit-2509-trainer": {
+        "unit": "request",
+        "output": 0.004
+      },
+      "fal-ai/qwen-image-edit-2509-trainer": {
+        "unit": "request",
+        "output": 0.004
+      },
+      "fal/qwen-image-edit-2509-trainer": {
+        "unit": "request",
+        "output": 0.004
+      },
+      "qwen-image-edit-2509": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal-ai/qwen-image-edit-2509": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal/qwen-image-edit-2509": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "wan/v2.6/image-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/wan/v2.6/image-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "chatterbox/text-to-speech/turbo": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal-ai/chatterbox/text-to-speech/turbo": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal/chatterbox/text-to-speech/turbo": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "kling-video/o1/standard/reference-to-video": {
+        "unit": "second",
+        "output": 0.084
+      },
+      "fal-ai/kling-video/o1/standard/reference-to-video": {
+        "unit": "second",
+        "output": 0.084
+      },
+      "fal/kling-video/o1/standard/reference-to-video": {
+        "unit": "second",
+        "output": 0.084
+      },
+      "kling-video/o1/standard/image-to-video": {
+        "unit": "second",
+        "output": 0.084
+      },
+      "fal-ai/kling-video/o1/standard/image-to-video": {
+        "unit": "second",
+        "output": 0.084
+      },
+      "fal/kling-video/o1/standard/image-to-video": {
+        "unit": "second",
+        "output": 0.084
+      },
+      "kling-video/o1/standard/video-to-video/reference": {
+        "unit": "second",
+        "output": 0.126
+      },
+      "fal-ai/kling-video/o1/standard/video-to-video/reference": {
+        "unit": "second",
+        "output": 0.126
+      },
+      "fal/kling-video/o1/standard/video-to-video/reference": {
+        "unit": "second",
+        "output": 0.126
+      },
+      "kling-video/o1/standard/video-to-video/edit": {
+        "unit": "second",
+        "output": 0.126
+      },
+      "fal-ai/kling-video/o1/standard/video-to-video/edit": {
+        "unit": "second",
+        "output": 0.126
+      },
+      "fal/kling-video/o1/standard/video-to-video/edit": {
+        "unit": "second",
+        "output": 0.126
+      },
+      "qwen-image-edit-plus-lora-gallery/lighting-restoration": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-plus-lora-gallery/lighting-restoration": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-plus-lora-gallery/lighting-restoration": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "maya/batch": {
+        "unit": "second",
+        "output": 0.002
+      },
+      "fal-ai/maya/batch": {
+        "unit": "second",
+        "output": 0.002
+      },
+      "fal/maya/batch": {
+        "unit": "second",
+        "output": 0.002
+      },
+      "maya/stream": {
+        "unit": "second",
+        "output": 0.002
+      },
+      "fal-ai/maya/stream": {
+        "unit": "second",
+        "output": 0.002
+      },
+      "fal/maya/stream": {
+        "unit": "second",
+        "output": 0.002
+      },
+      "moondream3-preview/segment": {
+        "unit": "image",
+        "output": 1
+      },
+      "fal-ai/moondream3-preview/segment": {
+        "unit": "image",
+        "output": 1
+      },
+      "fal/moondream3-preview/segment": {
+        "unit": "image",
+        "output": 1
+      },
+      "veed/fabric-1.0/text": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "fal/veed/fabric-1.0/text": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "steady-dancer": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/steady-dancer": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/steady-dancer": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "one-to-all-animation/1.3b": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "fal-ai/one-to-all-animation/1.3b": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "fal/one-to-all-animation/1.3b": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "one-to-all-animation/14b": {
+        "unit": "second",
+        "output": 0.06
+      },
+      "fal-ai/one-to-all-animation/14b": {
+        "unit": "second",
+        "output": 0.06
+      },
+      "fal/one-to-all-animation/14b": {
+        "unit": "second",
+        "output": 0.06
+      },
+      "creatify/aurora": {
+        "unit": "image",
+        "output": 1
+      },
+      "fal-ai/creatify/aurora": {
+        "unit": "image",
+        "output": 1
+      },
+      "fal/creatify/aurora": {
+        "unit": "image",
+        "output": 1
+      },
+      "wan-vision-enhancer": {
+        "unit": "second",
+        "output": 0.06
+      },
+      "fal-ai/wan-vision-enhancer": {
+        "unit": "second",
+        "output": 0.06
+      },
+      "fal/wan-vision-enhancer": {
+        "unit": "second",
+        "output": 0.06
+      },
+      "sync-lipsync/react-1": {
+        "unit": "minute",
+        "output": 10
+      },
+      "fal-ai/sync-lipsync/react-1": {
+        "unit": "minute",
+        "output": 10
+      },
+      "fal/sync-lipsync/react-1": {
+        "unit": "minute",
+        "output": 10
+      },
+      "stepx-edit2": {
+        "unit": "megapixel",
+        "output": 0.2
+      },
+      "fal-ai/stepx-edit2": {
+        "unit": "megapixel",
+        "output": 0.2
+      },
+      "fal/stepx-edit2": {
+        "unit": "megapixel",
+        "output": 0.2
+      },
+      "z-image/turbo/controlnet/lora": {
+        "unit": "megapixel",
+        "output": 0.01
+      },
+      "fal-ai/z-image/turbo/controlnet/lora": {
+        "unit": "megapixel",
+        "output": 0.01
+      },
+      "fal/z-image/turbo/controlnet/lora": {
+        "unit": "megapixel",
+        "output": 0.01
+      },
+      "z-image/turbo/controlnet": {
+        "unit": "megapixel",
+        "output": 0.0065
+      },
+      "fal-ai/z-image/turbo/controlnet": {
+        "unit": "megapixel",
+        "output": 0.0065
+      },
+      "fal/z-image/turbo/controlnet": {
+        "unit": "megapixel",
+        "output": 0.0065
+      },
+      "z-image/turbo/image-to-image/lora": {
+        "unit": "megapixel",
+        "output": 0.0085
+      },
+      "fal-ai/z-image/turbo/image-to-image/lora": {
+        "unit": "megapixel",
+        "output": 0.0085
+      },
+      "fal/z-image/turbo/image-to-image/lora": {
+        "unit": "megapixel",
+        "output": 0.0085
+      },
+      "z-image/turbo/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "fal-ai/z-image/turbo/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "fal/z-image/turbo/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "longcat-image/edit": {
+        "unit": "megapixel",
+        "output": 0.15
+      },
+      "fal-ai/longcat-image/edit": {
+        "unit": "megapixel",
+        "output": 0.15
+      },
+      "fal/longcat-image/edit": {
+        "unit": "megapixel",
+        "output": 0.15
+      },
+      "longcat-image": {
+        "unit": "megapixel",
+        "output": 0.13
+      },
+      "fal-ai/longcat-image": {
+        "unit": "megapixel",
+        "output": 0.13
+      },
+      "fal/longcat-image": {
+        "unit": "megapixel",
+        "output": 0.13
+      },
+      "kling-video/ai-avatar/v2/pro": {
+        "unit": "second",
+        "output": 0.115
+      },
+      "fal-ai/kling-video/ai-avatar/v2/pro": {
+        "unit": "second",
+        "output": 0.115
+      },
+      "fal/kling-video/ai-avatar/v2/pro": {
+        "unit": "second",
+        "output": 0.115
+      },
+      "kling-video/ai-avatar/v2/standard": {
+        "unit": "second",
+        "output": 0.0562
+      },
+      "fal-ai/kling-video/ai-avatar/v2/standard": {
+        "unit": "second",
+        "output": 0.0562
+      },
+      "fal/kling-video/ai-avatar/v2/standard": {
+        "unit": "second",
+        "output": 0.0562
+      },
+      "z-image-trainer": {
+        "unit": "request",
+        "output": 0.00226
+      },
+      "fal-ai/z-image-trainer": {
+        "unit": "request",
+        "output": 0.00226
+      },
+      "fal/z-image-trainer": {
+        "unit": "request",
+        "output": 0.00226
+      },
+      "bytedance/seedream/v4.5/text-to-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/bytedance/seedream/v4.5/text-to-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/bytedance/seedream/v4.5/text-to-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "bytedance/seedream/v4.5/edit": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/bytedance/seedream/v4.5/edit": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/bytedance/seedream/v4.5/edit": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "sam-3/3d-align": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal-ai/sam-3/3d-align": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal/sam-3/3d-align": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "sam-3/3d-body": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal-ai/sam-3/3d-body": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal/sam-3/3d-body": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "sam-3/3d-objects": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal-ai/sam-3/3d-objects": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal/sam-3/3d-objects": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "vidu/q2/reference-to-image": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/vidu/q2/reference-to-image": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/vidu/q2/reference-to-image": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "vidu/q2/text-to-image": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/vidu/q2/text-to-image": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/vidu/q2/text-to-image": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "kling-video/v2.6/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.07
+      },
+      "fal-ai/kling-video/v2.6/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.07
+      },
+      "fal/kling-video/v2.6/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.07
+      },
+      "kling-video/v2.6/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.07
+      },
+      "fal-ai/kling-video/v2.6/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.07
+      },
+      "fal/kling-video/v2.6/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.07
+      },
+      "pixverse/v5.5/effects": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/v5.5/effects": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/v5.5/effects": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "pixverse/v5.5/transition": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/v5.5/transition": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/v5.5/transition": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "z-image/turbo/lora": {
+        "unit": "megapixel",
+        "output": 0.0085
+      },
+      "fal-ai/z-image/turbo/lora": {
+        "unit": "megapixel",
+        "output": 0.0085
+      },
+      "fal/z-image/turbo/lora": {
+        "unit": "megapixel",
+        "output": 0.0085
+      },
+      "pixverse/v5.5/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/v5.5/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/v5.5/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "pixverse/v5.5/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/v5.5/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/v5.5/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "veed/video-background-removal/fast": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/veed/video-background-removal/fast": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "kling-video/o1/image-to-video": {
+        "unit": "second",
+        "output": 0.112
+      },
+      "fal-ai/kling-video/o1/image-to-video": {
+        "unit": "second",
+        "output": 0.112
+      },
+      "fal/kling-video/o1/image-to-video": {
+        "unit": "second",
+        "output": 0.112
+      },
+      "kling-video/o1/reference-to-video": {
+        "unit": "second",
+        "output": 0.112
+      },
+      "fal-ai/kling-video/o1/reference-to-video": {
+        "unit": "second",
+        "output": 0.112
+      },
+      "fal/kling-video/o1/reference-to-video": {
+        "unit": "second",
+        "output": 0.112
+      },
+      "kling-video/o1/video-to-video/edit": {
+        "unit": "second",
+        "output": 0.168
+      },
+      "fal-ai/kling-video/o1/video-to-video/edit": {
+        "unit": "second",
+        "output": 0.168
+      },
+      "fal/kling-video/o1/video-to-video/edit": {
+        "unit": "second",
+        "output": 0.168
+      },
+      "kling-video/o1/video-to-video/reference": {
+        "unit": "second",
+        "output": 0.168
+      },
+      "fal-ai/kling-video/o1/video-to-video/reference": {
+        "unit": "second",
+        "output": 0.168
+      },
+      "fal/kling-video/o1/video-to-video/reference": {
+        "unit": "second",
+        "output": 0.168
+      },
+      "kling-image/o1": {
+        "unit": "image",
+        "output": 0.028
+      },
+      "fal-ai/kling-image/o1": {
+        "unit": "image",
+        "output": 0.028
+      },
+      "fal/kling-image/o1": {
+        "unit": "image",
+        "output": 0.028
+      },
+      "ovis-image": {
+        "unit": "megapixel",
+        "output": 0.012
+      },
+      "fal-ai/ovis-image": {
+        "unit": "megapixel",
+        "output": 0.012
+      },
+      "fal/ovis-image": {
+        "unit": "megapixel",
+        "output": 0.012
+      },
+      "veed/video-background-removal": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/veed/video-background-removal": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "veed/video-background-removal/green-screen": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/veed/video-background-removal/green-screen": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "ltx-2/text-to-video/fast": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal-ai/ltx-2/text-to-video/fast": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal/ltx-2/text-to-video/fast": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "ltx-2/text-to-video": {
+        "unit": "second",
+        "output": 0.06
+      },
+      "fal-ai/ltx-2/text-to-video": {
+        "unit": "second",
+        "output": 0.06
+      },
+      "fal/ltx-2/text-to-video": {
+        "unit": "second",
+        "output": 0.06
+      },
+      "ltx-2/image-to-video/fast": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal-ai/ltx-2/image-to-video/fast": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal/ltx-2/image-to-video/fast": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "ltx-2/image-to-video": {
+        "unit": "second",
+        "output": 0.06
+      },
+      "fal-ai/ltx-2/image-to-video": {
+        "unit": "second",
+        "output": 0.06
+      },
+      "fal/ltx-2/image-to-video": {
+        "unit": "second",
+        "output": 0.06
+      },
+      "ltx-2/retake-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/ltx-2/retake-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/ltx-2/retake-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "z-image/turbo": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "fal-ai/z-image/turbo": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "fal/z-image/turbo": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "decart/lucy-edit/fast": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal/decart/lucy-edit/fast": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "flux-2-lora-gallery/sepia-vintage": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal-ai/flux-2-lora-gallery/sepia-vintage": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal/flux-2-lora-gallery/sepia-vintage": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "flux-2-lora-gallery/virtual-tryon": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal-ai/flux-2-lora-gallery/virtual-tryon": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal/flux-2-lora-gallery/virtual-tryon": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "flux-2-lora-gallery/satellite-view-style": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal-ai/flux-2-lora-gallery/satellite-view-style": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal/flux-2-lora-gallery/satellite-view-style": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "flux-2-lora-gallery/realism": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal-ai/flux-2-lora-gallery/realism": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal/flux-2-lora-gallery/realism": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "flux-2-lora-gallery/multiple-angles": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal-ai/flux-2-lora-gallery/multiple-angles": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal/flux-2-lora-gallery/multiple-angles": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "flux-2-lora-gallery/hdr-style": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal-ai/flux-2-lora-gallery/hdr-style": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal/flux-2-lora-gallery/hdr-style": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "flux-2-lora-gallery/face-to-full-portrait": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal-ai/flux-2-lora-gallery/face-to-full-portrait": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal/flux-2-lora-gallery/face-to-full-portrait": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "flux-2-lora-gallery/digital-comic-art": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal-ai/flux-2-lora-gallery/digital-comic-art": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal/flux-2-lora-gallery/digital-comic-art": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "flux-2-lora-gallery/ballpoint-pen-sketch": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal-ai/flux-2-lora-gallery/ballpoint-pen-sketch": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal/flux-2-lora-gallery/ballpoint-pen-sketch": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "flux-2-lora-gallery/apartment-staging": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal-ai/flux-2-lora-gallery/apartment-staging": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal/flux-2-lora-gallery/apartment-staging": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "flux-2-lora-gallery/add-background": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal-ai/flux-2-lora-gallery/add-background": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "fal/flux-2-lora-gallery/add-background": {
+        "unit": "megapixel",
+        "output": 0.021
+      },
+      "clarityai/crystal-upscaler": {
+        "unit": "megapixel",
+        "output": 0.016
+      },
+      "fal/clarityai/crystal-upscaler": {
+        "unit": "megapixel",
+        "output": 0.016
+      },
+      "imagineart/imagineart-1.5-preview/text-to-image": {
+        "unit": "second",
+        "output": 0.00007
+      },
+      "fal/imagineart/imagineart-1.5-preview/text-to-image": {
+        "unit": "second",
+        "output": 0.00007
+      },
+      "flux-2-trainer/edit": {
+        "unit": "request",
+        "output": 0.009
+      },
+      "fal-ai/flux-2-trainer/edit": {
+        "unit": "request",
+        "output": 0.009
+      },
+      "fal/flux-2-trainer/edit": {
+        "unit": "request",
+        "output": 0.009
+      },
+      "flux-2-trainer": {
+        "unit": "request",
+        "output": 0.008
+      },
+      "fal-ai/flux-2-trainer": {
+        "unit": "request",
+        "output": 0.008
+      },
+      "fal/flux-2-trainer": {
+        "unit": "request",
+        "output": 0.008
+      },
+      "flux-2-flex/edit": {
+        "unit": "megapixel",
+        "output": 0.06
+      },
+      "fal-ai/flux-2-flex/edit": {
+        "unit": "megapixel",
+        "output": 0.06
+      },
+      "fal/flux-2-flex/edit": {
+        "unit": "megapixel",
+        "output": 0.06
+      },
+      "flux-2-flex": {
+        "unit": "megapixel",
+        "output": 0.06
+      },
+      "fal-ai/flux-2-flex": {
+        "unit": "megapixel",
+        "output": 0.06
+      },
+      "fal/flux-2-flex": {
+        "unit": "megapixel",
+        "output": 0.06
+      },
+      "chrono-edit-lora": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal-ai/chrono-edit-lora": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal/chrono-edit-lora": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "chrono-edit-lora-gallery/paintbrush": {
+        "unit": "second",
+        "output": 0.00007
+      },
+      "fal-ai/chrono-edit-lora-gallery/paintbrush": {
+        "unit": "second",
+        "output": 0.00007
+      },
+      "fal/chrono-edit-lora-gallery/paintbrush": {
+        "unit": "second",
+        "output": 0.00007
+      },
+      "chrono-edit-lora-gallery/upscaler": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal-ai/chrono-edit-lora-gallery/upscaler": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal/chrono-edit-lora-gallery/upscaler": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "hunyuan-video-v1.5/text-to-video": {
+        "unit": "second",
+        "output": 0.075
+      },
+      "fal-ai/hunyuan-video-v1.5/text-to-video": {
+        "unit": "second",
+        "output": 0.075
+      },
+      "fal/hunyuan-video-v1.5/text-to-video": {
+        "unit": "second",
+        "output": 0.075
+      },
+      "sam-3/image-rle": {
+        "unit": "image",
+        "output": 0.005
+      },
+      "fal-ai/sam-3/image-rle": {
+        "unit": "image",
+        "output": 0.005
+      },
+      "fal/sam-3/image-rle": {
+        "unit": "image",
+        "output": 0.005
+      },
+      "sam-3/image/embed": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "fal-ai/sam-3/image/embed": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "fal/sam-3/image/embed": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "sam-3/video-rle": {
+        "unit": "second",
+        "output": 0.005
+      },
+      "fal-ai/sam-3/video-rle": {
+        "unit": "second",
+        "output": 0.005
+      },
+      "fal/sam-3/video-rle": {
+        "unit": "second",
+        "output": 0.005
+      },
+      "sam-3/video": {
+        "unit": "second",
+        "output": 0.005
+      },
+      "fal-ai/sam-3/video": {
+        "unit": "second",
+        "output": 0.005
+      },
+      "fal/sam-3/video": {
+        "unit": "second",
+        "output": 0.005
+      },
+      "sam-3/image": {
+        "unit": "image",
+        "output": 0.005
+      },
+      "fal-ai/sam-3/image": {
+        "unit": "image",
+        "output": 0.005
+      },
+      "fal/sam-3/image": {
+        "unit": "image",
+        "output": 0.005
+      },
+      "gemini-3-pro-image-preview/edit": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "fal-ai/gemini-3-pro-image-preview/edit": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "fal/gemini-3-pro-image-preview/edit": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "gemini-3-pro-image-preview": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "fal-ai/gemini-3-pro-image-preview": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "fal/gemini-3-pro-image-preview": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "nano-banana-pro/edit": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "fal-ai/nano-banana-pro/edit": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "fal/nano-banana-pro/edit": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "nano-banana-pro": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "fal-ai/nano-banana-pro": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "fal/nano-banana-pro": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "bytedance/lynx": {
+        "unit": "second",
+        "output": 0.6
+      },
+      "fal/bytedance/lynx": {
+        "unit": "second",
+        "output": 0.6
+      },
+      "maya": {
+        "unit": "second",
+        "output": 0.002
+      },
+      "fal-ai/maya": {
+        "unit": "second",
+        "output": 0.002
+      },
+      "fal/maya": {
+        "unit": "second",
+        "output": 0.002
+      },
+      "openrouter/router/openai/v1/responses": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "fal/openrouter/router/openai/v1/responses": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "openrouter/router/openai/v1/embeddings": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "fal/openrouter/router/openai/v1/embeddings": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "openrouter/router/vision": {
+        "unit": "request",
+        "output": 0.01
+      },
+      "fal/openrouter/router/vision": {
+        "unit": "request",
+        "output": 0.01
+      },
+      "openrouter/router": {
+        "unit": "request",
+        "output": 0.01
+      },
+      "fal/openrouter/router": {
+        "unit": "request",
+        "output": 0.01
+      },
+      "openrouter/router/openai/v1/chat/completions": {
+        "unit": "request",
+        "output": 0.01
+      },
+      "fal/openrouter/router/openai/v1/chat/completions": {
+        "unit": "request",
+        "output": 0.01
+      },
+      "editto": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/editto": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/editto": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "qwen-image-edit-plus-lora-gallery/multiple-angles": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-plus-lora-gallery/multiple-angles": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-plus-lora-gallery/multiple-angles": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "qwen-image-edit-plus-lora-gallery/shirt-design": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-plus-lora-gallery/shirt-design": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-plus-lora-gallery/shirt-design": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "qwen-image-edit-plus-lora-gallery/remove-lighting": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-plus-lora-gallery/remove-lighting": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-plus-lora-gallery/remove-lighting": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "qwen-image-edit-plus-lora-gallery/remove-element": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-plus-lora-gallery/remove-element": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-plus-lora-gallery/remove-element": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "qwen-image-edit-plus-lora-gallery/next-scene": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-plus-lora-gallery/next-scene": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-plus-lora-gallery/next-scene": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "qwen-image-edit-plus-lora-gallery/integrate-product": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-plus-lora-gallery/integrate-product": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-plus-lora-gallery/integrate-product": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "qwen-image-edit-plus-lora-gallery/group-photo": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-plus-lora-gallery/group-photo": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-plus-lora-gallery/group-photo": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "qwen-image-edit-plus-lora-gallery/face-to-full-portrait": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-plus-lora-gallery/face-to-full-portrait": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-plus-lora-gallery/face-to-full-portrait": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "qwen-image-edit-plus-lora-gallery/add-background": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-plus-lora-gallery/add-background": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-plus-lora-gallery/add-background": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "flashvsr/upscale/video": {
+        "unit": "megapixel",
+        "output": 0.0005
+      },
+      "fal-ai/flashvsr/upscale/video": {
+        "unit": "megapixel",
+        "output": 0.0005
+      },
+      "fal/flashvsr/upscale/video": {
+        "unit": "megapixel",
+        "output": 0.0005
+      },
+      "pixverse/swap": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/swap": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/swap": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "pika/v2.2/pikaframes": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/pika/v2.2/pikaframes": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/pika/v2.2/pikaframes": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "infinity-star/text-to-video": {
+        "unit": "second",
+        "output": 0.07
+      },
+      "fal-ai/infinity-star/text-to-video": {
+        "unit": "second",
+        "output": 0.07
+      },
+      "fal/infinity-star/text-to-video": {
+        "unit": "second",
+        "output": 0.07
+      },
+      "sana-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal-ai/sana-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal/sana-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "workflow-utilities/auto-subtitle": {
+        "unit": "minute",
+        "output": 0.03
+      },
+      "fal-ai/workflow-utilities/auto-subtitle": {
+        "unit": "minute",
+        "output": 0.03
+      },
+      "fal/workflow-utilities/auto-subtitle": {
+        "unit": "minute",
+        "output": 0.03
+      },
+      "reve/fast/remix": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "fal-ai/reve/fast/remix": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "fal/reve/fast/remix": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "reve/fast/edit": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "fal-ai/reve/fast/edit": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "fal/reve/fast/edit": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "image-apps-v2/outpaint": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/image-apps-v2/outpaint": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/image-apps-v2/outpaint": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "flux-vision-upscaler": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "fal-ai/flux-vision-upscaler": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "fal/flux-vision-upscaler": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "emu-3.5-image/edit-image": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "fal-ai/emu-3.5-image/edit-image": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "fal/emu-3.5-image/edit-image": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "emu-3.5-image/text-to-image": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "fal-ai/emu-3.5-image/text-to-image": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "fal/emu-3.5-image/text-to-image": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "bytedance-upscaler/upscale/video": {
+        "unit": "second",
+        "output": 0.0072
+      },
+      "fal-ai/bytedance-upscaler/upscale/video": {
+        "unit": "second",
+        "output": 0.0072
+      },
+      "fal/bytedance-upscaler/upscale/video": {
+        "unit": "second",
+        "output": 0.0072
+      },
+      "chrono-edit": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "fal-ai/chrono-edit": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "fal/chrono-edit": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "minimax-music/v2": {
+        "unit": "request",
+        "output": 0.03
+      },
+      "fal-ai/minimax-music/v2": {
+        "unit": "request",
+        "output": 0.03
+      },
+      "fal/minimax-music/v2": {
+        "unit": "request",
+        "output": 0.03
+      },
+      "qwen-image-edit-plus-trainer": {
+        "unit": "request",
+        "output": 0.004
+      },
+      "fal-ai/qwen-image-edit-plus-trainer": {
+        "unit": "request",
+        "output": 0.004
+      },
+      "fal/qwen-image-edit-plus-trainer": {
+        "unit": "request",
+        "output": 0.004
+      },
+      "qwen-image-edit-trainer": {
+        "unit": "request",
+        "output": 0.004
+      },
+      "fal-ai/qwen-image-edit-trainer": {
+        "unit": "request",
+        "output": 0.004
+      },
+      "fal/qwen-image-edit-trainer": {
+        "unit": "request",
+        "output": 0.004
+      },
+      "longcat-video/text-to-video/720p": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal-ai/longcat-video/text-to-video/720p": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal/longcat-video/text-to-video/720p": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "longcat-video/image-to-video/720p": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal-ai/longcat-video/image-to-video/720p": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal/longcat-video/image-to-video/720p": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "longcat-video/image-to-video/480p": {
+        "unit": "second",
+        "output": 0.025
+      },
+      "fal-ai/longcat-video/image-to-video/480p": {
+        "unit": "second",
+        "output": 0.025
+      },
+      "fal/longcat-video/image-to-video/480p": {
+        "unit": "second",
+        "output": 0.025
+      },
+      "longcat-video/text-to-video/480p": {
+        "unit": "second",
+        "output": 0.025
+      },
+      "fal-ai/longcat-video/text-to-video/480p": {
+        "unit": "second",
+        "output": 0.025
+      },
+      "fal/longcat-video/text-to-video/480p": {
+        "unit": "second",
+        "output": 0.025
+      },
+      "longcat-video/distilled/image-to-video/720p": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "fal-ai/longcat-video/distilled/image-to-video/720p": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "fal/longcat-video/distilled/image-to-video/720p": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "longcat-video/distilled/text-to-video/720p": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "fal-ai/longcat-video/distilled/text-to-video/720p": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "fal/longcat-video/distilled/text-to-video/720p": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "bria/fibo/generate/structured_prompt": {
+        "unit": "request",
+        "output": 0.01
+      },
+      "fal/bria/fibo/generate/structured_prompt": {
+        "unit": "request",
+        "output": 0.01
+      },
+      "omnipart": {
+        "unit": "request",
+        "output": 0.2
+      },
+      "fal-ai/omnipart": {
+        "unit": "request",
+        "output": 0.2
+      },
+      "fal/omnipart": {
+        "unit": "request",
+        "output": 0.2
+      },
+      "minimax/speech-2.6-turbo": {
+        "unit": "request",
+        "output": 0.06
+      },
+      "fal-ai/minimax/speech-2.6-turbo": {
+        "unit": "request",
+        "output": 0.06
+      },
+      "fal/minimax/speech-2.6-turbo": {
+        "unit": "request",
+        "output": 0.06
+      },
+      "minimax/speech-2.6-hd": {
+        "unit": "request",
+        "output": 0.1
+      },
+      "fal-ai/minimax/speech-2.6-hd": {
+        "unit": "request",
+        "output": 0.1
+      },
+      "fal/minimax/speech-2.6-hd": {
+        "unit": "request",
+        "output": 0.1
+      },
+      "video-as-prompt": {
+        "unit": "second",
+        "output": 1
+      },
+      "fal-ai/video-as-prompt": {
+        "unit": "second",
+        "output": 1
+      },
+      "fal/video-as-prompt": {
+        "unit": "second",
+        "output": 1
+      },
+      "bytedance/seed3d/image-to-3d": {
+        "unit": "image",
+        "output": 0.011
+      },
+      "fal-ai/bytedance/seed3d/image-to-3d": {
+        "unit": "image",
+        "output": 0.011
+      },
+      "fal/bytedance/seed3d/image-to-3d": {
+        "unit": "image",
+        "output": 0.011
+      },
+      "bria/fibo/generate": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/bria/fibo/generate": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "longcat-video/distilled/image-to-video/480p": {
+        "unit": "second",
+        "output": 0.005
+      },
+      "fal-ai/longcat-video/distilled/image-to-video/480p": {
+        "unit": "second",
+        "output": 0.005
+      },
+      "fal/longcat-video/distilled/image-to-video/480p": {
+        "unit": "second",
+        "output": 0.005
+      },
+      "longcat-video/distilled/text-to-video/480p": {
+        "unit": "second",
+        "output": 0.005
+      },
+      "fal-ai/longcat-video/distilled/text-to-video/480p": {
+        "unit": "second",
+        "output": 0.005
+      },
+      "fal/longcat-video/distilled/text-to-video/480p": {
+        "unit": "second",
+        "output": 0.005
+      },
+      "demucs": {
+        "unit": "second",
+        "output": 0.0007
+      },
+      "fal-ai/demucs": {
+        "unit": "second",
+        "output": 0.0007
+      },
+      "fal/demucs": {
+        "unit": "second",
+        "output": 0.0007
+      },
+      "piflow": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/piflow": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/piflow": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "minimax/hailuo-2.3-fast/standard/image-to-video": {
+        "unit": "image",
+        "output": 0.19
+      },
+      "fal-ai/minimax/hailuo-2.3-fast/standard/image-to-video": {
+        "unit": "image",
+        "output": 0.19
+      },
+      "fal/minimax/hailuo-2.3-fast/standard/image-to-video": {
+        "unit": "image",
+        "output": 0.19
+      },
+      "minimax/hailuo-2.3/standard/image-to-video": {
+        "unit": "image",
+        "output": 0.28
+      },
+      "fal-ai/minimax/hailuo-2.3/standard/image-to-video": {
+        "unit": "image",
+        "output": 0.28
+      },
+      "fal/minimax/hailuo-2.3/standard/image-to-video": {
+        "unit": "image",
+        "output": 0.28
+      },
+      "minimax/hailuo-2.3-fast/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.33
+      },
+      "fal-ai/minimax/hailuo-2.3-fast/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.33
+      },
+      "fal/minimax/hailuo-2.3-fast/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.33
+      },
+      "minimax/hailuo-2.3/standard/text-to-video": {
+        "unit": "second",
+        "output": 0.28
+      },
+      "fal-ai/minimax/hailuo-2.3/standard/text-to-video": {
+        "unit": "second",
+        "output": 0.28
+      },
+      "fal/minimax/hailuo-2.3/standard/text-to-video": {
+        "unit": "second",
+        "output": 0.28
+      },
+      "minimax/hailuo-2.3/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.49
+      },
+      "fal-ai/minimax/hailuo-2.3/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.49
+      },
+      "fal/minimax/hailuo-2.3/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.49
+      },
+      "birefnet/v2/video": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/birefnet/v2/video": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/birefnet/v2/video": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "audio-understanding": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "fal-ai/audio-understanding": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "fal/audio-understanding": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "bytedance/seedance/v1/pro/fast/image-to-video": {
+        "unit": "image",
+        "output": 1
+      },
+      "fal-ai/bytedance/seedance/v1/pro/fast/image-to-video": {
+        "unit": "image",
+        "output": 1
+      },
+      "fal/bytedance/seedance/v1/pro/fast/image-to-video": {
+        "unit": "image",
+        "output": 1
+      },
+      "bytedance/seedance/v1/pro/fast/text-to-video": {
+        "unit": "second",
+        "output": 1
+      },
+      "fal-ai/bytedance/seedance/v1/pro/fast/text-to-video": {
+        "unit": "second",
+        "output": 1
+      },
+      "fal/bytedance/seedance/v1/pro/fast/text-to-video": {
+        "unit": "second",
+        "output": 1
+      },
+      "vidu/q2/video-extension/pro": {
+        "unit": "second",
+        "output": 0.075
+      },
+      "fal-ai/vidu/q2/video-extension/pro": {
+        "unit": "second",
+        "output": 0.075
+      },
+      "fal/vidu/q2/video-extension/pro": {
+        "unit": "second",
+        "output": 0.075
+      },
+      "vidu/q2/image-to-video/turbo": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/vidu/q2/image-to-video/turbo": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/vidu/q2/image-to-video/turbo": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "vidu/q2/image-to-video/pro": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/vidu/q2/image-to-video/pro": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/vidu/q2/image-to-video/pro": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "vidu/q2/reference-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/vidu/q2/reference-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/vidu/q2/reference-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "vidu/q2/text-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/vidu/q2/text-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/vidu/q2/text-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "kling-video/v2.5-turbo/standard/image-to-video": {
+        "unit": "second",
+        "output": 0.042
+      },
+      "fal-ai/kling-video/v2.5-turbo/standard/image-to-video": {
+        "unit": "second",
+        "output": 0.042
+      },
+      "fal/kling-video/v2.5-turbo/standard/image-to-video": {
+        "unit": "second",
+        "output": 0.042
+      },
+      "gpt-image-1-mini/edit": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal-ai/gpt-image-1-mini/edit": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal/gpt-image-1-mini/edit": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "gpt-image-1-mini": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal-ai/gpt-image-1-mini": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal/gpt-image-1-mini": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "qwen-3-guard": {
+        "unit": "request",
+        "output": 0.002
+      },
+      "fal-ai/qwen-3-guard": {
+        "unit": "request",
+        "output": 0.002
+      },
+      "fal/qwen-3-guard": {
+        "unit": "request",
+        "output": 0.002
+      },
+      "krea-wan-14b/text-to-video": {
+        "unit": "second",
+        "output": 0.025
+      },
+      "fal-ai/krea-wan-14b/text-to-video": {
+        "unit": "second",
+        "output": 0.025
+      },
+      "fal/krea-wan-14b/text-to-video": {
+        "unit": "second",
+        "output": 0.025
+      },
+      "beatoven/sound-effect-generation": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/beatoven/sound-effect-generation": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "beatoven/music-generation": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/beatoven/music-generation": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "meshy/v5/retexture": {
+        "unit": "request",
+        "output": 0.3
+      },
+      "fal-ai/meshy/v5/retexture": {
+        "unit": "request",
+        "output": 0.3
+      },
+      "fal/meshy/v5/retexture": {
+        "unit": "request",
+        "output": 0.3
+      },
+      "meshy/v5/remesh": {
+        "unit": "request",
+        "output": 0.2
+      },
+      "fal-ai/meshy/v5/remesh": {
+        "unit": "request",
+        "output": 0.2
+      },
+      "fal/meshy/v5/remesh": {
+        "unit": "request",
+        "output": 0.2
+      },
+      "reve/remix": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/reve/remix": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/reve/remix": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "reve/text-to-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/reve/text-to-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/reve/text-to-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "reve/edit": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/reve/edit": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/reve/edit": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "wan-alpha": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal-ai/wan-alpha": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal/wan-alpha": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "mirelo-ai/sfx-v1.5/video-to-audio": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/mirelo-ai/sfx-v1.5/video-to-audio": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "mirelo-ai/sfx-v1.5/video-to-video": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/mirelo-ai/sfx-v1.5/video-to-video": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "krea-wan-14b/video-to-video": {
+        "unit": "second",
+        "output": 0.025
+      },
+      "fal-ai/krea-wan-14b/video-to-video": {
+        "unit": "second",
+        "output": 0.025
+      },
+      "fal/krea-wan-14b/video-to-video": {
+        "unit": "second",
+        "output": 0.025
+      },
+      "image2pixel": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "fal-ai/image2pixel": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "fal/image2pixel": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "kandinsky5/text-to-video/distill": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/kandinsky5/text-to-video/distill": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/kandinsky5/text-to-video/distill": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "kandinsky5/text-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/kandinsky5/text-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/kandinsky5/text-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "dreamomni2/edit": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/dreamomni2/edit": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/dreamomni2/edit": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "moondream3-preview/detect": {
+        "unit": "request",
+        "output": 1
+      },
+      "fal-ai/moondream3-preview/detect": {
+        "unit": "request",
+        "output": 1
+      },
+      "fal/moondream3-preview/detect": {
+        "unit": "request",
+        "output": 1
+      },
+      "moondream3-preview/point": {
+        "unit": "request",
+        "output": 1
+      },
+      "fal-ai/moondream3-preview/point": {
+        "unit": "request",
+        "output": 1
+      },
+      "fal/moondream3-preview/point": {
+        "unit": "request",
+        "output": 1
+      },
+      "moondream3-preview/query": {
+        "unit": "request",
+        "output": 1
+      },
+      "fal-ai/moondream3-preview/query": {
+        "unit": "request",
+        "output": 1
+      },
+      "fal/moondream3-preview/query": {
+        "unit": "request",
+        "output": 1
+      },
+      "moondream3-preview/caption": {
+        "unit": "request",
+        "output": 1
+      },
+      "fal-ai/moondream3-preview/caption": {
+        "unit": "request",
+        "output": 1
+      },
+      "fal/moondream3-preview/caption": {
+        "unit": "request",
+        "output": 1
+      },
+      "kling-video/video-to-audio": {
+        "unit": "second",
+        "output": 0.035
+      },
+      "fal-ai/kling-video/video-to-audio": {
+        "unit": "second",
+        "output": 0.035
+      },
+      "fal/kling-video/video-to-audio": {
+        "unit": "second",
+        "output": 0.035
+      },
+      "sora-2/video-to-video/remix": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/sora-2/video-to-video/remix": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/sora-2/video-to-video/remix": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "veo3.1/fast/first-last-frame-to-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal-ai/veo3.1/fast/first-last-frame-to-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal/veo3.1/fast/first-last-frame-to-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "veo3.1/first-last-frame-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal-ai/veo3.1/first-last-frame-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal/veo3.1/first-last-frame-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "veo3.1/reference-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal-ai/veo3.1/reference-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal/veo3.1/reference-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "veo3.1/fast": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal-ai/veo3.1/fast": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal/veo3.1/fast": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "veo3.1/fast/image-to-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal-ai/veo3.1/fast/image-to-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal/veo3.1/fast/image-to-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "veo3.1/image-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal-ai/veo3.1/image-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal/veo3.1/image-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "veo3.1": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal-ai/veo3.1": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal/veo3.1": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "hunyuan-part": {
+        "unit": "request",
+        "output": 0.04
+      },
+      "fal-ai/hunyuan-part": {
+        "unit": "request",
+        "output": 0.04
+      },
+      "fal/hunyuan-part": {
+        "unit": "request",
+        "output": 0.04
+      },
+      "wan-vace-apps/long-reframe": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/wan-vace-apps/long-reframe": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/wan-vace-apps/long-reframe": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "index-tts-2/text-to-speech": {
+        "unit": "second",
+        "output": 0.002
+      },
+      "fal-ai/index-tts-2/text-to-speech": {
+        "unit": "second",
+        "output": 0.002
+      },
+      "fal/index-tts-2/text-to-speech": {
+        "unit": "second",
+        "output": 0.002
+      },
+      "meshy/v6-preview/text-to-3d": {
+        "unit": "request",
+        "output": 0.8
+      },
+      "fal-ai/meshy/v6-preview/text-to-3d": {
+        "unit": "request",
+        "output": 0.8
+      },
+      "fal/meshy/v6-preview/text-to-3d": {
+        "unit": "request",
+        "output": 0.8
+      },
+      "meshy/v5/multi-image-to-3d": {
+        "unit": "image",
+        "output": 0.4
+      },
+      "fal-ai/meshy/v5/multi-image-to-3d": {
+        "unit": "image",
+        "output": 0.4
+      },
+      "fal/meshy/v5/multi-image-to-3d": {
+        "unit": "image",
+        "output": 0.4
+      },
+      "meshy/v6-preview/image-to-3d": {
+        "unit": "image",
+        "output": 0.8
+      },
+      "fal-ai/meshy/v6-preview/image-to-3d": {
+        "unit": "image",
+        "output": 0.8
+      },
+      "fal/meshy/v6-preview/image-to-3d": {
+        "unit": "image",
+        "output": 0.8
+      },
+      "sora-2/image-to-video/pro": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/sora-2/image-to-video/pro": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/sora-2/image-to-video/pro": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "sora-2/text-to-video/pro": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/sora-2/text-to-video/pro": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/sora-2/text-to-video/pro": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "sora-2/text-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/sora-2/text-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/sora-2/text-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "sora-2/image-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/sora-2/image-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/sora-2/image-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "qwen-image-edit-plus-lora": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-plus-lora": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-plus-lora": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "lucidflux": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "fal-ai/lucidflux": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "fal/lucidflux": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "ovi/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/ovi/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/ovi/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "ovi": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/ovi": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/ovi": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "veed/fabric-1.0/fast": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "fal/veed/fabric-1.0/fast": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "qwen-image-edit/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal-ai/qwen-image-edit/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal/qwen-image-edit/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "hunyuan-image/v3/text-to-image": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "fal-ai/hunyuan-image/v3/text-to-image": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "fal/hunyuan-image/v3/text-to-image": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "hyper3d/rodin/v2": {
+        "unit": "image",
+        "output": 0.4
+      },
+      "fal-ai/hyper3d/rodin/v2": {
+        "unit": "image",
+        "output": 0.4
+      },
+      "fal/hyper3d/rodin/v2": {
+        "unit": "image",
+        "output": 0.4
+      },
+      "wan-25-preview/image-to-image": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/wan-25-preview/image-to-image": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/wan-25-preview/image-to-image": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "wan-25-preview/text-to-image": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/wan-25-preview/text-to-image": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/wan-25-preview/text-to-image": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "wan-25-preview/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/wan-25-preview/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/wan-25-preview/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "bytedance/omnihuman/v1.5": {
+        "unit": "second",
+        "output": 0.16
+      },
+      "fal-ai/bytedance/omnihuman/v1.5": {
+        "unit": "second",
+        "output": 0.16
+      },
+      "fal/bytedance/omnihuman/v1.5": {
+        "unit": "second",
+        "output": 0.16
+      },
+      "qwen-image-edit-plus": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal-ai/qwen-image-edit-plus": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal/qwen-image-edit-plus": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "infinitalk/video-to-video": {
+        "unit": "second",
+        "output": 0.3
+      },
+      "fal-ai/infinitalk/video-to-video": {
+        "unit": "second",
+        "output": 0.3
+      },
+      "fal/infinitalk/video-to-video": {
+        "unit": "second",
+        "output": 0.3
+      },
+      "seedvr/upscale/video": {
+        "unit": "megapixel",
+        "output": 0.001
+      },
+      "fal-ai/seedvr/upscale/video": {
+        "unit": "megapixel",
+        "output": 0.001
+      },
+      "fal/seedvr/upscale/video": {
+        "unit": "megapixel",
+        "output": 0.001
+      },
+      "seedvr/upscale/image": {
+        "unit": "megapixel",
+        "output": 0.001
+      },
+      "fal-ai/seedvr/upscale/image": {
+        "unit": "megapixel",
+        "output": 0.001
+      },
+      "fal/seedvr/upscale/image": {
+        "unit": "megapixel",
+        "output": 0.001
+      },
+      "wan-vace-apps/video-edit": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/wan-vace-apps/video-edit": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/wan-vace-apps/video-edit": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "wan/v2.2-14b/animate/replace": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/wan/v2.2-14b/animate/replace": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/wan/v2.2-14b/animate/replace": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "wan/v2.2-14b/animate/move": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/wan/v2.2-14b/animate/move": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/wan/v2.2-14b/animate/move": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "veed/fabric-1.0": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "fal/veed/fabric-1.0": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "image-apps-v2/product-holding": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-apps-v2/product-holding": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-apps-v2/product-holding": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-apps-v2/product-photography": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-apps-v2/product-photography": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-apps-v2/product-photography": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "decart/lucy-edit/pro": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/decart/lucy-edit/pro": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "decart/lucy-edit/dev": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "fal/decart/lucy-edit/dev": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "image-apps-v2/virtual-try-on": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-apps-v2/virtual-try-on": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-apps-v2/virtual-try-on": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-apps-v2/texture-transform": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-apps-v2/texture-transform": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-apps-v2/texture-transform": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-apps-v2/relighting": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-apps-v2/relighting": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-apps-v2/relighting": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-apps-v2/style-transfer": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-apps-v2/style-transfer": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-apps-v2/style-transfer": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-apps-v2/photo-restoration": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-apps-v2/photo-restoration": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-apps-v2/photo-restoration": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-apps-v2/portrait-enhance": {
+        "unit": "image",
+        "output": 0.4
+      },
+      "fal-ai/image-apps-v2/portrait-enhance": {
+        "unit": "image",
+        "output": 0.4
+      },
+      "fal/image-apps-v2/portrait-enhance": {
+        "unit": "image",
+        "output": 0.4
+      },
+      "image-apps-v2/photography-effects": {
+        "unit": "image",
+        "output": 0.4
+      },
+      "fal-ai/image-apps-v2/photography-effects": {
+        "unit": "image",
+        "output": 0.4
+      },
+      "fal/image-apps-v2/photography-effects": {
+        "unit": "image",
+        "output": 0.4
+      },
+      "image-apps-v2/perspective": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-apps-v2/perspective": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-apps-v2/perspective": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-apps-v2/object-removal": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-apps-v2/object-removal": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-apps-v2/object-removal": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-apps-v2/headshot-photo": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-apps-v2/headshot-photo": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-apps-v2/headshot-photo": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-apps-v2/hair-change": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-apps-v2/hair-change": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-apps-v2/hair-change": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-apps-v2/expression-change": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-apps-v2/expression-change": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-apps-v2/expression-change": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-apps-v2/city-teleport": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-apps-v2/city-teleport": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-apps-v2/city-teleport": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-apps-v2/age-modify": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-apps-v2/age-modify": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-apps-v2/age-modify": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-apps-v2/makeup-application": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-apps-v2/makeup-application": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-apps-v2/makeup-application": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "qwen-image-edit/inpaint": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal-ai/qwen-image-edit/inpaint": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal/qwen-image-edit/inpaint": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "wan-22-vace-fun-a14b/reframe": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/wan-22-vace-fun-a14b/reframe": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/wan-22-vace-fun-a14b/reframe": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "wan-22-vace-fun-a14b/outpainting": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/wan-22-vace-fun-a14b/outpainting": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/wan-22-vace-fun-a14b/outpainting": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "wan-22-vace-fun-a14b/inpainting": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/wan-22-vace-fun-a14b/inpainting": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/wan-22-vace-fun-a14b/inpainting": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "wan-22-vace-fun-a14b/depth": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/wan-22-vace-fun-a14b/depth": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/wan-22-vace-fun-a14b/depth": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "wan-22-vace-fun-a14b/pose": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/wan-22-vace-fun-a14b/pose": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/wan-22-vace-fun-a14b/pose": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "perceptron/isaac-01/openai/v1/chat/completions": {
+        "unit": "request",
+        "output": 1
+      },
+      "fal/perceptron/isaac-01/openai/v1/chat/completions": {
+        "unit": "request",
+        "output": 1
+      },
+      "perceptron/isaac-01": {
+        "unit": "request",
+        "output": 1
+      },
+      "fal/perceptron/isaac-01": {
+        "unit": "request",
+        "output": 1
+      },
+      "flux/srpo/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/flux/srpo/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/flux/srpo/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "flux/srpo": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/flux/srpo": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/flux/srpo": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "flux-1/srpo/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/flux-1/srpo/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/flux-1/srpo/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "flux-1/srpo": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/flux-1/srpo": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/flux-1/srpo": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "pshuman": {
+        "unit": "image",
+        "output": 0.75
+      },
+      "fal-ai/pshuman": {
+        "unit": "image",
+        "output": 0.75
+      },
+      "fal/pshuman": {
+        "unit": "image",
+        "output": 0.75
+      },
+      "kling-video/v1/tts": {
+        "unit": "request",
+        "output": 0.007
+      },
+      "fal-ai/kling-video/v1/tts": {
+        "unit": "request",
+        "output": 0.007
+      },
+      "fal/kling-video/v1/tts": {
+        "unit": "request",
+        "output": 0.007
+      },
+      "kling-video/v1/standard/ai-avatar": {
+        "unit": "second",
+        "output": 0.0562
+      },
+      "fal-ai/kling-video/v1/standard/ai-avatar": {
+        "unit": "second",
+        "output": 0.0562
+      },
+      "fal/kling-video/v1/standard/ai-avatar": {
+        "unit": "second",
+        "output": 0.0562
+      },
+      "kling-video/v1/pro/ai-avatar": {
+        "unit": "second",
+        "output": 0.115
+      },
+      "fal-ai/kling-video/v1/pro/ai-avatar": {
+        "unit": "second",
+        "output": 0.115
+      },
+      "fal/kling-video/v1/pro/ai-avatar": {
+        "unit": "second",
+        "output": 0.115
+      },
+      "minimax-music/v1.5": {
+        "unit": "request",
+        "output": 0.03
+      },
+      "fal-ai/minimax-music/v1.5": {
+        "unit": "request",
+        "output": 0.03
+      },
+      "fal/minimax-music/v1.5": {
+        "unit": "request",
+        "output": 0.03
+      },
+      "decart/lucy-14b/image-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/decart/lucy-14b/image-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "qwen-image-edit-lora": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/qwen-image-edit-lora": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/qwen-image-edit-lora": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "stable-audio-25/audio-to-audio": {
+        "unit": "request",
+        "output": 0.2
+      },
+      "fal-ai/stable-audio-25/audio-to-audio": {
+        "unit": "request",
+        "output": 0.2
+      },
+      "fal/stable-audio-25/audio-to-audio": {
+        "unit": "request",
+        "output": 0.2
+      },
+      "stable-audio-25/text-to-audio": {
+        "unit": "request",
+        "output": 0.2
+      },
+      "fal-ai/stable-audio-25/text-to-audio": {
+        "unit": "request",
+        "output": 0.2
+      },
+      "fal/stable-audio-25/text-to-audio": {
+        "unit": "request",
+        "output": 0.2
+      },
+      "stable-audio-25/inpaint": {
+        "unit": "request",
+        "output": 0.2
+      },
+      "fal-ai/stable-audio-25/inpaint": {
+        "unit": "request",
+        "output": 0.2
+      },
+      "fal/stable-audio-25/inpaint": {
+        "unit": "request",
+        "output": 0.2
+      },
+      "hunyuan-image/v2.1/text-to-image": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "fal-ai/hunyuan-image/v2.1/text-to-image": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "fal/hunyuan-image/v2.1/text-to-image": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "elevenlabs/text-to-dialogue/eleven-v3": {
+        "unit": "request",
+        "output": 0.1
+      },
+      "fal-ai/elevenlabs/text-to-dialogue/eleven-v3": {
+        "unit": "request",
+        "output": 0.1
+      },
+      "fal/elevenlabs/text-to-dialogue/eleven-v3": {
+        "unit": "request",
+        "output": 0.1
+      },
+      "vidu/reference-to-image": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/vidu/reference-to-image": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/vidu/reference-to-image": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "bytedance/seedream/v4/edit": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal-ai/bytedance/seedream/v4/edit": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal/bytedance/seedream/v4/edit": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "bytedance/seedream/v4/text-to-image": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal-ai/bytedance/seedream/v4/text-to-image": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal/bytedance/seedream/v4/text-to-image": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "hunyuan-video-foley": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/hunyuan-video-foley": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/hunyuan-video-foley": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "chatterbox/text-to-speech/multilingual": {
+        "unit": "request",
+        "output": 0.025
+      },
+      "fal-ai/chatterbox/text-to-speech/multilingual": {
+        "unit": "request",
+        "output": 0.025
+      },
+      "fal/chatterbox/text-to-speech/multilingual": {
+        "unit": "request",
+        "output": 0.025
+      },
+      "wan/v2.2-a14b/image-to-image": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/wan/v2.2-a14b/image-to-image": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/wan/v2.2-a14b/image-to-image": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "elevenlabs/sound-effects/v2": {
+        "unit": "second",
+        "output": 0.002
+      },
+      "fal-ai/elevenlabs/sound-effects/v2": {
+        "unit": "second",
+        "output": 0.002
+      },
+      "fal/elevenlabs/sound-effects/v2": {
+        "unit": "second",
+        "output": 0.002
+      },
+      "sync-lipsync/v2/pro": {
+        "unit": "minute",
+        "output": 5
+      },
+      "fal-ai/sync-lipsync/v2/pro": {
+        "unit": "minute",
+        "output": 5
+      },
+      "fal/sync-lipsync/v2/pro": {
+        "unit": "minute",
+        "output": 5
+      },
+      "bytedance/seedance/v1/lite/reference-to-video": {
+        "unit": "image",
+        "output": 1.8
+      },
+      "fal-ai/bytedance/seedance/v1/lite/reference-to-video": {
+        "unit": "image",
+        "output": 1.8
+      },
+      "fal/bytedance/seedance/v1/lite/reference-to-video": {
+        "unit": "image",
+        "output": 1.8
+      },
+      "argil/avatars/text-to-video": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/argil/avatars/text-to-video": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "argil/avatars/audio-to-video": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/argil/avatars/audio-to-video": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "uso": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "fal-ai/uso": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "fal/uso": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "decart/lucy-5b/image-to-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal-ai/decart/lucy-5b/image-to-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal/decart/lucy-5b/image-to-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "wan-fun-control": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/wan-fun-control": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/wan-fun-control": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "vibevoice/7b": {
+        "unit": "minute",
+        "output": 0.04
+      },
+      "fal-ai/vibevoice/7b": {
+        "unit": "minute",
+        "output": 0.04
+      },
+      "fal/vibevoice/7b": {
+        "unit": "minute",
+        "output": 0.04
+      },
+      "vibevoice": {
+        "unit": "minute",
+        "output": 0.04
+      },
+      "fal-ai/vibevoice": {
+        "unit": "minute",
+        "output": 0.04
+      },
+      "fal/vibevoice": {
+        "unit": "minute",
+        "output": 0.04
+      },
+      "wan/v2.2-14b/speech-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/wan/v2.2-14b/speech-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/wan/v2.2-14b/speech-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "bria/video/increase-resolution": {
+        "unit": "second",
+        "output": 0.14
+      },
+      "fal/bria/video/increase-resolution": {
+        "unit": "second",
+        "output": 0.14
+      },
+      "gemini-25-flash-image/edit": {
+        "unit": "image",
+        "output": 0.0398
+      },
+      "fal-ai/gemini-25-flash-image/edit": {
+        "unit": "image",
+        "output": 0.0398
+      },
+      "fal/gemini-25-flash-image/edit": {
+        "unit": "image",
+        "output": 0.0398
+      },
+      "gemini-25-flash-image": {
+        "unit": "image",
+        "output": 0.0398
+      },
+      "fal-ai/gemini-25-flash-image": {
+        "unit": "image",
+        "output": 0.0398
+      },
+      "fal/gemini-25-flash-image": {
+        "unit": "image",
+        "output": 0.0398
+      },
+      "qwen-image/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.02
+      },
+      "fal-ai/qwen-image/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.02
+      },
+      "fal/qwen-image/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.02
+      },
+      "sonauto/v2/extend": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/sonauto/v2/extend": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "sonauto/v2/inpaint": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/sonauto/v2/inpaint": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "sonauto/v2/text-to-music": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/sonauto/v2/text-to-music": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "pixverse/v5/transition": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/v5/transition": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/v5/transition": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "pixverse/v5/effects": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/v5/effects": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/v5/effects": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "pixverse/v5/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/v5/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/v5/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "pixverse/v5/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/v5/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/v5/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "infinitalk/single-text": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/infinitalk/single-text": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/infinitalk/single-text": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "infinitalk": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/infinitalk": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/infinitalk": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "elevenlabs/tts/eleven-v3": {
+        "unit": "request",
+        "output": 0.1
+      },
+      "fal-ai/elevenlabs/tts/eleven-v3": {
+        "unit": "request",
+        "output": 0.1
+      },
+      "fal/elevenlabs/tts/eleven-v3": {
+        "unit": "request",
+        "output": 0.1
+      },
+      "bria/reimagine/3.2": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/bria/reimagine/3.2": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "nano-banana/edit": {
+        "unit": "image",
+        "output": 0.0398
+      },
+      "fal-ai/nano-banana/edit": {
+        "unit": "image",
+        "output": 0.0398
+      },
+      "fal/nano-banana/edit": {
+        "unit": "image",
+        "output": 0.0398
+      },
+      "nano-banana": {
+        "unit": "image",
+        "output": 0.0398
+      },
+      "fal-ai/nano-banana": {
+        "unit": "image",
+        "output": 0.0398
+      },
+      "fal/nano-banana": {
+        "unit": "image",
+        "output": 0.0398
+      },
+      "nextstep-1": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "fal-ai/nextstep-1": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "fal/nextstep-1": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "qwen-image-edit": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal-ai/qwen-image-edit": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal/qwen-image-edit": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "mirelo-ai/sfx-v1/video-to-audio": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/mirelo-ai/sfx-v1/video-to-audio": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "mirelo-ai/sfx-v1/video-to-video": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/mirelo-ai/sfx-v1/video-to-video": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "stable-avatar": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/stable-avatar": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/stable-avatar": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "moonvalley/marey/pose-transfer": {
+        "unit": "second",
+        "output": 2
+      },
+      "fal/moonvalley/marey/pose-transfer": {
+        "unit": "second",
+        "output": 2
+      },
+      "moonvalley/marey/motion-transfer": {
+        "unit": "second",
+        "output": 2
+      },
+      "fal/moonvalley/marey/motion-transfer": {
+        "unit": "second",
+        "output": 2
+      },
+      "moonvalley/marey/i2v": {
+        "unit": "second",
+        "output": 1.5
+      },
+      "fal/moonvalley/marey/i2v": {
+        "unit": "second",
+        "output": 1.5
+      },
+      "qwen-image-trainer": {
+        "unit": "request",
+        "output": 0.002
+      },
+      "fal-ai/qwen-image-trainer": {
+        "unit": "request",
+        "output": 0.002
+      },
+      "fal/qwen-image-trainer": {
+        "unit": "request",
+        "output": 0.002
+      },
+      "moonvalley/marey/t2v": {
+        "unit": "second",
+        "output": 1.5
+      },
+      "fal/moonvalley/marey/t2v": {
+        "unit": "second",
+        "output": 1.5
+      },
+      "echomimic-v3": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/echomimic-v3": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/echomimic-v3": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "bytedance/video-stylize": {
+        "unit": "second",
+        "output": 0.23
+      },
+      "fal-ai/bytedance/video-stylize": {
+        "unit": "second",
+        "output": 0.23
+      },
+      "fal/bytedance/video-stylize": {
+        "unit": "second",
+        "output": 0.23
+      },
+      "ffmpeg-api/merge-videos": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "fal-ai/ffmpeg-api/merge-videos": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "fal/ffmpeg-api/merge-videos": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "minimax/preview/speech-2.5-hd": {
+        "unit": "request",
+        "output": 0.1
+      },
+      "fal-ai/minimax/preview/speech-2.5-hd": {
+        "unit": "request",
+        "output": 0.1
+      },
+      "fal/minimax/preview/speech-2.5-hd": {
+        "unit": "request",
+        "output": 0.1
+      },
+      "minimax/preview/speech-2.5-turbo": {
+        "unit": "request",
+        "output": 0.06
+      },
+      "fal-ai/minimax/preview/speech-2.5-turbo": {
+        "unit": "request",
+        "output": 0.06
+      },
+      "fal/minimax/preview/speech-2.5-turbo": {
+        "unit": "request",
+        "output": 0.06
+      },
+      "wan-22-image-trainer": {
+        "unit": "request",
+        "output": 0.0045
+      },
+      "fal-ai/wan-22-image-trainer": {
+        "unit": "request",
+        "output": 0.0045
+      },
+      "fal/wan-22-image-trainer": {
+        "unit": "request",
+        "output": 0.0045
+      },
+      "ideogram/character/edit": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/ideogram/character/edit": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/ideogram/character/edit": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "ideogram/character": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/ideogram/character": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/ideogram/character": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "ideogram/character/remix": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/ideogram/character/remix": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/ideogram/character/remix": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "wan/v2.2-a14b/text-to-video/lora": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/wan/v2.2-a14b/text-to-video/lora": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/wan/v2.2-a14b/text-to-video/lora": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "wan/v2.2-a14b/image-to-video/lora": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/wan/v2.2-a14b/image-to-video/lora": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/wan/v2.2-a14b/image-to-video/lora": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "wan/v2.2-5b/text-to-video/distill": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/wan/v2.2-5b/text-to-video/distill": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/wan/v2.2-5b/text-to-video/distill": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "minimax/hailuo-02-fast/image-to-video": {
+        "unit": "second",
+        "output": 0.017
+      },
+      "fal-ai/minimax/hailuo-02-fast/image-to-video": {
+        "unit": "second",
+        "output": 0.017
+      },
+      "fal/minimax/hailuo-02-fast/image-to-video": {
+        "unit": "second",
+        "output": 0.017
+      },
+      "bytedance/dreamina/v3.1/text-to-image": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal-ai/bytedance/dreamina/v3.1/text-to-image": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal/bytedance/dreamina/v3.1/text-to-image": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "wan/v2.2-5b/text-to-video/fast-wan": {
+        "unit": "second",
+        "output": 0.025
+      },
+      "fal-ai/wan/v2.2-5b/text-to-video/fast-wan": {
+        "unit": "second",
+        "output": 0.025
+      },
+      "fal/wan/v2.2-5b/text-to-video/fast-wan": {
+        "unit": "second",
+        "output": 0.025
+      },
+      "wan/v2.2-a14b/text-to-image/lora": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/wan/v2.2-a14b/text-to-image/lora": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/wan/v2.2-a14b/text-to-image/lora": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "wan/v2.2-5b/text-to-image": {
+        "unit": "image",
+        "output": 0.016
+      },
+      "fal-ai/wan/v2.2-5b/text-to-image": {
+        "unit": "image",
+        "output": 0.016
+      },
+      "fal/wan/v2.2-5b/text-to-image": {
+        "unit": "image",
+        "output": 0.016
+      },
+      "wan/v2.2-a14b/text-to-image": {
+        "unit": "image",
+        "output": 0.025
+      },
+      "fal-ai/wan/v2.2-a14b/text-to-image": {
+        "unit": "image",
+        "output": 0.025
+      },
+      "fal/wan/v2.2-a14b/text-to-image": {
+        "unit": "image",
+        "output": 0.025
+      },
+      "qwen-image": {
+        "unit": "megapixel",
+        "output": 0.02
+      },
+      "fal-ai/qwen-image": {
+        "unit": "megapixel",
+        "output": 0.02
+      },
+      "fal/qwen-image": {
+        "unit": "megapixel",
+        "output": 0.02
+      },
+      "wan/v2.2-a14b/video-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/wan/v2.2-a14b/video-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/wan/v2.2-a14b/video-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "flux-krea-lora/stream": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/flux-krea-lora/stream": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/flux-krea-lora/stream": {
+        "unit": "image",
+        "output": 0
+      },
+      "flux-krea-lora/inpainting": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/flux-krea-lora/inpainting": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/flux-krea-lora/inpainting": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "flux-krea-lora": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/flux-krea-lora": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/flux-krea-lora": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "flux-krea-lora/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/flux-krea-lora/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/flux-krea-lora/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "veo3/image-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal-ai/veo3/image-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal/veo3/image-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "wan/v2.2-a14b/image-to-video/turbo": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/wan/v2.2-a14b/image-to-video/turbo": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/wan/v2.2-a14b/image-to-video/turbo": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "wan/v2.2-a14b/text-to-video/turbo": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/wan/v2.2-a14b/text-to-video/turbo": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/wan/v2.2-a14b/text-to-video/turbo": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "flux/krea/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/flux/krea/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/flux/krea/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "flux/krea/redux": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/flux/krea/redux": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/flux/krea/redux": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "flux/krea": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/flux/krea": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/flux/krea": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "flux-1/krea/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/flux-1/krea/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/flux-1/krea/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "flux-1/krea/redux": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/flux-1/krea/redux": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/flux-1/krea/redux": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "flux-1/krea": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/flux-1/krea": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/flux-1/krea": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "wan/v2.2-5b/image-to-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal-ai/wan/v2.2-5b/image-to-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal/wan/v2.2-5b/image-to-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "flux-kontext-lora/inpaint": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/flux-kontext-lora/inpaint": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/flux-kontext-lora/inpaint": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "wan/v2.2-5b/text-to-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal-ai/wan/v2.2-5b/text-to-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal/wan/v2.2-5b/text-to-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "wan/v2.2-a14b/text-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/wan/v2.2-a14b/text-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/wan/v2.2-a14b/text-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "wan/v2.2-a14b/image-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/wan/v2.2-a14b/image-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/wan/v2.2-a14b/image-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "hunyuan_world": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "fal-ai/hunyuan_world": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "fal/hunyuan_world": {
+        "unit": "image",
+        "output": 0.15
+      },
+      "hunyuan_world/image-to-world": {
+        "unit": "request",
+        "output": 0.3
+      },
+      "fal-ai/hunyuan_world/image-to-world": {
+        "unit": "request",
+        "output": 0.3
+      },
+      "fal/hunyuan_world/image-to-world": {
+        "unit": "request",
+        "output": 0.3
+      },
+      "x-ailab/nsfw": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal-ai/x-ailab/nsfw": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal/x-ailab/nsfw": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "bytedance/omnihuman": {
+        "unit": "second",
+        "output": 0.14
+      },
+      "fal-ai/bytedance/omnihuman": {
+        "unit": "second",
+        "output": 0.14
+      },
+      "fal/bytedance/omnihuman": {
+        "unit": "second",
+        "output": 0.14
+      },
+      "sky-raccoon": {
+        "unit": "megapixel",
+        "output": 0.06
+      },
+      "fal-ai/sky-raccoon": {
+        "unit": "megapixel",
+        "output": 0.06
+      },
+      "fal/sky-raccoon": {
+        "unit": "megapixel",
+        "output": 0.06
+      },
+      "image-editing/retouch": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/retouch": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/retouch": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "hidream-e1-1": {
+        "unit": "image",
+        "output": 0.06
+      },
+      "fal-ai/hidream-e1-1": {
+        "unit": "image",
+        "output": 0.06
+      },
+      "fal/hidream-e1-1": {
+        "unit": "image",
+        "output": 0.06
+      },
+      "ltxv-13b-098-distilled/extend": {
+        "unit": "second",
+        "output": 0.02
+      },
+      "fal-ai/ltxv-13b-098-distilled/extend": {
+        "unit": "second",
+        "output": 0.02
+      },
+      "fal/ltxv-13b-098-distilled/extend": {
+        "unit": "second",
+        "output": 0.02
+      },
+      "rife/video": {
+        "unit": "second",
+        "output": 0.0013
+      },
+      "fal-ai/rife/video": {
+        "unit": "second",
+        "output": 0.0013
+      },
+      "fal/rife/video": {
+        "unit": "second",
+        "output": 0.0013
+      },
+      "rife": {
+        "unit": "second",
+        "output": 0.0013
+      },
+      "fal-ai/rife": {
+        "unit": "second",
+        "output": 0.0013
+      },
+      "fal/rife": {
+        "unit": "second",
+        "output": 0.0013
+      },
+      "film/video": {
+        "unit": "second",
+        "output": 0.0013
+      },
+      "fal-ai/film/video": {
+        "unit": "second",
+        "output": 0.0013
+      },
+      "fal/film/video": {
+        "unit": "second",
+        "output": 0.0013
+      },
+      "film": {
+        "unit": "second",
+        "output": 0.0013
+      },
+      "fal-ai/film": {
+        "unit": "second",
+        "output": 0.0013
+      },
+      "fal/film": {
+        "unit": "second",
+        "output": 0.0013
+      },
+      "minimax/voice-design": {
+        "unit": "request",
+        "output": 1
+      },
+      "fal-ai/minimax/voice-design": {
+        "unit": "request",
+        "output": 1
+      },
+      "fal/minimax/voice-design": {
+        "unit": "request",
+        "output": 1
+      },
+      "creatify/lipsync": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/creatify/lipsync": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "luma-dream-machine/ray-2-flash/modify": {
+        "unit": "second",
+        "output": 0.12
+      },
+      "fal-ai/luma-dream-machine/ray-2-flash/modify": {
+        "unit": "second",
+        "output": 0.12
+      },
+      "fal/luma-dream-machine/ray-2-flash/modify": {
+        "unit": "second",
+        "output": 0.12
+      },
+      "ltxv-13b-098-distilled/image-to-video": {
+        "unit": "second",
+        "output": 0.02
+      },
+      "fal-ai/ltxv-13b-098-distilled/image-to-video": {
+        "unit": "second",
+        "output": 0.02
+      },
+      "fal/ltxv-13b-098-distilled/image-to-video": {
+        "unit": "second",
+        "output": 0.02
+      },
+      "ltxv-13b-098-distilled": {
+        "unit": "second",
+        "output": 0.02
+      },
+      "fal-ai/ltxv-13b-098-distilled": {
+        "unit": "second",
+        "output": 0.02
+      },
+      "fal/ltxv-13b-098-distilled": {
+        "unit": "second",
+        "output": 0.02
+      },
+      "ltxv-13b-098-distilled/multiconditioning": {
+        "unit": "second",
+        "output": 0.02
+      },
+      "fal-ai/ltxv-13b-098-distilled/multiconditioning": {
+        "unit": "second",
+        "output": 0.02
+      },
+      "fal/ltxv-13b-098-distilled/multiconditioning": {
+        "unit": "second",
+        "output": 0.02
+      },
+      "calligrapher": {
+        "unit": "megapixel",
+        "output": 0.2
+      },
+      "fal-ai/calligrapher": {
+        "unit": "megapixel",
+        "output": 0.2
+      },
+      "fal/calligrapher": {
+        "unit": "megapixel",
+        "output": 0.2
+      },
+      "veo3/fast/image-to-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal-ai/veo3/fast/image-to-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "fal/veo3/fast/image-to-video": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "ffmpeg-api/loudnorm": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "fal-ai/ffmpeg-api/loudnorm": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "fal/ffmpeg-api/loudnorm": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "vidu/q1/reference-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/vidu/q1/reference-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/vidu/q1/reference-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "bria/reimagine": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/bria/reimagine": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/bria/reimagine": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "pixverse/sound-effects": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/pixverse/sound-effects": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/pixverse/sound-effects": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "image-editing/realism": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/realism": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/realism": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "thinksound/audio": {
+        "unit": "second",
+        "output": 0.001
+      },
+      "fal-ai/thinksound/audio": {
+        "unit": "second",
+        "output": 0.001
+      },
+      "fal/thinksound/audio": {
+        "unit": "second",
+        "output": 0.001
+      },
+      "thinksound": {
+        "unit": "second",
+        "output": 0.001
+      },
+      "fal-ai/thinksound": {
+        "unit": "second",
+        "output": 0.001
+      },
+      "fal/thinksound": {
+        "unit": "second",
+        "output": 0.001
+      },
+      "post-processing/vignette": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal-ai/post-processing/vignette": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal/post-processing/vignette": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "post-processing/solarize": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal-ai/post-processing/solarize": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal/post-processing/solarize": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "post-processing/sharpen": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal-ai/post-processing/sharpen": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal/post-processing/sharpen": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "post-processing/parabolize": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal-ai/post-processing/parabolize": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal/post-processing/parabolize": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "post-processing/grain": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal-ai/post-processing/grain": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal/post-processing/grain": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "post-processing/dodge-burn": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal-ai/post-processing/dodge-burn": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal/post-processing/dodge-burn": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "post-processing/dissolve": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal-ai/post-processing/dissolve": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal/post-processing/dissolve": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "post-processing/desaturate": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal-ai/post-processing/desaturate": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal/post-processing/desaturate": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "post-processing/color-tint": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal-ai/post-processing/color-tint": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal/post-processing/color-tint": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "post-processing/color-correction": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal-ai/post-processing/color-correction": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal/post-processing/color-correction": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "post-processing/chromatic-aberration": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal-ai/post-processing/chromatic-aberration": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal/post-processing/chromatic-aberration": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "post-processing/blur": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal-ai/post-processing/blur": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal/post-processing/blur": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "pixverse/extend/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/pixverse/extend/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/pixverse/extend/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "pixverse/extend": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/extend": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/extend": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "pixverse/lipsync": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal-ai/pixverse/lipsync": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal/pixverse/lipsync": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "image-editing/youtube-thumbnails": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/youtube-thumbnails": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/youtube-thumbnails": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "luma-dream-machine/ray-2/modify": {
+        "unit": "second",
+        "output": 0.35
+      },
+      "fal-ai/luma-dream-machine/ray-2/modify": {
+        "unit": "second",
+        "output": 0.35
+      },
+      "fal/luma-dream-machine/ray-2/modify": {
+        "unit": "second",
+        "output": 0.35
+      },
+      "topaz/upscale/image": {
+        "unit": "megapixel",
+        "output": 0.01
+      },
+      "fal-ai/topaz/upscale/image": {
+        "unit": "megapixel",
+        "output": 0.01
+      },
+      "fal/topaz/upscale/image": {
+        "unit": "megapixel",
+        "output": 0.01
+      },
+      "bytedance/seededit/v3/edit-image": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal-ai/bytedance/seededit/v3/edit-image": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal/bytedance/seededit/v3/edit-image": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "flux-kontext-trainer": {
+        "unit": "request",
+        "output": 0.0025
+      },
+      "fal-ai/flux-kontext-trainer": {
+        "unit": "request",
+        "output": 0.0025
+      },
+      "fal/flux-kontext-trainer": {
+        "unit": "request",
+        "output": 0.0025
+      },
+      "image-editing/broccoli-haircut": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/broccoli-haircut": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/broccoli-haircut": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-editing/wojak-style": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/wojak-style": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/wojak-style": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-editing/plushie-style": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/plushie-style": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/plushie-style": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "flux-kontext-lora/text-to-image": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/flux-kontext-lora/text-to-image": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/flux-kontext-lora/text-to-image": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "flux-kontext-lora": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/flux-kontext-lora": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/flux-kontext-lora": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "omnigen-v2": {
+        "unit": "megapixel",
+        "output": 0.15
+      },
+      "fal-ai/omnigen-v2": {
+        "unit": "megapixel",
+        "output": 0.15
+      },
+      "fal/omnigen-v2": {
+        "unit": "megapixel",
+        "output": 0.15
+      },
+      "fashn/tryon/v1.6": {
+        "unit": "image",
+        "output": 0.075
+      },
+      "fal-ai/fashn/tryon/v1.6": {
+        "unit": "image",
+        "output": 0.075
+      },
+      "fal/fashn/tryon/v1.6": {
+        "unit": "image",
+        "output": 0.075
+      },
+      "ai-avatar/single-text": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/ai-avatar/single-text": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/ai-avatar/single-text": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "ai-avatar": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/ai-avatar": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/ai-avatar": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "ai-avatar/multi-text": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/ai-avatar/multi-text": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/ai-avatar/multi-text": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "ai-avatar/multi": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/ai-avatar/multi": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/ai-avatar/multi": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "video-understanding": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "fal-ai/video-understanding": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "fal/video-understanding": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "wan-vace-14b/reframe": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/wan-vace-14b/reframe": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/wan-vace-14b/reframe": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "wan-vace-14b/outpainting": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/wan-vace-14b/outpainting": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/wan-vace-14b/outpainting": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "wan-vace-14b/inpainting": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/wan-vace-14b/inpainting": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/wan-vace-14b/inpainting": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "wan-vace-14b/pose": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/wan-vace-14b/pose": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/wan-vace-14b/pose": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "wan-vace-14b/depth": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/wan-vace-14b/depth": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/wan-vace-14b/depth": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "chain-of-zoom": {
+        "unit": "image",
+        "output": 0.025
+      },
+      "fal-ai/chain-of-zoom": {
+        "unit": "image",
+        "output": 0.025
+      },
+      "fal/chain-of-zoom": {
+        "unit": "image",
+        "output": 0.025
+      },
+      "tripo3d/tripo/v2.5/multiview-to-3d": {
+        "unit": "second",
+        "output": 0.00007
+      },
+      "fal/tripo3d/tripo/v2.5/multiview-to-3d": {
+        "unit": "second",
+        "output": 0.00007
+      },
+      "minimax/hailuo-02/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/minimax/hailuo-02/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/minimax/hailuo-02/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "minimax/hailuo-02/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/minimax/hailuo-02/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/minimax/hailuo-02/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "pasd": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal-ai/pasd": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal/pasd": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "object-removal/bbox": {
+        "unit": "image",
+        "output": 0.006
+      },
+      "fal-ai/object-removal/bbox": {
+        "unit": "image",
+        "output": 0.006
+      },
+      "fal/object-removal/bbox": {
+        "unit": "image",
+        "output": 0.006
+      },
+      "object-removal/mask": {
+        "unit": "image",
+        "output": 0.006
+      },
+      "fal-ai/object-removal/mask": {
+        "unit": "image",
+        "output": 0.006
+      },
+      "fal/object-removal/mask": {
+        "unit": "image",
+        "output": 0.006
+      },
+      "object-removal": {
+        "unit": "image",
+        "output": 0.006
+      },
+      "fal-ai/object-removal": {
+        "unit": "image",
+        "output": 0.006
+      },
+      "fal/object-removal": {
+        "unit": "image",
+        "output": 0.006
+      },
+      "bytedance/seedance/v1/pro/text-to-video": {
+        "unit": "second",
+        "output": 2.5
+      },
+      "fal-ai/bytedance/seedance/v1/pro/text-to-video": {
+        "unit": "second",
+        "output": 2.5
+      },
+      "fal/bytedance/seedance/v1/pro/text-to-video": {
+        "unit": "second",
+        "output": 2.5
+      },
+      "dwpose/video": {
+        "unit": "second",
+        "output": 0.0006
+      },
+      "fal-ai/dwpose/video": {
+        "unit": "second",
+        "output": 0.0006
+      },
+      "fal/dwpose/video": {
+        "unit": "second",
+        "output": 0.0006
+      },
+      "hunyuan3d-v21": {
+        "unit": "image",
+        "output": 0.3
+      },
+      "fal-ai/hunyuan3d-v21": {
+        "unit": "image",
+        "output": 0.3
+      },
+      "fal/hunyuan3d-v21": {
+        "unit": "image",
+        "output": 0.3
+      },
+      "bytedance/seedance/v1/lite/image-to-video": {
+        "unit": "image",
+        "output": 1.8
+      },
+      "fal-ai/bytedance/seedance/v1/lite/image-to-video": {
+        "unit": "image",
+        "output": 1.8
+      },
+      "fal/bytedance/seedance/v1/lite/image-to-video": {
+        "unit": "image",
+        "output": 1.8
+      },
+      "bytedance/seedance/v1/lite/text-to-video": {
+        "unit": "second",
+        "output": 1.8
+      },
+      "fal-ai/bytedance/seedance/v1/lite/text-to-video": {
+        "unit": "second",
+        "output": 1.8
+      },
+      "fal/bytedance/seedance/v1/lite/text-to-video": {
+        "unit": "second",
+        "output": 1.8
+      },
+      "recraft/vectorize": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "fal-ai/recraft/vectorize": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "fal/recraft/vectorize": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "wan-trainer/t2v": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "fal-ai/wan-trainer/t2v": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "fal/wan-trainer/t2v": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "wan-trainer/t2v-14b": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "fal-ai/wan-trainer/t2v-14b": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "fal/wan-trainer/t2v-14b": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "wan-trainer/i2v-720p": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "fal-ai/wan-trainer/i2v-720p": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "fal/wan-trainer/i2v-720p": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "wan-trainer/flf2v-720p": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "fal-ai/wan-trainer/flf2v-720p": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "fal/wan-trainer/flf2v-720p": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "bytedance/seedream/v3/text-to-image": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal-ai/bytedance/seedream/v3/text-to-image": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal/bytedance/seedream/v3/text-to-image": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "ffmpeg-api/extract-frame": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "fal-ai/ffmpeg-api/extract-frame": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "fal/ffmpeg-api/extract-frame": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "ffmpeg-api/merge-audio-video": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "fal-ai/ffmpeg-api/merge-audio-video": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "fal/ffmpeg-api/merge-audio-video": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "luma-photon/flash/modify": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "fal-ai/luma-photon/flash/modify": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "fal/luma-photon/flash/modify": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "luma-photon/modify": {
+        "unit": "megapixel",
+        "output": 0.019
+      },
+      "fal-ai/luma-photon/modify": {
+        "unit": "megapixel",
+        "output": 0.019
+      },
+      "fal/luma-photon/modify": {
+        "unit": "megapixel",
+        "output": 0.019
+      },
+      "image-editing/reframe": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/reframe": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/reframe": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "wan-vace-1-3b": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/wan-vace-1-3b": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/wan-vace-1-3b": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "image-editing/baby-version": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/baby-version": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/baby-version": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "luma-dream-machine/ray-2-flash/reframe": {
+        "unit": "second",
+        "output": 0.06
+      },
+      "fal-ai/luma-dream-machine/ray-2-flash/reframe": {
+        "unit": "second",
+        "output": 0.06
+      },
+      "fal/luma-dream-machine/ray-2-flash/reframe": {
+        "unit": "second",
+        "output": 0.06
+      },
+      "luma-dream-machine/ray-2/reframe": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/luma-dream-machine/ray-2/reframe": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/luma-dream-machine/ray-2/reframe": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "luma-photon/flash/reframe": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "fal-ai/luma-photon/flash/reframe": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "fal/luma-photon/flash/reframe": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "luma-photon/reframe": {
+        "unit": "megapixel",
+        "output": 0.019
+      },
+      "fal-ai/luma-photon/reframe": {
+        "unit": "megapixel",
+        "output": 0.019
+      },
+      "fal/luma-photon/reframe": {
+        "unit": "megapixel",
+        "output": 0.019
+      },
+      "resemble-ai/chatterboxhd/speech-to-speech": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/resemble-ai/chatterboxhd/speech-to-speech": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "resemble-ai/chatterboxhd/text-to-speech": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/resemble-ai/chatterboxhd/text-to-speech": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "flux-1/schnell/redux": {
+        "unit": "megapixel",
+        "output": 0.003
+      },
+      "fal-ai/flux-1/schnell/redux": {
+        "unit": "megapixel",
+        "output": 0.003
+      },
+      "fal/flux-1/schnell/redux": {
+        "unit": "megapixel",
+        "output": 0.003
+      },
+      "flux-1/dev/redux": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/flux-1/dev/redux": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/flux-1/dev/redux": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "flux-1/dev/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/flux-1/dev/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/flux-1/dev/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "flux-1/schnell": {
+        "unit": "megapixel",
+        "output": 0.003
+      },
+      "fal-ai/flux-1/schnell": {
+        "unit": "megapixel",
+        "output": 0.003
+      },
+      "fal/flux-1/schnell": {
+        "unit": "megapixel",
+        "output": 0.003
+      },
+      "flux-1/dev": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/flux-1/dev": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/flux-1/dev": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "image-editing/text-removal": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/text-removal": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/text-removal": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-editing/photo-restoration": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/photo-restoration": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/photo-restoration": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "chatterbox/speech-to-speech": {
+        "unit": "minute",
+        "output": 0.015
+      },
+      "fal-ai/chatterbox/speech-to-speech": {
+        "unit": "minute",
+        "output": 0.015
+      },
+      "fal/chatterbox/speech-to-speech": {
+        "unit": "minute",
+        "output": 0.015
+      },
+      "chatterbox/text-to-speech": {
+        "unit": "request",
+        "output": 0.025
+      },
+      "fal-ai/chatterbox/text-to-speech": {
+        "unit": "request",
+        "output": 0.025
+      },
+      "fal/chatterbox/text-to-speech": {
+        "unit": "request",
+        "output": 0.025
+      },
+      "image-editing/weather-effect": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/weather-effect": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/weather-effect": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-editing/time-of-day": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/time-of-day": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/time-of-day": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-editing/style-transfer": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/style-transfer": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/style-transfer": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-editing/scene-composition": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/scene-composition": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/scene-composition": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-editing/professional-photo": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/professional-photo": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/professional-photo": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-editing/object-removal": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/object-removal": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/object-removal": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-editing/hair-change": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/hair-change": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/hair-change": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-editing/face-enhancement": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/face-enhancement": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/face-enhancement": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-editing/expression-change": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/expression-change": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/expression-change": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-editing/color-correction": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/color-correction": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/color-correction": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-editing/cartoonify": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/cartoonify": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/cartoonify": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-editing/background-change": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/background-change": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/background-change": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "image-editing/age-progression": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/image-editing/age-progression": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/image-editing/age-progression": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "flux-pro/kontext/max/multi": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "fal-ai/flux-pro/kontext/max/multi": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "fal/flux-pro/kontext/max/multi": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "flux-pro/kontext/multi": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/flux-pro/kontext/multi": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/flux-pro/kontext/multi": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "hunyuan-avatar": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal-ai/hunyuan-avatar": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal/hunyuan-avatar": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "flux-pro/kontext/max": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "fal-ai/flux-pro/kontext/max": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "fal/flux-pro/kontext/max": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "flux-pro/kontext/max/text-to-image": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "fal-ai/flux-pro/kontext/max/text-to-image": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "fal/flux-pro/kontext/max/text-to-image": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "kling-video/v2.1/master/text-to-video": {
+        "unit": "second",
+        "output": 0.28
+      },
+      "fal-ai/kling-video/v2.1/master/text-to-video": {
+        "unit": "second",
+        "output": 0.28
+      },
+      "fal/kling-video/v2.1/master/text-to-video": {
+        "unit": "second",
+        "output": 0.28
+      },
+      "kling-video/v2.1/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.09
+      },
+      "fal-ai/kling-video/v2.1/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.09
+      },
+      "fal/kling-video/v2.1/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.09
+      },
+      "flux-pro/kontext/text-to-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/flux-pro/kontext/text-to-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/flux-pro/kontext/text-to-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "flux-kontext/dev": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/flux-kontext/dev": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/flux-kontext/dev": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "flux-pro/kontext": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/flux-pro/kontext": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/flux-pro/kontext": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "veed/lipsync": {
+        "unit": "second",
+        "output": 0.000575
+      },
+      "fal/veed/lipsync": {
+        "unit": "second",
+        "output": 0.000575
+      },
+      "veed/avatars/text-to-video": {
+        "unit": "second",
+        "output": 0.000575
+      },
+      "fal/veed/avatars/text-to-video": {
+        "unit": "second",
+        "output": 0.000575
+      },
+      "veed/avatars/audio-to-video": {
+        "unit": "second",
+        "output": 0.000575
+      },
+      "fal/veed/avatars/audio-to-video": {
+        "unit": "second",
+        "output": 0.000575
+      },
+      "hunyuan-portrait": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/hunyuan-portrait": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/hunyuan-portrait": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "wan-vace-14b": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/wan-vace-14b": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/wan-vace-14b": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "bagel/understand": {
+        "unit": "request",
+        "output": 0.05
+      },
+      "fal-ai/bagel/understand": {
+        "unit": "request",
+        "output": 0.05
+      },
+      "fal/bagel/understand": {
+        "unit": "request",
+        "output": 0.05
+      },
+      "bagel/edit": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "fal-ai/bagel/edit": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "fal/bagel/edit": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "bagel": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "fal-ai/bagel": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "fal/bagel": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "lyria2": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/lyria2": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/lyria2": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "imagen4/preview/ultra": {
+        "unit": "image",
+        "output": 0.06
+      },
+      "fal-ai/imagen4/preview/ultra": {
+        "unit": "image",
+        "output": 0.06
+      },
+      "fal/imagen4/preview/ultra": {
+        "unit": "image",
+        "output": 0.06
+      },
+      "kling-video/v1.6/standard/elements": {
+        "unit": "second",
+        "output": 0.045
+      },
+      "fal-ai/kling-video/v1.6/standard/elements": {
+        "unit": "second",
+        "output": 0.045
+      },
+      "fal/kling-video/v1.6/standard/elements": {
+        "unit": "second",
+        "output": 0.045
+      },
+      "kling-video/v1.6/pro/elements": {
+        "unit": "second",
+        "output": 0.095
+      },
+      "fal-ai/kling-video/v1.6/pro/elements": {
+        "unit": "second",
+        "output": 0.095
+      },
+      "fal/kling-video/v1.6/pro/elements": {
+        "unit": "second",
+        "output": 0.095
+      },
+      "dreamo": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "fal-ai/dreamo": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "fal/dreamo": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "ltx-video-13b-distilled/extend": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal-ai/ltx-video-13b-distilled/extend": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal/ltx-video-13b-distilled/extend": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "ltx-video-13b-distilled/multiconditioning": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal-ai/ltx-video-13b-distilled/multiconditioning": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal/ltx-video-13b-distilled/multiconditioning": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "ltx-video-13b-distilled/image-to-video": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal-ai/ltx-video-13b-distilled/image-to-video": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal/ltx-video-13b-distilled/image-to-video": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "ltx-video-13b-dev/multiconditioning": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/ltx-video-13b-dev/multiconditioning": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/ltx-video-13b-dev/multiconditioning": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "ltx-video-13b-dev/extend": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/ltx-video-13b-dev/extend": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/ltx-video-13b-dev/extend": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "ltx-video-13b-dev/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/ltx-video-13b-dev/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/ltx-video-13b-dev/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "ltx-video-13b-dev": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/ltx-video-13b-dev": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/ltx-video-13b-dev": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "ltx-video-13b-distilled": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal-ai/ltx-video-13b-distilled": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal/ltx-video-13b-distilled": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "flux-lora/stream": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/flux-lora/stream": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/flux-lora/stream": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "ltx-video-lora/multiconditioning": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/ltx-video-lora/multiconditioning": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/ltx-video-lora/multiconditioning": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "ltx-video-lora/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/ltx-video-lora/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/ltx-video-lora/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "pixverse/v4.5/transition": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/v4.5/transition": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/v4.5/transition": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "pixverse/v4.5/image-to-video/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/pixverse/v4.5/image-to-video/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/pixverse/v4.5/image-to-video/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "pixverse/v4.5/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/v4.5/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/v4.5/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "pixverse/v4.5/text-to-video/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/pixverse/v4.5/text-to-video/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/pixverse/v4.5/text-to-video/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "pixverse/v4.5/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/v4.5/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/v4.5/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "pixverse/v4.5/effects": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/v4.5/effects": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/v4.5/effects": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "hunyuan-custom": {
+        "unit": "second",
+        "output": 0.8
+      },
+      "fal-ai/hunyuan-custom": {
+        "unit": "second",
+        "output": 0.8
+      },
+      "fal/hunyuan-custom": {
+        "unit": "second",
+        "output": 0.8
+      },
+      "framepack/f1": {
+        "unit": "second",
+        "output": 0.0333
+      },
+      "fal-ai/framepack/f1": {
+        "unit": "second",
+        "output": 0.0333
+      },
+      "fal/framepack/f1": {
+        "unit": "second",
+        "output": 0.0333
+      },
+      "ace-step/audio-outpaint": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "fal-ai/ace-step/audio-outpaint": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "fal/ace-step/audio-outpaint": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "ace-step/audio-inpaint": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "fal-ai/ace-step/audio-inpaint": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "fal/ace-step/audio-inpaint": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "ace-step/audio-to-audio": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "fal-ai/ace-step/audio-to-audio": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "fal/ace-step/audio-to-audio": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "ace-step/prompt-to-audio": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "fal-ai/ace-step/prompt-to-audio": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "fal/ace-step/prompt-to-audio": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "smoretalk-ai/rembg-enhance": {
+        "unit": "image",
+        "output": 0.006
+      },
+      "fal/smoretalk-ai/rembg-enhance": {
+        "unit": "image",
+        "output": 0.006
+      },
+      "vidu/q1/start-end-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/vidu/q1/start-end-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/vidu/q1/start-end-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "vidu/q1/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/vidu/q1/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/vidu/q1/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "vidu/q1/image-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/vidu/q1/image-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/vidu/q1/image-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "ace-step": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "fal-ai/ace-step": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "fal/ace-step": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "ltx-video-trainer": {
+        "unit": "request",
+        "output": 0.002
+      },
+      "fal-ai/ltx-video-trainer": {
+        "unit": "request",
+        "output": 0.002
+      },
+      "fal/ltx-video-trainer": {
+        "unit": "request",
+        "output": 0.002
+      },
+      "recraft/upscale/creative": {
+        "unit": "image",
+        "output": 0.25
+      },
+      "fal-ai/recraft/upscale/creative": {
+        "unit": "image",
+        "output": 0.25
+      },
+      "fal/recraft/upscale/creative": {
+        "unit": "image",
+        "output": 0.25
+      },
+      "recraft/upscale/crisp": {
+        "unit": "image",
+        "output": 0.004
+      },
+      "fal-ai/recraft/upscale/crisp": {
+        "unit": "image",
+        "output": 0.004
+      },
+      "fal/recraft/upscale/crisp": {
+        "unit": "image",
+        "output": 0.004
+      },
+      "recraft/v3/create-style": {
+        "unit": "request",
+        "output": 0.04
+      },
+      "fal-ai/recraft/v3/create-style": {
+        "unit": "request",
+        "output": 0.04
+      },
+      "fal/recraft/v3/create-style": {
+        "unit": "request",
+        "output": 0.04
+      },
+      "recraft/v3/image-to-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/recraft/v3/image-to-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/recraft/v3/image-to-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "minimax/voice-clone": {
+        "unit": "request",
+        "output": 1
+      },
+      "fal-ai/minimax/voice-clone": {
+        "unit": "request",
+        "output": 1
+      },
+      "fal/minimax/voice-clone": {
+        "unit": "request",
+        "output": 1
+      },
+      "minimax/speech-02-turbo": {
+        "unit": "request",
+        "output": 0.03
+      },
+      "fal-ai/minimax/speech-02-turbo": {
+        "unit": "request",
+        "output": 0.03
+      },
+      "fal/minimax/speech-02-turbo": {
+        "unit": "request",
+        "output": 0.03
+      },
+      "minimax/speech-02-hd": {
+        "unit": "request",
+        "output": 0.05
+      },
+      "fal-ai/minimax/speech-02-hd": {
+        "unit": "request",
+        "output": 0.05
+      },
+      "fal/minimax/speech-02-hd": {
+        "unit": "request",
+        "output": 0.05
+      },
+      "minimax/image-01/subject-reference": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "fal-ai/minimax/image-01/subject-reference": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "fal/minimax/image-01/subject-reference": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "minimax/image-01": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "fal-ai/minimax/image-01": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "fal/minimax/image-01": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "hidream-i1-full/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "fal-ai/hidream-i1-full/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "fal/hidream-i1-full/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "pony-v7": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal-ai/pony-v7": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal/pony-v7": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "trellis/multi": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal-ai/trellis/multi": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal/trellis/multi": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "ideogram/v3/reframe": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal-ai/ideogram/v3/reframe": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal/ideogram/v3/reframe": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "ideogram/v3": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal-ai/ideogram/v3": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal/ideogram/v3": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "ideogram/v3/replace-background": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal-ai/ideogram/v3/replace-background": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal/ideogram/v3/replace-background": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "ideogram/v3/remix": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal-ai/ideogram/v3/remix": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal/ideogram/v3/remix": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "ideogram/v3/edit": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal-ai/ideogram/v3/edit": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "fal/ideogram/v3/edit": {
+        "unit": "image",
+        "output": 0.03
+      },
+      "f-lite/standard": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/f-lite/standard": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/f-lite/standard": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "f-lite/texture": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/f-lite/texture": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/f-lite/texture": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "moondream2/visual-query": {
+        "unit": "request",
+        "output": 0.01
+      },
+      "fal-ai/moondream2/visual-query": {
+        "unit": "request",
+        "output": 0.01
+      },
+      "fal/moondream2/visual-query": {
+        "unit": "request",
+        "output": 0.01
+      },
+      "moondream2": {
+        "unit": "request",
+        "output": 0.01
+      },
+      "fal-ai/moondream2": {
+        "unit": "request",
+        "output": 0.01
+      },
+      "fal/moondream2": {
+        "unit": "request",
+        "output": 0.01
+      },
+      "moondream2/point-object-detection": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal-ai/moondream2/point-object-detection": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal/moondream2/point-object-detection": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "moondream2/object-detection": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal-ai/moondream2/object-detection": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal/moondream2/object-detection": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "step1x-edit": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal-ai/step1x-edit": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal/step1x-edit": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "tripo3d/tripo/v2.5/image-to-3d": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "fal/tripo3d/tripo/v2.5/image-to-3d": {
+        "unit": "image",
+        "output": 0.01
+      },
+      "image2svg": {
+        "unit": "image",
+        "output": 0.005
+      },
+      "fal-ai/image2svg": {
+        "unit": "image",
+        "output": 0.005
+      },
+      "fal/image2svg": {
+        "unit": "image",
+        "output": 0.005
+      },
+      "uno": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "fal-ai/uno": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "fal/uno": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "magi/extend-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/magi/extend-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/magi/extend-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "magi": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/magi": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/magi": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "magi/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/magi/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/magi/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "gpt-image-1/text-to-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/gpt-image-1/text-to-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/gpt-image-1/text-to-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "gpt-image-1/edit-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/gpt-image-1/edit-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/gpt-image-1/edit-image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "pixverse/v4/effects": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/v4/effects": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/v4/effects": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "magi-distilled/extend-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/magi-distilled/extend-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/magi-distilled/extend-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "magi-distilled/image-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/magi-distilled/image-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/magi-distilled/image-to-video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "dia-tts/voice-clone": {
+        "unit": "request",
+        "output": 0.04
+      },
+      "fal-ai/dia-tts/voice-clone": {
+        "unit": "request",
+        "output": 0.04
+      },
+      "fal/dia-tts/voice-clone": {
+        "unit": "request",
+        "output": 0.04
+      },
+      "framepack/flf2v": {
+        "unit": "second",
+        "output": 0.0333
+      },
+      "fal-ai/framepack/flf2v": {
+        "unit": "second",
+        "output": 0.0333
+      },
+      "fal/framepack/flf2v": {
+        "unit": "second",
+        "output": 0.0333
+      },
+      "dia-tts": {
+        "unit": "request",
+        "output": 0.04
+      },
+      "fal-ai/dia-tts": {
+        "unit": "request",
+        "output": 0.04
+      },
+      "fal/dia-tts": {
+        "unit": "request",
+        "output": 0.04
+      },
+      "magi-distilled": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/magi-distilled": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/magi-distilled": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "smart-turn": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal-ai/smart-turn": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/smart-turn": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "rundiffusion-fal/juggernaut-flux-lora/inpainting": {
+        "unit": "megapixel",
+        "output": 0.045
+      },
+      "fal/rundiffusion-fal/juggernaut-flux-lora/inpainting": {
+        "unit": "megapixel",
+        "output": 0.045
+      },
+      "fashn/tryon/v1.5": {
+        "unit": "image",
+        "output": 0.075
+      },
+      "fal-ai/fashn/tryon/v1.5": {
+        "unit": "image",
+        "output": 0.075
+      },
+      "fal/fashn/tryon/v1.5": {
+        "unit": "image",
+        "output": 0.075
+      },
+      "plushify": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "fal-ai/plushify": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "fal/plushify": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "instant-character": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "fal-ai/instant-character": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "fal/instant-character": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "wan-flf2v": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal-ai/wan-flf2v": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal/wan-flf2v": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "turbo-flux-trainer": {
+        "unit": "request",
+        "output": 0.0024
+      },
+      "fal-ai/turbo-flux-trainer": {
+        "unit": "request",
+        "output": 0.0024
+      },
+      "fal/turbo-flux-trainer": {
+        "unit": "request",
+        "output": 0.0024
+      },
+      "framepack": {
+        "unit": "second",
+        "output": 0.0333
+      },
+      "fal-ai/framepack": {
+        "unit": "second",
+        "output": 0.0333
+      },
+      "fal/framepack": {
+        "unit": "second",
+        "output": 0.0333
+      },
+      "cartoonify": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "fal-ai/cartoonify": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "fal/cartoonify": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "wan-vace": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/wan-vace": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/wan-vace": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "finegrain-eraser/mask": {
+        "unit": "image",
+        "output": 0.045
+      },
+      "fal-ai/finegrain-eraser/mask": {
+        "unit": "image",
+        "output": 0.045
+      },
+      "fal/finegrain-eraser/mask": {
+        "unit": "image",
+        "output": 0.045
+      },
+      "finegrain-eraser/bbox": {
+        "unit": "image",
+        "output": 0.045
+      },
+      "fal-ai/finegrain-eraser/bbox": {
+        "unit": "image",
+        "output": 0.045
+      },
+      "fal/finegrain-eraser/bbox": {
+        "unit": "image",
+        "output": 0.045
+      },
+      "finegrain-eraser": {
+        "unit": "image",
+        "output": 0.045
+      },
+      "fal-ai/finegrain-eraser": {
+        "unit": "image",
+        "output": 0.045
+      },
+      "fal/finegrain-eraser": {
+        "unit": "image",
+        "output": 0.045
+      },
+      "cassetteai/video-sound-effects-generator": {
+        "unit": "minute",
+        "output": 0.2
+      },
+      "fal/cassetteai/video-sound-effects-generator": {
+        "unit": "minute",
+        "output": 0.2
+      },
+      "speech-to-text/turbo": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal-ai/speech-to-text/turbo": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal/speech-to-text/turbo": {
+        "unit": "request",
+        "output": 0
+      },
+      "speech-to-text/turbo/stream": {
+        "unit": "second",
+        "output": 0.0008
+      },
+      "fal-ai/speech-to-text/turbo/stream": {
+        "unit": "second",
+        "output": 0.0008
+      },
+      "fal/speech-to-text/turbo/stream": {
+        "unit": "second",
+        "output": 0.0008
+      },
+      "speech-to-text/stream": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal-ai/speech-to-text/stream": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal/speech-to-text/stream": {
+        "unit": "request",
+        "output": 0
+      },
+      "speech-to-text": {
+        "unit": "second",
+        "output": 0.0008
+      },
+      "fal-ai/speech-to-text": {
+        "unit": "second",
+        "output": 0.0008
+      },
+      "fal/speech-to-text": {
+        "unit": "second",
+        "output": 0.0008
+      },
+      "cassetteai/sound-effects-generator": {
+        "unit": "request",
+        "output": 0.01
+      },
+      "fal/cassetteai/sound-effects-generator": {
+        "unit": "request",
+        "output": 0.01
+      },
+      "sync-lipsync/v2": {
+        "unit": "minute",
+        "output": 3
+      },
+      "fal-ai/sync-lipsync/v2": {
+        "unit": "minute",
+        "output": 3
+      },
+      "fal/sync-lipsync/v2": {
+        "unit": "minute",
+        "output": 3
+      },
+      "star-vector": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "fal-ai/star-vector": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "fal/star-vector": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "pixverse/v4/image-to-video/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/pixverse/v4/image-to-video/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/pixverse/v4/image-to-video/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "pixverse/v4/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/v4/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/v4/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "pixverse/v3.5/effects": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/v3.5/effects": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/v3.5/effects": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "pixverse/v4/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/v4/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/v4/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "pixverse/v3.5/transition": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/v3.5/transition": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/v3.5/transition": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "pixverse/v4/text-to-video/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/pixverse/v4/text-to-video/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/pixverse/v4/text-to-video/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "ghiblify": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/ghiblify": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/ghiblify": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "orpheus-tts": {
+        "unit": "request",
+        "output": 0.05
+      },
+      "fal-ai/orpheus-tts": {
+        "unit": "request",
+        "output": 0.05
+      },
+      "fal/orpheus-tts": {
+        "unit": "request",
+        "output": 0.05
+      },
+      "sana/v1.5/1.6b": {
+        "unit": "megapixel",
+        "output": 0.0075
+      },
+      "fal-ai/sana/v1.5/1.6b": {
+        "unit": "megapixel",
+        "output": 0.0075
+      },
+      "fal/sana/v1.5/1.6b": {
+        "unit": "megapixel",
+        "output": 0.0075
+      },
+      "sana/v1.5/4.8b": {
+        "unit": "megapixel",
+        "output": 0.01
+      },
+      "fal-ai/sana/v1.5/4.8b": {
+        "unit": "megapixel",
+        "output": 0.01
+      },
+      "fal/sana/v1.5/4.8b": {
+        "unit": "megapixel",
+        "output": 0.01
+      },
+      "sana/sprint": {
+        "unit": "megapixel",
+        "output": 0.0025
+      },
+      "fal-ai/sana/sprint": {
+        "unit": "megapixel",
+        "output": 0.0025
+      },
+      "fal/sana/sprint": {
+        "unit": "megapixel",
+        "output": 0.0025
+      },
+      "cassetteai/music-generator": {
+        "unit": "minute",
+        "output": 0.02
+      },
+      "fal/cassetteai/music-generator": {
+        "unit": "minute",
+        "output": 0.02
+      },
+      "kling-video/lipsync/audio-to-video": {
+        "unit": "second",
+        "output": 0.014
+      },
+      "fal-ai/kling-video/lipsync/audio-to-video": {
+        "unit": "second",
+        "output": 0.014
+      },
+      "fal/kling-video/lipsync/audio-to-video": {
+        "unit": "second",
+        "output": 0.014
+      },
+      "kling-video/lipsync/text-to-video": {
+        "unit": "second",
+        "output": 0.014
+      },
+      "fal-ai/kling-video/lipsync/text-to-video": {
+        "unit": "second",
+        "output": 0.014
+      },
+      "fal/kling-video/lipsync/text-to-video": {
+        "unit": "second",
+        "output": 0.014
+      },
+      "latentsync": {
+        "unit": "second",
+        "output": 0.005
+      },
+      "fal-ai/latentsync": {
+        "unit": "second",
+        "output": 0.005
+      },
+      "fal/latentsync": {
+        "unit": "second",
+        "output": 0.005
+      },
+      "wan-t2v-lora": {
+        "unit": "second",
+        "output": 0.75
+      },
+      "fal-ai/wan-t2v-lora": {
+        "unit": "second",
+        "output": 0.75
+      },
+      "fal/wan-t2v-lora": {
+        "unit": "second",
+        "output": 0.75
+      },
+      "wan-trainer": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "fal-ai/wan-trainer": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "fal/wan-trainer": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "thera": {
+        "unit": "megapixel",
+        "output": 0.0021
+      },
+      "fal-ai/thera": {
+        "unit": "megapixel",
+        "output": 0.0021
+      },
+      "fal/thera": {
+        "unit": "megapixel",
+        "output": 0.0021
+      },
+      "mix-dehaze-net": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/mix-dehaze-net": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/mix-dehaze-net": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "hunyuan3d/v2/multi-view/turbo": {
+        "unit": "image",
+        "output": 0.015
+      },
+      "fal-ai/hunyuan3d/v2/multi-view/turbo": {
+        "unit": "image",
+        "output": 0.015
+      },
+      "fal/hunyuan3d/v2/multi-view/turbo": {
+        "unit": "image",
+        "output": 0.015
+      },
+      "gemini-flash-edit": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/gemini-flash-edit": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/gemini-flash-edit": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "hunyuan3d/v2": {
+        "unit": "image",
+        "output": 0.16
+      },
+      "fal-ai/hunyuan3d/v2": {
+        "unit": "image",
+        "output": 0.16
+      },
+      "fal/hunyuan3d/v2": {
+        "unit": "image",
+        "output": 0.16
+      },
+      "hunyuan3d/v2/mini": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "fal-ai/hunyuan3d/v2/mini": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "fal/hunyuan3d/v2/mini": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "hunyuan3d/v2/multi-view": {
+        "unit": "image",
+        "output": 0.017
+      },
+      "fal-ai/hunyuan3d/v2/multi-view": {
+        "unit": "image",
+        "output": 0.017
+      },
+      "fal/hunyuan3d/v2/multi-view": {
+        "unit": "image",
+        "output": 0.017
+      },
+      "hunyuan3d/v2/turbo": {
+        "unit": "image",
+        "output": 0.14
+      },
+      "fal-ai/hunyuan3d/v2/turbo": {
+        "unit": "image",
+        "output": 0.14
+      },
+      "fal/hunyuan3d/v2/turbo": {
+        "unit": "image",
+        "output": 0.14
+      },
+      "hunyuan3d/v2/mini/turbo": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "fal-ai/hunyuan3d/v2/mini/turbo": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "fal/hunyuan3d/v2/mini/turbo": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "gemini-flash-edit/multi": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/gemini-flash-edit/multi": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/gemini-flash-edit/multi": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "luma-dream-machine/ray-2-flash": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/luma-dream-machine/ray-2-flash": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/luma-dream-machine/ray-2-flash": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "luma-dream-machine/ray-2-flash/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/luma-dream-machine/ray-2-flash/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/luma-dream-machine/ray-2-flash/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "pika/v1.5/pikaffects": {
+        "unit": "second",
+        "output": 0.465
+      },
+      "fal-ai/pika/v1.5/pikaffects": {
+        "unit": "second",
+        "output": 0.465
+      },
+      "fal/pika/v1.5/pikaffects": {
+        "unit": "second",
+        "output": 0.465
+      },
+      "pika/v2/turbo/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/pika/v2/turbo/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/pika/v2/turbo/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "pika/v2/turbo/text-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/pika/v2/turbo/text-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/pika/v2/turbo/text-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "pika/v2.2/pikascenes": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/pika/v2.2/pikascenes": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/pika/v2.2/pikascenes": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "pika/v2.2/text-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/pika/v2.2/text-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/pika/v2.2/text-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "pika/v2.2/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/pika/v2.2/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/pika/v2.2/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "pika/v2.1/text-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal-ai/pika/v2.1/text-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal/pika/v2.1/text-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "invisible-watermark": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "fal-ai/invisible-watermark": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "fal/invisible-watermark": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "pika/v2/pikadditions": {
+        "unit": "second",
+        "output": 0.465
+      },
+      "fal-ai/pika/v2/pikadditions": {
+        "unit": "second",
+        "output": 0.465
+      },
+      "fal/pika/v2/pikadditions": {
+        "unit": "second",
+        "output": 0.465
+      },
+      "pika/v2.1/image-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal-ai/pika/v2.1/image-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal/pika/v2.1/image-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "csm-1b": {
+        "unit": "request",
+        "output": 0.03
+      },
+      "fal-ai/csm-1b": {
+        "unit": "request",
+        "output": 0.03
+      },
+      "fal/csm-1b": {
+        "unit": "request",
+        "output": 0.03
+      },
+      "vidu/image-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/vidu/image-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/vidu/image-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "vidu/start-end-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/vidu/start-end-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/vidu/start-end-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "vidu/reference-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/vidu/reference-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/vidu/reference-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "vidu/template-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/vidu/template-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/vidu/template-to-video": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "wan-pro/text-to-video": {
+        "unit": "second",
+        "output": 0.8
+      },
+      "fal-ai/wan-pro/text-to-video": {
+        "unit": "second",
+        "output": 0.8
+      },
+      "fal/wan-pro/text-to-video": {
+        "unit": "second",
+        "output": 0.8
+      },
+      "wan-i2v-lora": {
+        "unit": "second",
+        "output": 0.75
+      },
+      "fal-ai/wan-i2v-lora": {
+        "unit": "second",
+        "output": 0.75
+      },
+      "fal/wan-i2v-lora": {
+        "unit": "second",
+        "output": 0.75
+      },
+      "kling-video/v1.5/pro/effects": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/kling-video/v1.5/pro/effects": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/kling-video/v1.5/pro/effects": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "kling-video/v1.6/pro/effects": {
+        "unit": "second",
+        "output": 0.095
+      },
+      "fal-ai/kling-video/v1.6/pro/effects": {
+        "unit": "second",
+        "output": 0.095
+      },
+      "fal/kling-video/v1.6/pro/effects": {
+        "unit": "second",
+        "output": 0.095
+      },
+      "kling-video/v1/standard/effects": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "fal-ai/kling-video/v1/standard/effects": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "fal/kling-video/v1/standard/effects": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "kling-video/v1.6/standard/effects": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "fal-ai/kling-video/v1.6/standard/effects": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "fal/kling-video/v1.6/standard/effects": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "hunyuan-video-image-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal-ai/hunyuan-video-image-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal/hunyuan-video-image-to-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "rundiffusion-fal/juggernaut-flux/pro/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.055
+      },
+      "fal/rundiffusion-fal/juggernaut-flux/pro/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.055
+      },
+      "rundiffusion-fal/juggernaut-flux/lightning": {
+        "unit": "megapixel",
+        "output": 0.006
+      },
+      "fal/rundiffusion-fal/juggernaut-flux/lightning": {
+        "unit": "megapixel",
+        "output": 0.006
+      },
+      "rundiffusion-fal/rundiffusion-photo-flux": {
+        "unit": "megapixel",
+        "output": 0.045
+      },
+      "fal/rundiffusion-fal/rundiffusion-photo-flux": {
+        "unit": "megapixel",
+        "output": 0.045
+      },
+      "rundiffusion-fal/juggernaut-flux-lora": {
+        "unit": "megapixel",
+        "output": 0.045
+      },
+      "fal/rundiffusion-fal/juggernaut-flux-lora": {
+        "unit": "megapixel",
+        "output": 0.045
+      },
+      "rundiffusion-fal/juggernaut-flux/base/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/rundiffusion-fal/juggernaut-flux/base/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "ltx-video-v095/multiconditioning": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal-ai/ltx-video-v095/multiconditioning": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal/ltx-video-v095/multiconditioning": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "ltx-video-v095": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal-ai/ltx-video-v095": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal/ltx-video-v095": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "ltx-video-v095/extend": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal-ai/ltx-video-v095/extend": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal/ltx-video-v095/extend": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "rundiffusion-fal/juggernaut-flux/pro": {
+        "unit": "megapixel",
+        "output": 0.055
+      },
+      "fal/rundiffusion-fal/juggernaut-flux/pro": {
+        "unit": "megapixel",
+        "output": 0.055
+      },
+      "rundiffusion-fal/juggernaut-flux/base": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/rundiffusion-fal/juggernaut-flux/base": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "diffrhythm": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "fal-ai/diffrhythm": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "fal/diffrhythm": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "cogview4": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "fal-ai/cogview4": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "fal/cogview4": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "topaz/upscale/video": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "fal-ai/topaz/upscale/video": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "fal/topaz/upscale/video": {
+        "unit": "second",
+        "output": 0.01
+      },
+      "docres/dewarp": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal-ai/docres/dewarp": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "fal/docres/dewarp": {
+        "unit": "megapixel",
+        "output": 0.03
+      },
+      "docres": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/docres": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/docres": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "swin2sr": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/swin2sr": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/swin2sr": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "ideogram/v2a/remix": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/ideogram/v2a/remix": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/ideogram/v2a/remix": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "kling-video/v1.6/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.095
+      },
+      "fal-ai/kling-video/v1.6/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.095
+      },
+      "fal/kling-video/v1.6/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.095
+      },
+      "ideogram/v2a/turbo/remix": {
+        "unit": "image",
+        "output": 0.025
+      },
+      "fal-ai/ideogram/v2a/turbo/remix": {
+        "unit": "image",
+        "output": 0.025
+      },
+      "fal/ideogram/v2a/turbo/remix": {
+        "unit": "image",
+        "output": 0.025
+      },
+      "elevenlabs/tts/multilingual-v2": {
+        "unit": "request",
+        "output": 0.1
+      },
+      "fal-ai/elevenlabs/tts/multilingual-v2": {
+        "unit": "request",
+        "output": 0.1
+      },
+      "fal/elevenlabs/tts/multilingual-v2": {
+        "unit": "request",
+        "output": 0.1
+      },
+      "wan/v2.1/1.3b/text-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/wan/v2.1/1.3b/text-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/wan/v2.1/1.3b/text-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "ideogram/v2a/turbo": {
+        "unit": "image",
+        "output": 0.025
+      },
+      "fal-ai/ideogram/v2a/turbo": {
+        "unit": "image",
+        "output": 0.025
+      },
+      "fal/ideogram/v2a/turbo": {
+        "unit": "image",
+        "output": 0.025
+      },
+      "elevenlabs/tts/turbo-v2.5": {
+        "unit": "request",
+        "output": 0.05
+      },
+      "fal-ai/elevenlabs/tts/turbo-v2.5": {
+        "unit": "request",
+        "output": 0.05
+      },
+      "fal/elevenlabs/tts/turbo-v2.5": {
+        "unit": "request",
+        "output": 0.05
+      },
+      "elevenlabs/audio-isolation": {
+        "unit": "minute",
+        "output": 0.1
+      },
+      "fal-ai/elevenlabs/audio-isolation": {
+        "unit": "minute",
+        "output": 0.1
+      },
+      "fal/elevenlabs/audio-isolation": {
+        "unit": "minute",
+        "output": 0.1
+      },
+      "elevenlabs/speech-to-text": {
+        "unit": "minute",
+        "output": 0.03
+      },
+      "fal-ai/elevenlabs/speech-to-text": {
+        "unit": "minute",
+        "output": 0.03
+      },
+      "fal/elevenlabs/speech-to-text": {
+        "unit": "minute",
+        "output": 0.03
+      },
+      "ideogram/v2a": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/ideogram/v2a": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/ideogram/v2a": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "evf-sam": {
+        "unit": "image",
+        "output": 0.005
+      },
+      "fal-ai/evf-sam": {
+        "unit": "image",
+        "output": 0.005
+      },
+      "fal/evf-sam": {
+        "unit": "image",
+        "output": 0.005
+      },
+      "ddcolor": {
+        "unit": "megapixel",
+        "output": 0.001
+      },
+      "fal-ai/ddcolor": {
+        "unit": "megapixel",
+        "output": 0.001
+      },
+      "fal/ddcolor": {
+        "unit": "megapixel",
+        "output": 0.001
+      },
+      "wan-t2v": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal-ai/wan-t2v": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal/wan-t2v": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "video-prompt-generator": {
+        "unit": "request",
+        "output": 0.001
+      },
+      "fal-ai/video-prompt-generator": {
+        "unit": "request",
+        "output": 0.001
+      },
+      "fal/video-prompt-generator": {
+        "unit": "request",
+        "output": 0.001
+      },
+      "sam2/auto-segment": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal-ai/sam2/auto-segment": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/sam2/auto-segment": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "minimax/video-01-director/image-to-video": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal-ai/minimax/video-01-director/image-to-video": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal/minimax/video-01-director/image-to-video": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "drct-super-resolution": {
+        "unit": "megapixel",
+        "output": 0.0045
+      },
+      "fal-ai/drct-super-resolution": {
+        "unit": "megapixel",
+        "output": 0.0045
+      },
+      "fal/drct-super-resolution": {
+        "unit": "megapixel",
+        "output": 0.0045
+      },
+      "veo2": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal-ai/veo2": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal/veo2": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "nafnet/denoise": {
+        "unit": "megapixel",
+        "output": 0.0225
+      },
+      "fal-ai/nafnet/denoise": {
+        "unit": "megapixel",
+        "output": 0.0225
+      },
+      "fal/nafnet/denoise": {
+        "unit": "megapixel",
+        "output": 0.0225
+      },
+      "nafnet/deblur": {
+        "unit": "megapixel",
+        "output": 0.0225
+      },
+      "fal-ai/nafnet/deblur": {
+        "unit": "megapixel",
+        "output": 0.0225
+      },
+      "fal/nafnet/deblur": {
+        "unit": "megapixel",
+        "output": 0.0225
+      },
+      "post-processing": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal-ai/post-processing": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "fal/post-processing": {
+        "unit": "image",
+        "output": 0.001
+      },
+      "skyreels-i2v": {
+        "unit": "second",
+        "output": 0.3
+      },
+      "fal-ai/skyreels-i2v": {
+        "unit": "second",
+        "output": 0.3
+      },
+      "fal/skyreels-i2v": {
+        "unit": "second",
+        "output": 0.3
+      },
+      "flowedit": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal-ai/flowedit": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/flowedit": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "kokoro/hindi": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal-ai/kokoro/hindi": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal/kokoro/hindi": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "kokoro/mandarin-chinese": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal-ai/kokoro/mandarin-chinese": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal/kokoro/mandarin-chinese": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "kokoro/brazilian-portuguese": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal-ai/kokoro/brazilian-portuguese": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal/kokoro/brazilian-portuguese": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "kokoro/french": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal-ai/kokoro/french": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal/kokoro/french": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "kokoro/japanese": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal-ai/kokoro/japanese": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal/kokoro/japanese": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "kokoro/american-english": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal-ai/kokoro/american-english": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal/kokoro/american-english": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "kokoro/british-english": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal-ai/kokoro/british-english": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal/kokoro/british-english": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "kokoro/spanish": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal-ai/kokoro/spanish": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal/kokoro/spanish": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "zonos": {
+        "unit": "request",
+        "output": 0.05
+      },
+      "fal-ai/zonos": {
+        "unit": "request",
+        "output": 0.05
+      },
+      "fal/zonos": {
+        "unit": "request",
+        "output": 0.05
+      },
+      "kokoro/italian": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal-ai/kokoro/italian": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "fal/kokoro/italian": {
+        "unit": "request",
+        "output": 0.02
+      },
+      "luma-dream-machine/ray-2/image-to-video": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal-ai/luma-dream-machine/ray-2/image-to-video": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal/luma-dream-machine/ray-2/image-to-video": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "got-ocr/v2": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/got-ocr/v2": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/got-ocr/v2": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "flux-control-lora-canny": {
+        "unit": "megapixel",
+        "output": 0.04
+      },
+      "fal-ai/flux-control-lora-canny": {
+        "unit": "megapixel",
+        "output": 0.04
+      },
+      "fal/flux-control-lora-canny": {
+        "unit": "megapixel",
+        "output": 0.04
+      },
+      "flux-control-lora-canny/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.04
+      },
+      "fal-ai/flux-control-lora-canny/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.04
+      },
+      "fal/flux-control-lora-canny/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.04
+      },
+      "flux-control-lora-depth/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.04
+      },
+      "fal-ai/flux-control-lora-depth/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.04
+      },
+      "fal/flux-control-lora-depth/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.04
+      },
+      "ben/v2/image": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/ben/v2/image": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/ben/v2/image": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "flux-control-lora-depth": {
+        "unit": "megapixel",
+        "output": 0.04
+      },
+      "fal-ai/flux-control-lora-depth": {
+        "unit": "megapixel",
+        "output": 0.04
+      },
+      "fal/flux-control-lora-depth": {
+        "unit": "megapixel",
+        "output": 0.04
+      },
+      "minimax/video-01-director": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal-ai/minimax/video-01-director": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal/minimax/video-01-director": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "ben/v2/video": {
+        "unit": "megapixel",
+        "output": 0.001
+      },
+      "fal-ai/ben/v2/video": {
+        "unit": "megapixel",
+        "output": 0.001
+      },
+      "fal/ben/v2/video": {
+        "unit": "megapixel",
+        "output": 0.001
+      },
+      "imagen3": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/imagen3": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/imagen3": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "imagen3/fast": {
+        "unit": "image",
+        "output": 0.025
+      },
+      "fal-ai/imagen3/fast": {
+        "unit": "image",
+        "output": 0.025
+      },
+      "fal/imagen3/fast": {
+        "unit": "image",
+        "output": 0.025
+      },
+      "ideogram/upscale": {
+        "unit": "image",
+        "output": 0.06
+      },
+      "fal-ai/ideogram/upscale": {
+        "unit": "image",
+        "output": 0.06
+      },
+      "fal/ideogram/upscale": {
+        "unit": "image",
+        "output": 0.06
+      },
+      "hunyuan-video-img2vid-lora": {
+        "unit": "second",
+        "output": 0.3
+      },
+      "fal-ai/hunyuan-video-img2vid-lora": {
+        "unit": "second",
+        "output": 0.3
+      },
+      "fal/hunyuan-video-img2vid-lora": {
+        "unit": "second",
+        "output": 0.3
+      },
+      "codeformer": {
+        "unit": "megapixel",
+        "output": 0.0021
+      },
+      "fal-ai/codeformer": {
+        "unit": "megapixel",
+        "output": 0.0021
+      },
+      "fal/codeformer": {
+        "unit": "megapixel",
+        "output": 0.0021
+      },
+      "lumina-image/v2": {
+        "unit": "megapixel",
+        "output": 0.075
+      },
+      "fal-ai/lumina-image/v2": {
+        "unit": "megapixel",
+        "output": 0.075
+      },
+      "fal/lumina-image/v2": {
+        "unit": "megapixel",
+        "output": 0.075
+      },
+      "hunyuan-video/video-to-video": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal-ai/hunyuan-video/video-to-video": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/hunyuan-video/video-to-video": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "hunyuan-video-lora/video-to-video": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal-ai/hunyuan-video-lora/video-to-video": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/hunyuan-video-lora/video-to-video": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "pixverse/v3.5/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/v3.5/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/v3.5/text-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "pixverse/v3.5/image-to-video/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/pixverse/v3.5/image-to-video/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/pixverse/v3.5/image-to-video/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "pixverse/v3.5/text-to-video/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/pixverse/v3.5/text-to-video/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/pixverse/v3.5/text-to-video/fast": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "pixverse/v3.5/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/pixverse/v3.5/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/pixverse/v3.5/image-to-video": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "janus": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/janus": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/janus": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "yue": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal-ai/yue": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "fal/yue": {
+        "unit": "second",
+        "output": 0.05
+      },
+      "luma-dream-machine/ray-2": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal-ai/luma-dream-machine/ray-2": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal/luma-dream-machine/ray-2": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "kling/v1-5/kolors-virtual-try-on": {
+        "unit": "image",
+        "output": 0.07
+      },
+      "fal-ai/kling/v1-5/kolors-virtual-try-on": {
+        "unit": "image",
+        "output": 0.07
+      },
+      "fal/kling/v1-5/kolors-virtual-try-on": {
+        "unit": "image",
+        "output": 0.07
+      },
+      "ffmpeg-api/waveform": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "fal-ai/ffmpeg-api/waveform": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "fal/ffmpeg-api/waveform": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "ffmpeg-api/metadata": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "fal-ai/ffmpeg-api/metadata": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "fal/ffmpeg-api/metadata": {
+        "unit": "second",
+        "output": 0.00017
+      },
+      "ffmpeg-api/compose": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "fal-ai/ffmpeg-api/compose": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "fal/ffmpeg-api/compose": {
+        "unit": "second",
+        "output": 0.0002
+      },
+      "minimax/video-01-subject-reference": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal-ai/minimax/video-01-subject-reference": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal/minimax/video-01-subject-reference": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "moondream-next/batch": {
+        "unit": "second",
+        "output": 0.0011
+      },
+      "fal-ai/moondream-next/batch": {
+        "unit": "second",
+        "output": 0.0011
+      },
+      "fal/moondream-next/batch": {
+        "unit": "second",
+        "output": 0.0011
+      },
+      "flux-lora-canny": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/flux-lora-canny": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/flux-lora-canny": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "flux-pro/v1.1": {
+        "unit": "megapixel",
+        "output": 0.04
+      },
+      "fal-ai/flux-pro/v1.1": {
+        "unit": "megapixel",
+        "output": 0.04
+      },
+      "fal/flux-pro/v1.1": {
+        "unit": "megapixel",
+        "output": 0.04
+      },
+      "flux-pro/v1.1-ultra-finetuned": {
+        "unit": "image",
+        "output": 0.07
+      },
+      "fal-ai/flux-pro/v1.1-ultra-finetuned": {
+        "unit": "image",
+        "output": 0.07
+      },
+      "fal/flux-pro/v1.1-ultra-finetuned": {
+        "unit": "image",
+        "output": 0.07
+      },
+      "flux-pro/v1/fill-finetuned": {
+        "unit": "megapixel",
+        "output": 0.06
+      },
+      "fal-ai/flux-pro/v1/fill-finetuned": {
+        "unit": "megapixel",
+        "output": 0.06
+      },
+      "fal/flux-pro/v1/fill-finetuned": {
+        "unit": "megapixel",
+        "output": 0.06
+      },
+      "hunyuan-video-lora": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal-ai/hunyuan-video-lora": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal/hunyuan-video-lora": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "transpixar": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal-ai/transpixar": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal/transpixar": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "hunyuan-video-lora-training": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "fal-ai/hunyuan-video-lora-training": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "fal/hunyuan-video-lora-training": {
+        "unit": "request",
+        "output": 0.005
+      },
+      "cogvideox-5b": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/cogvideox-5b": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/cogvideox-5b": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "sync-lipsync": {
+        "unit": "minute",
+        "output": 0.7
+      },
+      "fal-ai/sync-lipsync": {
+        "unit": "minute",
+        "output": 0.7
+      },
+      "fal/sync-lipsync": {
+        "unit": "minute",
+        "output": 0.7
+      },
+      "sa2va/8b/video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal-ai/sa2va/8b/video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "fal/sa2va/8b/video": {
+        "unit": "second",
+        "output": 0.08
+      },
+      "sa2va/4b/video": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal-ai/sa2va/4b/video": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "fal/sa2va/4b/video": {
+        "unit": "second",
+        "output": 0.04
+      },
+      "sa2va/4b/image": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal-ai/sa2va/4b/image": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal/sa2va/4b/image": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "sa2va/8b/image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/sa2va/8b/image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/sa2va/8b/image": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "moondream-next": {
+        "unit": "second",
+        "output": 0.0011
+      },
+      "fal-ai/moondream-next": {
+        "unit": "second",
+        "output": 0.0011
+      },
+      "fal/moondream-next": {
+        "unit": "second",
+        "output": 0.0011
+      },
+      "moondream-next/detection": {
+        "unit": "second",
+        "output": 0.0011
+      },
+      "fal-ai/moondream-next/detection": {
+        "unit": "second",
+        "output": 0.0011
+      },
+      "fal/moondream-next/detection": {
+        "unit": "second",
+        "output": 0.0011
+      },
+      "kling-video/v1.6/standard/image-to-video": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "fal-ai/kling-video/v1.6/standard/image-to-video": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "fal/kling-video/v1.6/standard/image-to-video": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "kling-video/v1.6/standard/text-to-video": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "fal-ai/kling-video/v1.6/standard/text-to-video": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "fal/kling-video/v1.6/standard/text-to-video": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "auto-caption": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/auto-caption": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/auto-caption": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "switti": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal-ai/switti": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/switti": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "switti/512": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal-ai/switti/512": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/switti/512": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "mmaudio-v2/text-to-audio": {
+        "unit": "second",
+        "output": 0.001
+      },
+      "fal-ai/mmaudio-v2/text-to-audio": {
+        "unit": "second",
+        "output": 0.001
+      },
+      "fal/mmaudio-v2/text-to-audio": {
+        "unit": "second",
+        "output": 0.001
+      },
+      "sadtalker/reference": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/sadtalker/reference": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/sadtalker/reference": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "dubbing": {
+        "unit": "second",
+        "output": 1
+      },
+      "fal-ai/dubbing": {
+        "unit": "second",
+        "output": 1
+      },
+      "fal/dubbing": {
+        "unit": "second",
+        "output": 1
+      },
+      "bria/expand": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/bria/expand": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/bria/expand": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "bria/text-to-image/fast": {
+        "unit": "image",
+        "output": 0.028
+      },
+      "fal-ai/bria/text-to-image/fast": {
+        "unit": "image",
+        "output": 0.028
+      },
+      "fal/bria/text-to-image/fast": {
+        "unit": "image",
+        "output": 0.028
+      },
+      "bria/text-to-image/base": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/bria/text-to-image/base": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/bria/text-to-image/base": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "bria/genfill": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/bria/genfill": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/bria/genfill": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "bria/eraser": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/bria/eraser": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/bria/eraser": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "bria/background/replace": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/bria/background/replace": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/bria/background/replace": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "flux-lora-fill": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/flux-lora-fill": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/flux-lora-fill": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "bria/product-shot": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/bria/product-shot": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/bria/product-shot": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "bria/text-to-image/hd": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal-ai/bria/text-to-image/hd": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "fal/bria/text-to-image/hd": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "bria/background/remove": {
+        "unit": "image",
+        "output": 0.018
+      },
+      "fal-ai/bria/background/remove": {
+        "unit": "image",
+        "output": 0.018
+      },
+      "fal/bria/background/remove": {
+        "unit": "image",
+        "output": 0.018
+      },
+      "cat-vton": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/cat-vton": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/cat-vton": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "leffa/pose-transfer": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "fal-ai/leffa/pose-transfer": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "fal/leffa/pose-transfer": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "minimax-music": {
+        "unit": "request",
+        "output": 0.035
+      },
+      "fal-ai/minimax-music": {
+        "unit": "request",
+        "output": 0.035
+      },
+      "fal/minimax-music": {
+        "unit": "request",
+        "output": 0.035
+      },
+      "leffa/virtual-tryon": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "fal-ai/leffa/virtual-tryon": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "fal/leffa/virtual-tryon": {
+        "unit": "image",
+        "output": 0.1
+      },
+      "minimax/video-01-live/image-to-video": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal-ai/minimax/video-01-live/image-to-video": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal/minimax/video-01-live/image-to-video": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "recraft-20b": {
+        "unit": "image",
+        "output": 0.0219
+      },
+      "fal-ai/recraft-20b": {
+        "unit": "image",
+        "output": 0.0219
+      },
+      "fal/recraft-20b": {
+        "unit": "image",
+        "output": 0.0219
+      },
+      "hyper3d/rodin": {
+        "unit": "image",
+        "output": 0.4
+      },
+      "fal-ai/hyper3d/rodin": {
+        "unit": "image",
+        "output": 0.4
+      },
+      "fal/hyper3d/rodin": {
+        "unit": "image",
+        "output": 0.4
+      },
+      "minimax/video-01-live": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal-ai/minimax/video-01-live": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal/minimax/video-01-live": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "ideogram/v2/edit": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "fal-ai/ideogram/v2/edit": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "fal/ideogram/v2/edit": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "trellis": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal-ai/trellis": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "fal/trellis": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "luma-dream-machine": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal-ai/luma-dream-machine": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "fal/luma-dream-machine": {
+        "unit": "second",
+        "output": 0.5
+      },
+      "ideogram/v2/turbo/remix": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/ideogram/v2/turbo/remix": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/ideogram/v2/turbo/remix": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "ideogram/v2/turbo/edit": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/ideogram/v2/turbo/edit": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/ideogram/v2/turbo/edit": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "video-upscaler": {
+        "unit": "megapixel",
+        "output": 0.0008
+      },
+      "fal-ai/video-upscaler": {
+        "unit": "megapixel",
+        "output": 0.0008
+      },
+      "fal/video-upscaler": {
+        "unit": "megapixel",
+        "output": 0.0008
+      },
+      "ideogram/v2/turbo": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/ideogram/v2/turbo": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/ideogram/v2/turbo": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "ideogram/v2/remix": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "fal-ai/ideogram/v2/remix": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "fal/ideogram/v2/remix": {
+        "unit": "image",
+        "output": 0.08
+      },
+      "luma-photon/flash": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "fal-ai/luma-photon/flash": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "fal/luma-photon/flash": {
+        "unit": "megapixel",
+        "output": 0.005
+      },
+      "kling-video/v1/standard/text-to-video": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "fal-ai/kling-video/v1/standard/text-to-video": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "fal/kling-video/v1/standard/text-to-video": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "aura-flow": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal-ai/aura-flow": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/aura-flow": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "omnigen-v1": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "fal-ai/omnigen-v1": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "fal/omnigen-v1": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "flux/schnell/redux": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/flux/schnell/redux": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/flux/schnell/redux": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "flux/schnell": {
+        "unit": "megapixel",
+        "output": 0.003
+      },
+      "fal-ai/flux/schnell": {
+        "unit": "megapixel",
+        "output": 0.003
+      },
+      "fal/flux/schnell": {
+        "unit": "megapixel",
+        "output": 0.003
+      },
+      "kling-video/v1.5/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/kling-video/v1.5/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/kling-video/v1.5/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "flux-pro/v1.1/redux": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "fal-ai/flux-pro/v1.1/redux": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "fal/flux-pro/v1.1/redux": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "flux/dev/redux": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal-ai/flux/dev/redux": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "fal/flux/dev/redux": {
+        "unit": "megapixel",
+        "output": 0.025
+      },
+      "flux-lora-depth": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/flux-lora-depth": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/flux-lora-depth": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "ltx-video/image-to-video": {
+        "unit": "second",
+        "output": 0.02
+      },
+      "fal-ai/ltx-video/image-to-video": {
+        "unit": "second",
+        "output": 0.02
+      },
+      "fal/ltx-video/image-to-video": {
+        "unit": "second",
+        "output": 0.02
+      },
+      "flux-pro/v1.1-ultra/redux": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "fal-ai/flux-pro/v1.1-ultra/redux": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "fal/flux-pro/v1.1-ultra/redux": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "flux-pro/v1/fill": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "fal-ai/flux-pro/v1/fill": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "fal/flux-pro/v1/fill": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "kolors/image-to-image": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/kolors/image-to-image": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/kolors/image-to-image": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "iclight-v2": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "fal-ai/iclight-v2": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "fal/iclight-v2": {
+        "unit": "megapixel",
+        "output": 0.1
+      },
+      "mochi-v1": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal-ai/mochi-v1": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal/mochi-v1": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "flux-differential-diffusion": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "fal-ai/flux-differential-diffusion": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "fal/flux-differential-diffusion": {
+        "unit": "megapixel",
+        "output": 0.05
+      },
+      "flux-pulid": {
+        "unit": "megapixel",
+        "output": 0.0333
+      },
+      "fal-ai/flux-pulid": {
+        "unit": "megapixel",
+        "output": 0.0333
+      },
+      "fal/flux-pulid": {
+        "unit": "megapixel",
+        "output": 0.0333
+      },
+      "birefnet/v2": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/birefnet/v2": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/birefnet/v2": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "stable-diffusion-v35-medium": {
+        "unit": "megapixel",
+        "output": 0.02
+      },
+      "fal-ai/stable-diffusion-v35-medium": {
+        "unit": "megapixel",
+        "output": 0.02
+      },
+      "fal/stable-diffusion-v35-medium": {
+        "unit": "megapixel",
+        "output": 0.02
+      },
+      "hunyuan-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal-ai/hunyuan-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "fal/hunyuan-video": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "cogvideox-5b/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/cogvideox-5b/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/cogvideox-5b/image-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "f5-tts": {
+        "unit": "request",
+        "output": 0.05
+      },
+      "fal-ai/f5-tts": {
+        "unit": "request",
+        "output": 0.05
+      },
+      "fal/f5-tts": {
+        "unit": "request",
+        "output": 0.05
+      },
+      "cogvideox-5b/video-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal-ai/cogvideox-5b/video-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "fal/cogvideox-5b/video-to-video": {
+        "unit": "second",
+        "output": 0.2
+      },
+      "kling-video/v1/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/kling-video/v1/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/kling-video/v1/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "kling-video/v1.5/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/kling-video/v1.5/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/kling-video/v1.5/pro/image-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "kling-video/v1/standard/image-to-video": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "fal-ai/kling-video/v1/standard/image-to-video": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "fal/kling-video/v1/standard/image-to-video": {
+        "unit": "second",
+        "output": 0.03
+      },
+      "kling-video/v1/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal-ai/kling-video/v1/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "fal/kling-video/v1/pro/text-to-video": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "ltx-video": {
+        "unit": "second",
+        "output": 0.02
+      },
+      "fal-ai/ltx-video": {
+        "unit": "second",
+        "output": 0.02
+      },
+      "fal/ltx-video": {
+        "unit": "second",
+        "output": 0.02
+      },
+      "live-portrait/image": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal-ai/live-portrait/image": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/live-portrait/image": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "flux-lora/inpainting": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/flux-lora/inpainting": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/flux-lora/inpainting": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "flux-general/rf-inversion": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal-ai/flux-general/rf-inversion": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/flux-general/rf-inversion": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "stable-video": {
+        "unit": "second",
+        "output": 0.075
+      },
+      "fal-ai/stable-video": {
+        "unit": "second",
+        "output": 0.075
+      },
+      "fal/stable-video": {
+        "unit": "second",
+        "output": 0.075
+      },
+      "image-preprocessors/hed": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/image-preprocessors/hed": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/image-preprocessors/hed": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "image-preprocessors/scribble": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/image-preprocessors/scribble": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/image-preprocessors/scribble": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "image-preprocessors/depth-anything/v2": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/image-preprocessors/depth-anything/v2": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/image-preprocessors/depth-anything/v2": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "image-preprocessors/zoe": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/image-preprocessors/zoe": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/image-preprocessors/zoe": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "image-preprocessors/teed": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/image-preprocessors/teed": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/image-preprocessors/teed": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "image-preprocessors/mlsd": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/image-preprocessors/mlsd": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/image-preprocessors/mlsd": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "image-preprocessors/lineart": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/image-preprocessors/lineart": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/image-preprocessors/lineart": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "image-preprocessors/sam": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/image-preprocessors/sam": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/image-preprocessors/sam": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "image-preprocessors/midas": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/image-preprocessors/midas": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/image-preprocessors/midas": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fast-svd/text-to-video": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/fast-svd/text-to-video": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/fast-svd/text-to-video": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "image-preprocessors/pidi": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/image-preprocessors/pidi": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/image-preprocessors/pidi": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "controlnext": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/controlnext": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/controlnext": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "stable-diffusion-v3-medium": {
+        "unit": "image",
+        "output": 0.035
+      },
+      "fal-ai/stable-diffusion-v3-medium": {
+        "unit": "image",
+        "output": 0.035
+      },
+      "fal/stable-diffusion-v3-medium": {
+        "unit": "image",
+        "output": 0.035
+      },
+      "sam2/image": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal-ai/sam2/image": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/sam2/image": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "sam2/video": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal-ai/sam2/video": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/sam2/video": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "flux-general/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.075
+      },
+      "fal-ai/flux-general/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.075
+      },
+      "fal/flux-general/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.075
+      },
+      "flux-general/inpainting": {
+        "unit": "megapixel",
+        "output": 0.075
+      },
+      "fal-ai/flux-general/inpainting": {
+        "unit": "megapixel",
+        "output": 0.075
+      },
+      "fal/flux-general/inpainting": {
+        "unit": "megapixel",
+        "output": 0.075
+      },
+      "flux-general/differential-diffusion": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal-ai/flux-general/differential-diffusion": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/flux-general/differential-diffusion": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "flux-lora/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal-ai/flux-lora/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fal/flux-lora/image-to-image": {
+        "unit": "megapixel",
+        "output": 0.035
+      },
+      "fooocus/upscale-or-vary": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/fooocus/upscale-or-vary": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/fooocus/upscale-or-vary": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "flux-subject": {
+        "unit": "megapixel",
+        "output": 0.04
+      },
+      "fal-ai/flux-subject": {
+        "unit": "megapixel",
+        "output": 0.04
+      },
+      "fal/flux-subject": {
+        "unit": "megapixel",
+        "output": 0.04
+      },
+      "sana": {
+        "unit": "megapixel",
+        "output": 0.001
+      },
+      "fal-ai/sana": {
+        "unit": "megapixel",
+        "output": 0.001
+      },
+      "fal/sana": {
+        "unit": "megapixel",
+        "output": 0.001
+      },
+      "pixart-sigma": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/pixart-sigma": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/pixart-sigma": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "sdxl-controlnet-union": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/sdxl-controlnet-union": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/sdxl-controlnet-union": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "sdxl-controlnet-union/inpainting": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/sdxl-controlnet-union/inpainting": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/sdxl-controlnet-union/inpainting": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "sdxl-controlnet-union/image-to-image": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/sdxl-controlnet-union/image-to-image": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/sdxl-controlnet-union/image-to-image": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "kolors": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/kolors": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/kolors": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "amt-interpolation/frame-interpolation": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/amt-interpolation/frame-interpolation": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/amt-interpolation/frame-interpolation": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "live-portrait": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal-ai/live-portrait": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "fal/live-portrait": {
+        "unit": "second",
+        "output": 0.00125
+      },
+      "era-3d": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal-ai/era-3d": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "fal/era-3d": {
+        "unit": "second",
+        "output": 0.00111
+      },
+      "stable-cascade": {
+        "unit": "second",
+        "output": 0.000575
+      },
+      "fal-ai/stable-cascade": {
+        "unit": "second",
+        "output": 0.000575
+      },
+      "fal/stable-cascade": {
+        "unit": "second",
+        "output": 0.000575
+      },
+      "florence-2-large/referring-expression-segmentation": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/florence-2-large/referring-expression-segmentation": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/florence-2-large/referring-expression-segmentation": {
+        "unit": "image",
+        "output": 0
+      },
+      "florence-2-large/dense-region-caption": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/florence-2-large/dense-region-caption": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/florence-2-large/dense-region-caption": {
+        "unit": "image",
+        "output": 0
+      },
+      "florence-2-large/object-detection": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/florence-2-large/object-detection": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/florence-2-large/object-detection": {
+        "unit": "image",
+        "output": 0
+      },
+      "florence-2-large/open-vocabulary-detection": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/florence-2-large/open-vocabulary-detection": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/florence-2-large/open-vocabulary-detection": {
+        "unit": "image",
+        "output": 0
+      },
+      "florence-2-large/region-to-description": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal-ai/florence-2-large/region-to-description": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal/florence-2-large/region-to-description": {
+        "unit": "request",
+        "output": 0
+      },
+      "florence-2-large/caption-to-phrase-grounding": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/florence-2-large/caption-to-phrase-grounding": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/florence-2-large/caption-to-phrase-grounding": {
+        "unit": "image",
+        "output": 0
+      },
+      "florence-2-large/ocr-with-region": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/florence-2-large/ocr-with-region": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/florence-2-large/ocr-with-region": {
+        "unit": "image",
+        "output": 0
+      },
+      "florence-2-large/ocr": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal-ai/florence-2-large/ocr": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal/florence-2-large/ocr": {
+        "unit": "request",
+        "output": 0
+      },
+      "florence-2-large/more-detailed-caption": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal-ai/florence-2-large/more-detailed-caption": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal/florence-2-large/more-detailed-caption": {
+        "unit": "request",
+        "output": 0
+      },
+      "florence-2-large/region-proposal": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/florence-2-large/region-proposal": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/florence-2-large/region-proposal": {
+        "unit": "image",
+        "output": 0
+      },
+      "florence-2-large/region-to-category": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal-ai/florence-2-large/region-to-category": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal/florence-2-large/region-to-category": {
+        "unit": "request",
+        "output": 0
+      },
+      "florence-2-large/caption": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal-ai/florence-2-large/caption": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal/florence-2-large/caption": {
+        "unit": "request",
+        "output": 0
+      },
+      "florence-2-large/detailed-caption": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal-ai/florence-2-large/detailed-caption": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal/florence-2-large/detailed-caption": {
+        "unit": "request",
+        "output": 0
+      },
+      "florence-2-large/region-to-segmentation": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/florence-2-large/region-to-segmentation": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/florence-2-large/region-to-segmentation": {
+        "unit": "image",
+        "output": 0
+      },
+      "fast-sdxl": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/fast-sdxl": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/fast-sdxl": {
+        "unit": "image",
+        "output": 0
+      },
+      "stable-diffusion-v3-medium/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/stable-diffusion-v3-medium/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/stable-diffusion-v3-medium/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "stable-cascade/sote-diffusion": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/stable-cascade/sote-diffusion": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/stable-cascade/sote-diffusion": {
+        "unit": "image",
+        "output": 0
+      },
+      "luma-photon": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/luma-photon": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/luma-photon": {
+        "unit": "image",
+        "output": 0
+      },
+      "luma-dream-machine/image-to-video": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/luma-dream-machine/image-to-video": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/luma-dream-machine/image-to-video": {
+        "unit": "image",
+        "output": 0
+      },
+      "fast-svd-lcm/text-to-video": {
+        "unit": "second",
+        "output": 0
+      },
+      "fal-ai/fast-svd-lcm/text-to-video": {
+        "unit": "second",
+        "output": 0
+      },
+      "fal/fast-svd-lcm/text-to-video": {
+        "unit": "second",
+        "output": 0
+      },
+      "dwpose": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/dwpose": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/dwpose": {
+        "unit": "image",
+        "output": 0
+      },
+      "sd15-depth-controlnet": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/sd15-depth-controlnet": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/sd15-depth-controlnet": {
+        "unit": "image",
+        "output": 0
+      },
+      "ccsr": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/ccsr": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/ccsr": {
+        "unit": "image",
+        "output": 0
+      },
+      "omni-zero": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/omni-zero": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/omni-zero": {
+        "unit": "image",
+        "output": 0
+      },
+      "lightning-models": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/lightning-models": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/lightning-models": {
+        "unit": "image",
+        "output": 0
+      },
+      "playground-v25": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/playground-v25": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/playground-v25": {
+        "unit": "image",
+        "output": 0
+      },
+      "hyper-sdxl/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/hyper-sdxl/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/hyper-sdxl/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "realistic-vision": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/realistic-vision": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/realistic-vision": {
+        "unit": "image",
+        "output": 0
+      },
+      "dreamshaper": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/dreamshaper": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/dreamshaper": {
+        "unit": "image",
+        "output": 0
+      },
+      "hyper-sdxl/inpainting": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/hyper-sdxl/inpainting": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/hyper-sdxl/inpainting": {
+        "unit": "image",
+        "output": 0
+      },
+      "ip-adapter-face-id": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/ip-adapter-face-id": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/ip-adapter-face-id": {
+        "unit": "image",
+        "output": 0
+      },
+      "lora/inpaint": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/lora/inpaint": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/lora/inpaint": {
+        "unit": "image",
+        "output": 0
+      },
+      "lora/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/lora/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/lora/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fast-sdxl/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/fast-sdxl/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/fast-sdxl/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fast-sdxl/inpainting": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/fast-sdxl/inpainting": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/fast-sdxl/inpainting": {
+        "unit": "image",
+        "output": 0
+      },
+      "stable-diffusion-v15": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/stable-diffusion-v15": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/stable-diffusion-v15": {
+        "unit": "image",
+        "output": 0
+      },
+      "layer-diffusion": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/layer-diffusion": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/layer-diffusion": {
+        "unit": "image",
+        "output": 0
+      },
+      "musetalk": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/musetalk": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/musetalk": {
+        "unit": "image",
+        "output": 0
+      },
+      "fast-lightning-sdxl": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/fast-lightning-sdxl": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/fast-lightning-sdxl": {
+        "unit": "image",
+        "output": 0
+      },
+      "sadtalker": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/sadtalker": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/sadtalker": {
+        "unit": "image",
+        "output": 0
+      },
+      "wizper": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal-ai/wizper": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal/wizper": {
+        "unit": "request",
+        "output": 0
+      },
+      "imageutils/nsfw": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal-ai/imageutils/nsfw": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal/imageutils/nsfw": {
+        "unit": "request",
+        "output": 0
+      },
+      "moondream/batched": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal-ai/moondream/batched": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal/moondream/batched": {
+        "unit": "request",
+        "output": 0
+      },
+      "fast-fooocus-sdxl/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/fast-fooocus-sdxl/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/fast-fooocus-sdxl/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "face-to-sticker": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/face-to-sticker": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/face-to-sticker": {
+        "unit": "image",
+        "output": 0
+      },
+      "photomaker": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/photomaker": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/photomaker": {
+        "unit": "image",
+        "output": 0
+      },
+      "t2v-turbo": {
+        "unit": "second",
+        "output": 0
+      },
+      "fal-ai/t2v-turbo": {
+        "unit": "second",
+        "output": 0
+      },
+      "fal/t2v-turbo": {
+        "unit": "second",
+        "output": 0
+      },
+      "fast-sdxl-controlnet-canny": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/fast-sdxl-controlnet-canny": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/fast-sdxl-controlnet-canny": {
+        "unit": "image",
+        "output": 0
+      },
+      "creative-upscaler": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/creative-upscaler": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/creative-upscaler": {
+        "unit": "image",
+        "output": 0
+      },
+      "birefnet": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/birefnet": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/birefnet": {
+        "unit": "image",
+        "output": 0
+      },
+      "fast-lightning-sdxl/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/fast-lightning-sdxl/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/fast-lightning-sdxl/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "playground-v25/inpainting": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/playground-v25/inpainting": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/playground-v25/inpainting": {
+        "unit": "image",
+        "output": 0
+      },
+      "playground-v25/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/playground-v25/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/playground-v25/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fast-animatediff/text-to-video": {
+        "unit": "second",
+        "output": 0
+      },
+      "fal-ai/fast-animatediff/text-to-video": {
+        "unit": "second",
+        "output": 0
+      },
+      "fal/fast-animatediff/text-to-video": {
+        "unit": "second",
+        "output": 0
+      },
+      "amt-interpolation": {
+        "unit": "second",
+        "output": 0
+      },
+      "fal-ai/amt-interpolation": {
+        "unit": "second",
+        "output": 0
+      },
+      "fal/amt-interpolation": {
+        "unit": "second",
+        "output": 0
+      },
+      "hyper-sdxl": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/hyper-sdxl": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/hyper-sdxl": {
+        "unit": "image",
+        "output": 0
+      },
+      "fast-lightning-sdxl/inpainting": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/fast-lightning-sdxl/inpainting": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/fast-lightning-sdxl/inpainting": {
+        "unit": "image",
+        "output": 0
+      },
+      "whisper": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal-ai/whisper": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal/whisper": {
+        "unit": "request",
+        "output": 0
+      },
+      "fast-lcm-diffusion/inpainting": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/fast-lcm-diffusion/inpainting": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/fast-lcm-diffusion/inpainting": {
+        "unit": "image",
+        "output": 0
+      },
+      "fast-lcm-diffusion": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/fast-lcm-diffusion": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/fast-lcm-diffusion": {
+        "unit": "image",
+        "output": 0
+      },
+      "fast-lcm-diffusion/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/fast-lcm-diffusion/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/fast-lcm-diffusion/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fast-fooocus-sdxl": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/fast-fooocus-sdxl": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/fast-fooocus-sdxl": {
+        "unit": "image",
+        "output": 0
+      },
+      "llava-next": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal-ai/llava-next": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal/llava-next": {
+        "unit": "request",
+        "output": 0
+      },
+      "fast-svd-lcm": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/fast-svd-lcm": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/fast-svd-lcm": {
+        "unit": "image",
+        "output": 0
+      },
+      "fast-animatediff/turbo/text-to-video": {
+        "unit": "second",
+        "output": 0
+      },
+      "fal-ai/fast-animatediff/turbo/text-to-video": {
+        "unit": "second",
+        "output": 0
+      },
+      "fal/fast-animatediff/turbo/text-to-video": {
+        "unit": "second",
+        "output": 0
+      },
+      "illusion-diffusion": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/illusion-diffusion": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/illusion-diffusion": {
+        "unit": "image",
+        "output": 0
+      },
+      "imageutils/depth": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/imageutils/depth": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/imageutils/depth": {
+        "unit": "image",
+        "output": 0
+      },
+      "retoucher": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/retoucher": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/retoucher": {
+        "unit": "image",
+        "output": 0
+      },
+      "fooocus/image-prompt": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/fooocus/image-prompt": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/fooocus/image-prompt": {
+        "unit": "image",
+        "output": 0
+      },
+      "fast-animatediff/turbo/video-to-video": {
+        "unit": "second",
+        "output": 0
+      },
+      "fal-ai/fast-animatediff/turbo/video-to-video": {
+        "unit": "second",
+        "output": 0
+      },
+      "fal/fast-animatediff/turbo/video-to-video": {
+        "unit": "second",
+        "output": 0
+      },
+      "minimax/video-01": {
+        "unit": "second",
+        "output": 0.3
+      },
+      "fal-ai/minimax/video-01": {
+        "unit": "second",
+        "output": 0.3
+      },
+      "fal/minimax/video-01": {
+        "unit": "second",
+        "output": 0.3
+      },
+      "fooocus/inpaint": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/fooocus/inpaint": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/fooocus/inpaint": {
+        "unit": "image",
+        "output": 0
+      },
+      "fast-animatediff/video-to-video": {
+        "unit": "second",
+        "output": 0
+      },
+      "fal-ai/fast-animatediff/video-to-video": {
+        "unit": "second",
+        "output": 0
+      },
+      "fal/fast-animatediff/video-to-video": {
+        "unit": "second",
+        "output": 0
+      },
+      "lcm": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/lcm": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/lcm": {
+        "unit": "image",
+        "output": 0
+      },
+      "triposr": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/triposr": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/triposr": {
+        "unit": "image",
+        "output": 0
+      },
+      "diffusion-edge": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/diffusion-edge": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/diffusion-edge": {
+        "unit": "image",
+        "output": 0
+      },
+      "stable-audio": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal-ai/stable-audio": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal/stable-audio": {
+        "unit": "request",
+        "output": 0
+      },
+      "imageutils/marigold-depth": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/imageutils/marigold-depth": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/imageutils/marigold-depth": {
+        "unit": "image",
+        "output": 0
+      },
+      "pulid": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/pulid": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/pulid": {
+        "unit": "image",
+        "output": 0
+      },
+      "fast-sdxl-controlnet-canny/inpainting": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/fast-sdxl-controlnet-canny/inpainting": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/fast-sdxl-controlnet-canny/inpainting": {
+        "unit": "image",
+        "output": 0
+      },
+      "fast-sdxl-controlnet-canny/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/fast-sdxl-controlnet-canny/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/fast-sdxl-controlnet-canny/image-to-image": {
+        "unit": "image",
+        "output": 0
+      },
+      "fooocus": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/fooocus": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/fooocus": {
+        "unit": "image",
+        "output": 0
+      },
+      "lcm-sd15-i2i": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/lcm-sd15-i2i": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/lcm-sd15-i2i": {
+        "unit": "image",
+        "output": 0
+      },
+      "animatediff-sparsectrl-lcm": {
+        "unit": "second",
+        "output": 0
+      },
+      "fal-ai/animatediff-sparsectrl-lcm": {
+        "unit": "second",
+        "output": 0
+      },
+      "fal/animatediff-sparsectrl-lcm": {
+        "unit": "second",
+        "output": 0
+      },
+      "inpaint": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/inpaint": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/inpaint": {
+        "unit": "image",
+        "output": 0
+      },
+      "esrgan": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/esrgan": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/esrgan": {
+        "unit": "image",
+        "output": 0
+      },
+      "imageutils/rembg": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/imageutils/rembg": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/imageutils/rembg": {
+        "unit": "image",
+        "output": 0
+      },
+      "lora": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal-ai/lora": {
+        "unit": "image",
+        "output": 0
+      },
+      "fal/lora": {
+        "unit": "image",
+        "output": 0
+      },
+      "flux-realism": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal-ai/flux-realism": {
+        "unit": "request",
+        "output": 0
+      },
+      "fal/flux-realism": {
+        "unit": "request",
+        "output": 0
+      },
+      "flux-pro": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal-ai/flux-pro": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "fal/flux-pro": {
+        "unit": "image",
+        "output": 0.05
+      },
+      "flux-schnell": {
+        "unit": "image",
+        "output": 0.003
+      },
+      "fal-ai/flux-schnell": {
+        "unit": "image",
+        "output": 0.003
+      },
+      "fal/flux-schnell": {
+        "unit": "image",
+        "output": 0.003
+      }
+    },
+    "google": {
+      "gemini-3-pro-preview": {
+        "unit": "1m_tokens",
+        "input": 2,
+        "output": 12,
+        "cachedInput": 0.2
+      },
+      "gemini-3.0-pro-preview": {
+        "unit": "1m_tokens",
+        "input": 2,
+        "output": 12,
+        "cachedInput": 0.2
+      },
+      "google/gemini-3-pro-preview": {
+        "unit": "1m_tokens",
+        "input": 2,
+        "output": 12,
+        "cachedInput": 0.2
+      },
+      "gemini-3-flash-preview": {
+        "unit": "1m_tokens",
+        "input": 0.5,
+        "output": 3,
+        "cachedInput": 0.05
+      },
+      "gemini-3.0-flash-preview": {
+        "unit": "1m_tokens",
+        "input": 0.5,
+        "output": 3,
+        "cachedInput": 0.05
+      },
+      "google/gemini-3-flash-preview": {
+        "unit": "1m_tokens",
+        "input": 0.5,
+        "output": 3,
+        "cachedInput": 0.05
+      },
+      "gemini-2.5-pro": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 10,
+        "cachedInput": 0.125
+      },
+      "gemini-2.5-pro-preview": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 10,
+        "cachedInput": 0.125
+      },
+      "google/gemini-2.5-pro": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 10,
+        "cachedInput": 0.125
+      },
+      "google/gemini-2.5-pro-preview": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 10,
+        "cachedInput": 0.125
+      },
+      "gemini-2.5-flash": {
+        "unit": "1m_tokens",
+        "input": 0.3,
+        "output": 2.5,
+        "cachedInput": 0.03
+      },
+      "gemini-2.5-flash-preview": {
+        "unit": "1m_tokens",
+        "input": 0.3,
+        "output": 2.5,
+        "cachedInput": 0.03
+      },
+      "google/gemini-2.5-flash": {
+        "unit": "1m_tokens",
+        "input": 0.3,
+        "output": 2.5,
+        "cachedInput": 0.03
+      },
+      "google/gemini-2.5-flash-preview": {
+        "unit": "1m_tokens",
+        "input": 0.3,
+        "output": 2.5,
+        "cachedInput": 0.03
+      },
+      "gemini-2.5-flash-lite": {
+        "unit": "1m_tokens",
+        "input": 0.1,
+        "output": 0.4,
+        "cachedInput": 0.01
+      },
+      "google/gemini-2.5-flash-lite": {
+        "unit": "1m_tokens",
+        "input": 0.1,
+        "output": 0.4,
+        "cachedInput": 0.01
+      },
+      "gemini-2.5-flash-live": {
+        "unit": "1m_tokens",
+        "input": 0.5,
+        "output": 2
+      },
+      "google/gemini-2.5-flash-live": {
+        "unit": "1m_tokens",
+        "input": 0.5,
+        "output": 2
+      },
+      "gemini-2.0-flash": {
+        "unit": "1m_tokens",
+        "input": 0.15,
+        "output": 0.6
+      },
+      "gemini-2.0-flash-001": {
+        "unit": "1m_tokens",
+        "input": 0.15,
+        "output": 0.6
+      },
+      "google/gemini-2.0-flash": {
+        "unit": "1m_tokens",
+        "input": 0.15,
+        "output": 0.6
+      },
+      "google/gemini-2.0-flash-001": {
+        "unit": "1m_tokens",
+        "input": 0.15,
+        "output": 0.6
+      },
+      "gemini-2.0-flash-lite": {
+        "unit": "1m_tokens",
+        "input": 0.075,
+        "output": 0.3
+      },
+      "google/gemini-2.0-flash-lite": {
+        "unit": "1m_tokens",
+        "input": 0.075,
+        "output": 0.3
+      },
+      "gemini-2.0-flash-live": {
+        "unit": "1m_tokens",
+        "input": 0.5,
+        "output": 2
+      },
+      "google/gemini-2.0-flash-live": {
+        "unit": "1m_tokens",
+        "input": 0.5,
+        "output": 2
+      },
+      "gemini-1.5-pro": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 5
+      },
+      "gemini-1.5-pro-001": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 5
+      },
+      "gemini-1.5-pro-002": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 5
+      },
+      "google/gemini-1.5-pro": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 5
+      },
+      "google/gemini-1.5-pro-001": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 5
+      },
+      "google/gemini-1.5-pro-002": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 5
+      },
+      "gemini-1.5-flash": {
+        "unit": "1m_tokens",
+        "input": 0.075,
+        "output": 0.3
+      },
+      "gemini-1.5-flash-001": {
+        "unit": "1m_tokens",
+        "input": 0.075,
+        "output": 0.3
+      },
+      "gemini-1.5-flash-002": {
+        "unit": "1m_tokens",
+        "input": 0.075,
+        "output": 0.3
+      },
+      "google/gemini-1.5-flash": {
+        "unit": "1m_tokens",
+        "input": 0.075,
+        "output": 0.3
+      },
+      "google/gemini-1.5-flash-001": {
+        "unit": "1m_tokens",
+        "input": 0.075,
+        "output": 0.3
+      },
+      "google/gemini-1.5-flash-002": {
+        "unit": "1m_tokens",
+        "input": 0.075,
+        "output": 0.3
+      },
+      "gemini-embedding": {
+        "unit": "1k_tokens",
+        "input": 0.00015
+      },
+      "text-embedding-005": {
+        "unit": "1k_tokens",
+        "input": 0.00015
+      },
+      "google/gemini-embedding": {
+        "unit": "1k_tokens",
+        "input": 0.00015
+      },
+      "google/text-embedding-005": {
+        "unit": "1k_tokens",
+        "input": 0.00015
+      },
+      "text-embedding-004": {
+        "unit": "1k_characters",
+        "input": 0.000025
+      },
+      "textembedding-gecko@003": {
+        "unit": "1k_characters",
+        "input": 0.000025
+      },
+      "google/text-embedding-004": {
+        "unit": "1k_characters",
+        "input": 0.000025
+      },
+      "imagen-4-ultra": {
+        "unit": "image",
+        "output": 0.06
+      },
+      "google/imagen-4-ultra": {
+        "unit": "image",
+        "output": 0.06
+      },
+      "imagen-4": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "google/imagen-4": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "imagen-4-fast": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "google/imagen-4-fast": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "imagen-3": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "imagegeneration@006": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "google/imagen-3": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "imagen-3-fast": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "google/imagen-3-fast": {
+        "unit": "image",
+        "output": 0.02
+      },
+      "veo-3.1": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "google/veo-3.1": {
+        "unit": "second",
+        "output": 0.4
+      },
+      "veo-3.1-fast": {
+        "unit": "second",
+        "output": 0.15
+      },
+      "google/veo-3.1-fast": {
+        "unit": "second",
+        "output": 0.15
+      }
+    },
+    "openai": {
+      "gpt-5.2": {
+        "unit": "1m_tokens",
+        "input": 1.75,
+        "output": 14,
+        "cachedInput": 0.175
+      },
+      "gpt-5.1": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 10,
+        "cachedInput": 0.125
+      },
+      "gpt-5": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 10,
+        "cachedInput": 0.125
+      },
+      "gpt-5-mini": {
+        "unit": "1m_tokens",
+        "input": 0.25,
+        "output": 2,
+        "cachedInput": 0.025
+      },
+      "gpt-5-nano": {
+        "unit": "1m_tokens",
+        "input": 0.05,
+        "output": 0.4,
+        "cachedInput": 0.005
+      },
+      "gpt-5.2-pro": {
+        "unit": "1m_tokens",
+        "input": 21,
+        "output": 168
+      },
+      "gpt-5-pro": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 120
+      },
+      "gpt-5.2-chat-latest": {
+        "unit": "1m_tokens",
+        "input": 1.75,
+        "output": 14,
+        "cachedInput": 0.175
+      },
+      "gpt-5.1-chat-latest": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 10,
+        "cachedInput": 0.125
+      },
+      "gpt-5-chat-latest": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 10,
+        "cachedInput": 0.125
+      },
+      "gpt-5.1-codex-max": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 10,
+        "cachedInput": 0.125
+      },
+      "gpt-5.1-codex": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 10,
+        "cachedInput": 0.125
+      },
+      "gpt-5-codex": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 10,
+        "cachedInput": 0.125
+      },
+      "gpt-5.1-codex-mini": {
+        "unit": "1m_tokens",
+        "input": 0.25,
+        "output": 2,
+        "cachedInput": 0.025
+      },
+      "codex-mini-latest": {
+        "unit": "1m_tokens",
+        "input": 1.5,
+        "output": 6,
+        "cachedInput": 0.375
+      },
+      "gpt-4.1": {
+        "unit": "1m_tokens",
+        "input": 2,
+        "output": 8,
+        "cachedInput": 0.5
+      },
+      "gpt-4.1-mini": {
+        "unit": "1m_tokens",
+        "input": 0.4,
+        "output": 1.6,
+        "cachedInput": 0.1
+      },
+      "gpt-4.1-nano": {
+        "unit": "1m_tokens",
+        "input": 0.1,
+        "output": 0.4,
+        "cachedInput": 0.025
+      },
+      "gpt-4o": {
+        "unit": "1m_tokens",
+        "input": 2.5,
+        "output": 10,
+        "cachedInput": 1.25
+      },
+      "gpt-4o-2024-05-13": {
+        "unit": "1m_tokens",
+        "input": 5,
+        "output": 15
+      },
+      "gpt-4o-mini": {
+        "unit": "1m_tokens",
+        "input": 0.15,
+        "output": 0.6,
+        "cachedInput": 0.075
+      },
+      "o1": {
+        "unit": "1m_tokens",
+        "input": 15,
+        "output": 60,
+        "cachedInput": 7.5
+      },
+      "o1-pro": {
+        "unit": "1m_tokens",
+        "input": 150,
+        "output": 600
+      },
+      "o1-mini": {
+        "unit": "1m_tokens",
+        "input": 1.1,
+        "output": 4.4,
+        "cachedInput": 0.55
+      },
+      "o3": {
+        "unit": "1m_tokens",
+        "input": 2,
+        "output": 8,
+        "cachedInput": 0.5
+      },
+      "o3-pro": {
+        "unit": "1m_tokens",
+        "input": 20,
+        "output": 80
+      },
+      "o3-mini": {
+        "unit": "1m_tokens",
+        "input": 1.1,
+        "output": 4.4,
+        "cachedInput": 0.55
+      },
+      "o3-deep-research": {
+        "unit": "1m_tokens",
+        "input": 10,
+        "output": 40,
+        "cachedInput": 2.5
+      },
+      "o4-mini": {
+        "unit": "1m_tokens",
+        "input": 1.1,
+        "output": 4.4,
+        "cachedInput": 0.275
+      },
+      "o4-mini-deep-research": {
+        "unit": "1m_tokens",
+        "input": 2,
+        "output": 8,
+        "cachedInput": 0.5
+      },
+      "gpt-realtime": {
+        "unit": "1m_tokens",
+        "input": 4,
+        "output": 16,
+        "cachedInput": 0.4
+      },
+      "gpt-realtime-mini": {
+        "unit": "1m_tokens",
+        "input": 0.6,
+        "output": 2.4,
+        "cachedInput": 0.06
+      },
+      "gpt-4o-realtime-preview": {
+        "unit": "1m_tokens",
+        "input": 5,
+        "output": 20,
+        "cachedInput": 2.5
+      },
+      "gpt-4o-mini-realtime-preview": {
+        "unit": "1m_tokens",
+        "input": 0.6,
+        "output": 2.4,
+        "cachedInput": 0.3
+      },
+      "gpt-audio": {
+        "unit": "1m_tokens",
+        "input": 2.5,
+        "output": 10
+      },
+      "gpt-audio-mini": {
+        "unit": "1m_tokens",
+        "input": 0.6,
+        "output": 2.4
+      },
+      "gpt-4o-audio-preview": {
+        "unit": "1m_tokens",
+        "input": 2.5,
+        "output": 10
+      },
+      "gpt-4o-mini-audio-preview": {
+        "unit": "1m_tokens",
+        "input": 0.15,
+        "output": 0.6
+      },
+      "gpt-5-search-api": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 10,
+        "cachedInput": 0.125
+      },
+      "gpt-4o-search-preview": {
+        "unit": "1m_tokens",
+        "input": 2.5,
+        "output": 10
+      },
+      "gpt-4o-mini-search-preview": {
+        "unit": "1m_tokens",
+        "input": 0.15,
+        "output": 0.6
+      },
+      "computer-use-preview": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 12
+      },
+      "gpt-image-1.5": {
+        "unit": "1m_tokens",
+        "input": 5,
+        "output": 10,
+        "cachedInput": 1.25
+      },
+      "chatgpt-image-latest": {
+        "unit": "1m_tokens",
+        "input": 5,
+        "output": 10,
+        "cachedInput": 1.25
+      },
+      "gpt-image-1": {
+        "unit": "1m_tokens",
+        "input": 5,
+        "cachedInput": 1.25
+      },
+      "gpt-image-1-mini": {
+        "unit": "1m_tokens",
+        "input": 2,
+        "cachedInput": 0.2
+      },
+      "gpt-4o-mini-tts": {
+        "unit": "1m_tokens",
+        "input": 0.6
+      },
+      "gpt-4o-transcribe": {
+        "unit": "1m_tokens",
+        "input": 2.5,
+        "output": 10
+      },
+      "gpt-4o-transcribe-diarize": {
+        "unit": "1m_tokens",
+        "input": 2.5,
+        "output": 10
+      },
+      "gpt-4o-mini-transcribe": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 5
+      },
+      "whisper-1": {
+        "unit": "minute",
+        "input": 0.006
+      },
+      "whisper": {
+        "unit": "minute",
+        "input": 0.006
+      },
+      "tts-1": {
+        "unit": "1k_characters",
+        "input": 15
+      },
+      "tts": {
+        "unit": "1k_characters",
+        "input": 15
+      },
+      "tts-1-hd": {
+        "unit": "1k_characters",
+        "input": 30
+      },
+      "tts-hd": {
+        "unit": "1k_characters",
+        "input": 30
+      },
+      "sora-2": {
+        "unit": "second",
+        "output": 0.1
+      },
+      "sora-2-pro": {
+        "unit": "second",
+        "output": 0.3
+      },
+      "dall-e-3": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "dalle-3": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "dall-e-3-standard": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "dall-e-3-hd": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "dall-e-2": {
+        "unit": "image",
+        "output": 0.016
+      },
+      "dalle-2": {
+        "unit": "image",
+        "output": 0.016
+      },
+      "text-embedding-3-small": {
+        "unit": "1m_tokens",
+        "input": 0.02
+      },
+      "text-embedding-3-large": {
+        "unit": "1m_tokens",
+        "input": 0.13
+      },
+      "text-embedding-ada-002": {
+        "unit": "1m_tokens",
+        "input": 0.1
+      },
+      "chatgpt-4o-latest": {
+        "unit": "1m_tokens",
+        "input": 5,
+        "output": 15
+      },
+      "gpt-4-turbo": {
+        "unit": "1m_tokens",
+        "input": 10,
+        "output": 30
+      },
+      "gpt-4-turbo-2024-04-09": {
+        "unit": "1m_tokens",
+        "input": 10,
+        "output": 30
+      },
+      "gpt-4-0125-preview": {
+        "unit": "1m_tokens",
+        "input": 10,
+        "output": 30
+      },
+      "gpt-4-1106-preview": {
+        "unit": "1m_tokens",
+        "input": 10,
+        "output": 30
+      },
+      "gpt-4-1106-vision-preview": {
+        "unit": "1m_tokens",
+        "input": 10,
+        "output": 30
+      },
+      "gpt-4": {
+        "unit": "1m_tokens",
+        "input": 30,
+        "output": 60
+      },
+      "gpt-4-0613": {
+        "unit": "1m_tokens",
+        "input": 30,
+        "output": 60
+      },
+      "gpt-4-0314": {
+        "unit": "1m_tokens",
+        "input": 30,
+        "output": 60
+      },
+      "gpt-4-32k": {
+        "unit": "1m_tokens",
+        "input": 60,
+        "output": 120
+      },
+      "gpt-3.5-turbo": {
+        "unit": "1m_tokens",
+        "input": 0.5,
+        "output": 1.5
+      },
+      "gpt-3.5-turbo-0125": {
+        "unit": "1m_tokens",
+        "input": 0.5,
+        "output": 1.5
+      },
+      "gpt-3.5-turbo-1106": {
+        "unit": "1m_tokens",
+        "input": 1,
+        "output": 2
+      },
+      "gpt-3.5-turbo-0613": {
+        "unit": "1m_tokens",
+        "input": 1.5,
+        "output": 2
+      },
+      "gpt-3.5-0301": {
+        "unit": "1m_tokens",
+        "input": 1.5,
+        "output": 2
+      },
+      "gpt-3.5-turbo-instruct": {
+        "unit": "1m_tokens",
+        "input": 1.5,
+        "output": 2
+      },
+      "gpt-3.5-turbo-16k-0613": {
+        "unit": "1m_tokens",
+        "input": 3,
+        "output": 4
+      },
+      "davinci-002": {
+        "unit": "1m_tokens",
+        "input": 2,
+        "output": 2
+      },
+      "babbage-002": {
+        "unit": "1m_tokens",
+        "input": 0.4,
+        "output": 0.4
+      }
+    }
+  }
+} as const;
+
+/**
+ * Version of the bundled manifest
+ */
+export const BUNDLED_VERSION = "1.0.0";
+
+/**
+ * Timestamp when the manifest was bundled
+ */
+export const BUNDLED_AT = "2025-12-22T22:32:28.192Z";

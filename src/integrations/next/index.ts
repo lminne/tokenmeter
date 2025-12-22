@@ -7,6 +7,7 @@
 
 import { withAttributes } from "../../context.js";
 import type { TokenMeterAttributes } from "../../types.js";
+import { HEADERS } from "../../constants.js";
 
 /**
  * Context for tokenmeter tracking
@@ -58,9 +59,9 @@ function defaultContextExtractor(
   request: Request,
   options: WithTokenmeterOptions,
 ): TokenMeterContext {
-  const userIdHeader = options.userIdHeader ?? "x-user-id";
-  const orgIdHeader = options.orgIdHeader ?? "x-org-id";
-  const workflowIdHeader = options.workflowIdHeader ?? "x-request-id";
+  const userIdHeader = options.userIdHeader ?? HEADERS.USER_ID;
+  const orgIdHeader = options.orgIdHeader ?? HEADERS.ORG_ID;
+  const workflowIdHeader = options.workflowIdHeader ?? HEADERS.REQUEST_ID;
 
   return {
     userId: request.headers.get(userIdHeader) ?? undefined,
@@ -205,14 +206,14 @@ export const headerExtractors = {
    * Extract user ID from x-user-id header
    */
   userId: (request: Request): string | undefined => {
-    return request.headers.get("x-user-id") ?? undefined;
+    return request.headers.get(HEADERS.USER_ID) ?? undefined;
   },
 
   /**
    * Extract org ID from x-org-id header
    */
   orgId: (request: Request): string | undefined => {
-    return request.headers.get("x-org-id") ?? undefined;
+    return request.headers.get(HEADERS.ORG_ID) ?? undefined;
   },
 
   /**
@@ -230,6 +231,6 @@ export const headerExtractors = {
    * Extract request ID from x-request-id header
    */
   requestId: (request: Request): string | undefined => {
-    return request.headers.get("x-request-id") ?? undefined;
+    return request.headers.get(HEADERS.REQUEST_ID) ?? undefined;
   },
 };

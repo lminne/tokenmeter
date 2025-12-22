@@ -22,6 +22,7 @@
  */
 
 import { trace, type Tracer } from "@opentelemetry/api";
+import { VERSION, PACKAGE_NAME } from "../../config.js";
 
 /**
  * Telemetry settings expected by Vercel AI SDK
@@ -205,7 +206,7 @@ export function telemetry(
     metadata: Object.keys(metadata).length > 0 ? metadata : undefined,
     recordInputs: options.recordInputs ?? true,
     recordOutputs: options.recordOutputs ?? true,
-    tracer: trace.getTracer("tokenmeter", "5.0.0"),
+    tracer: trace.getTracer(PACKAGE_NAME, VERSION),
   };
 }
 

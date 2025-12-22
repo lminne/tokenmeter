@@ -39,6 +39,23 @@ export interface CreateTracedEventOptions {
 }
 
 /**
+ * Convert TraceHeaders to a Record for use with OTel propagation.
+ * Filters out undefined values.
+ *
+ * @param trace - Optional trace headers object
+ * @returns Record with only defined header values
+ *
+ * @internal
+ */
+function traceHeadersToRecord(trace?: TraceHeaders): Record<string, string> {
+  const headers: Record<string, string> = {};
+  if (trace?.traceparent) headers.traceparent = trace.traceparent;
+  if (trace?.tracestate) headers.tracestate = trace.tracestate;
+  if (trace?.baggage) headers.baggage = trace.baggage;
+  return headers;
+}
+
+/**
  * Extract trace headers to include when sending an Inngest event.
  *
  * Call this in your API route before sending an Inngest event to propagate
@@ -129,19 +146,7 @@ export async function withInngestTrace<T>(
   event: { trace?: TraceHeaders },
   fn: () => Promise<T>,
 ): Promise<T> {
-  const headers: Record<string, string> = {};
-
-  if (event.trace?.traceparent) {
-    headers.traceparent = event.trace.traceparent;
-  }
-  if (event.trace?.tracestate) {
-    headers.tracestate = event.trace.tracestate;
-  }
-  if (event.trace?.baggage) {
-    headers.baggage = event.trace.baggage;
-  }
-
-  return withExtractedContext(headers, fn);
+  return withExtractedContext(traceHeadersToRecord(event.trace), fn);
 }
 
 /**
@@ -226,83 +231,9 @@ export function withInngest<TEvent, TResult>(
   handler: InngestHandler<TEvent, TResult>,
 ): InngestHandler<TEvent, TResult> {
   return async (ctx: InngestHandlerContext<TEvent>): Promise<TResult> => {
-    const headers: Record<string, string> = {};
-
-    if (ctx.event?.trace?.traceparent) {
-      headers.traceparent = ctx.event.trace.traceparent;
-    }
-    if (ctx.event?.trace?.tracestate) {
-      headers.tracestate = ctx.event.trace.tracestate;
-    }
-    if (ctx.event?.trace?.baggage) {
-      headers.baggage = ctx.event.trace.baggage;
-    }
-
-    return withExtractedContext(headers, () => handler(ctx));
+    return withExtractedContext(traceHeadersToRecord(ctx.event?.trace), () =>
+      handler(ctx),
+    );
   };
 }
 
-/**
- * Create Inngest middleware that automatically handles trace context.
- *
- * This middleware extracts trace headers from incoming events and sets up
- * the context for all AI calls within the function.
- *
- * @example
- * ```typescript
- * import { Inngest } from 'inngest';
- * import { createInngestMiddleware } from 'tokenmeter/inngest';
- *
- * export const inngest = new Inngest({
- *   id: 'my-app',
- *   middleware: [createInngestMiddleware()],
- * });
- * ```
- */
-export function createInngestMiddleware() {
-  return {
-    name: "tokenmeter",
-    init() {
-      return {
-        onFunctionRun({
-          fn,
-          ctx,
-        }: {
-          fn: unknown;
-          ctx: { event: { trace?: TraceHeaders } };
-        }) {
-          return {
-            transformInput({
-              ctx: inputCtx,
-              steps,
-            }: {
-              ctx: unknown;
-              steps: unknown;
-            }) {
-              // Extract trace headers from event
-              const event = (inputCtx as { event?: { trace?: TraceHeaders } })
-                ?.event;
-              const headers: Record<string, string> = {};
-
-              if (event?.trace?.traceparent) {
-                headers.traceparent = event.trace.traceparent;
-              }
-              if (event?.trace?.tracestate) {
-                headers.tracestate = event.trace.tracestate;
-              }
-              if (event?.trace?.baggage) {
-                headers.baggage = event.trace.baggage;
-              }
-
-              // Note: Middleware can't wrap async execution directly
-              // Users should still use withInngest() in their function
-              // This middleware is for future compatibility
-
-              return { ctx: inputCtx, steps };
-            },
-          };
-        },
-      };
-    },
-  };
-}

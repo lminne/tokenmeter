@@ -1,6 +1,6 @@
 {
   "name": "tokenmeter",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "OpenTelemetry-native cost tracking for AI workflows",
   "type": "module",
   "main": "./dist/index.js",
@@ -44,7 +44,8 @@
     }
   },
   "scripts": {
-    "build": "tsc && npm run build:pricing",
+    "build": "npm run build:manifest && tsc && npm run build:pricing",
+    "build:manifest": "npx tsx scripts/build-manifest.ts",
     "build:pricing": "mkdir -p dist/pricing && cp src/pricing/manifest.json dist/pricing/manifest.json",
     "dev": "tsc --watch",
     "lint": "eslint . --max-warnings 0",

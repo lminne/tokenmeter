@@ -28,15 +28,14 @@ npm install tokenmeter @opentelemetry/api @opentelemetry/sdk-trace-node
 import OpenAI from 'openai';
 import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
 import { SimpleSpanProcessor, ConsoleSpanExporter } from '@opentelemetry/sdk-trace-base';
-import { monitor, withAttributes, TokenMeterProcessor } from 'tokenmeter';
+import { monitor, withAttributes } from 'tokenmeter';
 
-// 1. Set up OpenTelemetry with TokenMeter processor
+// 1. Set up OpenTelemetry
 const provider = new NodeTracerProvider();
-provider.addSpanProcessor(new TokenMeterProcessor());
 provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()));
 provider.register();
 
-// 2. Wrap your AI client
+// 2. Wrap your AI client (this is what adds cost tracking!)
 const openai = monitor(new OpenAI());
 
 // 3. Track costs with context
@@ -102,13 +101,100 @@ await withAttributes({ 'org.id': 'acme' }, async () => {
 });
 ```
 
+### Request-Level Cost Attribution
+
+Get cost data immediately after each API call using hooks or the `withCost` utility.
+
+#### Using Hooks
+
+Configure `beforeRequest`, `afterResponse`, and `onError` hooks when creating the monitored client:
+
+```typescript
+import { monitor } from 'tokenmeter';
+
+const openai = monitor(new OpenAI(), {
+  beforeRequest: (ctx) => {
+    console.log(`Calling ${ctx.spanName}`);
+    // Throw to abort the request (useful for rate limiting)
+    if (isRateLimited()) throw new Error('Rate limited');
+  },
+  afterResponse: (ctx) => {
+    console.log(`Cost: $${ctx.cost.toFixed(6)}`);
+    console.log(`Tokens: ${ctx.usage?.inputUnits} in, ${ctx.usage?.outputUnits} out`);
+    console.log(`Duration: ${ctx.durationMs}ms`);
+    
+    // Track costs in your system
+    trackCost(ctx.usage, ctx.cost);
+  },
+  onError: (ctx) => {
+    console.error(`Error in ${ctx.spanName}:`, ctx.error.message);
+    alertOnError(ctx.error);
+  },
+});
+```
+
+Hooks are read-only—they observe but cannot modify request arguments.
+
+#### Using `withCost`
+
+For ad-hoc cost capture without configuring hooks:
+
+```typescript
+import { monitor, withCost } from 'tokenmeter';
+
+const openai = monitor(new OpenAI());
+
+const { result, cost, usage } = await withCost(() =>
+  openai.chat.completions.create({
+    model: 'gpt-4o',
+    messages: [{ role: 'user', content: 'Hello!' }],
+  })
+);
+
+console.log(`Response: ${result.choices[0].message.content}`);
+console.log(`Cost: $${cost.toFixed(6)}`);
+console.log(`Tokens: ${usage?.inputUnits} in, ${usage?.outputUnits} out`);
+```
+
+### Provider-Specific Types
+
+Use type guards to access provider-specific usage data:
+
+```typescript
+import { 
+  withCost, 
+  isOpenAIUsage, 
+  isAnthropicUsage,
+  type ProviderUsageData 
+} from 'tokenmeter';
+
+const { usage } = await withCost(() => openai.chat.completions.create({...}));
+
+if (isOpenAIUsage(usage)) {
+  console.log(`OpenAI tokens: ${usage.inputUnits} in, ${usage.outputUnits} out`);
+  if (usage.totalTokens) console.log(`Total: ${usage.totalTokens}`);
+}
+
+if (isAnthropicUsage(usage)) {
+  console.log(`Anthropic tokens: ${usage.inputUnits} in, ${usage.outputUnits} out`);
+  if (usage.cacheCreationTokens) console.log(`Cache: ${usage.cacheCreationTokens}`);
+}
+```
+
+Available type guards: `isOpenAIUsage`, `isAnthropicUsage`, `isGoogleUsage`, `isBedrockUsage`, `isFalUsage`, `isElevenLabsUsage`, `isBFLUsage`, `isVercelAIUsage`.
+
 ### `TokenMeterProcessor`
 
-An OpenTelemetry SpanProcessor that calculates costs from span attributes and adds `tokenmeter.cost_usd`.
+An OpenTelemetry SpanProcessor for debugging and validating cost calculations. It logs calculated costs for spans that have usage data.
+
+> **Note**: The processor cannot add cost attributes to spans after they end (OpenTelemetry limitation). For production cost tracking, use `monitor()` which adds `tokenmeter.cost_usd` before the span ends.
 
 ```typescript
 import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
-import { TokenMeterProcessor } from 'tokenmeter';
+import { TokenMeterProcessor, configureLogger } from 'tokenmeter';
+
+// Enable debug logging to see calculated costs
+configureLogger({ level: 'debug' });
 
 const provider = new NodeTracerProvider();
 provider.addSpanProcessor(new TokenMeterProcessor());
@@ -166,6 +252,25 @@ export const generateFn = inngest.createFunction(
     await openai.chat.completions.create({...}); // Linked to original trace
   })
 );
+```
+
+### Vercel AI SDK
+
+For non-invasive integration with the Vercel AI SDK using `experimental_telemetry`:
+
+```typescript
+import { generateText } from 'ai';
+import { openai } from '@ai-sdk/openai';
+import { telemetry } from 'tokenmeter/vercel-ai';
+
+const { text } = await generateText({
+  model: openai('gpt-4o'),
+  prompt: 'Hello!',
+  experimental_telemetry: telemetry({
+    userId: 'user_123',
+    orgId: 'org_456',
+  }),
+});
 ```
 
 ## PostgreSQL Persistence
@@ -295,8 +400,33 @@ provider.addSpanProcessor(new BatchSpanProcessor(
 |--------|-------------|
 | `monitor(client, options?)` | Wrap AI client with cost tracking |
 | `withAttributes(attrs, fn)` | Set context attributes for nested calls |
+| `withCost(fn)` | Capture cost from API calls in the function |
 | `extractTraceHeaders()` | Get W3C trace headers for propagation |
 | `withExtractedContext(headers, fn)` | Restore context from headers |
+
+### Monitor Options
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `name` | `string` | Custom name for span naming |
+| `provider` | `string` | Override provider detection |
+| `attributes` | `Attributes` | Custom attributes for all spans |
+| `beforeRequest` | `(ctx) => void` | Hook called before each API call |
+| `afterResponse` | `(ctx) => void` | Hook called after successful response |
+| `onError` | `(ctx) => void` | Hook called on errors |
+
+### Type Guards
+
+| Export | Description |
+|--------|-------------|
+| `isOpenAIUsage(usage)` | Check if usage is from OpenAI |
+| `isAnthropicUsage(usage)` | Check if usage is from Anthropic |
+| `isGoogleUsage(usage)` | Check if usage is from Google |
+| `isBedrockUsage(usage)` | Check if usage is from AWS Bedrock |
+| `isFalUsage(usage)` | Check if usage is from fal.ai |
+| `isElevenLabsUsage(usage)` | Check if usage is from ElevenLabs |
+| `isBFLUsage(usage)` | Check if usage is from Black Forest Labs |
+| `isVercelAIUsage(usage)` | Check if usage is from Vercel AI SDK |
 
 ### Processor & Exporter
 
@@ -322,6 +452,90 @@ provider.addSpanProcessor(new BatchSpanProcessor(
 | `withTokenmeter` (`tokenmeter/next`) | Next.js App Router wrapper |
 | `withInngest` (`tokenmeter/inngest`) | Inngest function wrapper |
 | `getInngestTraceHeaders` (`tokenmeter/inngest`) | Get headers for Inngest events |
+| `telemetry` (`tokenmeter/vercel-ai`) | Vercel AI SDK telemetry settings |
+
+## Questions Engineers Ask
+
+### "What's the integration effort?"
+
+One line per client. Wrap with `monitor()`, and you're done.
+
+```typescript
+// Before
+const openai = new OpenAI();
+
+// After  
+const openai = monitor(new OpenAI());
+```
+
+No changes to your API calls, no middleware, no schema migrations. TypeScript types are fully preserved—autocomplete works exactly as before.
+
+### "What's the performance overhead?"
+
+Near-zero. The hot path is:
+1. A JavaScript Proxy intercepts the method call
+2. An OTel span is created (microseconds)
+3. Cost lookup happens synchronously from bundled pricing data
+
+No network calls block your AI requests. Pricing manifest refresh happens in the background.
+
+### "What happens if something fails?"
+
+Graceful degradation everywhere:
+
+| Scenario | Behavior |
+|----------|----------|
+| Pricing data unavailable | Uses bundled fallback (works offline) |
+| Unknown model | Logs warning, `cost_usd = 0`, doesn't throw |
+| OTel not configured | Spans are no-ops, your code still works |
+| Stream interrupted | Partial cost still recorded |
+
+### "Does it work with streaming responses?"
+
+Yes, automatically. tokenmeter wraps async iterators and calculates cost when the stream completes.
+
+For OpenAI, add `stream_options: { include_usage: true }` to get token counts in streaming mode.
+
+### "How do I attribute costs to users/orgs?"
+
+Wrap your request handler with `withAttributes()`. All nested AI calls inherit the context automatically via OpenTelemetry Baggage:
+
+```typescript
+await withAttributes({ 'user.id': userId, 'org.id': orgId }, async () => {
+  // Every AI call in here gets tagged with user.id and org.id
+  await openai.chat.completions.create({...});
+  await anthropic.messages.create({...});  // Also tagged
+});
+```
+
+### "What if my provider isn't supported?"
+
+Use `registerProvider()` to add custom providers without forking:
+
+```typescript
+import { registerProvider } from 'tokenmeter';
+
+registerProvider({
+  name: 'my-provider',
+  detect: (client) => 'myMethod' in client,
+  extractUsage: (response) => ({
+    inputUnits: response.usage?.input,
+    outputUnits: response.usage?.output,
+  }),
+  extractModel: (args) => args[0]?.model || 'default',
+});
+```
+
+### "How accurate/up-to-date is the pricing?"
+
+- **Bundled pricing** is compiled from official provider pricing pages at build time
+- **Remote refresh** fetches updates from our Pricing API on startup (5-minute cache)
+- **Model matching** handles version suffixes (e.g., `gpt-4o-2024-05-13` → `gpt-4o`) and aliases
+- **Custom overrides** via `setModelAliases()` for fine-tuned or custom-named models
+
+### "Can I use this without PostgreSQL?"
+
+Yes. PostgreSQL is optional—only needed if you want to persist and query costs. The core `monitor()` and `withAttributes()` work with any OTel-compatible exporter (Datadog, Honeycomb, Jaeger, console, etc.) or no exporter at all.
 
 ## Contributing
 

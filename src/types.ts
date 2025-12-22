@@ -4,14 +4,22 @@
  * OpenTelemetry-native cost tracking for AI workflows.
  */
 
-import type { Span, SpanContext, Attributes } from "@opentelemetry/api";
+import type { Attributes } from "@opentelemetry/api";
 
 // ============================================================================
-// Pricing Types
+// Pricing Types (Runtime representation)
 // ============================================================================
 
 /**
- * Pricing unit types
+ * Runtime pricing unit types with explicit size.
+ * These are the normalized units used in the pricing manifest at runtime.
+ *
+ * @see BillingUnit in pricing/schema.ts for JSON catalog format
+ *
+ * @example
+ * "1m_tokens" = per million tokens (most LLMs)
+ * "1k_characters" = per thousand characters (TTS)
+ * "image" = per image generated
  */
 export type PricingUnit =
   | "1m_tokens" // Per million tokens (LLMs)
@@ -24,7 +32,10 @@ export type PricingUnit =
   | "image"; // Per image generated
 
 /**
- * Model pricing entry
+ * Runtime model pricing entry (normalized from JSON catalog).
+ * Used by manifest.ts for cost calculation.
+ *
+ * @see CatalogModelPricing in pricing/schema.ts for JSON file format
  */
 export interface ModelPricing {
   /** Cost per input unit */
@@ -33,7 +44,7 @@ export interface ModelPricing {
   output?: number;
   /** Flat cost per request (for request-based pricing) */
   cost?: number;
-  /** The unit for pricing */
+  /** The unit for pricing (includes size, e.g., "1m_tokens") */
   unit: PricingUnit;
   /** Cost for cached input (prompt caching) */
   cachedInput?: number;
@@ -46,18 +57,22 @@ export interface ModelPricing {
 }
 
 /**
- * Provider pricing catalog
+ * Provider pricing catalog (runtime format)
  */
 export interface ProviderPricing {
   [modelId: string]: ModelPricing;
 }
 
 /**
- * Complete pricing manifest
+ * Complete pricing manifest (runtime format).
+ * This is the normalized structure used for cost calculation.
  */
 export interface PricingManifest {
+  /** Manifest version */
   version: string;
+  /** ISO 8601 timestamp of last update */
   updatedAt: string;
+  /** Pricing data by provider */
   providers: {
     [providerId: string]: ProviderPricing;
   };
@@ -66,6 +81,30 @@ export interface PricingManifest {
 // ============================================================================
 // Monitor Types
 // ============================================================================
+
+/**
+ * Progress update during streaming responses.
+ * Called on each chunk with accumulated usage data.
+ */
+export interface StreamingCostUpdate {
+  /** Estimated cost based on tokens processed so far (USD) */
+  estimatedCost: number;
+  /** Total input tokens processed */
+  inputTokens: number;
+  /** Total output tokens generated so far */
+  outputTokens: number;
+  /** Provider name */
+  provider: string;
+  /** Model name */
+  model: string;
+  /** Whether the stream has completed */
+  isComplete: boolean;
+}
+
+/**
+ * Callback function for streaming cost updates
+ */
+export type StreamingCostCallback = (update: StreamingCostUpdate) => void;
 
 /**
  * Options for the monitor() function
@@ -77,6 +116,121 @@ export interface MonitorOptions {
   provider?: string;
   /** Custom attributes to add to all spans from this client */
   attributes?: Attributes;
+  /**
+   * Callback invoked during streaming responses with partial cost estimates.
+   * Called on each chunk and once more on completion with isComplete=true.
+   *
+   * Note: Many APIs only report usage at stream completion, so intermediate
+   * updates may have zero values until the final update.
+   *
+   * @example
+   * ```typescript
+   * const client = monitor(new OpenAI(), {
+   *   onStreamingCost: (update) => {
+   *     if (update.isComplete) {
+   *       console.log(`Final cost: $${update.estimatedCost.toFixed(6)}`);
+   *     }
+   *   }
+   * });
+   * ```
+   */
+  onStreamingCost?: StreamingCostCallback;
+
+  /**
+   * Called before each API call. Can throw to abort the request.
+   * Hooks are read-only and cannot modify request arguments.
+   *
+   * @example
+   * ```typescript
+   * const client = monitor(new OpenAI(), {
+   *   beforeRequest: async (ctx) => {
+   *     if (await isRateLimited(ctx.provider)) {
+   *       throw new Error('Rate limited');
+   *     }
+   *     console.log(`Calling ${ctx.spanName}`);
+   *   }
+   * });
+   * ```
+   */
+  beforeRequest?: (context: RequestContext) => void | Promise<void>;
+
+  /**
+   * Called after successful response with calculated cost.
+   * Enables request-level cost attribution.
+   *
+   * @example
+   * ```typescript
+   * const client = monitor(new OpenAI(), {
+   *   afterResponse: (ctx) => {
+   *     console.log(`Request cost: $${ctx.cost.toFixed(6)}`);
+   *     trackCost(ctx.usage, ctx.cost);
+   *   }
+   * });
+   * ```
+   */
+  afterResponse?: (context: ResponseContext) => void | Promise<void>;
+
+  /**
+   * Called when an error occurs during the API call.
+   *
+   * @example
+   * ```typescript
+   * const client = monitor(new OpenAI(), {
+   *   onError: (ctx) => {
+   *     console.error(`Error in ${ctx.spanName}:`, ctx.error.message);
+   *     alertOnError(ctx.error, ctx.provider);
+   *   }
+   * });
+   * ```
+   */
+  onError?: (context: ErrorContext) => void | Promise<void>;
+}
+
+// ============================================================================
+// Hook Context Types
+// ============================================================================
+
+/**
+ * Context passed to the beforeRequest hook.
+ * Provides read-only access to request information.
+ */
+export interface RequestContext {
+  /** Method path as array, e.g., ['chat', 'completions', 'create'] */
+  methodPath: string[];
+  /** Original arguments passed to the method (read-only) */
+  args: readonly unknown[];
+  /** Detected or configured provider name */
+  provider: string;
+  /** Full span name, e.g., 'openai.chat.completions.create' */
+  spanName: string;
+}
+
+/**
+ * Context passed to the afterResponse hook.
+ * Extends RequestContext with response data and calculated cost.
+ */
+export interface ResponseContext extends RequestContext {
+  /** The API response (original, unmodified) */
+  result: unknown;
+  /** Calculated cost in USD */
+  cost: number;
+  /** Extracted usage data, or null if extraction failed */
+  usage: UsageData | null;
+  /** Request duration in milliseconds */
+  durationMs: number;
+}
+
+/**
+ * Context passed to the onError hook.
+ * Extends RequestContext with error information.
+ */
+export interface ErrorContext extends RequestContext {
+  /** The error that occurred */
+  error: Error;
+  /** Partial usage data if available (e.g., from streaming errors) */
+  partialUsage?: UsageData;
+  /** Request duration until error in milliseconds */
+  durationMs: number;
 }
 
 /**
@@ -98,6 +252,213 @@ export interface UsageData {
   /** Additional metadata */
   metadata?: Record<string, unknown>;
 }
+
+// ============================================================================
+// Provider-Specific Usage Types (Discriminated Union)
+// ============================================================================
+
+/**
+ * Base interface for all provider-specific usage types.
+ * Extends UsageData with provider-specific metadata exposed as first-class fields.
+ */
+interface BaseProviderUsage {
+  model: string;
+  /** Input units (tokens, characters, etc.) - normalized field */
+  inputUnits?: number;
+  /** Output units - normalized field */
+  outputUnits?: number;
+  /** Cached input units */
+  cachedInputUnits?: number;
+  /** Raw cost if provided by the API */
+  rawCost?: number;
+}
+
+/**
+ * OpenAI-specific usage data
+ */
+export interface OpenAIUsageData extends BaseProviderUsage {
+  provider: "openai";
+  /** Total tokens (sum of input + output) */
+  totalTokens?: number;
+}
+
+/**
+ * Anthropic-specific usage data
+ */
+export interface AnthropicUsageData extends BaseProviderUsage {
+  provider: "anthropic";
+  /** Tokens used to create cache entries */
+  cacheCreationTokens?: number;
+}
+
+/**
+ * Google (Gemini/Vertex AI)-specific usage data
+ */
+export interface GoogleUsageData extends BaseProviderUsage {
+  provider: "google";
+  /** Total token count */
+  totalTokens?: number;
+}
+
+/**
+ * AWS Bedrock-specific usage data
+ */
+export interface BedrockUsageData extends BaseProviderUsage {
+  provider: "bedrock";
+  /** Original Bedrock model ID (may include region prefix) */
+  originalModelId?: string;
+  /** Request ID from AWS */
+  requestId?: string;
+}
+
+/**
+ * fal.ai-specific usage data (image/video generation)
+ */
+export interface FalUsageData extends BaseProviderUsage {
+  provider: "fal";
+  /** Request ID */
+  requestId?: string;
+}
+
+/**
+ * ElevenLabs-specific usage data (text-to-speech)
+ */
+export interface ElevenLabsUsageData extends BaseProviderUsage {
+  provider: "elevenlabs";
+  /** Character count (same as inputUnits for TTS) */
+  characterCount?: number;
+}
+
+/**
+ * Black Forest Labs (BFL)-specific usage data (image generation)
+ */
+export interface BFLUsageData extends BaseProviderUsage {
+  provider: "bfl";
+  /** Request ID */
+  requestId?: string;
+}
+
+/**
+ * Vercel AI SDK-specific usage data
+ */
+export interface VercelAIUsageData extends BaseProviderUsage {
+  provider: "vercel-ai";
+  /** Underlying provider (openai, anthropic, etc.) */
+  underlyingProvider?: string;
+}
+
+/**
+ * Generic usage data for unknown/custom providers
+ */
+export interface GenericUsageData extends BaseProviderUsage {
+  provider: string;
+  metadata?: Record<string, unknown>;
+}
+
+/**
+ * Discriminated union of all provider-specific usage types.
+ * Use type guards (isOpenAIUsage, isAnthropicUsage, etc.) to narrow the type.
+ *
+ * @example
+ * ```typescript
+ * import { isOpenAIUsage, isAnthropicUsage } from 'tokenmeter';
+ *
+ * function handleUsage(usage: ProviderUsageData | null) {
+ *   if (isOpenAIUsage(usage)) {
+ *     console.log(`OpenAI: ${usage.inputUnits} in, ${usage.outputUnits} out`);
+ *     if (usage.totalTokens) console.log(`Total: ${usage.totalTokens}`);
+ *   } else if (isAnthropicUsage(usage)) {
+ *     console.log(`Anthropic: ${usage.inputUnits} in, ${usage.outputUnits} out`);
+ *     if (usage.cacheCreationTokens) console.log(`Cache: ${usage.cacheCreationTokens}`);
+ *   }
+ * }
+ * ```
+ */
+export type ProviderUsageData =
+  | OpenAIUsageData
+  | AnthropicUsageData
+  | GoogleUsageData
+  | BedrockUsageData
+  | FalUsageData
+  | ElevenLabsUsageData
+  | BFLUsageData
+  | VercelAIUsageData
+  | GenericUsageData;
+
+// ============================================================================
+// Type Guards for Provider-Specific Usage Data
+// ============================================================================
+
+/**
+ * Input type for provider usage type guards.
+ * Accepts any of the usage data types or null/undefined.
+ */
+type UsageGuardInput = ProviderUsageData | UsageData | null | undefined;
+
+/**
+ * Creates a type guard function for a specific provider's usage data.
+ *
+ * @param provider - The provider string to check against
+ * @returns A type guard function that narrows to the specific provider's usage type
+ *
+ * @example
+ * ```typescript
+ * const isMyProviderUsage = createProviderGuard<MyProviderUsageData>('my-provider');
+ * if (isMyProviderUsage(usage)) {
+ *   // usage is now typed as MyProviderUsageData
+ * }
+ * ```
+ *
+ * @internal
+ */
+function createProviderGuard<T extends ProviderUsageData>(
+  provider: T["provider"],
+): (usage: UsageGuardInput) => usage is T {
+  return (usage): usage is T => usage?.provider === provider;
+}
+
+/**
+ * Type guard for OpenAI usage data
+ */
+export const isOpenAIUsage = createProviderGuard<OpenAIUsageData>("openai");
+
+/**
+ * Type guard for Anthropic usage data
+ */
+export const isAnthropicUsage =
+  createProviderGuard<AnthropicUsageData>("anthropic");
+
+/**
+ * Type guard for Google (Gemini/Vertex AI) usage data
+ */
+export const isGoogleUsage = createProviderGuard<GoogleUsageData>("google");
+
+/**
+ * Type guard for AWS Bedrock usage data
+ */
+export const isBedrockUsage = createProviderGuard<BedrockUsageData>("bedrock");
+
+/**
+ * Type guard for fal.ai usage data
+ */
+export const isFalUsage = createProviderGuard<FalUsageData>("fal");
+
+/**
+ * Type guard for ElevenLabs usage data
+ */
+export const isElevenLabsUsage =
+  createProviderGuard<ElevenLabsUsageData>("elevenlabs");
+
+/**
+ * Type guard for Black Forest Labs (BFL) usage data
+ */
+export const isBFLUsage = createProviderGuard<BFLUsageData>("bfl");
+
+/**
+ * Type guard for Vercel AI SDK usage data
+ */
+export const isVercelAIUsage =
+  createProviderGuard<VercelAIUsageData>("vercel-ai");
 
 /**
  * Extraction strategy for parsing API responses

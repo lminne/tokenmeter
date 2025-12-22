@@ -1,12 +1,18 @@
 /**
  * Pricing Schema Types
  *
- * Standardized types for provider pricing catalogs.
- * These types define the structure of pricing JSON files.
+ * Types for parsing provider pricing catalog JSON files.
+ * These are distinct from the runtime types in types.ts.
+ *
+ * JSON files use BillingUnit + unitSize (e.g., "tokens" + 1000000)
+ * Runtime uses PricingUnit (e.g., "1m_tokens") from types.ts
  */
 
 /**
- * Billing unit types supported across providers
+ * Billing unit types as stored in pricing JSON catalog files.
+ * Combined with unitSize to determine actual billing rate.
+ *
+ * @see PricingUnit in types.ts for runtime representation
  */
 export type BillingUnit =
   | "tokens" // LLMs (OpenAI, Anthropic) - per 1K or 1M tokens
@@ -18,10 +24,10 @@ export type BillingUnit =
   | "requests"; // Flat per-request pricing
 
 /**
- * A single pricing entry with an effective date
+ * A single pricing entry with an effective date (JSON catalog format).
  * Prices are per unit (e.g., per 1K tokens, per image)
  */
-export interface PricingEntry {
+export interface CatalogPricingEntry {
   /** ISO 8601 date when this pricing became effective */
   effectiveDate: string;
 
@@ -42,9 +48,12 @@ export interface PricingEntry {
 }
 
 /**
- * Model definition with pricing history
+ * Model definition with pricing history (JSON catalog format).
+ * This is the structure of pricing data in JSON files.
+ *
+ * @see ModelPricing in types.ts for runtime representation
  */
-export interface ModelPricing {
+export interface CatalogModelPricing {
   /** Display name for the model */
   name?: string;
 
@@ -62,7 +71,7 @@ export interface ModelPricing {
    * Pricing history, sorted by effectiveDate ascending
    * The last entry is the current pricing
    */
-  pricing: PricingEntry[];
+  pricing: CatalogPricingEntry[];
 
   /** Model aliases that should resolve to this model */
   aliases?: string[];
@@ -78,9 +87,9 @@ export interface ModelPricing {
 }
 
 /**
- * Provider pricing catalog
+ * Provider pricing catalog (JSON file structure)
  */
-export interface ProviderPricing {
+export interface CatalogProviderPricing {
   /** JSON schema reference */
   $schema?: string;
 
@@ -100,7 +109,7 @@ export interface ProviderPricing {
   currency?: string;
 
   /** Model pricing definitions, keyed by model ID */
-  models: Record<string, ModelPricing>;
+  models: Record<string, CatalogModelPricing>;
 }
 
 /**
@@ -121,7 +130,9 @@ export interface ResolvedPricing {
 /**
  * Get the current pricing for a model (most recent effective date)
  */
-export function getCurrentPricing(model: ModelPricing): PricingEntry | null {
+export function getCurrentPricing(
+  model: CatalogModelPricing
+): CatalogPricingEntry | null {
   if (!model.pricing || model.pricing.length === 0) {
     return null;
   }
@@ -133,9 +144,9 @@ export function getCurrentPricing(model: ModelPricing): PricingEntry | null {
  * Get pricing for a model at a specific date
  */
 export function getPricingAtDate(
-  model: ModelPricing,
+  model: CatalogModelPricing,
   date: Date
-): PricingEntry | null {
+): CatalogPricingEntry | null {
   if (!model.pricing || model.pricing.length === 0) {
     return null;
   }
@@ -143,7 +154,7 @@ export function getPricingAtDate(
   const targetTime = date.getTime();
 
   // Find the most recent pricing that was effective before or on the target date
-  let result: PricingEntry | null = null;
+  let result: CatalogPricingEntry | null = null;
 
   for (const entry of model.pricing) {
     const entryTime = new Date(entry.effectiveDate).getTime();

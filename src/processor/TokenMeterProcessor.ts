@@ -1,8 +1,31 @@
 /**
  * TokenMeter Span Processor
  *
- * An OpenTelemetry SpanProcessor that calculates costs based on usage data
- * and adds cost attributes to spans before they are exported.
+ * An OpenTelemetry SpanProcessor that calculates and logs costs for spans
+ * with usage data. Useful for debugging and observability of AI costs.
+ *
+ * ## Important Limitation
+ *
+ * This processor CANNOT add cost attributes to spans after they end.
+ * OpenTelemetry's `ReadableSpan` interface doesn't allow attribute modification
+ * after `span.end()` is called. The processor can only:
+ * - Log calculated costs for debugging
+ * - Validate pricing configuration
+ * - Use with `pricingOverrides` for cost estimation
+ *
+ * ## When to Use
+ *
+ * 1. **Debugging**: Verify cost calculations during development
+ * 2. **Monitoring non-monitor() spans**: Log costs for spans from external
+ *    sources (e.g., Vercel AI SDK's experimental_telemetry) that already
+ *    include usage data
+ *
+ * ## For Production Cost Tracking
+ *
+ * Use `monitor()` to wrap your AI clients instead - it calculates and adds
+ * `tokenmeter.cost_usd` to spans BEFORE they end, which is the proper approach.
+ *
+ * @see monitor() for production cost tracking
  */
 
 import type { Context } from "@opentelemetry/api";
@@ -19,17 +42,23 @@ import {
 } from "../pricing/manifest.js";
 import type { TokenMeterProcessorConfig, PricingManifest } from "../types.js";
 import { TM_ATTRIBUTES, GEN_AI_ATTRIBUTES } from "../types.js";
+import { logger } from "../logger.js";
 
 /**
  * TokenMeter SpanProcessor
  *
- * Intercepts spans on end and calculates costs based on usage attributes.
- * The calculated cost is added as an attribute before the span is exported.
+ * Calculates costs for spans with usage data and logs them.
+ *
+ * **Note**: This processor cannot add cost attributes to spans after they end.
+ * For production cost tracking, use `monitor()` instead.
  *
  * @example
  * ```typescript
  * import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
- * import { TokenMeterProcessor } from 'tokenmeter';
+ * import { TokenMeterProcessor, configureLogger } from 'tokenmeter';
+ *
+ * // Enable logging to see calculated costs
+ * configureLogger({ level: 'debug' });
  *
  * const provider = new NodeTracerProvider();
  * provider.addSpanProcessor(new TokenMeterProcessor());
@@ -56,23 +85,23 @@ export class TokenMeterProcessor implements SpanProcessor {
         manifestUrl: this.config.manifestUrl,
       });
     } catch (error) {
-      console.error("[tokenmeter] Failed to load pricing manifest:", error);
+      logger.error("Failed to load pricing manifest:", error);
     }
   }
 
   /**
    * Called when a span starts (no-op for TokenMeter)
    */
-  onStart(span: Span, parentContext: Context): void {
-    // We don't need to do anything when spans start
-    // Cost calculation happens on end
+  onStart(_span: Span, _parentContext: Context): void {
+    // No-op: Cost calculation happens in onEnd
   }
 
   /**
-   * Called when a span ends - this is where we calculate and add cost
+   * Called when a span ends - calculates and logs cost.
+   *
+   * Note: Cannot add cost attribute to span after end() - use monitor() for that.
    */
   onEnd(span: ReadableSpan): void {
-    // Get usage attributes from span
     const attrs = span.attributes;
 
     // Check if this span has usage data
@@ -104,21 +133,10 @@ export class TokenMeterProcessor implements SpanProcessor {
       outputUnits,
     });
 
-    // Add cost attribute to span
-    // Note: OTel allows modifying span attributes after end but before export
-    // We use a workaround by storing cost in the span's resource or via events
-    // For now, we'll set it directly (works with most exporters)
+    // Log calculated cost for debugging
+    // Note: We cannot add this to the span - ReadableSpan is immutable after end()
     if (cost !== null) {
-      // Unfortunately, ReadableSpan doesn't allow setting attributes after end
-      // We need to use a custom approach - storing in a side channel or using events
-      // For this implementation, we'll log a warning and add via span events
-      // A production implementation would use a custom exporter or modify before end
-
-      // The proper way is to calculate cost BEFORE span.end() in the proxy
-      // This processor is for catching spans from other sources (like Vercel AI SDK)
-      console.debug(
-        `[tokenmeter] Calculated cost for ${provider}/${model}: $${cost.toFixed(6)}`
-      );
+      logger.debug(`Calculated cost for ${provider}/${model}: $${cost.toFixed(6)}`);
     }
   }
 
@@ -128,7 +146,7 @@ export class TokenMeterProcessor implements SpanProcessor {
   private calculateSpanCost(
     provider: string,
     model: string,
-    usage: { inputUnits?: number; outputUnits?: number }
+    usage: { inputUnits?: number; outputUnits?: number },
   ): number | null {
     // Check overrides first
     if (this.pricingOverrides[provider]?.[model]) {
@@ -138,13 +156,13 @@ export class TokenMeterProcessor implements SpanProcessor {
     // Fall back to manifest
     const manifest = this.manifest || getCachedManifest();
     if (!manifest) {
-      console.warn(`[tokenmeter] Pricing manifest not loaded, cannot calculate cost`);
+      logger.warn("Pricing manifest not loaded, cannot calculate cost");
       return null;
     }
 
     const pricing = getModelPricing(provider, model, manifest);
     if (!pricing) {
-      console.warn(`[tokenmeter] No pricing found for ${provider}/${model}`);
+      logger.warn(`No pricing found for ${provider}/${model}`);
       return 0; // Return 0, not null, to indicate we tried but found no pricing
     }
 

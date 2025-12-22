@@ -5,14 +5,7 @@
  */
 
 import type { CostQueryOptions, CostResult } from "../types.js";
-
-/**
- * Pool interface (subset of pg.Pool we need)
- */
-interface Pool {
-  query(text: string, values?: unknown[]): Promise<{ rows: unknown[] }>;
-  end(): Promise<void>;
-}
+import type { PoolInterface } from "../types/database.js";
 
 /**
  * Query client configuration
@@ -80,19 +73,64 @@ export interface QueryClient {
  * }
  * ```
  */
+/**
+ * Validate table name to prevent SQL injection.
+ * Table names are directly interpolated into SQL queries, so they
+ * must be strictly validated.
+ *
+ * @param name - The table name to validate
+ * @throws {Error} If the table name contains invalid characters or is too long
+ *
+ * @internal
+ */
+function validateTableName(name: string): void {
+  // Only allow alphanumeric characters and underscores
+  if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(name)) {
+    throw new Error(
+      `Invalid table name: "${name}". Table names must start with a letter or underscore and contain only alphanumeric characters and underscores.`,
+    );
+  }
+  // Limit length to prevent abuse
+  if (name.length > 63) {
+    throw new Error(
+      `Table name too long: "${name}". Maximum length is 63 characters.`,
+    );
+  }
+}
+
 export async function createQueryClient(
   config: QueryClientConfig,
 ): Promise<QueryClient> {
   const tableName = config.tableName ?? "tokenmeter_events";
 
+  // Validate table name to prevent SQL injection
+  validateTableName(tableName);
+
   // Dynamic import to avoid requiring pg at load time
   const { Pool } = await import("pg");
-  const pool: Pool = new Pool({
+  const pool: PoolInterface = new Pool({
     connectionString: config.connectionString,
   });
 
+  // Test connection on initialization
+  try {
+    await pool.query("SELECT 1");
+  } catch (error) {
+    await pool.end();
+    throw new Error(
+      `Failed to connect to database: ${error instanceof Error ? error.message : "Unknown error"}`,
+    );
+  }
+
   /**
-   * Build WHERE clause from options
+   * Build a SQL WHERE clause from query options.
+   * Uses parameterized queries to prevent SQL injection.
+   *
+   * @param options - The query options containing filter criteria
+   * @param startParamIndex - Starting parameter index for placeholders
+   * @returns Object containing the WHERE clause, parameter values, and next index
+   *
+   * @internal
    */
   function buildWhereClause(
     options: CostQueryOptions,
@@ -149,17 +187,62 @@ export async function createQueryClient(
   }
 
   /**
-   * Map groupBy field names to column names
+   * Allowed groupBy fields (whitelist for SQL injection prevention).
+   * Maps camelCase field names to snake_case column names.
+   *
+   * @internal
+   */
+  const ALLOWED_GROUP_BY_FIELDS: Record<string, string> = {
+    provider: "provider",
+    model: "model",
+    organizationId: "organization_id",
+    userId: "user_id",
+    workflowId: "workflow_id",
+  };
+
+  /**
+   * Reverse mapping from column names to camelCase key names.
+   * Used for converting query results back to the expected format.
+   *
+   * @internal
+   */
+  const COLUMN_TO_KEY: Record<string, string> = {
+    organization_id: "organizationId",
+    user_id: "userId",
+    workflow_id: "workflowId",
+  };
+
+  /**
+   * Convert a column name to its camelCase key name.
+   * Returns the column name unchanged if no mapping exists.
+   *
+   * @param column - The snake_case column name
+   * @returns The camelCase key name
+   *
+   * @internal
+   */
+  function columnToKey(column: string): string {
+    return COLUMN_TO_KEY[column] ?? column;
+  }
+
+  /**
+   * Map groupBy field names to column names.
+   * Throws an error for unknown fields to prevent SQL injection.
+   *
+   * @param field - The camelCase field name from options
+   * @returns The corresponding snake_case column name
+   * @throws {Error} If field is not in the allowed whitelist
+   *
+   * @internal
    */
   function mapGroupByField(field: string): string {
-    const fieldMap: Record<string, string> = {
-      provider: "provider",
-      model: "model",
-      organizationId: "organization_id",
-      userId: "user_id",
-      workflowId: "workflow_id",
-    };
-    return fieldMap[field] ?? field;
+    const column = ALLOWED_GROUP_BY_FIELDS[field];
+    if (!column) {
+      throw new Error(
+        `Invalid groupBy field: "${field}". Allowed fields: ${Object.keys(ALLOWED_GROUP_BY_FIELDS).join(", ")}`,
+      );
+    }
+    return column;
   }
 
   /**
@@ -176,18 +259,7 @@ export async function createQueryClient(
       // Query with grouping
       const groupByClause = groupBy.join(", ");
       const selectFields = groupBy
-        .map((col) => {
-          // Map back to camelCase for the result
-          const keyName =
-            col === "organization_id"
-              ? "organizationId"
-              : col === "user_id"
-                ? "userId"
-                : col === "workflow_id"
-                  ? "workflowId"
-                  : col;
-          return `${col} as "${keyName}"`;
-        })
+        .map((col) => `${col} as "${columnToKey(col)}"`)
         .join(", ");
 
       query = `
@@ -220,19 +292,12 @@ export async function createQueryClient(
         totalCost += cost;
         totalCount += count;
 
-        // Build key object from group fields
-        const key: Record<string, string> = {};
-        for (const field of groupBy) {
-          const keyName =
-            field === "organization_id"
-              ? "organizationId"
-              : field === "user_id"
-                ? "userId"
-                : field === "workflow_id"
-                  ? "workflowId"
-                  : field;
-          key[keyName] = (row[keyName] as string) ?? "";
-        }
+// Build key object from group fields
+          const key: Record<string, string> = {};
+          for (const field of groupBy) {
+            const keyName = columnToKey(field);
+            key[keyName] = (row[keyName] as string) ?? "";
+          }
 
         groups.push({ key, cost, count });
       }

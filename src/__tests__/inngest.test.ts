@@ -10,7 +10,6 @@ import {
   createTracedEvent,
   withInngestTrace,
   withInngestTraceAndAttributes,
-  createInngestMiddleware,
 } from "../integrations/inngest/index.js";
 import { withAttributes, getAttribute } from "../context.js";
 
@@ -148,63 +147,4 @@ describe("Inngest Integration", () => {
     });
   });
 
-  describe("createInngestMiddleware", () => {
-    it("should create middleware object", () => {
-      const middleware = createInngestMiddleware();
-
-      expect(middleware.name).toBe("tokenmeter");
-      expect(typeof middleware.init).toBe("function");
-    });
-
-    it("should return handlers from init", () => {
-      const middleware = createInngestMiddleware();
-      const handlers = middleware.init();
-
-      expect(typeof handlers.onFunctionRun).toBe("function");
-    });
-
-    it("should handle function run lifecycle", () => {
-      const middleware = createInngestMiddleware();
-      const handlers = middleware.init();
-
-      const runHandler = handlers.onFunctionRun({
-        fn: {},
-        ctx: { event: { trace: {} } },
-      });
-
-      expect(typeof runHandler.transformInput).toBe("function");
-    });
-
-    it("should transform input with trace headers", () => {
-      const middleware = createInngestMiddleware();
-      const handlers = middleware.init();
-
-      const runHandler = handlers.onFunctionRun({
-        fn: {},
-        ctx: {
-          event: {
-            trace: {
-              traceparent:
-                "00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01",
-            },
-          },
-        },
-      });
-
-      const result = runHandler.transformInput({
-        ctx: {
-          event: {
-            trace: {
-              traceparent:
-                "00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01",
-            },
-          },
-        },
-        steps: {},
-      });
-
-      expect(result.ctx).toBeDefined();
-      expect(result.steps).toBeDefined();
-    });
-  });
 });

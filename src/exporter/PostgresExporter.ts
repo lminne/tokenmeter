@@ -10,6 +10,7 @@ import { ExportResultCode } from "@opentelemetry/core";
 import type { PostgresExporterConfig, CostRecord } from "../types.js";
 import { TM_ATTRIBUTES } from "../types.js";
 import { logger } from "../logger.js";
+import type { PoolInterface } from "../types/database.js";
 
 /**
  * SpanExporter interface (subset we need)
@@ -33,13 +34,6 @@ interface ResolvedConfig {
   flushIntervalMs: number;
 }
 
-/**
- * Pool interface (subset of pg.Pool we need)
- */
-interface Pool {
-  query(text: string, values?: unknown[]): Promise<{ rows: unknown[] }>;
-  end(): Promise<void>;
-}
 
 /**
  * PostgreSQL exporter for tokenmeter cost spans
@@ -61,7 +55,7 @@ interface Pool {
  */
 export class PostgresExporter implements SpanExporter {
   private config: ResolvedConfig;
-  private pool: Pool | null = null;
+  private pool: PoolInterface | null = null;
   private buffer: CostRecord[] = [];
   private flushTimer: ReturnType<typeof setInterval> | null = null;
   private flushPromise: Promise<void> | null = null;
@@ -86,7 +80,7 @@ export class PostgresExporter implements SpanExporter {
   /**
    * Lazily initialize the database pool
    */
-  private async getPool(): Promise<Pool> {
+  private async getPool(): Promise<PoolInterface> {
     if (this.pool) {
       return this.pool;
     }
@@ -239,6 +233,8 @@ export class PostgresExporter implements SpanExporter {
     const tableName = this.config.tableName;
 
     // Build bulk insert query
+    // Note: Column names use snake_case convention for PostgreSQL
+    // "input_units" and "output_units" are generic to support tokens, characters, etc.
     const columns = [
       "id",
       "trace_id",
@@ -248,8 +244,8 @@ export class PostgresExporter implements SpanExporter {
       "organization_id",
       "user_id",
       "cost_usd",
-      "input_tokens",
-      "output_tokens",
+      "input_units",
+      "output_units",
       "metadata",
       "created_at",
     ];
