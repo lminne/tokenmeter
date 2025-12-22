@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model TokenmeterEvent {
+  id                  String   @id @default(uuid())
+  identifier          String
+  secondaryIdentifier String?  @map("secondary_identifier")
+  requestId           String?  @map("request_id")
+  workflowId          String?  @map("workflow_id")
+  workflowType        String?  @map("workflow_type")
+  provider            String
+  model               String
+  operation           String?
+  inputTokens         Int?     @map("input_tokens")
+  outputTokens        Int?     @map("output_tokens")
+  costUsd             Decimal  @map("cost_usd") @db.Decimal(10, 6)
+  status              String   @default("success")
+  billable            Boolean  @default(true)
+  errorMessage        String?  @map("error_message")
+  metadata            Json?
+  createdAt           DateTime @default(now()) @map("created_at")
+
+  @@index([identifier])
+  @@index([workflowId])
+  @@index([createdAt])
+  @@map("tokenmeter_events")
+}

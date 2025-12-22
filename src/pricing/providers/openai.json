@@ -1,0 +1,1035 @@
+{
+  "$schema": "../schema.json",
+  "provider": "openai",
+  "displayName": "OpenAI",
+  "source": "https://platform.openai.com/docs/pricing",
+  "lastUpdated": "2025-12-22",
+  "currency": "USD",
+  "models": {
+    "gpt-5.2": {
+      "name": "GPT-5.2",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-12-01",
+          "input": 1.75,
+          "output": 14.0,
+          "cachedInput": 0.175,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-5.1": {
+      "name": "GPT-5.1",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-10-01",
+          "input": 1.25,
+          "output": 10.0,
+          "cachedInput": 0.125,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-5": {
+      "name": "GPT-5",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-05-06",
+          "input": 1.25,
+          "output": 10.0,
+          "cachedInput": 0.125,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-5-mini": {
+      "name": "GPT-5 Mini",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-05-06",
+          "input": 0.25,
+          "output": 2.0,
+          "cachedInput": 0.025,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-5-nano": {
+      "name": "GPT-5 Nano",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-05-06",
+          "input": 0.05,
+          "output": 0.4,
+          "cachedInput": 0.005,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-5.2-pro": {
+      "name": "GPT-5.2 Pro",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-12-01",
+          "input": 21.0,
+          "output": 168.0,
+          "notes": "Standard tier pricing, no caching"
+        }
+      ]
+    },
+    "gpt-5-pro": {
+      "name": "GPT-5 Pro",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-05-06",
+          "input": 15.0,
+          "output": 120.0,
+          "notes": "Standard tier pricing, no caching"
+        }
+      ]
+    },
+    "gpt-5.2-chat-latest": {
+      "name": "GPT-5.2 Chat Latest",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-12-01",
+          "input": 1.75,
+          "output": 14.0,
+          "cachedInput": 0.175,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-5.1-chat-latest": {
+      "name": "GPT-5.1 Chat Latest",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-10-01",
+          "input": 1.25,
+          "output": 10.0,
+          "cachedInput": 0.125,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-5-chat-latest": {
+      "name": "GPT-5 Chat Latest",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-05-06",
+          "input": 1.25,
+          "output": 10.0,
+          "cachedInput": 0.125,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-5.1-codex-max": {
+      "name": "GPT-5.1 Codex Max",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-10-01",
+          "input": 1.25,
+          "output": 10.0,
+          "cachedInput": 0.125,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-5.1-codex": {
+      "name": "GPT-5.1 Codex",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-10-01",
+          "input": 1.25,
+          "output": 10.0,
+          "cachedInput": 0.125,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-5-codex": {
+      "name": "GPT-5 Codex",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-05-06",
+          "input": 1.25,
+          "output": 10.0,
+          "cachedInput": 0.125,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-5.1-codex-mini": {
+      "name": "GPT-5.1 Codex Mini",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-10-01",
+          "input": 0.25,
+          "output": 2.0,
+          "cachedInput": 0.025,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "codex-mini-latest": {
+      "name": "Codex Mini Latest",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-10-01",
+          "input": 1.5,
+          "output": 6.0,
+          "cachedInput": 0.375,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-4.1": {
+      "name": "GPT-4.1",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-04-14",
+          "input": 2.0,
+          "output": 8.0,
+          "cachedInput": 0.5,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-4.1-mini": {
+      "name": "GPT-4.1 Mini",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-04-14",
+          "input": 0.4,
+          "output": 1.6,
+          "cachedInput": 0.1,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-4.1-nano": {
+      "name": "GPT-4.1 Nano",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-04-14",
+          "input": 0.1,
+          "output": 0.4,
+          "cachedInput": 0.025,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-4o": {
+      "name": "GPT-4o",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2024-05-13",
+          "input": 5.0,
+          "output": 15.0,
+          "notes": "Initial GPT-4o release"
+        },
+        {
+          "effectiveDate": "2024-08-06",
+          "input": 2.5,
+          "output": 10.0,
+          "cachedInput": 1.25,
+          "notes": "Price reduction with prompt caching"
+        }
+      ]
+    },
+    "gpt-4o-2024-05-13": {
+      "name": "GPT-4o (2024-05-13)",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2024-05-13",
+          "input": 5.0,
+          "output": 15.0,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-4o-mini": {
+      "name": "GPT-4o Mini",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2024-07-18",
+          "input": 0.15,
+          "output": 0.6,
+          "cachedInput": 0.075,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "o1": {
+      "name": "o1",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2024-09-12",
+          "input": 15.0,
+          "output": 60.0,
+          "cachedInput": 7.5,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "o1-pro": {
+      "name": "o1 Pro",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2024-12-05",
+          "input": 150.0,
+          "output": 600.0,
+          "notes": "Standard tier pricing, no caching"
+        }
+      ]
+    },
+    "o1-mini": {
+      "name": "o1 Mini",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2024-09-12",
+          "input": 3.0,
+          "output": 12.0,
+          "cachedInput": 1.5,
+          "notes": "Initial o1-mini release"
+        },
+        {
+          "effectiveDate": "2024-12-01",
+          "input": 1.1,
+          "output": 4.4,
+          "cachedInput": 0.55,
+          "notes": "Price reduction"
+        }
+      ]
+    },
+    "o3": {
+      "name": "o3",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-01-31",
+          "input": 2.0,
+          "output": 8.0,
+          "cachedInput": 0.5,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "o3-pro": {
+      "name": "o3 Pro",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-10",
+          "input": 20.0,
+          "output": 80.0,
+          "notes": "Standard tier pricing, no caching"
+        }
+      ]
+    },
+    "o3-mini": {
+      "name": "o3 Mini",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-01-31",
+          "input": 1.1,
+          "output": 4.4,
+          "cachedInput": 0.55,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "o3-deep-research": {
+      "name": "o3 Deep Research",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "input": 10.0,
+          "output": 40.0,
+          "cachedInput": 2.5,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "o4-mini": {
+      "name": "o4 Mini",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-04-16",
+          "input": 1.1,
+          "output": 4.4,
+          "cachedInput": 0.275,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "o4-mini-deep-research": {
+      "name": "o4 Mini Deep Research",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "input": 2.0,
+          "output": 8.0,
+          "cachedInput": 0.5,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-realtime": {
+      "name": "GPT Realtime",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "input": 4.0,
+          "output": 16.0,
+          "cachedInput": 0.4,
+          "notes": "Text tokens, standard tier"
+        }
+      ]
+    },
+    "gpt-realtime-mini": {
+      "name": "GPT Realtime Mini",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "input": 0.6,
+          "output": 2.4,
+          "cachedInput": 0.06,
+          "notes": "Text tokens, standard tier"
+        }
+      ]
+    },
+    "gpt-4o-realtime-preview": {
+      "name": "GPT-4o Realtime Preview",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2024-10-01",
+          "input": 5.0,
+          "output": 20.0,
+          "cachedInput": 2.5,
+          "notes": "Text tokens, standard tier"
+        }
+      ]
+    },
+    "gpt-4o-mini-realtime-preview": {
+      "name": "GPT-4o Mini Realtime Preview",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2024-10-01",
+          "input": 0.6,
+          "output": 2.4,
+          "cachedInput": 0.3,
+          "notes": "Text tokens, standard tier"
+        }
+      ]
+    },
+    "gpt-audio": {
+      "name": "GPT Audio",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "input": 2.5,
+          "output": 10.0,
+          "notes": "Text tokens, standard tier"
+        }
+      ]
+    },
+    "gpt-audio-mini": {
+      "name": "GPT Audio Mini",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "input": 0.6,
+          "output": 2.4,
+          "notes": "Text tokens, standard tier"
+        }
+      ]
+    },
+    "gpt-4o-audio-preview": {
+      "name": "GPT-4o Audio Preview",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2024-10-01",
+          "input": 2.5,
+          "output": 10.0,
+          "notes": "Text tokens, standard tier"
+        }
+      ]
+    },
+    "gpt-4o-mini-audio-preview": {
+      "name": "GPT-4o Mini Audio Preview",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2024-10-01",
+          "input": 0.15,
+          "output": 0.6,
+          "notes": "Text tokens, standard tier"
+        }
+      ]
+    },
+    "gpt-5-search-api": {
+      "name": "GPT-5 Search API",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "input": 1.25,
+          "output": 10.0,
+          "cachedInput": 0.125,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-4o-search-preview": {
+      "name": "GPT-4o Search Preview",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-01-01",
+          "input": 2.5,
+          "output": 10.0,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-4o-mini-search-preview": {
+      "name": "GPT-4o Mini Search Preview",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-01-01",
+          "input": 0.15,
+          "output": 0.6,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "computer-use-preview": {
+      "name": "Computer Use Preview",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-03-01",
+          "input": 3.0,
+          "output": 12.0,
+          "notes": "Standard tier pricing"
+        }
+      ]
+    },
+    "gpt-image-1.5": {
+      "name": "GPT Image 1.5",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "input": 5.0,
+          "output": 10.0,
+          "cachedInput": 1.25,
+          "notes": "Text tokens, standard tier"
+        }
+      ]
+    },
+    "chatgpt-image-latest": {
+      "name": "ChatGPT Image Latest",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "input": 5.0,
+          "output": 10.0,
+          "cachedInput": 1.25,
+          "notes": "Text tokens, standard tier"
+        }
+      ]
+    },
+    "gpt-image-1": {
+      "name": "GPT Image 1",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-03-01",
+          "input": 5.0,
+          "cachedInput": 1.25,
+          "notes": "Text tokens, standard tier"
+        }
+      ]
+    },
+    "gpt-image-1-mini": {
+      "name": "GPT Image 1 Mini",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-03-01",
+          "input": 2.0,
+          "cachedInput": 0.2,
+          "notes": "Text tokens, standard tier"
+        }
+      ]
+    },
+    "gpt-4o-mini-tts": {
+      "name": "GPT-4o Mini TTS",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "input": 0.6,
+          "notes": "Text tokens, ~$0.015/minute"
+        }
+      ]
+    },
+    "gpt-4o-transcribe": {
+      "name": "GPT-4o Transcribe",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "input": 2.5,
+          "output": 10.0,
+          "notes": "Text tokens, ~$0.006/minute"
+        }
+      ]
+    },
+    "gpt-4o-transcribe-diarize": {
+      "name": "GPT-4o Transcribe Diarize",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "input": 2.5,
+          "output": 10.0,
+          "notes": "Text tokens, ~$0.006/minute"
+        }
+      ]
+    },
+    "gpt-4o-mini-transcribe": {
+      "name": "GPT-4o Mini Transcribe",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "input": 1.25,
+          "output": 5.0,
+          "notes": "Text tokens, ~$0.003/minute"
+        }
+      ]
+    },
+    "whisper-1": {
+      "name": "Whisper",
+      "unit": "minutes",
+      "unitSize": 1,
+      "aliases": ["whisper"],
+      "pricing": [
+        {
+          "effectiveDate": "2023-03-01",
+          "input": 0.006,
+          "notes": "Per minute of audio"
+        }
+      ]
+    },
+    "tts-1": {
+      "name": "TTS",
+      "unit": "characters",
+      "unitSize": 1000000,
+      "aliases": ["tts"],
+      "pricing": [
+        {
+          "effectiveDate": "2023-11-01",
+          "input": 15.0,
+          "notes": "Per 1M characters"
+        }
+      ]
+    },
+    "tts-1-hd": {
+      "name": "TTS HD",
+      "unit": "characters",
+      "unitSize": 1000000,
+      "aliases": ["tts-hd"],
+      "pricing": [
+        {
+          "effectiveDate": "2023-11-01",
+          "input": 30.0,
+          "notes": "Per 1M characters"
+        }
+      ]
+    },
+    "sora-2": {
+      "name": "Sora 2",
+      "unit": "seconds",
+      "unitSize": 1,
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "output": 0.1,
+          "notes": "720p resolution, per second"
+        }
+      ]
+    },
+    "sora-2-pro": {
+      "name": "Sora 2 Pro",
+      "unit": "seconds",
+      "unitSize": 1,
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "output": 0.3,
+          "notes": "720p resolution, per second. $0.50/sec for 1024p+"
+        }
+      ]
+    },
+    "dall-e-3": {
+      "name": "DALL-E 3",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": ["dalle-3", "dall-e-3-standard", "dall-e-3-hd"],
+      "pricing": [
+        {
+          "effectiveDate": "2023-11-01",
+          "output": 0.04,
+          "notes": "Standard 1024x1024. HD: $0.08. Larger sizes: $0.08-$0.12"
+        }
+      ]
+    },
+    "dall-e-2": {
+      "name": "DALL-E 2",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": ["dalle-2"],
+      "pricing": [
+        {
+          "effectiveDate": "2022-04-01",
+          "output": 0.016,
+          "notes": "1024x1024. Larger sizes: $0.018-$0.02"
+        }
+      ]
+    },
+    "text-embedding-3-small": {
+      "name": "Text Embedding 3 Small",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2024-01-25",
+          "input": 0.02,
+          "notes": "Batch: $0.01/1M tokens"
+        }
+      ]
+    },
+    "text-embedding-3-large": {
+      "name": "Text Embedding 3 Large",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2024-01-25",
+          "input": 0.13,
+          "notes": "Batch: $0.065/1M tokens"
+        }
+      ]
+    },
+    "text-embedding-ada-002": {
+      "name": "Text Embedding Ada 002",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "pricing": [
+        {
+          "effectiveDate": "2022-12-01",
+          "input": 0.1,
+          "notes": "Batch: $0.05/1M tokens"
+        }
+      ]
+    },
+    "chatgpt-4o-latest": {
+      "name": "ChatGPT-4o Latest",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "deprecated": true,
+      "pricing": [
+        {
+          "effectiveDate": "2024-08-01",
+          "input": 5.0,
+          "output": 15.0,
+          "notes": "Legacy model"
+        }
+      ]
+    },
+    "gpt-4-turbo": {
+      "name": "GPT-4 Turbo",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": ["gpt-4-turbo-2024-04-09"],
+      "deprecated": true,
+      "pricing": [
+        {
+          "effectiveDate": "2023-11-06",
+          "input": 10.0,
+          "output": 30.0,
+          "notes": "Legacy model"
+        }
+      ]
+    },
+    "gpt-4-0125-preview": {
+      "name": "GPT-4 0125 Preview",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "deprecated": true,
+      "pricing": [
+        {
+          "effectiveDate": "2024-01-25",
+          "input": 10.0,
+          "output": 30.0,
+          "notes": "Legacy model"
+        }
+      ]
+    },
+    "gpt-4-1106-preview": {
+      "name": "GPT-4 1106 Preview",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "deprecated": true,
+      "pricing": [
+        {
+          "effectiveDate": "2023-11-06",
+          "input": 10.0,
+          "output": 30.0,
+          "notes": "Legacy model"
+        }
+      ]
+    },
+    "gpt-4-1106-vision-preview": {
+      "name": "GPT-4 1106 Vision Preview",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "deprecated": true,
+      "pricing": [
+        {
+          "effectiveDate": "2023-11-06",
+          "input": 10.0,
+          "output": 30.0,
+          "notes": "Legacy model"
+        }
+      ]
+    },
+    "gpt-4": {
+      "name": "GPT-4",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": ["gpt-4-0613", "gpt-4-0314"],
+      "deprecated": true,
+      "pricing": [
+        {
+          "effectiveDate": "2023-03-14",
+          "input": 30.0,
+          "output": 60.0,
+          "notes": "Legacy model"
+        }
+      ]
+    },
+    "gpt-4-32k": {
+      "name": "GPT-4 32K",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "deprecated": true,
+      "pricing": [
+        {
+          "effectiveDate": "2023-03-14",
+          "input": 60.0,
+          "output": 120.0,
+          "notes": "Legacy model"
+        }
+      ]
+    },
+    "gpt-3.5-turbo": {
+      "name": "GPT-3.5 Turbo",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": ["gpt-3.5-turbo-0125"],
+      "deprecated": true,
+      "pricing": [
+        {
+          "effectiveDate": "2023-03-01",
+          "input": 1.5,
+          "output": 2.0,
+          "notes": "Initial release"
+        },
+        {
+          "effectiveDate": "2024-01-25",
+          "input": 0.5,
+          "output": 1.5,
+          "notes": "Price reduction"
+        }
+      ]
+    },
+    "gpt-3.5-turbo-1106": {
+      "name": "GPT-3.5 Turbo 1106",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "deprecated": true,
+      "pricing": [
+        {
+          "effectiveDate": "2023-11-06",
+          "input": 1.0,
+          "output": 2.0,
+          "notes": "Legacy model"
+        }
+      ]
+    },
+    "gpt-3.5-turbo-0613": {
+      "name": "GPT-3.5 Turbo 0613",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": ["gpt-3.5-0301"],
+      "deprecated": true,
+      "pricing": [
+        {
+          "effectiveDate": "2023-06-13",
+          "input": 1.5,
+          "output": 2.0,
+          "notes": "Legacy model"
+        }
+      ]
+    },
+    "gpt-3.5-turbo-instruct": {
+      "name": "GPT-3.5 Turbo Instruct",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "deprecated": true,
+      "pricing": [
+        {
+          "effectiveDate": "2023-09-01",
+          "input": 1.5,
+          "output": 2.0,
+          "notes": "Legacy model"
+        }
+      ]
+    },
+    "gpt-3.5-turbo-16k-0613": {
+      "name": "GPT-3.5 Turbo 16K",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "deprecated": true,
+      "pricing": [
+        {
+          "effectiveDate": "2023-06-13",
+          "input": 3.0,
+          "output": 4.0,
+          "notes": "Legacy model"
+        }
+      ]
+    },
+    "davinci-002": {
+      "name": "Davinci 002",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "deprecated": true,
+      "pricing": [
+        {
+          "effectiveDate": "2023-01-01",
+          "input": 2.0,
+          "output": 2.0,
+          "notes": "Legacy model"
+        }
+      ]
+    },
+    "babbage-002": {
+      "name": "Babbage 002",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "deprecated": true,
+      "pricing": [
+        {
+          "effectiveDate": "2023-01-01",
+          "input": 0.4,
+          "output": 0.4,
+          "notes": "Legacy model"
+        }
+      ]
+    }
+  }
+}

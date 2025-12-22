@@ -1,0 +1,142 @@
+{
+  "$schema": "../schema.json",
+  "provider": "elevenlabs",
+  "displayName": "ElevenLabs",
+  "source": "https://elevenlabs.io/pricing/api",
+  "lastUpdated": "2025-12-22",
+  "currency": "USD",
+  "models": {
+    "eleven_multilingual_v2": {
+      "name": "Eleven Multilingual v2",
+      "unit": "characters",
+      "unitSize": 1000,
+      "aliases": ["elevenlabs/eleven_multilingual_v2", "multilingual_v2"],
+      "pricing": [
+        {
+          "effectiveDate": "2024-01-01",
+          "input": 0.3,
+          "notes": "High quality, 29 languages, 1 credit per character. ~$0.20-0.30/1K chars depending on plan"
+        }
+      ]
+    },
+    "eleven_flash_v2_5": {
+      "name": "Eleven Flash v2.5",
+      "unit": "characters",
+      "unitSize": 1000,
+      "aliases": [
+        "elevenlabs/eleven_flash_v2_5",
+        "flash_v2_5",
+        "eleven_flash_v2.5"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-01-01",
+          "input": 0.15,
+          "notes": "Ultra-low latency, 32 languages, 0.5 credits per character"
+        }
+      ]
+    },
+    "eleven_turbo_v2_5": {
+      "name": "Eleven Turbo v2.5",
+      "unit": "characters",
+      "unitSize": 1000,
+      "aliases": [
+        "elevenlabs/eleven_turbo_v2_5",
+        "turbo_v2_5",
+        "eleven_turbo_v2.5"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-06-01",
+          "input": 0.18,
+          "notes": "Low latency, 32 languages, optimized for real-time"
+        }
+      ]
+    },
+    "eleven_turbo_v2": {
+      "name": "Eleven Turbo v2",
+      "unit": "characters",
+      "unitSize": 1000,
+      "aliases": ["elevenlabs/eleven_turbo_v2", "turbo_v2"],
+      "pricing": [
+        {
+          "effectiveDate": "2024-01-01",
+          "input": 0.15,
+          "notes": "Low latency English, 0.5 credits per character"
+        }
+      ]
+    },
+    "eleven_monolingual_v1": {
+      "name": "Eleven Monolingual v1",
+      "unit": "characters",
+      "unitSize": 1000,
+      "aliases": ["elevenlabs/eleven_monolingual_v1", "monolingual_v1"],
+      "pricing": [
+        {
+          "effectiveDate": "2023-01-01",
+          "input": 0.3,
+          "notes": "English only, 1 credit per character"
+        }
+      ]
+    },
+    "eleven_multilingual_v1": {
+      "name": "Eleven Multilingual v1",
+      "unit": "characters",
+      "unitSize": 1000,
+      "aliases": ["elevenlabs/eleven_multilingual_v1", "multilingual_v1"],
+      "pricing": [
+        {
+          "effectiveDate": "2023-06-01",
+          "input": 0.3,
+          "notes": "Multi-language support, 1 credit per character"
+        }
+      ]
+    },
+    "eleven_english_sts_v2": {
+      "name": "Eleven English STS v2",
+      "unit": "characters",
+      "unitSize": 1000,
+      "aliases": ["elevenlabs/eleven_english_sts_v2", "english_sts_v2"],
+      "pricing": [
+        {
+          "effectiveDate": "2024-01-01",
+          "input": 0.3,
+          "notes": "Speech-to-speech, English, 1 credit per character"
+        }
+      ]
+    },
+    "eleven_multilingual_sts_v2": {
+      "name": "Eleven Multilingual STS v2",
+      "unit": "characters",
+      "unitSize": 1000,
+      "aliases": [
+        "elevenlabs/eleven_multilingual_sts_v2",
+        "multilingual_sts_v2"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-01-01",
+          "input": 0.3,
+          "notes": "Speech-to-speech, multilingual, 1 credit per character"
+        }
+      ]
+    },
+    "eleven_convai_v1": {
+      "name": "Eleven Conversational AI v1",
+      "unit": "characters",
+      "unitSize": 1000,
+      "aliases": [
+        "elevenlabs/eleven_convai_v1",
+        "convai_v1",
+        "conversational_v1"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-01-01",
+          "input": 0.2,
+          "notes": "Optimized for conversational AI applications"
+        }
+      ]
+    }
+  }
+}

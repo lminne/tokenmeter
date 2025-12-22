@@ -1,0 +1,346 @@
+{
+  "$schema": "../schema.json",
+  "provider": "google",
+  "displayName": "Google Vertex AI",
+  "source": "https://cloud.google.com/vertex-ai/generative-ai/pricing",
+  "lastUpdated": "2025-12-22",
+  "currency": "USD",
+  "models": {
+    "gemini-3-pro-preview": {
+      "name": "Gemini 3 Pro Preview",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": [
+        "gemini-3.0-pro-preview",
+        "google/gemini-3-pro-preview"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-12-01",
+          "input": 2.0,
+          "output": 12.0,
+          "cachedInput": 0.2,
+          "notes": "≤200K tokens. >200K: $4 input, $18 output. Image output: $120/1M tokens"
+        }
+      ]
+    },
+    "gemini-3-flash-preview": {
+      "name": "Gemini 3 Flash Preview",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": [
+        "gemini-3.0-flash-preview",
+        "google/gemini-3-flash-preview"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-12-01",
+          "input": 0.5,
+          "output": 3.0,
+          "cachedInput": 0.05,
+          "notes": "Text/image/video input. Audio input: $1/1M tokens"
+        }
+      ]
+    },
+    "gemini-2.5-pro": {
+      "name": "Gemini 2.5 Pro",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": [
+        "gemini-2.5-pro-preview",
+        "google/gemini-2.5-pro",
+        "google/gemini-2.5-pro-preview"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "input": 1.25,
+          "output": 10.0,
+          "cachedInput": 0.125,
+          "notes": "≤200K tokens. >200K: $2.5 input, $15 output"
+        }
+      ]
+    },
+    "gemini-2.5-flash": {
+      "name": "Gemini 2.5 Flash",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": [
+        "gemini-2.5-flash-preview",
+        "google/gemini-2.5-flash",
+        "google/gemini-2.5-flash-preview"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "input": 0.3,
+          "output": 2.5,
+          "cachedInput": 0.03,
+          "notes": "Text/image/video input. Audio: $1/1M. Image output: $30/1M"
+        }
+      ]
+    },
+    "gemini-2.5-flash-lite": {
+      "name": "Gemini 2.5 Flash Lite",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": [
+        "google/gemini-2.5-flash-lite"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "input": 0.1,
+          "output": 0.4,
+          "cachedInput": 0.01,
+          "notes": "Text/image/video input. Audio: $0.3/1M"
+        }
+      ]
+    },
+    "gemini-2.5-flash-live": {
+      "name": "Gemini 2.5 Flash Live API",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": [
+        "google/gemini-2.5-flash-live"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "input": 0.5,
+          "output": 2.0,
+          "notes": "Text input. Audio/video input: $3/1M. Audio output: $12/1M"
+        }
+      ]
+    },
+    "gemini-2.0-flash": {
+      "name": "Gemini 2.0 Flash",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": [
+        "gemini-2.0-flash-001",
+        "google/gemini-2.0-flash",
+        "google/gemini-2.0-flash-001"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-02-01",
+          "input": 0.15,
+          "output": 0.6,
+          "notes": "Text input. Audio input: $1/1M"
+        }
+      ]
+    },
+    "gemini-2.0-flash-lite": {
+      "name": "Gemini 2.0 Flash Lite",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": [
+        "google/gemini-2.0-flash-lite"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-02-01",
+          "input": 0.075,
+          "output": 0.3,
+          "notes": "Text and audio input same price"
+        }
+      ]
+    },
+    "gemini-2.0-flash-live": {
+      "name": "Gemini 2.0 Flash Live API",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": [
+        "google/gemini-2.0-flash-live"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-02-01",
+          "input": 0.5,
+          "output": 2.0,
+          "notes": "Text input. Audio/video input: $3/1M. Audio output: $12/1M"
+        }
+      ]
+    },
+    "gemini-1.5-pro": {
+      "name": "Gemini 1.5 Pro",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": [
+        "gemini-1.5-pro-001",
+        "gemini-1.5-pro-002",
+        "google/gemini-1.5-pro",
+        "google/gemini-1.5-pro-001",
+        "google/gemini-1.5-pro-002"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-05-01",
+          "input": 1.25,
+          "output": 5.0,
+          "notes": "≤128K tokens. >128K: $2.5 input, $10 output"
+        }
+      ]
+    },
+    "gemini-1.5-flash": {
+      "name": "Gemini 1.5 Flash",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": [
+        "gemini-1.5-flash-001",
+        "gemini-1.5-flash-002",
+        "google/gemini-1.5-flash",
+        "google/gemini-1.5-flash-001",
+        "google/gemini-1.5-flash-002"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-05-01",
+          "input": 0.075,
+          "output": 0.3,
+          "notes": "≤128K tokens. >128K: $0.15 input, $0.6 output"
+        }
+      ]
+    },
+    "gemini-embedding": {
+      "name": "Gemini Embedding",
+      "unit": "tokens",
+      "unitSize": 1000,
+      "aliases": [
+        "text-embedding-005",
+        "google/gemini-embedding",
+        "google/text-embedding-005"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-01-01",
+          "input": 0.00015,
+          "notes": "Per 1K tokens. Batch: $0.00012/1K"
+        }
+      ]
+    },
+    "text-embedding-004": {
+      "name": "Text Embedding 004",
+      "unit": "characters",
+      "unitSize": 1000,
+      "aliases": [
+        "textembedding-gecko@003",
+        "google/text-embedding-004"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-01-01",
+          "input": 0.000025,
+          "notes": "Per 1K characters. Batch: $0.00002/1K"
+        }
+      ]
+    },
+    "imagen-4-ultra": {
+      "name": "Imagen 4 Ultra",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": [
+        "google/imagen-4-ultra"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "output": 0.06,
+          "notes": "Per image generated"
+        }
+      ]
+    },
+    "imagen-4": {
+      "name": "Imagen 4",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": [
+        "google/imagen-4"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "output": 0.04,
+          "notes": "Per image generated or upscaled"
+        }
+      ]
+    },
+    "imagen-4-fast": {
+      "name": "Imagen 4 Fast",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": [
+        "google/imagen-4-fast"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "output": 0.02,
+          "notes": "Per image generated"
+        }
+      ]
+    },
+    "imagen-3": {
+      "name": "Imagen 3",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": [
+        "imagegeneration@006",
+        "google/imagen-3"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-10-01",
+          "output": 0.04,
+          "notes": "Per image generated or edited"
+        }
+      ]
+    },
+    "imagen-3-fast": {
+      "name": "Imagen 3 Fast",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": [
+        "google/imagen-3-fast"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-10-01",
+          "output": 0.02,
+          "notes": "Per image generated"
+        }
+      ]
+    },
+    "veo-3.1": {
+      "name": "Veo 3.1",
+      "unit": "seconds",
+      "unitSize": 1,
+      "aliases": [
+        "google/veo-3.1"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "output": 0.4,
+          "notes": "Video + audio, 720p/1080p. Video only: $0.20/sec"
+        }
+      ]
+    },
+    "veo-3.1-fast": {
+      "name": "Veo 3.1 Fast",
+      "unit": "seconds",
+      "unitSize": 1,
+      "aliases": [
+        "google/veo-3.1-fast"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "output": 0.15,
+          "notes": "Video + audio, 720p/1080p. Video only: $0.10/sec"
+        }
+      ]
+    }
+  }
+}
