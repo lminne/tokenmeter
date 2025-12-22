@@ -1,0 +1,220 @@
+{
+  "$schema": "../schema.json",
+  "provider": "bfl",
+  "displayName": "Black Forest Labs",
+  "source": "https://api.bfl.ml/pricing",
+  "lastUpdated": "2025-12-22",
+  "currency": "USD",
+  "models": {
+    "flux-pro-1.1-ultra": {
+      "name": "FLUX Pro 1.1 Ultra",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": [
+        "flux/pro-1.1-ultra",
+        "bfl/flux-pro-1.1-ultra",
+        "flux-pro-1-1-ultra"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-10-01",
+          "output": 0.06,
+          "notes": "Per image generated, up to 4 megapixels"
+        }
+      ]
+    },
+    "flux-pro-1.1": {
+      "name": "FLUX Pro 1.1",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": [
+        "flux/pro-1.1",
+        "bfl/flux-pro-1.1",
+        "flux-pro-1-1"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-08-01",
+          "output": 0.04,
+          "notes": "Per image generated"
+        }
+      ]
+    },
+    "flux-pro": {
+      "name": "FLUX Pro",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": [
+        "flux/pro",
+        "bfl/flux-pro"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-08-01",
+          "output": 0.05,
+          "notes": "Per image generated"
+        }
+      ]
+    },
+    "flux-dev": {
+      "name": "FLUX Dev",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": [
+        "flux/dev",
+        "bfl/flux-dev"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-08-01",
+          "output": 0.025,
+          "notes": "Per image generated"
+        }
+      ]
+    },
+    "flux-schnell": {
+      "name": "FLUX Schnell",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": [
+        "flux/schnell",
+        "bfl/flux-schnell"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-08-01",
+          "output": 0.003,
+          "notes": "Per image generated, fastest model"
+        }
+      ]
+    },
+    "flux-fill-pro": {
+      "name": "FLUX Fill Pro",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": [
+        "flux/fill-pro",
+        "bfl/flux-fill-pro"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-10-01",
+          "output": 0.05,
+          "notes": "Inpainting/outpainting"
+        }
+      ]
+    },
+    "flux-canny-pro": {
+      "name": "FLUX Canny Pro",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": [
+        "flux/canny-pro",
+        "bfl/flux-canny-pro"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-10-01",
+          "output": 0.05,
+          "notes": "ControlNet canny edge"
+        }
+      ]
+    },
+    "flux-depth-pro": {
+      "name": "FLUX Depth Pro",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": [
+        "flux/depth-pro",
+        "bfl/flux-depth-pro"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-10-01",
+          "output": 0.05,
+          "notes": "ControlNet depth"
+        }
+      ]
+    },
+    "flux-redux-pro": {
+      "name": "FLUX Redux Pro",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": [
+        "flux/redux-pro",
+        "bfl/flux-redux-pro"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-10-01",
+          "output": 0.05,
+          "notes": "Image variation"
+        }
+      ]
+    },
+    "flux-fill-dev": {
+      "name": "FLUX Fill Dev",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": [
+        "flux/fill-dev",
+        "bfl/flux-fill-dev"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-10-01",
+          "output": 0.04,
+          "notes": "Inpainting/outpainting (dev)"
+        }
+      ]
+    },
+    "flux-canny-dev": {
+      "name": "FLUX Canny Dev",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": [
+        "flux/canny-dev",
+        "bfl/flux-canny-dev"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-10-01",
+          "output": 0.04,
+          "notes": "ControlNet canny edge (dev)"
+        }
+      ]
+    },
+    "flux-depth-dev": {
+      "name": "FLUX Depth Dev",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": [
+        "flux/depth-dev",
+        "bfl/flux-depth-dev"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-10-01",
+          "output": 0.04,
+          "notes": "ControlNet depth (dev)"
+        }
+      ]
+    },
+    "flux-redux-dev": {
+      "name": "FLUX Redux Dev",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": [
+        "flux/redux-dev",
+        "bfl/flux-redux-dev"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-10-01",
+          "output": 0.04,
+          "notes": "Image variation (dev)"
+        }
+      ]
+    }
+  }
+}

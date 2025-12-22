@@ -27,6 +27,16 @@ const DEFAULT_CDN_URL =
   "https://cdn.jsdelivr.net/npm/tokenmeter@latest/dist/pricing/manifest.json";
 
 /**
+ * Model alias mapping for custom model names
+ */
+export interface ModelAlias {
+  /** Target provider for pricing lookup */
+  provider: string;
+  /** Target model ID for pricing lookup */
+  model: string;
+}
+
+/**
  * Configuration for pricing manifest loading
  */
 export interface PricingConfig {
@@ -66,10 +76,29 @@ export interface PricingConfig {
    * @default 300000 (5 minutes)
    */
   cacheTimeout?: number;
+
+  /**
+   * Custom model aliases for pricing lookup.
+   * Maps custom model names to their canonical provider/model for pricing.
+   *
+   * @example
+   * ```typescript
+   * configurePricing({
+   *   modelAliases: {
+   *     "bedrock-claude-4-5-sonnet": { provider: "bedrock", model: "anthropic.claude-sonnet-4-5" },
+   *     "my-gpt": { provider: "openai", model: "gpt-4o" },
+   *   }
+   * });
+   * ```
+   */
+  modelAliases?: Record<string, ModelAlias>;
 }
 
 // Global configuration
 let globalConfig: PricingConfig = {};
+
+// Model alias storage for fast lookup
+let modelAliases: Record<string, ModelAlias> = {};
 
 // Cache for the loaded manifest
 let cachedManifest: PricingManifest | null = null;
@@ -88,10 +117,23 @@ let cacheTimestamp: number | null = null;
  *
  * // Offline mode (bundled pricing only)
  * configurePricing({ offlineMode: true });
+ *
+ * // Custom model aliases
+ * configurePricing({
+ *   modelAliases: {
+ *     "bedrock-claude-4-5-sonnet": { provider: "bedrock", model: "anthropic.claude-sonnet-4-5" },
+ *   }
+ * });
  * ```
  */
 export function configurePricing(config: PricingConfig): void {
   globalConfig = { ...globalConfig, ...config };
+
+  // Update model aliases if provided
+  if (config.modelAliases) {
+    modelAliases = { ...modelAliases, ...config.modelAliases };
+  }
+
   // Clear cache when config changes
   clearManifestCache();
 }
@@ -114,12 +156,16 @@ async function buildLocalManifest(): Promise<PricingManifest> {
     googlePricing,
     elevenlabsPricing,
     falPricing,
+    bedrockPricing,
+    bflPricing,
   ] = await Promise.all([
     import("./providers/openai.json", { with: { type: "json" } }),
     import("./providers/anthropic.json", { with: { type: "json" } }),
     import("./providers/google.json", { with: { type: "json" } }),
     import("./providers/elevenlabs.json", { with: { type: "json" } }),
     import("./providers/fal.json", { with: { type: "json" } }),
+    import("./providers/bedrock.json", { with: { type: "json" } }),
+    import("./providers/bfl.json", { with: { type: "json" } }),
   ]);
 
   // Convert to manifest format
@@ -201,6 +247,11 @@ async function buildLocalManifest(): Promise<PricingManifest> {
     "1k_characters",
   );
   manifest.providers.fal = convertProvider(falPricing.default, "request");
+  manifest.providers.bedrock = convertProvider(
+    bedrockPricing.default,
+    "1m_tokens",
+  );
+  manifest.providers.bfl = convertProvider(bflPricing.default, "image");
 
   return manifest;
 }
@@ -406,23 +457,32 @@ export function getModelPricing(
   model: string,
   manifest: PricingManifest,
 ): ModelPricing | null {
+  // 1. Check custom model aliases first
+  const alias = modelAliases[model];
+  if (alias) {
+    const aliasProviderPricing = manifest.providers[alias.provider];
+    if (aliasProviderPricing?.[alias.model]) {
+      return aliasProviderPricing[alias.model];
+    }
+  }
+
   const providerPricing = manifest.providers[provider];
   if (!providerPricing) {
     return null;
   }
 
-  // Try exact match first
+  // 2. Try exact match
   if (providerPricing[model]) {
     return providerPricing[model];
   }
 
-  // Try without version suffix (e.g., "gpt-4o-2024-05-13" -> "gpt-4o")
+  // 3. Try without version suffix (e.g., "gpt-4o-2024-05-13" -> "gpt-4o")
   const baseModel = model.replace(/-\d{4}-\d{2}-\d{2}$/, "");
   if (baseModel !== model && providerPricing[baseModel]) {
     return providerPricing[baseModel];
   }
 
-  // Try with provider prefix stripped (some APIs return just the model name)
+  // 4. Try with provider prefix stripped (some APIs return just the model name)
   const withoutPrefix = model.replace(/^[^/]+\//, "");
   if (withoutPrefix !== model && providerPricing[withoutPrefix]) {
     return providerPricing[withoutPrefix];
@@ -499,4 +559,38 @@ export function clearManifestCache(): void {
   cachedManifest = null;
   manifestLoadPromise = null;
   cacheTimestamp = null;
+}
+
+/**
+ * Set model aliases for pricing lookup.
+ * Merges with existing aliases.
+ *
+ * @example
+ * ```typescript
+ * import { setModelAliases } from 'tokenmeter';
+ *
+ * setModelAliases({
+ *   "bedrock-claude-4-5-sonnet": { provider: "bedrock", model: "anthropic.claude-sonnet-4-5" },
+ *   "my-custom-gpt": { provider: "openai", model: "gpt-4o" },
+ * });
+ * ```
+ */
+export function setModelAliases(
+  aliases: Record<string, ModelAlias>,
+): void {
+  modelAliases = { ...modelAliases, ...aliases };
+}
+
+/**
+ * Clear all model aliases
+ */
+export function clearModelAliases(): void {
+  modelAliases = {};
+}
+
+/**
+ * Get current model aliases
+ */
+export function getModelAliases(): Record<string, ModelAlias> {
+  return { ...modelAliases };
 }

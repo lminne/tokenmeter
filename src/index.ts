@@ -47,7 +47,11 @@ export {
   clearManifestCache,
   configurePricing,
   getPricingConfig,
+  setModelAliases,
+  clearModelAliases,
+  getModelAliases,
   type PricingConfig,
+  type ModelAlias,
 } from "./pricing/manifest.js";
 
 // Types
@@ -92,7 +96,10 @@ export {
   extractUsage,
   openaiStrategy,
   anthropicStrategy,
+  bedrockStrategy,
+  vertexAIStrategy,
   falStrategy,
+  bflStrategy,
   elevenlabsStrategy,
   vercelAIStrategy,
 } from "./instrumentation/strategies/index.js";

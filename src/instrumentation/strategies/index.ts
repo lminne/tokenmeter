@@ -23,11 +23,16 @@ export const openaiStrategy: ExtractionStrategy = {
       "usage" in r &&
       typeof r.usage === "object" &&
       r.usage !== null &&
-      ("prompt_tokens" in (r.usage as object) || "total_tokens" in (r.usage as object))
+      ("prompt_tokens" in (r.usage as object) ||
+        "total_tokens" in (r.usage as object))
     );
   },
 
-  extract(methodPath: string[], result: unknown, args: unknown[]): UsageData | null {
+  extract(
+    methodPath: string[],
+    result: unknown,
+    args: unknown[],
+  ): UsageData | null {
     const r = result as {
       model?: string;
       usage?: {
@@ -82,7 +87,11 @@ export const anthropicStrategy: ExtractionStrategy = {
     );
   },
 
-  extract(methodPath: string[], result: unknown, args: unknown[]): UsageData | null {
+  extract(
+    methodPath: string[],
+    result: unknown,
+    args: unknown[],
+  ): UsageData | null {
     const r = result as {
       model?: string;
       usage?: {
@@ -131,7 +140,11 @@ export const falStrategy: ExtractionStrategy = {
     return "requestId" in r || "request_id" in r;
   },
 
-  extract(methodPath: string[], result: unknown, args: unknown[]): UsageData | null {
+  extract(
+    methodPath: string[],
+    result: unknown,
+    args: unknown[],
+  ): UsageData | null {
     const r = result as {
       data?: {
         images?: Array<{ url?: string; width?: number; height?: number }>;
@@ -192,7 +205,11 @@ export const elevenlabsStrategy: ExtractionStrategy = {
     );
   },
 
-  extract(methodPath: string[], result: unknown, args: unknown[]): UsageData | null {
+  extract(
+    methodPath: string[],
+    result: unknown,
+    args: unknown[],
+  ): UsageData | null {
     // For ElevenLabs, we need to extract character count from the input
     // The result is typically a Buffer/ArrayBuffer
 
@@ -202,7 +219,9 @@ export const elevenlabsStrategy: ExtractionStrategy = {
     // Extract from args based on method signature
     if (args.length >= 2) {
       // textToSpeech.convert(voiceId, { text, modelId })
-      const options = args[1] as { text?: string; modelId?: string; model_id?: string } | undefined;
+      const options = args[1] as
+        | { text?: string; modelId?: string; model_id?: string }
+        | undefined;
       if (options?.text) {
         text = options.text;
       }
@@ -211,7 +230,9 @@ export const elevenlabsStrategy: ExtractionStrategy = {
       }
     } else if (args.length === 1) {
       // generate({ text, voice, modelId })
-      const options = args[0] as { text?: string; modelId?: string; model_id?: string } | undefined;
+      const options = args[0] as
+        | { text?: string; modelId?: string; model_id?: string }
+        | undefined;
       if (options?.text) {
         text = options.text;
       }
@@ -226,6 +247,226 @@ export const elevenlabsStrategy: ExtractionStrategy = {
       inputUnits: text.length, // Character count
       metadata: {
         characterCount: text.length,
+      },
+    };
+  },
+};
+
+/**
+ * Parse Bedrock model ID to extract canonical model name
+ *
+ * @example
+ * "us.anthropic.claude-sonnet-4-20250514-v1:0" -> "anthropic.claude-sonnet-4"
+ * "eu.anthropic.claude-3-5-sonnet-20241022-v2:0" -> "anthropic.claude-3-5-sonnet"
+ */
+function parseBedrockModelId(modelId: string): string {
+  // Remove region prefix (us., eu., ap., etc.)
+  let parsed = modelId.replace(/^[a-z]{2}\./, "");
+
+  // Remove version suffix (-v1:0, -v2:0, etc.)
+  parsed = parsed.replace(/-v\d+:\d+$/, "");
+
+  // Remove date suffix (-20250514, -20241022, etc.)
+  parsed = parsed.replace(/-\d{8}$/, "");
+
+  return parsed;
+}
+
+/**
+ * AWS Bedrock extraction strategy
+ */
+export const bedrockStrategy: ExtractionStrategy = {
+  provider: "bedrock",
+
+  canHandle(methodPath: string[], result: unknown): boolean {
+    if (!result || typeof result !== "object") return false;
+
+    const r = result as Record<string, unknown>;
+
+    // Bedrock responses have usage with inputTokens/outputTokens
+    // and typically include $metadata or modelId
+    return (
+      "usage" in r &&
+      typeof r.usage === "object" &&
+      r.usage !== null &&
+      "inputTokens" in (r.usage as object) &&
+      ("modelId" in r || "$metadata" in r)
+    );
+  },
+
+  extract(
+    methodPath: string[],
+    result: unknown,
+    args: unknown[],
+  ): UsageData | null {
+    const r = result as {
+      modelId?: string;
+      usage?: {
+        inputTokens?: number;
+        outputTokens?: number;
+      };
+      $metadata?: {
+        httpStatusCode?: number;
+        requestId?: string;
+      };
+    };
+
+    if (!r.usage) return null;
+
+    let model = r.modelId || "unknown";
+
+    // Try to get model from args if not in result
+    if (!r.modelId && args.length > 0) {
+      const params = args[0] as { modelId?: string } | undefined;
+      if (params?.modelId) {
+        model = params.modelId;
+      }
+    }
+
+    // Parse the Bedrock model ID to canonical form
+    const canonicalModel = parseBedrockModelId(model);
+
+    return {
+      provider: "bedrock",
+      model: canonicalModel,
+      inputUnits: r.usage.inputTokens,
+      outputUnits: r.usage.outputTokens,
+      metadata: {
+        originalModelId: model,
+        requestId: r.$metadata?.requestId,
+      },
+    };
+  },
+};
+
+/**
+ * Google Vertex AI / Gemini extraction strategy
+ */
+export const vertexAIStrategy: ExtractionStrategy = {
+  provider: "google",
+
+  canHandle(methodPath: string[], result: unknown): boolean {
+    if (!result || typeof result !== "object") return false;
+
+    const r = result as Record<string, unknown>;
+
+    // Vertex AI / Gemini responses have usageMetadata with promptTokenCount/candidatesTokenCount
+    return (
+      "usageMetadata" in r &&
+      typeof r.usageMetadata === "object" &&
+      r.usageMetadata !== null &&
+      "promptTokenCount" in (r.usageMetadata as object)
+    );
+  },
+
+  extract(
+    methodPath: string[],
+    result: unknown,
+    args: unknown[],
+  ): UsageData | null {
+    const r = result as {
+      usageMetadata?: {
+        promptTokenCount?: number;
+        candidatesTokenCount?: number;
+        totalTokenCount?: number;
+        cachedContentTokenCount?: number;
+      };
+      modelVersion?: string;
+    };
+
+    if (!r.usageMetadata) return null;
+
+    // Try to extract model from result or args
+    let model = "unknown";
+    if (r.modelVersion) {
+      model = r.modelVersion;
+    } else if (args.length > 0) {
+      const params = args[0] as { model?: string } | undefined;
+      if (params?.model) {
+        model = params.model;
+      }
+    }
+
+    return {
+      provider: "google",
+      model,
+      inputUnits: r.usageMetadata.promptTokenCount,
+      outputUnits: r.usageMetadata.candidatesTokenCount,
+      cachedInputUnits: r.usageMetadata.cachedContentTokenCount,
+      metadata: {
+        totalTokens: r.usageMetadata.totalTokenCount,
+      },
+    };
+  },
+};
+
+/**
+ * BFL (Black Forest Labs) extraction strategy
+ *
+ * Note: BFL responses are similar to fal.ai but use "id" (not "requestId")
+ * and have "sample" field for images. fal.ai uses "requestId" (camelCase).
+ */
+export const bflStrategy: ExtractionStrategy = {
+  provider: "bfl",
+
+  canHandle(methodPath: string[], result: unknown): boolean {
+    if (!result || typeof result !== "object") return false;
+
+    const r = result as Record<string, unknown>;
+
+    // BFL API responses have:
+    // - "id" field (not "requestId" which is fal.ai's format)
+    // - "sample" field with base64 image data
+    // Explicitly exclude fal.ai responses which have "requestId" (camelCase)
+    if ("requestId" in r) return false;
+
+    return "id" in r && ("sample" in r || "images" in r);
+  },
+
+  extract(
+    methodPath: string[],
+    result: unknown,
+    args: unknown[],
+  ): UsageData | null {
+    const r = result as {
+      id?: string;
+      request_id?: string;
+      sample?: string | string[];
+      images?: Array<{ url?: string }>;
+      result?: { sample?: string };
+    };
+
+    // Extract model from args (BFL uses model in request body or endpoint)
+    let model = "flux-pro"; // Default
+    if (args.length > 0) {
+      const params = args[0] as
+        | { model?: string; endpoint?: string }
+        | undefined;
+      if (params?.model) {
+        model = params.model;
+      } else if (params?.endpoint) {
+        // Extract model from endpoint like "/v1/flux-pro-1.1"
+        const match = params.endpoint.match(/\/(flux-[\w.-]+)/);
+        if (match) {
+          model = match[1];
+        }
+      }
+    }
+
+    // Count output images
+    let outputUnits = 1;
+    if (r.images && Array.isArray(r.images)) {
+      outputUnits = r.images.length;
+    } else if (r.sample && Array.isArray(r.sample)) {
+      outputUnits = r.sample.length;
+    }
+
+    return {
+      provider: "bfl",
+      model,
+      outputUnits,
+      metadata: {
+        requestId: r.id || r.request_id,
       },
     };
   },
@@ -252,7 +493,11 @@ export const vercelAIStrategy: ExtractionStrategy = {
     );
   },
 
-  extract(methodPath: string[], result: unknown, args: unknown[]): UsageData | null {
+  extract(
+    methodPath: string[],
+    result: unknown,
+    args: unknown[],
+  ): UsageData | null {
     const r = result as {
       usage?: {
         promptTokens?: number;
@@ -272,7 +517,11 @@ export const vercelAIStrategy: ExtractionStrategy = {
     if (r.response?.modelId) {
       model = r.response.modelId;
       // Infer provider from model
-      if (model.startsWith("gpt-") || model.startsWith("o1") || model.startsWith("o3")) {
+      if (
+        model.startsWith("gpt-") ||
+        model.startsWith("o1") ||
+        model.startsWith("o3")
+      ) {
         provider = "openai";
       } else if (model.startsWith("claude-")) {
         provider = "anthropic";
@@ -283,7 +532,9 @@ export const vercelAIStrategy: ExtractionStrategy = {
 
     // Try to get model from args
     if (args.length > 0) {
-      const params = args[0] as { model?: { modelId?: string; provider?: string } } | undefined;
+      const params = args[0] as
+        | { model?: { modelId?: string; provider?: string } }
+        | undefined;
       if (params?.model?.modelId) {
         model = params.model.modelId;
       }
@@ -307,7 +558,10 @@ export const vercelAIStrategy: ExtractionStrategy = {
 export const strategies: ExtractionStrategy[] = [
   openaiStrategy,
   anthropicStrategy,
+  bedrockStrategy,
+  vertexAIStrategy,
   falStrategy,
+  bflStrategy,
   elevenlabsStrategy,
   vercelAIStrategy,
 ];
@@ -317,7 +571,7 @@ export const strategies: ExtractionStrategy[] = [
  */
 export function findStrategy(
   methodPath: string[],
-  result: unknown
+  result: unknown,
 ): ExtractionStrategy | null {
   for (const strategy of strategies) {
     if (strategy.canHandle(methodPath, result)) {
@@ -334,7 +588,7 @@ export function extractUsage(
   methodPath: string[],
   result: unknown,
   args: unknown[],
-  providerHint?: string
+  providerHint?: string,
 ): UsageData | null {
   // If provider hint is given, try that strategy first
   if (providerHint) {
