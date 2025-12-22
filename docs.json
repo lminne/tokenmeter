@@ -1,9 +1,11 @@
 {
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
   "name": "Tokenmeter",
-  "navigation": [
-    {
-      "group": "Getting Started",
-      "pages": ["introduction", "installation", "quickstart"]
-    }
-  ]
+  "colors": {
+    "primary": "#ff0000"
+  },
+  "navigation": {
+    "Getting Started": ["introduction", "installation", "quickstart"]
+  }
 }
