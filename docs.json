@@ -1,6 +1,7 @@
 {
   "name": "Tokenmeter",
   "logo": "/logo.svg",
+  "theme": "mint",
   "navigation": [
     {
       "group": "Getting Started",
