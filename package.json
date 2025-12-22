@@ -1,14 +1,120 @@
 {
-  "name": "Tokenmeter",
+  "name": "tokenmeter",
   "version": "0.9.1",
-  "navigation": [
-    {
-      "group": "Getting Started",
-      "pages": [
-        "introduction",
-        "installation",
-        "quickstart"
-      ]
+  "description": "OpenTelemetry-native cost tracking for AI workflows",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./processor": {
+      "types": "./dist/processor/TokenMeterProcessor.d.ts",
+      "import": "./dist/processor/TokenMeterProcessor.js"
+    },
+    "./exporter": {
+      "types": "./dist/exporter/index.d.ts",
+      "import": "./dist/exporter/index.js"
+    },
+    "./query": {
+      "types": "./dist/query/index.d.ts",
+      "import": "./dist/query/index.js"
+    },
+    "./inngest": {
+      "types": "./dist/integrations/inngest/index.d.ts",
+      "import": "./dist/integrations/inngest/index.js"
+    },
+    "./next": {
+      "types": "./dist/integrations/next/index.d.ts",
+      "import": "./dist/integrations/next/index.js"
+    },
+    "./client": {
+      "types": "./dist/client/index.d.ts",
+      "import": "./dist/client/index.js"
+    },
+    "./vercel-ai": {
+      "types": "./dist/integrations/vercel-ai/index.d.ts",
+      "import": "./dist/integrations/vercel-ai/index.js"
     }
+  },
+  "scripts": {
+    "build": "npm run build:manifest && tsc && npm run build:pricing",
+    "build:manifest": "npx tsx scripts/build-manifest.ts",
+    "build:pricing": "mkdir -p dist/pricing && cp src/pricing/manifest.json dist/pricing/manifest.json",
+    "dev": "tsc --watch",
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lminne/tokenmeter.git"
+  },
+  "homepage": "https://github.com/lminne/tokenmeter#readme",
+  "bugs": {
+    "url": "https://github.com/lminne/tokenmeter/issues"
+  },
+  "author": "Lukas Minnebeck",
+  "license": "MIT",
+  "dependencies": {
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/core": "^1.25.0"
+  },
+  "peerDependencies": {
+    "@opentelemetry/sdk-trace-base": "^1.25.0",
+    "@opentelemetry/sdk-trace-node": "^1.25.0",
+    "pg": "^8.0.0",
+    "inngest": "^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@opentelemetry/sdk-trace-base": {
+      "optional": true
+    },
+    "@opentelemetry/sdk-trace-node": {
+      "optional": true
+    },
+    "pg": {
+      "optional": true
+    },
+    "inngest": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@eslint/js": "^9.17.0",
+    "@fal-ai/client": "^1.8.0",
+    "@opentelemetry/context-async-hooks": "^2.2.0",
+    "@opentelemetry/sdk-trace-base": "^1.25.0",
+    "@opentelemetry/sdk-trace-node": "^1.25.0",
+    "@types/node": "^22.15.3",
+    "@types/pg": "^8.11.6",
+    "eslint": "^9.17.0",
+    "openai": "^4.77.0",
+    "pg": "^8.13.0",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.18.2",
+    "vitest": "^2.1.0"
+  },
+  "keywords": [
+    "ai",
+    "cost-tracking",
+    "opentelemetry",
+    "otel",
+    "tracing",
+    "openai",
+    "anthropic",
+    "fal",
+    "llm",
+    "tokens",
+    "billing",
+    "observability"
   ]
 }

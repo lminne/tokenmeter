@@ -276,147 +276,147 @@ export function monitor<T extends object>(
     prop: string,
     path: string[],
   ): (...args: unknown[]) => unknown {
-    return function (this: unknown, ...args: unknown[]): unknown {
-      const methodPath = [...path, prop];
-      const spanName = `${clientName}.${methodPath.join(".")}`;
+          return function (this: unknown, ...args: unknown[]): unknown {
+            const methodPath = [...path, prop];
+            const spanName = `${clientName}.${methodPath.join(".")}`;
 
-      // Check if this is a factory method that returns an object we should proxy
-      // For these, we don't create spans but do wrap the returned object
-      const registeredFactoryMethods = getFactoryMethods(provider);
-      const isFactoryMethod =
+            // Check if this is a factory method that returns an object we should proxy
+            // For these, we don't create spans but do wrap the returned object
+            const registeredFactoryMethods = getFactoryMethods(provider);
+            const isFactoryMethod =
         (FACTORY_METHODS as readonly string[]).includes(prop) ||
-        registeredFactoryMethods.includes(prop);
+              registeredFactoryMethods.includes(prop);
 
-      if (isFactoryMethod) {
+            if (isFactoryMethod) {
         return handleFactoryMethod(
           originalMethod,
           target,
           receiver,
-          args,
+                args,
           methodPath,
         );
-      }
+            }
 
-      // Create request context for hooks (args as readonly)
-      const requestContext: RequestContext = {
-        methodPath,
-        args: args as readonly unknown[],
-        provider,
-        spanName,
-      };
+            // Create request context for hooks (args as readonly)
+            const requestContext: RequestContext = {
+              methodPath,
+              args: args as readonly unknown[],
+              provider,
+              spanName,
+            };
 
-      // Get baggage attributes from context (set by withAttributes)
-      const baggageAttrs = getBaggageAttributes();
+            // Get baggage attributes from context (set by withAttributes)
+            const baggageAttrs = getBaggageAttributes();
 
-      // Start span with base + baggage attributes
-      const currentTracer = getTracer();
-      const span = currentTracer.startSpan(spanName, {
-        kind: SpanKind.CLIENT,
-        attributes: {
-          ...baseAttributes,
-          ...baggageAttrs, // Include baggage attributes (org.id, user.id, etc.)
-          [TM_ATTRIBUTES.PROVIDER]: provider,
-          "rpc.service": clientName,
-          "rpc.method": methodPath.join("."),
-        },
-      });
+            // Start span with base + baggage attributes
+            const currentTracer = getTracer();
+            const span = currentTracer.startSpan(spanName, {
+              kind: SpanKind.CLIENT,
+              attributes: {
+                ...baseAttributes,
+                ...baggageAttrs, // Include baggage attributes (org.id, user.id, etc.)
+                [TM_ATTRIBUTES.PROVIDER]: provider,
+                "rpc.service": clientName,
+                "rpc.method": methodPath.join("."),
+              },
+            });
 
-      // Track start time for duration calculation
-      const startTime = Date.now();
+            // Track start time for duration calculation
+            const startTime = Date.now();
 
-      // Helper to handle successful response
+            // Helper to handle successful response
       const handleSuccess = async (resolved: unknown): Promise<unknown> => {
-        const durationMs = Date.now() - startTime;
+              const durationMs = Date.now() - startTime;
 
-        // Check if result is a stream
-        if (isAsyncIterable(resolved)) {
-          return wrapAsyncIterator(resolved as AsyncIterable<unknown>, {
-            span,
-            provider,
-            methodPath,
-            args: requestContext.args,
-            spanName,
-            startTime,
-            onStreamingCost,
-            afterResponse,
-            onError,
-          });
-        }
+              // Check if result is a stream
+              if (isAsyncIterable(resolved)) {
+                return wrapAsyncIterator(resolved as AsyncIterable<unknown>, {
+                  span,
+                  provider,
+                  methodPath,
+                  args: requestContext.args,
+                  spanName,
+                  startTime,
+                  onStreamingCost,
+                  afterResponse,
+                  onError,
+                });
+              }
 
-        // Extract usage from result
-        const usage = extractUsage(methodPath, resolved, args, provider);
-        const cost = usage ? calculateUsageCost(usage) : 0;
+              // Extract usage from result
+              const usage = extractUsage(methodPath, resolved, args, provider);
+              const cost = usage ? calculateUsageCost(usage) : 0;
 
-        // Capture cost for withCost() utility
-        setCostCapture(cost, usage);
+              // Capture cost for withCost() utility
+              setCostCapture(cost, usage);
 
-        if (usage) {
-          addUsageToSpan(span, usage);
-        }
+              if (usage) {
+                addUsageToSpan(span, usage);
+              }
 
-        span.setStatus({ code: SpanStatusCode.OK });
-        span.end();
+              span.setStatus({ code: SpanStatusCode.OK });
+              span.end();
 
-        // Invoke afterResponse hook
-        await invokeAfterResponse(afterResponse, {
-          ...requestContext,
-          result: resolved,
-          cost,
-          usage,
-          durationMs,
-        });
+              // Invoke afterResponse hook
+              await invokeAfterResponse(afterResponse, {
+                ...requestContext,
+                result: resolved,
+                cost,
+                usage,
+                durationMs,
+              });
 
-        // Wrap returned objects that should be monitored (e.g., chat sessions)
-        if (
-          resolved !== null &&
-          typeof resolved === "object" &&
-          shouldProxyReturnValue(resolved, methodPath)
-        ) {
-          return wrapIfNeeded(resolved as object, methodPath);
-        }
+              // Wrap returned objects that should be monitored (e.g., chat sessions)
+              if (
+                resolved !== null &&
+                typeof resolved === "object" &&
+                shouldProxyReturnValue(resolved, methodPath)
+              ) {
+                return wrapIfNeeded(resolved as object, methodPath);
+              }
 
-        return resolved;
-      };
+              return resolved;
+            };
 
-      // Helper to handle errors
-      const handleError = async (error: unknown): Promise<never> => {
-        const durationMs = Date.now() - startTime;
+            // Helper to handle errors
+            const handleError = async (error: unknown): Promise<never> => {
+              const durationMs = Date.now() - startTime;
 
-        span.recordException(error as Error);
-        span.setStatus({
-          code: SpanStatusCode.ERROR,
-          message: sanitizeErrorMessage(error),
-        });
-        span.end();
+              span.recordException(error as Error);
+              span.setStatus({
+                code: SpanStatusCode.ERROR,
+                message: sanitizeErrorMessage(error),
+              });
+              span.end();
 
-        // Invoke onError hook
-        await invokeOnError(onError, {
-          ...requestContext,
-          error: error as Error,
-          durationMs,
-        });
+              // Invoke onError hook
+              await invokeOnError(onError, {
+                ...requestContext,
+                error: error as Error,
+                durationMs,
+              });
 
-        throw error;
-      };
+              throw error;
+            };
 
-      // Execute within span context
-      return context.with(trace.setSpan(context.active(), span), () => {
-        try {
-          // Invoke beforeRequest hook (can throw to abort)
-          const beforePromise = invokeBeforeRequest(
-            beforeRequest,
-            requestContext,
-          );
+            // Execute within span context
+            return context.with(trace.setSpan(context.active(), span), () => {
+              try {
+                // Invoke beforeRequest hook (can throw to abort)
+                const beforePromise = invokeBeforeRequest(
+                  beforeRequest,
+                  requestContext,
+                );
 
-          // Handle async beforeRequest
-          if (isPromise(beforePromise)) {
-            return beforePromise.then(
+                // Handle async beforeRequest
+                if (isPromise(beforePromise)) {
+                  return beforePromise.then(
               () => executeMethod(originalMethod, target, receiver, args, handleSuccess, handleError, methodPath, span, startTime, requestContext),
               handleError,
-            );
-          }
+                  );
+                }
 
-          // Sync beforeRequest completed, proceed with call
+                // Sync beforeRequest completed, proceed with call
           return executeMethod(originalMethod, target, receiver, args, handleSuccess, handleError, methodPath, span, startTime, requestContext);
         } catch (error) {
           const durationMs = Date.now() - startTime;
@@ -459,63 +459,63 @@ export function monitor<T extends object>(
   ): unknown {
     const result = originalMethod.apply(
       receiver === target ? target : receiver,
-      args,
-    );
+                  args,
+                );
 
-    // Handle async results
-    if (isPromise(result)) {
-      return result.then(handleSuccess, handleError);
-    }
+                // Handle async results
+                if (isPromise(result)) {
+                  return result.then(handleSuccess, handleError);
+                }
 
-    // Handle sync results (rare for API calls)
-    if (isAsyncIterable(result)) {
-      return wrapAsyncIterator(result as AsyncIterable<unknown>, {
-        span,
-        provider,
-        methodPath,
-        args: requestContext.args,
+                // Handle sync results (rare for API calls)
+                if (isAsyncIterable(result)) {
+                  return wrapAsyncIterator(result as AsyncIterable<unknown>, {
+                    span,
+                    provider,
+                    methodPath,
+                    args: requestContext.args,
         spanName: requestContext.spanName,
-        startTime,
-        onStreamingCost,
-        afterResponse,
-        onError,
-      });
-    }
+                    startTime,
+                    onStreamingCost,
+                    afterResponse,
+                    onError,
+                  });
+                }
 
     // Sync result - handle inline
-    const durationMs = Date.now() - startTime;
-    const usage = extractUsage(methodPath, result, args, provider);
-    const cost = usage ? calculateUsageCost(usage) : 0;
+                const durationMs = Date.now() - startTime;
+                const usage = extractUsage(methodPath, result, args, provider);
+                const cost = usage ? calculateUsageCost(usage) : 0;
 
-    // Capture cost for withCost() utility
-    setCostCapture(cost, usage);
+                // Capture cost for withCost() utility
+                setCostCapture(cost, usage);
 
-    if (usage) {
-      addUsageToSpan(span, usage);
-    }
+                if (usage) {
+                  addUsageToSpan(span, usage);
+                }
 
-    span.setStatus({ code: SpanStatusCode.OK });
-    span.end();
+                span.setStatus({ code: SpanStatusCode.OK });
+                span.end();
 
-    // Fire afterResponse hook (fire-and-forget for sync result)
-    invokeAfterResponse(afterResponse, {
-      ...requestContext,
-      result,
-      cost,
-      usage,
-      durationMs,
-    }).catch((err) => logger.warn("afterResponse hook error:", err));
+                // Fire afterResponse hook (fire-and-forget for sync result)
+                invokeAfterResponse(afterResponse, {
+                  ...requestContext,
+                  result,
+                  cost,
+                  usage,
+                  durationMs,
+                }).catch((err) => logger.warn("afterResponse hook error:", err));
 
-    // Wrap returned objects that should be monitored
-    if (
-      result !== null &&
-      typeof result === "object" &&
-      shouldProxyReturnValue(result, methodPath)
-    ) {
-      return wrapIfNeeded(result as object, methodPath);
-    }
+                // Wrap returned objects that should be monitored
+                if (
+                  result !== null &&
+                  typeof result === "object" &&
+                  shouldProxyReturnValue(result, methodPath)
+                ) {
+                  return wrapIfNeeded(result as object, methodPath);
+                }
 
-    return result;
+                return result;
   }
 
   /**
@@ -545,7 +545,7 @@ export function monitor<T extends object>(
         }
         return resolved;
       });
-    }
+        }
 
     // Handle sync factory methods (like getGenerativeModel)
     if (
@@ -554,7 +554,7 @@ export function monitor<T extends object>(
       shouldProxyReturnValue(result, methodPath)
     ) {
       return wrapIfNeeded(result as object, methodPath);
-    }
+        }
 
     return result;
   }

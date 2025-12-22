@@ -1,68 +1,9 @@
 {
   "name": "Tokenmeter",
-  "logo": "/logo.svg",
-  "theme": "mint",
   "navigation": [
     {
       "group": "Getting Started",
       "pages": ["introduction", "installation", "quickstart"]
-    },
-    {
-      "group": "Core Concepts",
-      "pages": [
-        "core/monitor",
-        "core/with-attributes",
-        "core/cost-attribution",
-        "core/type-guards",
-        "core/span-attributes"
-      ]
-    },
-    {
-      "group": "Providers",
-      "pages": [
-        "providers/supported-providers",
-        "providers/custom-providers",
-        "providers/pricing-configuration"
-      ]
-    },
-    {
-      "group": "Framework Integrations",
-      "pages": [
-        "integrations/nextjs",
-        "integrations/inngest",
-        "integrations/vercel-ai"
-      ]
-    },
-    {
-      "group": "Data & Storage",
-      "pages": [
-        "storage/postgresql",
-        "storage/query-client",
-        "storage/export-destinations"
-      ]
-    },
-    {
-      "group": "Advanced",
-      "pages": [
-        "advanced/streaming",
-        "advanced/cross-service-propagation",
-        "advanced/processor"
-      ]
-    },
-    {
-      "group": "API Reference",
-      "pages": [
-        "api/core",
-        "api/monitor-options",
-        "api/type-guards",
-        "api/processor-exporter",
-        "api/query-client",
-        "api/integrations"
-      ]
-    },
-    {
-      "group": "Resources",
-      "pages": ["faq", "troubleshooting", "contributing", "changelog"]
     }
   ]
 }
