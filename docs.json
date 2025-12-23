@@ -7,10 +7,10 @@
     "light": "#34d399",
     "dark": "#059669"
   },
-  "favicon": "docs/favicon.svg",
+  "favicon": "/docs/favicon.svg",
   "logo": {
-    "light": "docs/logo/light.svg",
-    "dark": "docs/logo/dark.svg"
+    "light": "/docs/logo/light.svg",
+    "dark": "/docs/logo/dark.svg"
   },
   "navigation": {
     "tabs": [
@@ -18,11 +18,11 @@
         "tab": "Getting Started",
         "groups": [
           {
-            "group": "",
+            "group": "Getting Started",
             "pages": [
-              "docs/introduction",
-              "docs/installation",
-              "docs/quickstart"
+              "docs/essentials/introduction",
+              "docs/essentials/installation",
+              "docs/essentials/quickstart"
             ]
           }
         ]
@@ -69,13 +69,13 @@
         "tab": "API Reference",
         "groups": [
           {
-            "group": "",
+            "group": "API Reference",
             "pages": [
-              "docs/api/core",
-              "docs/api/monitor-options",
-              "docs/api/type-guards",
-              "docs/api/processor-exporter",
-              "docs/api/query-client"
+              "docs/api-reference/core",
+              "docs/api-reference/monitor-options",
+              "docs/api-reference/type-guards",
+              "docs/api-reference/processor-exporter",
+              "docs/api-reference/query-client"
             ]
           }
         ]
@@ -84,7 +84,7 @@
         "tab": "Resources",
         "groups": [
           {
-            "group": "",
+            "group": "Resources",
             "pages": [
               "docs/resources/faq",
               "docs/resources/troubleshooting",
@@ -93,21 +93,7 @@
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "GitHub",
-          "href": "https://github.com/lminne/tokenmeter",
-          "icon": "github"
-        },
-        {
-          "anchor": "npm",
-          "href": "https://www.npmjs.com/package/tokenmeter",
-          "icon": "npm"
-        }
-      ]
-    }
+    ]
   },
   "navbar": {
     "links": [
