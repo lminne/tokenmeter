@@ -1,6 +1,6 @@
 {
   "name": "tokenmeter",
-  "version": "0.9.1",
+  "version": "0.9.11",
   "description": "OpenTelemetry-native cost tracking for AI workflows",
   "type": "module",
   "main": "./dist/index.js",

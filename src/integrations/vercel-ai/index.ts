@@ -280,6 +280,11 @@ export const VERCEL_AI_ATTRIBUTES = {
 } as const;
 
 /**
+ * Type for Vercel AI attribute keys.
+ */
+export type VercelAIAttributeKey = keyof typeof VERCEL_AI_ATTRIBUTES;
+
+/**
  * Span names used by the Vercel AI SDK.
  *
  * Use these to filter/identify Vercel AI SDK spans in processors.
@@ -306,6 +311,11 @@ export const VERCEL_AI_SPAN_NAMES = {
   /** Batch embedding span */
   EMBED_MANY: "ai.embedMany",
 } as const;
+
+/**
+ * Type for Vercel AI span name keys.
+ */
+export type VercelAISpanNameKey = keyof typeof VERCEL_AI_SPAN_NAMES;
 
 /**
  * Check if a span name is from the Vercel AI SDK.

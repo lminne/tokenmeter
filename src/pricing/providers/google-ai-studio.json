@@ -1,0 +1,155 @@
+{
+  "$schema": "../schema.json",
+  "provider": "google-ai-studio",
+  "displayName": "Google AI Studio",
+  "source": "https://ai.google.dev/pricing",
+  "lastUpdated": "2025-12-22",
+  "currency": "USD",
+  "notes": "AI Studio has a free tier with rate limits. Paid tier pricing shown below.",
+  "models": {
+    "gemini-2.5-pro": {
+      "name": "Gemini 2.5 Pro",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": [
+        "gemini-2.5-pro-preview",
+        "models/gemini-2.5-pro",
+        "models/gemini-2.5-pro-preview"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "input": 1.25,
+          "output": 10.0,
+          "cachedInput": 0.125,
+          "notes": "≤200K tokens. >200K: $2.5 input, $15 output. Free tier available."
+        }
+      ]
+    },
+    "gemini-2.5-flash": {
+      "name": "Gemini 2.5 Flash",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": [
+        "gemini-2.5-flash-preview",
+        "models/gemini-2.5-flash",
+        "models/gemini-2.5-flash-preview"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-06-01",
+          "input": 0.15,
+          "output": 0.6,
+          "cachedInput": 0.01875,
+          "notes": "Free tier available. Paid tier for higher rate limits."
+        }
+      ]
+    },
+    "gemini-2.0-flash": {
+      "name": "Gemini 2.0 Flash",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": [
+        "gemini-2.0-flash-001",
+        "models/gemini-2.0-flash",
+        "models/gemini-2.0-flash-001"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-02-01",
+          "input": 0.1,
+          "output": 0.4,
+          "notes": "Free tier available."
+        }
+      ]
+    },
+    "gemini-2.0-flash-lite": {
+      "name": "Gemini 2.0 Flash Lite",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": [
+        "models/gemini-2.0-flash-lite"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-02-01",
+          "input": 0.075,
+          "output": 0.3,
+          "notes": "Free tier available."
+        }
+      ]
+    },
+    "gemini-1.5-pro": {
+      "name": "Gemini 1.5 Pro",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": [
+        "gemini-1.5-pro-001",
+        "gemini-1.5-pro-002",
+        "models/gemini-1.5-pro",
+        "models/gemini-1.5-pro-001",
+        "models/gemini-1.5-pro-002"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-05-01",
+          "input": 1.25,
+          "output": 5.0,
+          "notes": "≤128K tokens. >128K: $2.5 input, $10 output. Free tier available."
+        }
+      ]
+    },
+    "gemini-1.5-flash": {
+      "name": "Gemini 1.5 Flash",
+      "unit": "tokens",
+      "unitSize": 1000000,
+      "aliases": [
+        "gemini-1.5-flash-001",
+        "gemini-1.5-flash-002",
+        "models/gemini-1.5-flash",
+        "models/gemini-1.5-flash-001",
+        "models/gemini-1.5-flash-002"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-05-01",
+          "input": 0.075,
+          "output": 0.3,
+          "notes": "≤128K tokens. >128K: $0.15 input, $0.6 output. Free tier available."
+        }
+      ]
+    },
+    "gemini-embedding": {
+      "name": "Gemini Embedding",
+      "unit": "tokens",
+      "unitSize": 1000,
+      "aliases": [
+        "text-embedding-004",
+        "models/text-embedding-004"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2025-01-01",
+          "input": 0.0,
+          "notes": "Free in AI Studio"
+        }
+      ]
+    },
+    "imagen-3": {
+      "name": "Imagen 3",
+      "unit": "images",
+      "unitSize": 1,
+      "aliases": [
+        "models/imagen-3.0-generate-001"
+      ],
+      "pricing": [
+        {
+          "effectiveDate": "2024-10-01",
+          "output": 0.04,
+          "notes": "Per image generated. Free tier may be available."
+        }
+      ]
+    }
+  }
+}
+

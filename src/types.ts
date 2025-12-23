@@ -530,6 +530,7 @@ export interface CostRecord {
   model: string;
   organizationId?: string;
   userId?: string;
+  workflowId?: string;
   costUsd: number;
   inputUnits?: number;
   outputUnits?: number;
@@ -538,15 +539,128 @@ export interface CostRecord {
 }
 
 // ============================================================================
+// Type-Safe Attribute Mapping
+// ============================================================================
+
+/**
+ * Mapping from TM_ATTRIBUTES to CostRecord fields.
+ *
+ * This mapping ensures compile-time safety: if you add a new attribute to
+ * TM_ATTRIBUTES that should be persisted, you MUST:
+ * 1. Add the field to CostRecord
+ * 2. Add the mapping here
+ * 3. Add the column to PERSISTED_ATTRIBUTE_COLUMNS
+ *
+ * TypeScript will error if the CostRecord field doesn't exist.
+ *
+ * @example Adding a new persisted attribute:
+ * ```typescript
+ * // 1. Add to TM_ATTRIBUTES
+ * TM_ATTRIBUTES.PROJECT_ID = "project.id"
+ *
+ * // 2. Add to CostRecord interface
+ * projectId?: string;
+ *
+ * // 3. Add mapping here (TypeScript ensures field exists)
+ * PROJECT_ID: "projectId"
+ *
+ * // 4. Add column mapping
+ * projectId: "project_id"
+ * ```
+ */
+export const PERSISTED_ATTRIBUTE_MAP = {
+  ORG_ID: "organizationId",
+  USER_ID: "userId",
+  WORKFLOW_ID: "workflowId",
+  COST_USD: "costUsd",
+  PROVIDER: "provider",
+  MODEL: "model",
+  INPUT_UNITS: "inputUnits",
+  OUTPUT_UNITS: "outputUnits",
+} as const satisfies {
+  [K in keyof typeof TM_ATTRIBUTES]?: keyof CostRecord;
+};
+
+/**
+ * Type representing TM_ATTRIBUTE keys that are persisted to the database.
+ */
+export type PersistedAttributeKey = keyof typeof PERSISTED_ATTRIBUTE_MAP;
+
+/**
+ * Maps CostRecord field names to PostgreSQL column names.
+ * Used by PostgresExporter for INSERT statements.
+ */
+export const PERSISTED_ATTRIBUTE_COLUMNS = {
+  organizationId: "organization_id",
+  userId: "user_id",
+  workflowId: "workflow_id",
+  costUsd: "cost_usd",
+  provider: "provider",
+  model: "model",
+  inputUnits: "input_units",
+  outputUnits: "output_units",
+} as const satisfies {
+  [K in (typeof PERSISTED_ATTRIBUTE_MAP)[PersistedAttributeKey]]: string;
+};
+
+// ============================================================================
 // Query Client Types
 // ============================================================================
+
+/**
+ * Type-safe mapping of groupBy field names to SQL column names.
+ *
+ * This ensures compile-time safety: if you add a new groupable field,
+ * TypeScript will enforce that:
+ * 1. The field exists as a valid groupBy option
+ * 2. The column mapping is provided
+ * 3. The reverse mapping exists in QUERY_COLUMN_TO_FIELD
+ *
+ * @example Adding a new groupable field:
+ * ```typescript
+ * // 1. Add to QUERY_GROUP_BY_FIELDS
+ * projectId: "project_id"
+ *
+ * // 2. Add to QUERY_COLUMN_TO_FIELD
+ * project_id: "projectId"
+ *
+ * // 3. GroupByField type automatically updates
+ * ```
+ */
+export const QUERY_GROUP_BY_FIELDS = {
+  provider: "provider",
+  model: "model",
+  organizationId: "organization_id",
+  userId: "user_id",
+  workflowId: "workflow_id",
+} as const;
+
+/**
+ * Valid field names for groupBy queries.
+ * Derived from QUERY_GROUP_BY_FIELDS keys.
+ */
+export type GroupByField = keyof typeof QUERY_GROUP_BY_FIELDS;
+
+/**
+ * Reverse mapping from SQL column names to camelCase field names.
+ * Must include all columns from QUERY_GROUP_BY_FIELDS.
+ */
+export const QUERY_COLUMN_TO_FIELD = {
+  provider: "provider",
+  model: "model",
+  organization_id: "organizationId",
+  user_id: "userId",
+  workflow_id: "workflowId",
+} as const satisfies {
+  [K in (typeof QUERY_GROUP_BY_FIELDS)[GroupByField]]: GroupByField;
+};
 
 /**
  * Query options for cost aggregation
  */
 export interface CostQueryOptions {
   /** Group results by these attributes */
-  groupBy?: string[];
+  groupBy?: GroupByField[];
   /** Filter by start date */
   from?: Date | string;
   /** Filter by end date */
@@ -559,6 +673,8 @@ export interface CostQueryOptions {
   organizationId?: string;
   /** Filter by user ID */
   userId?: string;
+  /** Filter by workflow ID */
+  workflowId?: string;
   /** Limit results */
   limit?: number;
 }

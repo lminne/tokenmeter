@@ -65,7 +65,8 @@ interface ProviderJSON {
 const DEFAULT_UNITS: Record<string, string> = {
   openai: "1m_tokens",
   anthropic: "1m_tokens",
-  google: "1m_tokens",
+  "google-ai-studio": "1m_tokens",
+  "google-vertex": "1m_tokens",
   bedrock: "1m_tokens",
   elevenlabs: "1k_characters",
   fal: "request",

@@ -14,10 +14,10 @@ import type {
 } from "@opentelemetry/api";
 
 // Mock pg module before importing PostgresExporter
-vi.mock("pg", () => {
-  const mockQuery = vi.fn().mockResolvedValue({ rows: [] });
-  const mockEnd = vi.fn().mockResolvedValue(undefined);
+const mockQuery = vi.fn().mockResolvedValue({ rows: [] });
+const mockEnd = vi.fn().mockResolvedValue(undefined);
 
+vi.mock("pg", () => {
   return {
     Pool: vi.fn().mockImplementation(() => ({
       query: mockQuery,
@@ -231,6 +231,100 @@ describe("PostgresExporter", () => {
       });
 
       expect(success).toBe(true);
+    });
+  });
+
+  describe("Attribute persistence", () => {
+    /**
+     * This test ensures all persisted TM_ATTRIBUTES are properly mapped.
+     * It verifies the SQL INSERT includes values for org.id, user.id, and workflow.id.
+     *
+     * If you add a new attribute to TM_ATTRIBUTES that should be persisted,
+     * add it to this test to ensure it's properly mapped in PostgresExporter.
+     */
+    it("should persist all identity attributes (org.id, user.id, workflow.id)", async () => {
+      mockQuery.mockClear();
+
+      const exporter = new PostgresExporter({
+        connectionString: "postgresql://localhost/test",
+        batchSize: 1, // Flush immediately
+        flushIntervalMs: 60000,
+      });
+
+      const span = createMockSpan({
+        [TM_ATTRIBUTES.PROVIDER]: "openai",
+        [TM_ATTRIBUTES.MODEL]: "gpt-4o",
+        [TM_ATTRIBUTES.COST_USD]: 0.05,
+        [TM_ATTRIBUTES.ORG_ID]: "org_test",
+        [TM_ATTRIBUTES.USER_ID]: "user_test",
+        [TM_ATTRIBUTES.WORKFLOW_ID]: "workflow_test",
+      });
+
+      await new Promise<void>((resolve) => {
+        exporter.export([span], () => resolve());
+      });
+
+      // Wait for flush
+      await exporter.forceFlush();
+
+      // Verify the query was called with all identity attributes
+      expect(mockQuery).toHaveBeenCalled();
+      const [query, values] = mockQuery.mock.calls[0];
+
+      // Verify columns are present in INSERT statement
+      expect(query).toContain("organization_id");
+      expect(query).toContain("user_id");
+      expect(query).toContain("workflow_id");
+
+      // Verify values are passed (not null)
+      expect(values).toContain("org_test");
+      expect(values).toContain("user_test");
+      expect(values).toContain("workflow_test");
+
+      await exporter.shutdown();
+    });
+
+    it("should include custom attributes in metadata but exclude standard TM_ATTRIBUTES", async () => {
+      mockQuery.mockClear();
+
+      const exporter = new PostgresExporter({
+        connectionString: "postgresql://localhost/test",
+        batchSize: 1,
+        flushIntervalMs: 60000,
+      });
+
+      const span = createMockSpan({
+        [TM_ATTRIBUTES.PROVIDER]: "openai",
+        [TM_ATTRIBUTES.MODEL]: "gpt-4o",
+        [TM_ATTRIBUTES.COST_USD]: 0.05,
+        [TM_ATTRIBUTES.WORKFLOW_ID]: "should-not-be-in-metadata",
+        "custom.tenant": "acme-corp",
+        "custom.feature": "chat",
+      });
+
+      await new Promise<void>((resolve) => {
+        exporter.export([span], () => resolve());
+      });
+      await exporter.forceFlush();
+
+      expect(mockQuery).toHaveBeenCalled();
+      const [, values] = mockQuery.mock.calls[0];
+
+      // Find the metadata JSON value (it's stringified)
+      const metadataValue = values.find(
+        (v: unknown) => typeof v === "string" && v.includes("custom.tenant"),
+      );
+      expect(metadataValue).toBeDefined();
+
+      const metadata = JSON.parse(metadataValue as string);
+      expect(metadata["custom.tenant"]).toBe("acme-corp");
+      expect(metadata["custom.feature"]).toBe("chat");
+
+      // Standard attributes should NOT be in metadata
+      expect(metadata[TM_ATTRIBUTES.WORKFLOW_ID]).toBeUndefined();
+      expect(metadata[TM_ATTRIBUTES.ORG_ID]).toBeUndefined();
+
+      await exporter.shutdown();
     });
   });
 });

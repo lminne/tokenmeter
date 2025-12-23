@@ -2,7 +2,7 @@
  * Bundled Pricing Manifest
  *
  * AUTO-GENERATED FILE - DO NOT EDIT MANUALLY
- * Generated at: 2025-12-22T22:32:28.192Z
+ * Generated at: 2025-12-23T09:16:42.118Z
  *
  * This file contains all pricing data embedded for synchronous access.
  * Regenerate with: npx tsx scripts/build-manifest.ts
@@ -16,7 +16,7 @@ import type { PricingManifest } from "../types.js";
  */
 export const BUNDLED_MANIFEST: PricingManifest = {
   "version": "1.0.0",
-  "updatedAt": "2025-12-22T22:32:28.192Z",
+  "updatedAt": "2025-12-23T09:16:42.118Z",
   "providers": {
     "anthropic": {
       "claude-opus-4.5": {
@@ -12595,43 +12595,7 @@ export const BUNDLED_MANIFEST: PricingManifest = {
         "output": 0.003
       }
     },
-    "google": {
-      "gemini-3-pro-preview": {
-        "unit": "1m_tokens",
-        "input": 2,
-        "output": 12,
-        "cachedInput": 0.2
-      },
-      "gemini-3.0-pro-preview": {
-        "unit": "1m_tokens",
-        "input": 2,
-        "output": 12,
-        "cachedInput": 0.2
-      },
-      "google/gemini-3-pro-preview": {
-        "unit": "1m_tokens",
-        "input": 2,
-        "output": 12,
-        "cachedInput": 0.2
-      },
-      "gemini-3-flash-preview": {
-        "unit": "1m_tokens",
-        "input": 0.5,
-        "output": 3,
-        "cachedInput": 0.05
-      },
-      "gemini-3.0-flash-preview": {
-        "unit": "1m_tokens",
-        "input": 0.5,
-        "output": 3,
-        "cachedInput": 0.05
-      },
-      "google/gemini-3-flash-preview": {
-        "unit": "1m_tokens",
-        "input": 0.5,
-        "output": 3,
-        "cachedInput": 0.05
-      },
+    "google-ai-studio": {
       "gemini-2.5-pro": {
         "unit": "1m_tokens",
         "input": 1.25,
@@ -12644,13 +12608,13 @@ export const BUNDLED_MANIFEST: PricingManifest = {
         "output": 10,
         "cachedInput": 0.125
       },
-      "google/gemini-2.5-pro": {
+      "models/gemini-2.5-pro": {
         "unit": "1m_tokens",
         "input": 1.25,
         "output": 10,
         "cachedInput": 0.125
       },
-      "google/gemini-2.5-pro-preview": {
+      "models/gemini-2.5-pro-preview": {
         "unit": "1m_tokens",
         "input": 1.25,
         "output": 10,
@@ -12658,89 +12622,57 @@ export const BUNDLED_MANIFEST: PricingManifest = {
       },
       "gemini-2.5-flash": {
         "unit": "1m_tokens",
-        "input": 0.3,
-        "output": 2.5,
-        "cachedInput": 0.03
+        "input": 0.15,
+        "output": 0.6,
+        "cachedInput": 0.01875
       },
       "gemini-2.5-flash-preview": {
         "unit": "1m_tokens",
-        "input": 0.3,
-        "output": 2.5,
-        "cachedInput": 0.03
+        "input": 0.15,
+        "output": 0.6,
+        "cachedInput": 0.01875
       },
-      "google/gemini-2.5-flash": {
+      "models/gemini-2.5-flash": {
         "unit": "1m_tokens",
-        "input": 0.3,
-        "output": 2.5,
-        "cachedInput": 0.03
+        "input": 0.15,
+        "output": 0.6,
+        "cachedInput": 0.01875
       },
-      "google/gemini-2.5-flash-preview": {
+      "models/gemini-2.5-flash-preview": {
         "unit": "1m_tokens",
-        "input": 0.3,
-        "output": 2.5,
-        "cachedInput": 0.03
-      },
-      "gemini-2.5-flash-lite": {
-        "unit": "1m_tokens",
-        "input": 0.1,
-        "output": 0.4,
-        "cachedInput": 0.01
-      },
-      "google/gemini-2.5-flash-lite": {
-        "unit": "1m_tokens",
-        "input": 0.1,
-        "output": 0.4,
-        "cachedInput": 0.01
-      },
-      "gemini-2.5-flash-live": {
-        "unit": "1m_tokens",
-        "input": 0.5,
-        "output": 2
-      },
-      "google/gemini-2.5-flash-live": {
-        "unit": "1m_tokens",
-        "input": 0.5,
-        "output": 2
+        "input": 0.15,
+        "output": 0.6,
+        "cachedInput": 0.01875
       },
       "gemini-2.0-flash": {
         "unit": "1m_tokens",
-        "input": 0.15,
-        "output": 0.6
+        "input": 0.1,
+        "output": 0.4
       },
       "gemini-2.0-flash-001": {
         "unit": "1m_tokens",
-        "input": 0.15,
-        "output": 0.6
+        "input": 0.1,
+        "output": 0.4
       },
-      "google/gemini-2.0-flash": {
+      "models/gemini-2.0-flash": {
         "unit": "1m_tokens",
-        "input": 0.15,
-        "output": 0.6
+        "input": 0.1,
+        "output": 0.4
       },
-      "google/gemini-2.0-flash-001": {
+      "models/gemini-2.0-flash-001": {
         "unit": "1m_tokens",
-        "input": 0.15,
-        "output": 0.6
+        "input": 0.1,
+        "output": 0.4
       },
       "gemini-2.0-flash-lite": {
         "unit": "1m_tokens",
         "input": 0.075,
         "output": 0.3
       },
-      "google/gemini-2.0-flash-lite": {
+      "models/gemini-2.0-flash-lite": {
         "unit": "1m_tokens",
         "input": 0.075,
         "output": 0.3
-      },
-      "gemini-2.0-flash-live": {
-        "unit": "1m_tokens",
-        "input": 0.5,
-        "output": 2
-      },
-      "google/gemini-2.0-flash-live": {
-        "unit": "1m_tokens",
-        "input": 0.5,
-        "output": 2
       },
       "gemini-1.5-pro": {
         "unit": "1m_tokens",
@@ -12757,17 +12689,17 @@ export const BUNDLED_MANIFEST: PricingManifest = {
         "input": 1.25,
         "output": 5
       },
-      "google/gemini-1.5-pro": {
+      "models/gemini-1.5-pro": {
         "unit": "1m_tokens",
         "input": 1.25,
         "output": 5
       },
-      "google/gemini-1.5-pro-001": {
+      "models/gemini-1.5-pro-001": {
         "unit": "1m_tokens",
         "input": 1.25,
         "output": 5
       },
-      "google/gemini-1.5-pro-002": {
+      "models/gemini-1.5-pro-002": {
         "unit": "1m_tokens",
         "input": 1.25,
         "output": 5
@@ -12787,17 +12719,148 @@ export const BUNDLED_MANIFEST: PricingManifest = {
         "input": 0.075,
         "output": 0.3
       },
-      "google/gemini-1.5-flash": {
+      "models/gemini-1.5-flash": {
         "unit": "1m_tokens",
         "input": 0.075,
         "output": 0.3
       },
-      "google/gemini-1.5-flash-001": {
+      "models/gemini-1.5-flash-001": {
         "unit": "1m_tokens",
         "input": 0.075,
         "output": 0.3
       },
-      "google/gemini-1.5-flash-002": {
+      "models/gemini-1.5-flash-002": {
+        "unit": "1m_tokens",
+        "input": 0.075,
+        "output": 0.3
+      },
+      "gemini-embedding": {
+        "unit": "1k_tokens",
+        "input": 0
+      },
+      "text-embedding-004": {
+        "unit": "1k_tokens",
+        "input": 0
+      },
+      "models/text-embedding-004": {
+        "unit": "1k_tokens",
+        "input": 0
+      },
+      "imagen-3": {
+        "unit": "image",
+        "output": 0.04
+      },
+      "models/imagen-3.0-generate-001": {
+        "unit": "image",
+        "output": 0.04
+      }
+    },
+    "google-vertex": {
+      "gemini-3-pro-preview": {
+        "unit": "1m_tokens",
+        "input": 2,
+        "output": 12,
+        "cachedInput": 0.2
+      },
+      "gemini-3.0-pro-preview": {
+        "unit": "1m_tokens",
+        "input": 2,
+        "output": 12,
+        "cachedInput": 0.2
+      },
+      "gemini-3-flash-preview": {
+        "unit": "1m_tokens",
+        "input": 0.5,
+        "output": 3,
+        "cachedInput": 0.05
+      },
+      "gemini-3.0-flash-preview": {
+        "unit": "1m_tokens",
+        "input": 0.5,
+        "output": 3,
+        "cachedInput": 0.05
+      },
+      "gemini-2.5-pro": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 10,
+        "cachedInput": 0.125
+      },
+      "gemini-2.5-pro-preview": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 10,
+        "cachedInput": 0.125
+      },
+      "gemini-2.5-flash": {
+        "unit": "1m_tokens",
+        "input": 0.3,
+        "output": 2.5,
+        "cachedInput": 0.03
+      },
+      "gemini-2.5-flash-preview": {
+        "unit": "1m_tokens",
+        "input": 0.3,
+        "output": 2.5,
+        "cachedInput": 0.03
+      },
+      "gemini-2.5-flash-lite": {
+        "unit": "1m_tokens",
+        "input": 0.1,
+        "output": 0.4,
+        "cachedInput": 0.01
+      },
+      "gemini-2.5-flash-live": {
+        "unit": "1m_tokens",
+        "input": 0.5,
+        "output": 2
+      },
+      "gemini-2.0-flash": {
+        "unit": "1m_tokens",
+        "input": 0.15,
+        "output": 0.6
+      },
+      "gemini-2.0-flash-001": {
+        "unit": "1m_tokens",
+        "input": 0.15,
+        "output": 0.6
+      },
+      "gemini-2.0-flash-lite": {
+        "unit": "1m_tokens",
+        "input": 0.075,
+        "output": 0.3
+      },
+      "gemini-2.0-flash-live": {
+        "unit": "1m_tokens",
+        "input": 0.5,
+        "output": 2
+      },
+      "gemini-1.5-pro": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 5
+      },
+      "gemini-1.5-pro-001": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 5
+      },
+      "gemini-1.5-pro-002": {
+        "unit": "1m_tokens",
+        "input": 1.25,
+        "output": 5
+      },
+      "gemini-1.5-flash": {
+        "unit": "1m_tokens",
+        "input": 0.075,
+        "output": 0.3
+      },
+      "gemini-1.5-flash-001": {
+        "unit": "1m_tokens",
+        "input": 0.075,
+        "output": 0.3
+      },
+      "gemini-1.5-flash-002": {
         "unit": "1m_tokens",
         "input": 0.075,
         "output": 0.3
@@ -12810,14 +12873,6 @@ export const BUNDLED_MANIFEST: PricingManifest = {
         "unit": "1k_tokens",
         "input": 0.00015
       },
-      "google/gemini-embedding": {
-        "unit": "1k_tokens",
-        "input": 0.00015
-      },
-      "google/text-embedding-005": {
-        "unit": "1k_tokens",
-        "input": 0.00015
-      },
       "text-embedding-004": {
         "unit": "1k_characters",
         "input": 0.000025
@@ -12826,15 +12881,7 @@ export const BUNDLED_MANIFEST: PricingManifest = {
         "unit": "1k_characters",
         "input": 0.000025
       },
-      "google/text-embedding-004": {
-        "unit": "1k_characters",
-        "input": 0.000025
-      },
       "imagen-4-ultra": {
-        "unit": "image",
-        "output": 0.06
-      },
-      "google/imagen-4-ultra": {
         "unit": "image",
         "output": 0.06
       },
@@ -12842,15 +12889,7 @@ export const BUNDLED_MANIFEST: PricingManifest = {
         "unit": "image",
         "output": 0.04
       },
-      "google/imagen-4": {
-        "unit": "image",
-        "output": 0.04
-      },
       "imagen-4-fast": {
-        "unit": "image",
-        "output": 0.02
-      },
-      "google/imagen-4-fast": {
         "unit": "image",
         "output": 0.02
       },
@@ -12862,15 +12901,7 @@ export const BUNDLED_MANIFEST: PricingManifest = {
         "unit": "image",
         "output": 0.04
       },
-      "google/imagen-3": {
-        "unit": "image",
-        "output": 0.04
-      },
       "imagen-3-fast": {
-        "unit": "image",
-        "output": 0.02
-      },
-      "google/imagen-3-fast": {
         "unit": "image",
         "output": 0.02
       },
@@ -12878,15 +12909,7 @@ export const BUNDLED_MANIFEST: PricingManifest = {
         "unit": "second",
         "output": 0.4
       },
-      "google/veo-3.1": {
-        "unit": "second",
-        "output": 0.4
-      },
       "veo-3.1-fast": {
-        "unit": "second",
-        "output": 0.15
-      },
-      "google/veo-3.1-fast": {
         "unit": "second",
         "output": 0.15
       }
@@ -13348,4 +13371,4 @@ export const BUNDLED_VERSION = "1.0.0";
 /**
  * Timestamp when the manifest was bundled
  */
-export const BUNDLED_AT = "2025-12-22T22:32:28.192Z";
+export const BUNDLED_AT = "2025-12-23T09:16:42.118Z";

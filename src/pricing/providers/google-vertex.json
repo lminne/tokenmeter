@@ -1,6 +1,6 @@
 {
   "$schema": "../schema.json",
-  "provider": "google",
+  "provider": "google-vertex",
   "displayName": "Google Vertex AI",
   "source": "https://cloud.google.com/vertex-ai/generative-ai/pricing",
   "lastUpdated": "2025-12-22",
@@ -11,8 +11,7 @@
       "unit": "tokens",
       "unitSize": 1000000,
       "aliases": [
-        "gemini-3.0-pro-preview",
-        "google/gemini-3-pro-preview"
+        "gemini-3.0-pro-preview"
       ],
       "pricing": [
         {
@@ -29,8 +28,7 @@
       "unit": "tokens",
       "unitSize": 1000000,
       "aliases": [
-        "gemini-3.0-flash-preview",
-        "google/gemini-3-flash-preview"
+        "gemini-3.0-flash-preview"
       ],
       "pricing": [
         {
@@ -47,9 +45,7 @@
       "unit": "tokens",
       "unitSize": 1000000,
       "aliases": [
-        "gemini-2.5-pro-preview",
-        "google/gemini-2.5-pro",
-        "google/gemini-2.5-pro-preview"
+        "gemini-2.5-pro-preview"
       ],
       "pricing": [
         {
@@ -66,9 +62,7 @@
       "unit": "tokens",
       "unitSize": 1000000,
       "aliases": [
-        "gemini-2.5-flash-preview",
-        "google/gemini-2.5-flash",
-        "google/gemini-2.5-flash-preview"
+        "gemini-2.5-flash-preview"
       ],
       "pricing": [
         {
@@ -84,9 +78,6 @@
       "name": "Gemini 2.5 Flash Lite",
       "unit": "tokens",
       "unitSize": 1000000,
-      "aliases": [
-        "google/gemini-2.5-flash-lite"
-      ],
       "pricing": [
         {
           "effectiveDate": "2025-06-01",
@@ -101,9 +92,6 @@
       "name": "Gemini 2.5 Flash Live API",
       "unit": "tokens",
       "unitSize": 1000000,
-      "aliases": [
-        "google/gemini-2.5-flash-live"
-      ],
       "pricing": [
         {
           "effectiveDate": "2025-06-01",
@@ -118,9 +106,7 @@
       "unit": "tokens",
       "unitSize": 1000000,
       "aliases": [
-        "gemini-2.0-flash-001",
-        "google/gemini-2.0-flash",
-        "google/gemini-2.0-flash-001"
+        "gemini-2.0-flash-001"
       ],
       "pricing": [
         {
@@ -135,9 +121,6 @@
       "name": "Gemini 2.0 Flash Lite",
       "unit": "tokens",
       "unitSize": 1000000,
-      "aliases": [
-        "google/gemini-2.0-flash-lite"
-      ],
       "pricing": [
         {
           "effectiveDate": "2025-02-01",
@@ -151,9 +134,6 @@
       "name": "Gemini 2.0 Flash Live API",
       "unit": "tokens",
       "unitSize": 1000000,
-      "aliases": [
-        "google/gemini-2.0-flash-live"
-      ],
       "pricing": [
         {
           "effectiveDate": "2025-02-01",
@@ -169,10 +149,7 @@
       "unitSize": 1000000,
       "aliases": [
         "gemini-1.5-pro-001",
-        "gemini-1.5-pro-002",
-        "google/gemini-1.5-pro",
-        "google/gemini-1.5-pro-001",
-        "google/gemini-1.5-pro-002"
+        "gemini-1.5-pro-002"
       ],
       "pricing": [
         {
@@ -189,10 +166,7 @@
       "unitSize": 1000000,
       "aliases": [
         "gemini-1.5-flash-001",
-        "gemini-1.5-flash-002",
-        "google/gemini-1.5-flash",
-        "google/gemini-1.5-flash-001",
-        "google/gemini-1.5-flash-002"
+        "gemini-1.5-flash-002"
       ],
       "pricing": [
         {
@@ -208,9 +182,7 @@
       "unit": "tokens",
       "unitSize": 1000,
       "aliases": [
-        "text-embedding-005",
-        "google/gemini-embedding",
-        "google/text-embedding-005"
+        "text-embedding-005"
       ],
       "pricing": [
         {
@@ -225,8 +197,7 @@
       "unit": "characters",
       "unitSize": 1000,
       "aliases": [
-        "textembedding-gecko@003",
-        "google/text-embedding-004"
+        "textembedding-gecko@003"
       ],
       "pricing": [
         {
@@ -240,9 +211,6 @@
       "name": "Imagen 4 Ultra",
       "unit": "images",
       "unitSize": 1,
-      "aliases": [
-        "google/imagen-4-ultra"
-      ],
       "pricing": [
         {
           "effectiveDate": "2025-06-01",
@@ -255,9 +223,6 @@
       "name": "Imagen 4",
       "unit": "images",
       "unitSize": 1,
-      "aliases": [
-        "google/imagen-4"
-      ],
       "pricing": [
         {
           "effectiveDate": "2025-06-01",
@@ -270,9 +235,6 @@
       "name": "Imagen 4 Fast",
       "unit": "images",
       "unitSize": 1,
-      "aliases": [
-        "google/imagen-4-fast"
-      ],
       "pricing": [
         {
           "effectiveDate": "2025-06-01",
@@ -286,8 +248,7 @@
       "unit": "images",
       "unitSize": 1,
       "aliases": [
-        "imagegeneration@006",
-        "google/imagen-3"
+        "imagegeneration@006"
       ],
       "pricing": [
         {
@@ -301,9 +262,6 @@
       "name": "Imagen 3 Fast",
       "unit": "images",
       "unitSize": 1,
-      "aliases": [
-        "google/imagen-3-fast"
-      ],
       "pricing": [
         {
           "effectiveDate": "2024-10-01",
@@ -316,9 +274,6 @@
       "name": "Veo 3.1",
       "unit": "seconds",
       "unitSize": 1,
-      "aliases": [
-        "google/veo-3.1"
-      ],
       "pricing": [
         {
           "effectiveDate": "2025-06-01",
@@ -331,9 +286,6 @@
       "name": "Veo 3.1 Fast",
       "unit": "seconds",
       "unitSize": 1,
-      "aliases": [
-        "google/veo-3.1-fast"
-      ],
       "pricing": [
         {
           "effectiveDate": "2025-06-01",
@@ -344,3 +296,4 @@
     }
   }
 }
+

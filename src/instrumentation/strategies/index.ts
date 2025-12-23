@@ -5,7 +5,11 @@
  */
 
 import type { ExtractionStrategy, UsageData } from "../../types.js";
-import { PROVIDERS, DEFAULT_MODELS } from "../../constants.js";
+import {
+  PROVIDERS,
+  DEFAULT_MODELS,
+  type KnownProvider,
+} from "../../constants.js";
 
 /**
  * OpenAI extraction strategy
@@ -32,7 +36,7 @@ export const openaiStrategy: ExtractionStrategy = {
   extract(
     methodPath: string[],
     result: unknown,
-    args: unknown[],
+    args: unknown[]
   ): UsageData | null {
     const r = result as {
       model?: string;
@@ -91,7 +95,7 @@ export const anthropicStrategy: ExtractionStrategy = {
   extract(
     methodPath: string[],
     result: unknown,
-    args: unknown[],
+    args: unknown[]
   ): UsageData | null {
     const r = result as {
       model?: string;
@@ -144,7 +148,7 @@ export const falStrategy: ExtractionStrategy = {
   extract(
     methodPath: string[],
     result: unknown,
-    args: unknown[],
+    args: unknown[]
   ): UsageData | null {
     const r = result as {
       data?: {
@@ -209,7 +213,7 @@ export const elevenlabsStrategy: ExtractionStrategy = {
   extract(
     methodPath: string[],
     result: unknown,
-    args: unknown[],
+    args: unknown[]
   ): UsageData | null {
     // For ElevenLabs, we need to extract character count from the input
     // The result is typically a Buffer/ArrayBuffer
@@ -298,7 +302,7 @@ export const bedrockStrategy: ExtractionStrategy = {
   extract(
     methodPath: string[],
     result: unknown,
-    args: unknown[],
+    args: unknown[]
   ): UsageData | null {
     const r = result as {
       modelId?: string;
@@ -354,7 +358,7 @@ interface GoogleUsageMetadata {
  * Helper to check if an object has valid Google usageMetadata
  */
 function hasGoogleUsageMetadata(
-  obj: unknown,
+  obj: unknown
 ): obj is { usageMetadata: GoogleUsageMetadata } {
   if (!obj || typeof obj !== "object") return false;
   const r = obj as Record<string, unknown>;
@@ -411,16 +415,16 @@ function extractGoogleModel(result: unknown, args: unknown[]): string {
 }
 
 /**
- * Google Vertex AI / Gemini extraction strategy
+ * Google Vertex AI extraction strategy
  *
  * Handles responses from:
- * - Google Vertex AI SDK
- * - @google/genai (new unified SDK)
+ * - @google-cloud/vertexai SDK
+ * - @google/genai with Vertex AI backend
  *
  * Response structure: { usageMetadata: { promptTokenCount, candidatesTokenCount, ... } }
  */
 export const vertexAIStrategy: ExtractionStrategy = {
-  provider: PROVIDERS.GOOGLE,
+  provider: PROVIDERS.GOOGLE_VERTEX,
 
   canHandle(methodPath: string[], result: unknown): boolean {
     return hasGoogleUsageMetadata(result);
@@ -429,7 +433,7 @@ export const vertexAIStrategy: ExtractionStrategy = {
   extract(
     methodPath: string[],
     result: unknown,
-    args: unknown[],
+    args: unknown[]
   ): UsageData | null {
     const r = result as {
       usageMetadata?: GoogleUsageMetadata;
@@ -442,7 +446,7 @@ export const vertexAIStrategy: ExtractionStrategy = {
     const model = extractGoogleModel(result, args);
 
     return {
-      provider: PROVIDERS.GOOGLE,
+      provider: PROVIDERS.GOOGLE_VERTEX,
       model,
       inputUnits: r.usageMetadata.promptTokenCount,
       outputUnits: r.usageMetadata.candidatesTokenCount,
@@ -455,17 +459,17 @@ export const vertexAIStrategy: ExtractionStrategy = {
 };
 
 /**
- * Google Generative AI SDK extraction strategy
+ * Google AI Studio extraction strategy
  *
- * Handles responses from @google/generative-ai (deprecated SDK)
+ * Handles responses from @google/generative-ai SDK (AI Studio)
  * where the response is wrapped: result.response.usageMetadata
  *
  * This strategy specifically handles the wrapped response format used by:
  * - GoogleGenerativeAI.getGenerativeModel().generateContent()
  * - GoogleGenerativeAI.getGenerativeModel().generateContentStream()
  */
-export const googleGenerativeAIStrategy: ExtractionStrategy = {
-  provider: PROVIDERS.GOOGLE,
+export const googleAIStudioStrategy: ExtractionStrategy = {
+  provider: PROVIDERS.GOOGLE_AI_STUDIO,
 
   canHandle(methodPath: string[], result: unknown): boolean {
     if (!result || typeof result !== "object") return false;
@@ -487,7 +491,7 @@ export const googleGenerativeAIStrategy: ExtractionStrategy = {
   extract(
     methodPath: string[],
     result: unknown,
-    args: unknown[],
+    args: unknown[]
   ): UsageData | null {
     const r = result as {
       response?: {
@@ -531,7 +535,7 @@ export const googleGenerativeAIStrategy: ExtractionStrategy = {
     }
 
     return {
-      provider: PROVIDERS.GOOGLE,
+      provider: PROVIDERS.GOOGLE_AI_STUDIO,
       model,
       inputUnits: r.response.usageMetadata.promptTokenCount,
       outputUnits: r.response.usageMetadata.candidatesTokenCount,
@@ -569,7 +573,7 @@ export const bflStrategy: ExtractionStrategy = {
   extract(
     methodPath: string[],
     result: unknown,
-    args: unknown[],
+    args: unknown[]
   ): UsageData | null {
     const r = result as {
       id?: string;
@@ -639,7 +643,7 @@ export const vercelAIStrategy: ExtractionStrategy = {
   extract(
     methodPath: string[],
     result: unknown,
-    args: unknown[],
+    args: unknown[]
   ): UsageData | null {
     const r = result as {
       usage?: {
@@ -669,7 +673,8 @@ export const vercelAIStrategy: ExtractionStrategy = {
       } else if (model.startsWith("claude-")) {
         provider = PROVIDERS.ANTHROPIC;
       } else if (model.startsWith("gemini-")) {
-        provider = PROVIDERS.GOOGLE;
+        // Vercel AI SDK typically uses AI Studio for Gemini models
+        provider = PROVIDERS.GOOGLE_AI_STUDIO;
       }
     }
 
@@ -699,14 +704,14 @@ export const vercelAIStrategy: ExtractionStrategy = {
  * All registered strategies
  *
  * Note: Order matters! More specific strategies should come before general ones.
- * googleGenerativeAIStrategy checks for wrapped response format and must come
+ * googleAIStudioStrategy checks for wrapped response format and must come
  * before vertexAIStrategy which handles the unwrapped format.
  */
 export const strategies: ExtractionStrategy[] = [
   openaiStrategy,
   anthropicStrategy,
   bedrockStrategy,
-  googleGenerativeAIStrategy, // Must come before vertexAIStrategy (more specific)
+  googleAIStudioStrategy, // Must come before vertexAIStrategy (more specific wrapped response)
   vertexAIStrategy,
   falStrategy,
   bflStrategy,
@@ -715,11 +720,40 @@ export const strategies: ExtractionStrategy[] = [
 ];
 
 /**
+ * Compile-time verification that all known providers have extraction strategies.
+ *
+ * This function is never called at runtime. It exists solely to cause a TypeScript
+ * error if someone adds a new provider to PROVIDERS but forgets to add a strategy.
+ *
+ * If you get a TypeScript error here after adding a new provider:
+ * 1. Create a new extraction strategy for the provider
+ * 2. Add it to the `strategies` array above
+ * 3. Add the provider to STRATEGY_PROVIDER_MAP below
+ *
+ * Note: Google has two strategies (vertexAIStrategy and googleAIStudioStrategy)
+ * to handle different SDK response formats.
+ */
+const STRATEGY_PROVIDER_MAP: Record<KnownProvider, true> = {
+  openai: true,
+  anthropic: true,
+  "google-ai-studio": true,
+  "google-vertex": true,
+  bedrock: true,
+  fal: true,
+  elevenlabs: true,
+  bfl: true,
+  "vercel-ai": true,
+} as const;
+
+// Suppress unused variable warning - this is intentional compile-time check
+void STRATEGY_PROVIDER_MAP;
+
+/**
  * Find the appropriate strategy for a given result
  */
 export function findStrategy(
   methodPath: string[],
-  result: unknown,
+  result: unknown
 ): ExtractionStrategy | null {
   for (const strategy of strategies) {
     if (strategy.canHandle(methodPath, result)) {
@@ -735,7 +769,7 @@ export function findStrategy(
  * without creating a circular dependency.
  */
 export type RegistryStrategyResolver = (
-  provider: string,
+  provider: string
 ) => ExtractionStrategy | undefined;
 
 // Registry resolver - set by the caller (proxy.ts) to avoid circular dependency
@@ -757,7 +791,7 @@ export function extractUsage(
   methodPath: string[],
   result: unknown,
   args: unknown[],
-  providerHint?: string,
+  providerHint?: string
 ): UsageData | null {
   // If provider hint is given, try that strategy first
   if (providerHint) {

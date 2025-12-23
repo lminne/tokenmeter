@@ -2,6 +2,7 @@
  * TokenMeter Constants
  *
  * Centralized constants used across the library to avoid magic strings.
+ * All mappings use TypeScript's `satisfies` constraint for compile-time safety.
  */
 
 /**
@@ -24,11 +25,16 @@ export const HEADERS = {
 
 /**
  * Provider identifiers used throughout the library.
+ *
+ * Note: Google is split into two providers:
+ * - GOOGLE_AI_STUDIO: Google AI Studio (@google/generative-ai SDK, API key auth)
+ * - GOOGLE_VERTEX: Google Vertex AI (@google-cloud/vertexai SDK, Google Cloud auth)
  */
 export const PROVIDERS = {
   OPENAI: "openai",
   ANTHROPIC: "anthropic",
-  GOOGLE: "google",
+  GOOGLE_AI_STUDIO: "google-ai-studio",
+  GOOGLE_VERTEX: "google-vertex",
   BEDROCK: "bedrock",
   FAL: "fal",
   ELEVENLABS: "elevenlabs",
@@ -43,12 +49,35 @@ export const PROVIDERS = {
 export type Provider = (typeof PROVIDERS)[keyof typeof PROVIDERS];
 
 /**
+ * Provider key type (the uppercase keys like OPENAI, ANTHROPIC, etc.)
+ */
+export type ProviderKey = keyof typeof PROVIDERS;
+
+/**
+ * Known providers that have extraction strategies.
+ * Excludes UNKNOWN which is a fallback, not a real provider.
+ */
+export type KnownProvider = Exclude<Provider, "unknown">;
+
+/**
+ * Keys for known providers (excludes UNKNOWN).
+ */
+export type KnownProviderKey = Exclude<ProviderKey, "UNKNOWN">;
+
+/**
+ * Providers that require default models (don't include model in API responses).
+ * TypeScript ensures all keys are valid known provider values.
+ */
+export type ProviderWithDefaultModel = "elevenlabs" | "bfl";
+
+/**
  * Default model names for providers when not explicitly specified.
+ * Uses `satisfies` to ensure keys are valid providers that need defaults.
  */
 export const DEFAULT_MODELS = {
   [PROVIDERS.ELEVENLABS]: "eleven_multilingual_v2",
   [PROVIDERS.BFL]: "flux-pro",
-} as const;
+} as const satisfies Record<ProviderWithDefaultModel, string>;
 
 /**
  * Factory method names that create new proxiable objects.
@@ -73,4 +102,3 @@ export const BLOCKED_PROPERTIES = new Set([
   "__lookupGetter__",
   "__lookupSetter__",
 ]);
-

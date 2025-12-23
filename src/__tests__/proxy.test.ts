@@ -343,7 +343,7 @@ describe("Monitor (Proxy)", () => {
         }),
       };
 
-      const monitored = monitor(client, { provider: "google" });
+      const monitored = monitor(client, { provider: "google-vertex" });
       const result = await monitored.generateContent({
         model: "gemini-1.5-pro",
       });

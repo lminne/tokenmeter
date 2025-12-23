@@ -349,7 +349,7 @@ describe("Extraction Strategies", () => {
       );
 
       expect(usage).not.toBeNull();
-      expect(usage?.provider).toBe("google");
+      expect(usage?.provider).toBe("google-vertex");
       expect(usage?.model).toBe("gemini-1.5-flash");
       expect(usage?.inputUnits).toBe(180);
       expect(usage?.outputUnits).toBe(90);

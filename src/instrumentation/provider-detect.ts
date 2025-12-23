@@ -73,28 +73,45 @@ export function detectProvider(client: unknown): string {
     return PROVIDERS.ELEVENLABS;
   }
 
-  // @google/generative-ai: GoogleGenerativeAI has getGenerativeModel method
+  // @google/generative-ai: GoogleGenerativeAI has getGenerativeModel method (AI Studio)
   if ("getGenerativeModel" in c && typeof c.getGenerativeModel === "function") {
-    return PROVIDERS.GOOGLE;
+    return PROVIDERS.GOOGLE_AI_STUDIO;
   }
 
-  // @google/generative-ai: GenerativeModel has generateContent method
+  // @google/generative-ai: GenerativeModel has generateContent method (AI Studio)
   if (
     "generateContent" in c &&
     typeof c.generateContent === "function" &&
     "model" in c
   ) {
-    return PROVIDERS.GOOGLE;
+    // Check if this is Vertex AI by looking for vertexai-specific properties
+    if ("project" in c || "location" in c) {
+      return PROVIDERS.GOOGLE_VERTEX;
+    }
+    return PROVIDERS.GOOGLE_AI_STUDIO;
   }
 
   // @google/genai: GoogleGenAI has models property with generateContent
+  // Detect AI Studio vs Vertex by checking for apiKey vs vertexai config
   if (
     "models" in c &&
     typeof c.models === "object" &&
     c.models !== null &&
     "generateContent" in (c.models as object)
   ) {
-    return PROVIDERS.GOOGLE;
+    // If client has apiKey, it's AI Studio; otherwise assume Vertex
+    if ("apiKey" in c) {
+      return PROVIDERS.GOOGLE_AI_STUDIO;
+    }
+    return PROVIDERS.GOOGLE_VERTEX;
+  }
+
+  // @google-cloud/vertexai: VertexAI has getGenerativeModel with project/location
+  if (
+    "getGenerativeModel" in c &&
+    ("project" in c || "location" in c)
+  ) {
+    return PROVIDERS.GOOGLE_VERTEX;
   }
 
   return PROVIDERS.UNKNOWN;

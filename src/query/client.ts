@@ -4,7 +4,8 @@
  * Provides cost aggregation and querying capabilities.
  */
 
-import type { CostQueryOptions, CostResult } from "../types.js";
+import type { CostQueryOptions, CostResult, GroupByField } from "../types.js";
+import { QUERY_GROUP_BY_FIELDS, QUERY_COLUMN_TO_FIELD } from "../types.js";
 import type { PoolInterface } from "../types/database.js";
 
 /**
@@ -26,22 +27,22 @@ export interface QueryClient {
   /** Get costs for a specific user */
   getCostByUser(
     userId: string,
-    options?: Omit<CostQueryOptions, "userId">,
+    options?: Omit<CostQueryOptions, "userId">
   ): Promise<CostResult>;
   /** Get costs for a specific organization */
   getCostByOrg(
     orgId: string,
-    options?: Omit<CostQueryOptions, "organizationId">,
+    options?: Omit<CostQueryOptions, "organizationId">
   ): Promise<CostResult>;
   /** Get costs for a specific model */
   getCostByModel(
     model: string,
-    options?: Omit<CostQueryOptions, "model">,
+    options?: Omit<CostQueryOptions, "model">
   ): Promise<CostResult>;
   /** Get costs for a specific provider */
   getCostByProvider(
     provider: string,
-    options?: Omit<CostQueryOptions, "provider">,
+    options?: Omit<CostQueryOptions, "provider">
   ): Promise<CostResult>;
   /** Get total cost for a workflow/trace */
   getWorkflowCost(workflowId: string): Promise<CostResult>;
@@ -87,19 +88,19 @@ function validateTableName(name: string): void {
   // Only allow alphanumeric characters and underscores
   if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(name)) {
     throw new Error(
-      `Invalid table name: "${name}". Table names must start with a letter or underscore and contain only alphanumeric characters and underscores.`,
+      `Invalid table name: "${name}". Table names must start with a letter or underscore and contain only alphanumeric characters and underscores.`
     );
   }
   // Limit length to prevent abuse
   if (name.length > 63) {
     throw new Error(
-      `Table name too long: "${name}". Maximum length is 63 characters.`,
+      `Table name too long: "${name}". Maximum length is 63 characters.`
     );
   }
 }
 
 export async function createQueryClient(
-  config: QueryClientConfig,
+  config: QueryClientConfig
 ): Promise<QueryClient> {
   const tableName = config.tableName ?? "tokenmeter_events";
 
@@ -118,7 +119,9 @@ export async function createQueryClient(
   } catch (error) {
     await pool.end();
     throw new Error(
-      `Failed to connect to database: ${error instanceof Error ? error.message : "Unknown error"}`,
+      `Failed to connect to database: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }`
     );
   }
 
@@ -134,7 +137,7 @@ export async function createQueryClient(
    */
   function buildWhereClause(
     options: CostQueryOptions,
-    startParamIndex: number = 1,
+    startParamIndex: number = 1
   ): { clause: string; values: unknown[]; nextIndex: number } {
     const conditions: string[] = [];
     const values: unknown[] = [];
@@ -143,7 +146,7 @@ export async function createQueryClient(
     if (options.from) {
       conditions.push(`created_at >= $${paramIndex}`);
       values.push(
-        options.from instanceof Date ? options.from : new Date(options.from),
+        options.from instanceof Date ? options.from : new Date(options.from)
       );
       paramIndex++;
     }
@@ -151,7 +154,7 @@ export async function createQueryClient(
     if (options.to) {
       conditions.push(`created_at <= $${paramIndex}`);
       values.push(
-        options.to instanceof Date ? options.to : new Date(options.to),
+        options.to instanceof Date ? options.to : new Date(options.to)
       );
       paramIndex++;
     }
@@ -180,6 +183,12 @@ export async function createQueryClient(
       paramIndex++;
     }
 
+    if (options.workflowId) {
+      conditions.push(`workflow_id = $${paramIndex}`);
+      values.push(options.workflowId);
+      paramIndex++;
+    }
+
     const clause =
       conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
 
@@ -187,34 +196,8 @@ export async function createQueryClient(
   }
 
   /**
-   * Allowed groupBy fields (whitelist for SQL injection prevention).
-   * Maps camelCase field names to snake_case column names.
-   *
-   * @internal
-   */
-  const ALLOWED_GROUP_BY_FIELDS: Record<string, string> = {
-    provider: "provider",
-    model: "model",
-    organizationId: "organization_id",
-    userId: "user_id",
-    workflowId: "workflow_id",
-  };
-
-  /**
-   * Reverse mapping from column names to camelCase key names.
-   * Used for converting query results back to the expected format.
-   *
-   * @internal
-   */
-  const COLUMN_TO_KEY: Record<string, string> = {
-    organization_id: "organizationId",
-    user_id: "userId",
-    workflow_id: "workflowId",
-  };
-
-  /**
    * Convert a column name to its camelCase key name.
-   * Returns the column name unchanged if no mapping exists.
+   * Uses the type-safe QUERY_COLUMN_TO_FIELD mapping from types.ts.
    *
    * @param column - The snake_case column name
    * @returns The camelCase key name
@@ -222,24 +205,37 @@ export async function createQueryClient(
    * @internal
    */
   function columnToKey(column: string): string {
-    return COLUMN_TO_KEY[column] ?? column;
+    return (
+      QUERY_COLUMN_TO_FIELD[column as keyof typeof QUERY_COLUMN_TO_FIELD] ??
+      column
+    );
   }
 
   /**
    * Map groupBy field names to column names.
+   * Uses the type-safe QUERY_GROUP_BY_FIELDS mapping from types.ts.
    * Throws an error for unknown fields to prevent SQL injection.
+   *
+   * NOTE: While TypeScript enforces GroupByField at compile time, we keep
+   * runtime validation for:
+   * - JavaScript callers without type checking
+   * - Type assertions that bypass TypeScript
+   * - Defense in depth against SQL injection
    *
    * @param field - The camelCase field name from options
    * @returns The corresponding snake_case column name
-   * @throws {Error} If field is not in the allowed whitelist
+   * @throws {Error} If field is not a valid GroupByField
    *
    * @internal
    */
-  function mapGroupByField(field: string): string {
-    const column = ALLOWED_GROUP_BY_FIELDS[field];
+  function mapGroupByField(field: GroupByField): string {
+    const column = QUERY_GROUP_BY_FIELDS[field];
     if (!column) {
+      // Runtime validation for non-TypeScript callers
       throw new Error(
-        `Invalid groupBy field: "${field}". Allowed fields: ${Object.keys(ALLOWED_GROUP_BY_FIELDS).join(", ")}`,
+        `Invalid groupBy field: "${field}". Allowed fields: ${Object.keys(
+          QUERY_GROUP_BY_FIELDS
+        ).join(", ")}`
       );
     }
     return column;
@@ -292,12 +288,12 @@ export async function createQueryClient(
         totalCost += cost;
         totalCount += count;
 
-// Build key object from group fields
-          const key: Record<string, string> = {};
-          for (const field of groupBy) {
-            const keyName = columnToKey(field);
-            key[keyName] = (row[keyName] as string) ?? "";
-          }
+        // Build key object from group fields
+        const key: Record<string, string> = {};
+        for (const field of groupBy) {
+          const keyName = columnToKey(field);
+          key[keyName] = (row[keyName] as string) ?? "";
+        }
 
         groups.push({ key, cost, count });
       }
@@ -328,28 +324,28 @@ export async function createQueryClient(
 
     async getCostByUser(
       userId: string,
-      options: Omit<CostQueryOptions, "userId"> = {},
+      options: Omit<CostQueryOptions, "userId"> = {}
     ): Promise<CostResult> {
       return getCosts({ ...options, userId });
     },
 
     async getCostByOrg(
       orgId: string,
-      options: Omit<CostQueryOptions, "organizationId"> = {},
+      options: Omit<CostQueryOptions, "organizationId"> = {}
     ): Promise<CostResult> {
       return getCosts({ ...options, organizationId: orgId });
     },
 
     async getCostByModel(
       model: string,
-      options: Omit<CostQueryOptions, "model"> = {},
+      options: Omit<CostQueryOptions, "model"> = {}
     ): Promise<CostResult> {
       return getCosts({ ...options, model });
     },
 
     async getCostByProvider(
       provider: string,
-      options: Omit<CostQueryOptions, "provider"> = {},
+      options: Omit<CostQueryOptions, "provider"> = {}
     ): Promise<CostResult> {
       return getCosts({ ...options, provider });
     },
