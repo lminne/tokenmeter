@@ -1,0 +1,276 @@
+---
+title: "Type Guards"
+description: "Provider-specific usage type guards"
+---
+
+Type guards help you access provider-specific usage data with type safety. Each provider returns different fields in their usage response.
+
+## Usage
+
+```typescript
+import { withCost, isOpenAIUsage, isAnthropicUsage } from 'tokenmeter';
+
+const { usage } = await withCost(() => 
+  openai.chat.completions.create({ ... })
+);
+
+if (isOpenAIUsage(usage)) {
+  // TypeScript knows usage has OpenAI-specific fields
+  console.log(usage.promptTokens);
+  console.log(usage.completionTokens);
+  console.log(usage.totalTokens);
+}
+```
+
+---
+
+## isOpenAIUsage
+
+Checks if usage data is from OpenAI.
+
+```typescript
+function isOpenAIUsage(usage: ProviderUsageData | undefined): usage is OpenAIUsageData
+```
+
+### OpenAI Usage Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `provider` | `'openai'` | Provider identifier |
+| `inputUnits` | `number` | Input tokens (normalized) |
+| `outputUnits` | `number` | Output tokens (normalized) |
+| `promptTokens` | `number` | Prompt tokens |
+| `completionTokens` | `number` | Completion tokens |
+| `totalTokens` | `number` | Total tokens |
+
+### Example
+
+```typescript
+if (isOpenAIUsage(usage)) {
+  console.log(`Prompt: ${usage.promptTokens}`);
+  console.log(`Completion: ${usage.completionTokens}`);
+  console.log(`Total: ${usage.totalTokens}`);
+}
+```
+
+---
+
+## isAnthropicUsage
+
+Checks if usage data is from Anthropic.
+
+```typescript
+function isAnthropicUsage(usage: ProviderUsageData | undefined): usage is AnthropicUsageData
+```
+
+### Anthropic Usage Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `provider` | `'anthropic'` | Provider identifier |
+| `inputUnits` | `number` | Input tokens |
+| `outputUnits` | `number` | Output tokens |
+| `inputTokens` | `number` | Input tokens |
+| `outputTokens` | `number` | Output tokens |
+| `cacheCreationTokens` | `number?` | Tokens used to create cache |
+| `cacheReadTokens` | `number?` | Tokens read from cache |
+
+### Example
+
+```typescript
+if (isAnthropicUsage(usage)) {
+  console.log(`Input: ${usage.inputTokens}`);
+  console.log(`Output: ${usage.outputTokens}`);
+  
+  if (usage.cacheCreationTokens) {
+    console.log(`Cache created: ${usage.cacheCreationTokens}`);
+  }
+}
+```
+
+---
+
+## isGoogleUsage
+
+Checks if usage data is from Google (Gemini).
+
+```typescript
+function isGoogleUsage(usage: ProviderUsageData | undefined): usage is GoogleUsageData
+```
+
+### Google Usage Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `provider` | `'google'` | Provider identifier |
+| `inputUnits` | `number` | Input tokens |
+| `outputUnits` | `number` | Output tokens |
+| `promptTokenCount` | `number` | Prompt token count |
+| `candidatesTokenCount` | `number` | Output token count |
+| `totalTokenCount` | `number` | Total tokens |
+
+---
+
+## isBedrockUsage
+
+Checks if usage data is from AWS Bedrock.
+
+```typescript
+function isBedrockUsage(usage: ProviderUsageData | undefined): usage is BedrockUsageData
+```
+
+### Bedrock Usage Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `provider` | `'bedrock'` | Provider identifier |
+| `inputUnits` | `number` | Input tokens |
+| `outputUnits` | `number` | Output tokens |
+| `inputTokens` | `number` | Input tokens |
+| `outputTokens` | `number` | Output tokens |
+
+---
+
+## isFalUsage
+
+Checks if usage data is from fal.ai.
+
+```typescript
+function isFalUsage(usage: ProviderUsageData | undefined): usage is FalUsageData
+```
+
+### fal.ai Usage Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `provider` | `'fal'` | Provider identifier |
+| `inputUnits` | `number` | Input units (varies by model) |
+| `outputUnits` | `number` | Output units |
+| `requestId` | `string?` | Request ID |
+| `megapixels` | `number?` | Image megapixels |
+| `seconds` | `number?` | Audio/video seconds |
+
+### Example
+
+```typescript
+if (isFalUsage(usage)) {
+  if (usage.megapixels) {
+    console.log(`Generated ${usage.megapixels} megapixels`);
+  }
+  if (usage.seconds) {
+    console.log(`Generated ${usage.seconds} seconds of media`);
+  }
+}
+```
+
+---
+
+## isElevenLabsUsage
+
+Checks if usage data is from ElevenLabs.
+
+```typescript
+function isElevenLabsUsage(usage: ProviderUsageData | undefined): usage is ElevenLabsUsageData
+```
+
+### ElevenLabs Usage Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `provider` | `'elevenlabs'` | Provider identifier |
+| `inputUnits` | `number` | Character count |
+| `outputUnits` | `number` | Always 0 (TTS has no output units) |
+| `characterCount` | `number` | Characters processed |
+
+### Example
+
+```typescript
+if (isElevenLabsUsage(usage)) {
+  console.log(`Processed ${usage.characterCount} characters`);
+}
+```
+
+---
+
+## isBFLUsage
+
+Checks if usage data is from Black Forest Labs (Flux).
+
+```typescript
+function isBFLUsage(usage: ProviderUsageData | undefined): usage is BFLUsageData
+```
+
+### BFL Usage Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `provider` | `'bfl'` | Provider identifier |
+| `inputUnits` | `number` | Request units |
+| `outputUnits` | `number` | Output units |
+| `megapixels` | `number?` | Image megapixels |
+
+---
+
+## isVercelAIUsage
+
+Checks if usage data is from Vercel AI SDK telemetry.
+
+```typescript
+function isVercelAIUsage(usage: ProviderUsageData | undefined): usage is VercelAIUsageData
+```
+
+### Vercel AI Usage Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `provider` | `'vercel-ai'` | Provider identifier |
+| `inputUnits` | `number` | Input tokens |
+| `outputUnits` | `number` | Output tokens |
+| `promptTokens` | `number` | Prompt tokens |
+| `completionTokens` | `number` | Completion tokens |
+
+---
+
+## Generic Usage
+
+All providers have these common fields:
+
+```typescript
+interface UsageData {
+  provider: string;
+  inputUnits: number;
+  outputUnits: number;
+}
+```
+
+Use these when you don't need provider-specific fields:
+
+```typescript
+const { usage } = await withCost(() => someApiCall());
+
+if (usage) {
+  console.log(`Input: ${usage.inputUnits}`);
+  console.log(`Output: ${usage.outputUnits}`);
+}
+```
+
+---
+
+## TypeScript Types
+
+Import types for type annotations:
+
+```typescript
+import type {
+  ProviderUsageData,
+  OpenAIUsageData,
+  AnthropicUsageData,
+  GoogleUsageData,
+  BedrockUsageData,
+  FalUsageData,
+  ElevenLabsUsageData,
+  BFLUsageData,
+  VercelAIUsageData,
+} from 'tokenmeter';
+```
+

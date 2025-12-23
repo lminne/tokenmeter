@@ -1,0 +1,320 @@
+---
+title: "Query Client"
+description: "API reference for the PostgreSQL query client"
+---
+
+The query client provides typed access to cost data stored in PostgreSQL.
+
+```typescript
+import { createQueryClient } from 'tokenmeter/client';
+```
+
+---
+
+## createQueryClient
+
+Creates a query client instance.
+
+```typescript
+function createQueryClient(config: QueryClientConfig): QueryClient
+```
+
+### Configuration
+
+```typescript
+interface QueryClientConfig {
+  connectionString?: string;
+  host?: string;
+  port?: number;
+  database?: string;
+  user?: string;
+  password?: string;
+  ssl?: {
+    rejectUnauthorized?: boolean;
+    ca?: string;
+  };
+  tableName?: string;  // default: 'tokenmeter_costs'
+}
+```
+
+### Example
+
+```typescript
+const client = createQueryClient({
+  connectionString: process.env.DATABASE_URL,
+});
+```
+
+---
+
+## getCostByUser
+
+Query costs for a specific user.
+
+```typescript
+client.getCostByUser(
+  userId: string,
+  options?: DateRangeOptions
+): Promise<CostResult>
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `userId` | `string` | User identifier |
+| `options.from` | `Date` | Start of date range |
+| `options.to` | `Date` | End of date range |
+
+### Returns
+
+```typescript
+interface CostResult {
+  totalCost: number;
+  requestCount: number;
+  avgCost?: number;
+}
+```
+
+### Example
+
+```typescript
+const { totalCost, requestCount } = await client.getCostByUser('user_123', {
+  from: new Date('2024-01-01'),
+  to: new Date('2024-01-31'),
+});
+
+console.log(`User spent $${totalCost.toFixed(2)} across ${requestCount} requests`);
+```
+
+---
+
+## getCostByOrg
+
+Query costs for an organization.
+
+```typescript
+client.getCostByOrg(
+  orgId: string,
+  options?: DateRangeOptions
+): Promise<CostResult>
+```
+
+### Example
+
+```typescript
+const { totalCost } = await client.getCostByOrg('org_acme', {
+  from: new Date('2024-01-01'),
+});
+```
+
+---
+
+## getWorkflowCost
+
+Query costs for a specific workflow.
+
+```typescript
+client.getWorkflowCost(
+  workflowId: string,
+  options?: DateRangeOptions
+): Promise<CostResult>
+```
+
+### Example
+
+```typescript
+const { totalCost, avgCost, requestCount } = await client.getWorkflowCost('document-analysis');
+
+console.log(`Workflow has ${requestCount} runs, averaging $${avgCost?.toFixed(4)} each`);
+```
+
+---
+
+## getCosts
+
+Flexible query with filtering and grouping.
+
+```typescript
+client.getCosts(options: CostQueryOptions): Promise<CostRow[]>
+```
+
+### Options
+
+```typescript
+interface CostQueryOptions {
+  // Date filtering
+  from?: Date;
+  to?: Date;
+  
+  // Entity filtering
+  userId?: string;
+  orgId?: string;
+  workflowId?: string;
+  provider?: string;
+  model?: string;
+  
+  // Grouping
+  groupBy?: GroupByField[];
+  
+  // Ordering
+  orderBy?: 'totalCost' | 'requestCount' | 'avgCost';
+  order?: 'asc' | 'desc';
+  
+  // Pagination
+  limit?: number;
+  offset?: number;
+}
+
+type GroupByField = 
+  | 'user' 
+  | 'org' 
+  | 'workflow' 
+  | 'provider' 
+  | 'model' 
+  | 'day' 
+  | 'week' 
+  | 'month';
+```
+
+### Returns
+
+```typescript
+interface CostRow {
+  totalCost: number;
+  requestCount: number;
+  avgCost?: number;
+  
+  // Populated based on groupBy
+  userId?: string;
+  orgId?: string;
+  workflowId?: string;
+  provider?: string;
+  model?: string;
+  day?: string;
+  week?: string;
+  month?: string;
+}
+```
+
+### Examples
+
+**Cost by model:**
+
+```typescript
+const byModel = await client.getCosts({
+  from: new Date('2024-01-01'),
+  groupBy: ['model'],
+});
+
+// [
+//   { model: 'gpt-4o', totalCost: 125.50, requestCount: 5000 },
+//   { model: 'claude-3-5-sonnet', totalCost: 89.20, requestCount: 3500 },
+// ]
+```
+
+**Daily trend:**
+
+```typescript
+const daily = await client.getCosts({
+  from: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+  groupBy: ['day'],
+});
+
+// [
+//   { day: '2024-01-01', totalCost: 45.20, requestCount: 1200 },
+//   { day: '2024-01-02', totalCost: 52.10, requestCount: 1350 },
+//   ...
+// ]
+```
+
+**Cost by user and model:**
+
+```typescript
+const breakdown = await client.getCosts({
+  orgId: 'org_acme',
+  from: new Date('2024-01-01'),
+  groupBy: ['user', 'model'],
+});
+```
+
+**Top spenders:**
+
+```typescript
+const topUsers = await client.getCosts({
+  from: new Date('2024-01-01'),
+  groupBy: ['user'],
+  orderBy: 'totalCost',
+  order: 'desc',
+  limit: 10,
+});
+```
+
+---
+
+## query
+
+Execute raw SQL for complex queries.
+
+```typescript
+client.query<T>(sql: string, params?: unknown[]): Promise<{ rows: T[] }>
+```
+
+### Example
+
+```typescript
+const { rows } = await client.query<{
+  date: string;
+  model: string;
+  cost: number;
+}>(`
+  SELECT 
+    DATE(started_at) as date,
+    model,
+    SUM(cost_usd) as cost
+  FROM tokenmeter_costs
+  WHERE org_id = $1 AND started_at >= $2
+  GROUP BY DATE(started_at), model
+  ORDER BY date, cost DESC
+`, [orgId, startDate]);
+```
+
+---
+
+## close
+
+Close the database connection pool.
+
+```typescript
+client.close(): Promise<void>
+```
+
+### Example
+
+```typescript
+const client = createQueryClient({
+  connectionString: process.env.DATABASE_URL,
+});
+
+try {
+  const costs = await client.getCostByUser('user_123');
+  // ... use costs
+} finally {
+  await client.close();
+}
+```
+
+---
+
+## TypeScript Types
+
+```typescript
+import type {
+  CostQueryOptions,
+  CostResult,
+  CostRow,
+  DateRangeOptions,
+  GroupByField,
+} from 'tokenmeter';
+```
+

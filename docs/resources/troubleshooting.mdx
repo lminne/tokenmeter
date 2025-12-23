@@ -1,0 +1,327 @@
+---
+title: "Troubleshooting"
+description: "Common issues and how to fix them"
+---
+
+## No cost data in spans
+
+### Symptoms
+
+- Spans are created but `tokenmeter.cost_usd` is missing or 0
+- `withCost()` returns `{ cost: 0 }`
+
+### Solutions
+
+**1. Check if OpenTelemetry is configured**
+
+Tokenmeter needs a registered tracer provider:
+
+```typescript
+import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
+
+const provider = new NodeTracerProvider();
+provider.register(); // This must be called
+```
+
+**2. For streaming, enable usage reporting**
+
+OpenAI streaming requires `stream_options`:
+
+```typescript
+const stream = await openai.chat.completions.create({
+  model: 'gpt-4o',
+  messages: [{ role: 'user', content: 'Hello!' }],
+  stream: true,
+  stream_options: { include_usage: true }, // Required
+});
+```
+
+**3. Check if the model is in the pricing manifest**
+
+Enable debug logging to see warnings:
+
+```typescript
+import { configureLogger } from 'tokenmeter';
+configureLogger({ level: 'debug' });
+```
+
+If you see "Unknown model" warnings, add an alias:
+
+```typescript
+import { setModelAliases } from 'tokenmeter';
+setModelAliases({
+  'your-model-name': 'openai/gpt-4o',
+});
+```
+
+---
+
+## Spans not appearing in exporter
+
+### Symptoms
+
+- No spans in Datadog/Honeycomb/Jaeger
+- Console exporter shows nothing
+
+### Solutions
+
+**1. Check processor order**
+
+Processors must be added before `provider.register()`:
+
+```typescript
+const provider = new NodeTracerProvider();
+provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()));
+provider.register(); // After adding processors
+```
+
+**2. Check exporter configuration**
+
+Verify URLs and API keys:
+
+```typescript
+new OTLPTraceExporter({
+  url: process.env.OTEL_EXPORTER_OTLP_ENDPOINT, // Must be set
+  headers: {
+    'api-key': process.env.API_KEY, // Must be set
+  },
+})
+```
+
+**3. Use SimpleSpanProcessor for debugging**
+
+`BatchSpanProcessor` buffers spans. For immediate output, use `SimpleSpanProcessor`:
+
+```typescript
+// For debugging
+provider.addSpanProcessor(
+  new SimpleSpanProcessor(new ConsoleSpanExporter())
+);
+```
+
+---
+
+## withAttributes not propagating
+
+### Symptoms
+
+- Spans don't have `user.id` or other custom attributes
+- Nested calls don't inherit attributes
+
+### Solutions
+
+**1. Check that you're using async/await correctly**
+
+Attributes only propagate within the async callback:
+
+```typescript
+// Correct
+await withAttributes({ 'user.id': 'user_123' }, async () => {
+  await openai.chat.completions.create({ ... }); // Has user.id
+});
+
+// Wrong - don't escape the callback
+let response;
+await withAttributes({ 'user.id': 'user_123' }, async () => {
+  response = openai.chat.completions.create({ ... }); // Started inside
+});
+await response; // Finished outside - may not have user.id
+```
+
+**2. Don't use `.then()` chains**
+
+Prefer async/await over promise chains:
+
+```typescript
+// Correct
+await withAttributes({ 'user.id': 'user_123' }, async () => {
+  const response = await openai.chat.completions.create({ ... });
+  return response;
+});
+
+// May not work
+withAttributes({ 'user.id': 'user_123' }, () => 
+  openai.chat.completions.create({ ... })
+).then(response => { ... });
+```
+
+---
+
+## PostgreSQL export failing
+
+### Symptoms
+
+- No data in `tokenmeter_costs` table
+- Errors in logs about database connection
+
+### Solutions
+
+**1. Check connection string**
+
+```typescript
+new PostgresExporter({
+  connectionString: process.env.DATABASE_URL,
+})
+```
+
+Verify `DATABASE_URL` is set and correct format: `postgresql://user:pass@host:port/db`
+
+**2. Check SSL settings**
+
+For cloud databases (Railway, Supabase, etc.):
+
+```typescript
+new PostgresExporter({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false, // Required for some cloud providers
+  },
+})
+```
+
+**3. Verify table exists**
+
+Run the schema migration:
+
+```sql
+CREATE TABLE tokenmeter_costs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  -- ... see PostgreSQL guide for full schema
+);
+```
+
+**4. Check permissions**
+
+The database user needs INSERT permission on the table.
+
+---
+
+## Type errors
+
+### Symptoms
+
+- TypeScript errors about missing types
+- `monitor()` returns `unknown` type
+
+### Solutions
+
+**1. Check import path**
+
+```typescript
+// Correct
+import { monitor, withAttributes } from 'tokenmeter';
+
+// Wrong - don't import from dist
+import { monitor } from 'tokenmeter/dist/index';
+```
+
+**2. Check TypeScript version**
+
+Tokenmeter requires TypeScript 4.7+.
+
+**3. Check node module resolution**
+
+In `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "moduleResolution": "node16" // or "bundler"
+  }
+}
+```
+
+---
+
+## ESM/CommonJS issues
+
+### Symptoms
+
+- `SyntaxError: Cannot use import statement outside a module`
+- `ERR_REQUIRE_ESM`
+
+### Solutions
+
+Tokenmeter is ESM only. Your project needs:
+
+**1. Set package type**
+
+In `package.json`:
+
+```json
+{
+  "type": "module"
+}
+```
+
+**2. Or use .mjs extension**
+
+Rename files to `.mjs` for ESM modules.
+
+**3. For CommonJS projects**
+
+Use dynamic import:
+
+```javascript
+const { monitor } = await import('tokenmeter');
+```
+
+---
+
+## Debugging tips
+
+### Enable debug logging
+
+```typescript
+import { configureLogger } from 'tokenmeter';
+configureLogger({ level: 'debug' });
+```
+
+This logs:
+- Pricing manifest loading
+- Unknown model warnings
+- Cost calculations
+- Export operations
+
+### Use TokenMeterProcessor
+
+For development, add the processor to see cost calculations:
+
+```typescript
+import { TokenMeterProcessor } from 'tokenmeter';
+
+provider.addSpanProcessor(new TokenMeterProcessor());
+```
+
+### Check pricing manifest
+
+```typescript
+import { getCachedManifest, getModelPricing } from 'tokenmeter';
+
+// See loaded manifest
+console.log(getCachedManifest());
+
+// Check specific model pricing
+console.log(getModelPricing('openai', 'gpt-4o'));
+```
+
+### Verify monitor is wrapping
+
+```typescript
+const openai = monitor(new OpenAI());
+
+// Check that monitor returned a Proxy
+console.log(openai); // Should show Proxy wrapper
+```
+
+---
+
+## Still stuck?
+
+1. Check [GitHub Issues](https://github.com/lminne/tokenmeter/issues) for similar problems
+2. Open a new issue with:
+   - Tokenmeter version
+   - Node.js version
+   - Minimal reproduction code
+   - Error messages and logs
+

@@ -1,0 +1,247 @@
+---
+title: "Custom Providers"
+description: "Add cost tracking for unsupported AI providers"
+---
+
+If your AI provider isn't supported out of the box, you can register a custom provider without forking Tokenmeter.
+
+## When to Use This
+
+Use custom providers when:
+- You're using an AI provider not yet supported
+- You're using a custom-hosted model with a different API
+- You need to override the default extraction for a supported provider
+
+## registerProvider()
+
+Register a provider with detection and extraction logic:
+
+```typescript
+import { registerProvider } from 'tokenmeter';
+
+registerProvider({
+  name: 'my-provider',
+  detect: (client) => 'generateText' in client,
+  extractUsage: (response) => ({
+    inputUnits: response.usage?.promptTokens,
+    outputUnits: response.usage?.completionTokens,
+  }),
+  extractModel: (args) => args[0]?.model || 'default',
+});
+```
+
+Then monitor the client as usual:
+
+```typescript
+const client = monitor(new MyProvider());
+```
+
+## Provider Configuration
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `name` | `string` | Unique provider identifier |
+| `detect` | `(client) => boolean` | Returns true if client matches this provider |
+| `extractUsage` | `(response) => UsageData` | Extracts usage from API response |
+| `extractModel` | `(args) => string` | Extracts model name from call arguments |
+| `getSpanName` | `(methodPath, args) => string` | Optional: custom span naming |
+| `methods` | `string[]` | Optional: specific methods to intercept |
+
+## Example: Custom LLM Gateway
+
+Suppose you have an internal LLM gateway with this interface:
+
+```typescript
+class LLMGateway {
+  async complete(prompt: string, options: { model: string }) {
+    // Returns: { text: string, tokens: { in: number, out: number } }
+  }
+}
+```
+
+Register it:
+
+```typescript
+import { registerProvider, monitor } from 'tokenmeter';
+
+registerProvider({
+  name: 'llm-gateway',
+  
+  detect: (client) => client instanceof LLMGateway,
+  
+  extractUsage: (response) => ({
+    inputUnits: response.tokens?.in,
+    outputUnits: response.tokens?.out,
+    provider: 'llm-gateway',
+  }),
+  
+  extractModel: (args) => args[1]?.model || 'unknown',
+  
+  getSpanName: (methodPath) => `gateway.${methodPath}`,
+});
+
+const gateway = monitor(new LLMGateway());
+
+// Now tracked with cost calculation
+await gateway.complete('Hello', { model: 'gpt-4o' });
+```
+
+## Adding Pricing
+
+For cost calculation, add pricing to the manifest or use model aliases:
+
+```typescript
+import { setModelAliases } from 'tokenmeter';
+
+// Map your model names to known models
+setModelAliases({
+  'gateway-gpt4': 'openai/gpt-4o',
+  'gateway-claude': 'anthropic/claude-3-5-sonnet-20240620',
+});
+```
+
+Or configure custom pricing:
+
+```typescript
+import { configurePricing } from 'tokenmeter';
+
+configurePricing({
+  customPricing: {
+    'llm-gateway': {
+      'custom-model': {
+        input: 0.002,  // per 1K tokens
+        output: 0.006,
+        unit: 'tokens',
+      },
+    },
+  },
+});
+```
+
+## Example: Streaming Provider
+
+For streaming responses, handle the async iterator:
+
+```typescript
+registerProvider({
+  name: 'streaming-provider',
+  
+  detect: (client) => 'stream' in client,
+  
+  extractUsage: (response) => {
+    // For streaming, usage comes at the end
+    if (response.usage) {
+      return {
+        inputUnits: response.usage.input,
+        outputUnits: response.usage.output,
+      };
+    }
+    return undefined;
+  },
+  
+  extractModel: (args) => args[0]?.model,
+  
+  // Mark methods that return streams
+  streamingMethods: ['stream', 'streamChat'],
+});
+```
+
+## Intercepting Specific Methods
+
+By default, all methods are intercepted. Limit to specific methods:
+
+```typescript
+registerProvider({
+  name: 'selective-provider',
+  detect: (client) => client.apiType === 'llm',
+  
+  // Only intercept these methods
+  methods: ['chat', 'complete', 'embed'],
+  
+  extractUsage: (response) => ({
+    inputUnits: response.tokens?.prompt,
+    outputUnits: response.tokens?.completion,
+  }),
+  
+  extractModel: (args) => args[0]?.model,
+});
+```
+
+## Unregistering Providers
+
+Remove a custom provider:
+
+```typescript
+import { unregisterProvider } from 'tokenmeter';
+
+unregisterProvider('my-provider');
+```
+
+## Listing Registered Providers
+
+See all registered providers:
+
+```typescript
+import { getRegisteredProviders } from 'tokenmeter';
+
+const providers = getRegisteredProviders();
+console.log(providers); // ['openai', 'anthropic', 'my-provider', ...]
+```
+
+## Overriding Built-in Providers
+
+To modify behavior of a built-in provider, register with the same name:
+
+```typescript
+import { registerProvider, openaiStrategy } from 'tokenmeter';
+
+registerProvider({
+  ...openaiStrategy,
+  name: 'openai',
+  extractUsage: (response) => {
+    const base = openaiStrategy.extractUsage(response);
+    // Add custom logic
+    return {
+      ...base,
+      customField: response.custom,
+    };
+  },
+});
+```
+
+<Warning>
+  Overriding built-in providers affects all monitored clients of that type. Use with care.
+</Warning>
+
+## Testing Custom Providers
+
+Test your provider configuration:
+
+```typescript
+import { registerProvider, monitor, withCost } from 'tokenmeter';
+
+registerProvider({
+  name: 'test-provider',
+  detect: (client) => client.isTest,
+  extractUsage: (response) => ({
+    inputUnits: response.in,
+    outputUnits: response.out,
+  }),
+  extractModel: () => 'test-model',
+});
+
+// Mock client
+const mockClient = {
+  isTest: true,
+  async generate() {
+    return { text: 'hello', in: 10, out: 5 };
+  },
+};
+
+const tracked = monitor(mockClient);
+const { cost, usage } = await withCost(() => tracked.generate());
+
+console.log('Usage:', usage); // { inputUnits: 10, outputUnits: 5 }
+console.log('Cost:', cost);   // Calculated from pricing
+```
+

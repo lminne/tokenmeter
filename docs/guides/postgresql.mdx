@@ -1,0 +1,266 @@
+---
+title: "PostgreSQL Storage"
+description: "Persist costs for querying and billing"
+---
+
+Tokenmeter includes a PostgreSQL exporter that stores cost data in a queryable format. Use this when you need to:
+
+- Build billing dashboards
+- Generate invoices
+- Query historical costs
+- Implement usage-based pricing
+
+## Installation
+
+```bash
+npm install tokenmeter pg
+```
+
+## Database Setup
+
+Create the required table:
+
+```sql
+CREATE TABLE tokenmeter_costs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  trace_id VARCHAR(32) NOT NULL,
+  span_id VARCHAR(16) NOT NULL,
+  
+  -- Cost data
+  cost_usd DECIMAL(20, 10) NOT NULL,
+  provider VARCHAR(50) NOT NULL,
+  model VARCHAR(100) NOT NULL,
+  
+  -- Usage data
+  input_tokens INTEGER,
+  output_tokens INTEGER,
+  
+  -- Attribution
+  user_id VARCHAR(255),
+  org_id VARCHAR(255),
+  workflow_id VARCHAR(255),
+  
+  -- Metadata
+  span_name VARCHAR(255) NOT NULL,
+  attributes JSONB DEFAULT '{}',
+  
+  -- Timestamps
+  started_at TIMESTAMP WITH TIME ZONE NOT NULL,
+  ended_at TIMESTAMP WITH TIME ZONE NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Indexes for common queries
+CREATE INDEX idx_tokenmeter_costs_user_id ON tokenmeter_costs(user_id);
+CREATE INDEX idx_tokenmeter_costs_org_id ON tokenmeter_costs(org_id);
+CREATE INDEX idx_tokenmeter_costs_started_at ON tokenmeter_costs(started_at);
+CREATE INDEX idx_tokenmeter_costs_model ON tokenmeter_costs(model);
+```
+
+## Configuration
+
+Add the `PostgresExporter` as a span processor:
+
+```typescript tracing.ts
+import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
+import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
+import { PostgresExporter } from 'tokenmeter/exporter';
+
+const provider = new NodeTracerProvider();
+
+provider.addSpanProcessor(
+  new BatchSpanProcessor(
+    new PostgresExporter({
+      connectionString: process.env.DATABASE_URL,
+    })
+  )
+);
+
+provider.register();
+```
+
+## Connection Options
+
+The exporter accepts standard `pg` connection options:
+
+```typescript
+new PostgresExporter({
+  connectionString: 'postgresql://user:pass@host:5432/db',
+})
+
+// Or individual options
+new PostgresExporter({
+  host: 'localhost',
+  port: 5432,
+  database: 'myapp',
+  user: 'postgres',
+  password: 'secret',
+})
+
+// With SSL
+new PostgresExporter({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+})
+```
+
+## Table Name
+
+Customize the table name:
+
+```typescript
+new PostgresExporter({
+  connectionString: process.env.DATABASE_URL,
+  tableName: 'ai_costs', // default: 'tokenmeter_costs'
+})
+```
+
+## What Gets Stored
+
+Each AI call creates a row with:
+
+| Column | Source |
+|--------|--------|
+| `cost_usd` | Calculated cost |
+| `provider` | `tokenmeter.provider` attribute |
+| `model` | `tokenmeter.model` attribute |
+| `input_tokens` | `gen_ai.usage.input_tokens` |
+| `output_tokens` | `gen_ai.usage.output_tokens` |
+| `user_id` | `user.id` attribute |
+| `org_id` | `org.id` attribute |
+| `workflow_id` | `workflow.id` attribute |
+| `attributes` | All other span attributes as JSON |
+| `started_at` | Span start time |
+| `ended_at` | Span end time |
+
+## Querying Directly
+
+Query the table with SQL:
+
+```sql
+-- Total cost by user this month
+SELECT 
+  user_id,
+  SUM(cost_usd) as total_cost,
+  COUNT(*) as request_count
+FROM tokenmeter_costs
+WHERE started_at >= date_trunc('month', NOW())
+GROUP BY user_id
+ORDER BY total_cost DESC;
+
+-- Cost by model
+SELECT 
+  model,
+  SUM(cost_usd) as total_cost,
+  AVG(cost_usd) as avg_cost,
+  SUM(input_tokens) as total_input,
+  SUM(output_tokens) as total_output
+FROM tokenmeter_costs
+GROUP BY model;
+
+-- Daily spend trend
+SELECT 
+  DATE(started_at) as date,
+  SUM(cost_usd) as daily_cost
+FROM tokenmeter_costs
+WHERE started_at >= NOW() - INTERVAL '30 days'
+GROUP BY DATE(started_at)
+ORDER BY date;
+```
+
+## With the Query Client
+
+Use the query client for typed access. See [Query Client](/guides/query-client).
+
+```typescript
+import { createQueryClient } from 'tokenmeter/client';
+
+const client = createQueryClient({
+  connectionString: process.env.DATABASE_URL,
+});
+
+const { totalCost } = await client.getCostByUser('user_123', {
+  from: new Date('2024-01-01'),
+  to: new Date('2024-01-31'),
+});
+```
+
+## Multiple Exporters
+
+Export to PostgreSQL and another backend:
+
+```typescript
+import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
+import { PostgresExporter } from 'tokenmeter/exporter';
+
+const provider = new NodeTracerProvider();
+
+// Export to observability platform
+provider.addSpanProcessor(
+  new BatchSpanProcessor(
+    new OTLPTraceExporter({
+      url: process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
+    })
+  )
+);
+
+// Also persist to PostgreSQL
+provider.addSpanProcessor(
+  new BatchSpanProcessor(
+    new PostgresExporter({
+      connectionString: process.env.DATABASE_URL,
+    })
+  )
+);
+
+provider.register();
+```
+
+## Performance
+
+The exporter uses `BatchSpanProcessor` which:
+- Buffers spans in memory
+- Exports in batches (default: every 5 seconds or 512 spans)
+- Handles backpressure
+
+For high-volume applications:
+
+```typescript
+provider.addSpanProcessor(
+  new BatchSpanProcessor(
+    new PostgresExporter({ connectionString: process.env.DATABASE_URL }),
+    {
+      maxQueueSize: 2048,
+      maxExportBatchSize: 512,
+      scheduledDelayMillis: 5000,
+    }
+  )
+);
+```
+
+## Error Handling
+
+The exporter logs errors but doesn't throw. Failed exports don't crash your application:
+
+```typescript
+import { configureLogger } from 'tokenmeter';
+
+// Enable debug logging to see export errors
+configureLogger({ level: 'debug' });
+```
+
+## Cleanup
+
+For long-running applications, clean up old data:
+
+```sql
+-- Delete data older than 90 days
+DELETE FROM tokenmeter_costs
+WHERE created_at < NOW() - INTERVAL '90 days';
+
+-- Or create a retention policy with pg_partman
+```
+

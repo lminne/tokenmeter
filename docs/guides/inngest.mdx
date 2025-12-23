@@ -1,0 +1,224 @@
+---
+title: "Inngest"
+description: "Cost tracking for Inngest background functions"
+---
+
+Inngest functions run asynchronously from the original request. Tokenmeter provides utilities to propagate trace context so background function costs are linked to the triggering request.
+
+## Installation
+
+```bash
+npm install tokenmeter inngest @opentelemetry/api @opentelemetry/sdk-trace-node
+```
+
+## The Problem
+
+Without trace propagation, background function spans are disconnected from the original request:
+
+```
+Request A → AI call → cost tracked under Request A
+         ↳ triggers Inngest event
+                    ↳ Inngest function runs → AI call → ??? (no context)
+```
+
+With Tokenmeter's Inngest integration:
+
+```
+Request A → AI call → cost tracked under Request A
+         ↳ triggers Inngest event (with trace headers)
+                    ↳ Inngest function runs → AI call → cost tracked under Request A
+```
+
+## Sending Events with Context
+
+Use `getInngestTraceHeaders()` when sending events:
+
+```typescript
+import { inngest } from './client';
+import { getInngestTraceHeaders } from 'tokenmeter/inngest';
+
+// In your request handler
+await inngest.send({
+  name: 'document/analyze',
+  data: { 
+    documentId: doc.id,
+    userId: user.id,
+  },
+  ...getInngestTraceHeaders(), // Attaches trace context
+});
+```
+
+## Receiving Events with Context
+
+Wrap your function handler with `withInngest()`:
+
+```typescript
+import { inngest } from './client';
+import { withInngest } from 'tokenmeter/inngest';
+import { monitor } from 'tokenmeter';
+import OpenAI from 'openai';
+
+const openai = monitor(new OpenAI());
+
+export const analyzeDocument = inngest.createFunction(
+  { id: 'analyze-document' },
+  { event: 'document/analyze' },
+  withInngest(async ({ event, step }) => {
+    // Trace context is restored from the event
+    // AI calls are linked to the original request
+    
+    const analysis = await step.run('analyze', async () => {
+      const response = await openai.chat.completions.create({
+        model: 'gpt-4o',
+        messages: [{ role: 'user', content: `Analyze document ${event.data.documentId}` }],
+      });
+      return response.choices[0].message.content;
+    });
+    
+    return { analysis };
+  })
+);
+```
+
+## User Attribution
+
+Pass user info that flows through the event:
+
+```typescript
+// Sending
+await inngest.send({
+  name: 'document/analyze',
+  data: { 
+    documentId: doc.id,
+    userId: user.id,
+    orgId: user.orgId,
+  },
+  ...getInngestTraceHeaders(),
+});
+
+// Receiving
+export const analyzeDocument = inngest.createFunction(
+  { id: 'analyze-document' },
+  { event: 'document/analyze' },
+  withInngest(async ({ event }) => {
+    // Context includes user.id and org.id from headers
+    // Plus you can use withAttributes for additional context
+    
+    await withAttributes({ 
+      'document.id': event.data.documentId 
+    }, async () => {
+      await openai.chat.completions.create({ ... });
+    });
+  })
+);
+```
+
+## Multi-Step Functions
+
+Each step runs in its own context, but all steps share the trace:
+
+```typescript
+withInngest(async ({ event, step }) => {
+  // Step 1
+  const summary = await step.run('summarize', async () => {
+    return await openai.chat.completions.create({ ... });
+  });
+  
+  // Step 2 - same trace, costs aggregate
+  const translation = await step.run('translate', async () => {
+    return await openai.chat.completions.create({ ... });
+  });
+  
+  // Step 3
+  await step.run('notify', async () => {
+    await sendNotification(summary, translation);
+  });
+  
+  // All AI costs from all steps are linked to the original request
+})
+```
+
+## Without Original Context
+
+If you don't have trace headers (e.g., scheduled events), costs are tracked but not linked to a parent trace:
+
+```typescript
+// Scheduled event - no originating request
+export const dailyDigest = inngest.createFunction(
+  { id: 'daily-digest' },
+  { cron: '0 9 * * *' },
+  withInngest(async ({ event }) => {
+    // Costs are tracked in their own trace
+    await openai.chat.completions.create({ ... });
+  })
+);
+```
+
+You can still use `withAttributes()` for attribution:
+
+```typescript
+withInngest(async ({ event }) => {
+  await withAttributes({ 
+    'job.type': 'daily-digest',
+    'schedule': 'cron' 
+  }, async () => {
+    await openai.chat.completions.create({ ... });
+  });
+})
+```
+
+## Complete Example
+
+```typescript events.ts
+import { inngest } from './client';
+import { getInngestTraceHeaders } from 'tokenmeter/inngest';
+import { withAttributes } from 'tokenmeter';
+
+export async function triggerAnalysis(documentId: string, userId: string) {
+  await withAttributes({ 'user.id': userId }, async () => {
+    await inngest.send({
+      name: 'document/analyze',
+      data: { documentId, userId },
+      ...getInngestTraceHeaders(),
+    });
+  });
+}
+```
+
+```typescript functions/analyze.ts
+import { inngest } from '../client';
+import { withInngest } from 'tokenmeter/inngest';
+import { monitor, withAttributes } from 'tokenmeter';
+import OpenAI from 'openai';
+
+const openai = monitor(new OpenAI());
+
+export const analyzeDocument = inngest.createFunction(
+  { id: 'analyze-document' },
+  { event: 'document/analyze' },
+  withInngest(async ({ event, step }) => {
+    const { documentId, userId } = event.data;
+    
+    // Add function-specific context
+    return withAttributes({ 'document.id': documentId }, async () => {
+      const document = await step.run('fetch', () => 
+        fetchDocument(documentId)
+      );
+      
+      const analysis = await step.run('analyze', () =>
+        openai.chat.completions.create({
+          model: 'gpt-4o',
+          messages: [{ role: 'user', content: `Analyze: ${document.text}` }],
+        })
+      );
+      
+      await step.run('save', () =>
+        saveAnalysis(documentId, analysis.choices[0].message.content)
+      );
+      
+      return { success: true };
+    });
+  })
+);
+```
+

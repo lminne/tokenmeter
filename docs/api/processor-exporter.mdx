@@ -1,0 +1,244 @@
+---
+title: "Processor & Exporter"
+description: "OpenTelemetry SpanProcessor and SpanExporter"
+---
+
+## TokenMeterProcessor
+
+An OpenTelemetry SpanProcessor for debugging and validating cost calculations.
+
+```typescript
+import { TokenMeterProcessor } from 'tokenmeter';
+```
+
+### Usage
+
+```typescript
+import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
+import { TokenMeterProcessor, configureLogger } from 'tokenmeter';
+
+// Enable debug logging to see output
+configureLogger({ level: 'debug' });
+
+const provider = new NodeTracerProvider();
+provider.addSpanProcessor(new TokenMeterProcessor());
+provider.register();
+```
+
+### What It Does
+
+The processor logs calculated costs for spans that have usage data:
+
+```
+[tokenmeter] Span: openai.chat.completions.create
+  Provider: openai
+  Model: gpt-4o
+  Input tokens: 150
+  Output tokens: 50
+  Cost: $0.000550
+```
+
+### Configuration
+
+```typescript
+import { TokenMeterProcessor, type TokenMeterProcessorConfig } from 'tokenmeter';
+
+const processor = new TokenMeterProcessor({
+  // Log costs for all spans, not just AI calls
+  logAllSpans: false,
+  
+  // Custom cost formatter
+  formatCost: (cost) => `$${cost.toFixed(6)}`,
+});
+```
+
+### Limitations
+
+The processor **cannot add cost attributes to spans after they end** due to OpenTelemetry's immutable span design. For production cost tracking, use `monitor()` which adds `tokenmeter.cost_usd` before the span ends.
+
+Use `TokenMeterProcessor` for:
+- Debugging during development
+- Validating cost calculations
+- Logging costs to console
+
+---
+
+## PostgresExporter
+
+An OpenTelemetry SpanExporter that persists cost data to PostgreSQL.
+
+```typescript
+import { PostgresExporter } from 'tokenmeter/exporter';
+```
+
+### Usage
+
+```typescript
+import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
+import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
+import { PostgresExporter } from 'tokenmeter/exporter';
+
+const provider = new NodeTracerProvider();
+
+provider.addSpanProcessor(
+  new BatchSpanProcessor(
+    new PostgresExporter({
+      connectionString: process.env.DATABASE_URL,
+    })
+  )
+);
+
+provider.register();
+```
+
+### Configuration
+
+```typescript
+interface PostgresExporterConfig {
+  // Connection string (recommended)
+  connectionString?: string;
+  
+  // Or individual connection options
+  host?: string;
+  port?: number;
+  database?: string;
+  user?: string;
+  password?: string;
+  
+  // SSL configuration
+  ssl?: {
+    rejectUnauthorized?: boolean;
+    ca?: string;
+    cert?: string;
+    key?: string;
+  };
+  
+  // Table name (default: 'tokenmeter_costs')
+  tableName?: string;
+}
+```
+
+### Examples
+
+```typescript
+// Connection string
+new PostgresExporter({
+  connectionString: 'postgresql://user:pass@host:5432/db',
+})
+
+// Individual options
+new PostgresExporter({
+  host: 'localhost',
+  port: 5432,
+  database: 'myapp',
+  user: 'postgres',
+  password: 'secret',
+})
+
+// With SSL
+new PostgresExporter({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+})
+
+// Custom table name
+new PostgresExporter({
+  connectionString: process.env.DATABASE_URL,
+  tableName: 'ai_costs',
+})
+```
+
+### Schema
+
+The exporter expects this table schema:
+
+```sql
+CREATE TABLE tokenmeter_costs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  trace_id VARCHAR(32) NOT NULL,
+  span_id VARCHAR(16) NOT NULL,
+  cost_usd DECIMAL(20, 10) NOT NULL,
+  provider VARCHAR(50) NOT NULL,
+  model VARCHAR(100) NOT NULL,
+  input_tokens INTEGER,
+  output_tokens INTEGER,
+  user_id VARCHAR(255),
+  org_id VARCHAR(255),
+  workflow_id VARCHAR(255),
+  span_name VARCHAR(255) NOT NULL,
+  attributes JSONB DEFAULT '{}',
+  started_at TIMESTAMP WITH TIME ZONE NOT NULL,
+  ended_at TIMESTAMP WITH TIME ZONE NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+```
+
+See [PostgreSQL Storage](/guides/postgresql) for the full setup guide.
+
+### SpanExporter Interface
+
+`PostgresExporter` implements the OpenTelemetry `SpanExporter` interface:
+
+```typescript
+interface SpanExporter {
+  export(spans: ReadableSpan[], resultCallback: (result: ExportResult) => void): void;
+  shutdown(): Promise<void>;
+}
+```
+
+Use with `BatchSpanProcessor` for production (buffers spans) or `SimpleSpanProcessor` for debugging (exports immediately).
+
+---
+
+## Combining Processors and Exporters
+
+You can use multiple processors/exporters:
+
+```typescript
+import { BatchSpanProcessor, SimpleSpanProcessor, ConsoleSpanExporter } from '@opentelemetry/sdk-trace-base';
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
+import { TokenMeterProcessor } from 'tokenmeter';
+import { PostgresExporter } from 'tokenmeter/exporter';
+
+const provider = new NodeTracerProvider();
+
+// Log to console in development
+if (process.env.NODE_ENV === 'development') {
+  provider.addSpanProcessor(new TokenMeterProcessor());
+  provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()));
+}
+
+// Send to observability platform
+provider.addSpanProcessor(
+  new BatchSpanProcessor(
+    new OTLPTraceExporter({
+      url: process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
+    })
+  )
+);
+
+// Persist to PostgreSQL
+provider.addSpanProcessor(
+  new BatchSpanProcessor(
+    new PostgresExporter({
+      connectionString: process.env.DATABASE_URL,
+    })
+  )
+);
+
+provider.register();
+```
+
+---
+
+## TypeScript Types
+
+```typescript
+import type {
+  TokenMeterProcessorConfig,
+  PostgresExporterConfig,
+} from 'tokenmeter';
+```
+

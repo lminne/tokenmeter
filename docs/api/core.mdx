@@ -1,0 +1,311 @@
+---
+title: "Core Functions"
+description: "Primary exports from tokenmeter"
+---
+
+## monitor
+
+Wraps an AI client with cost tracking.
+
+```typescript
+function monitor<T>(client: T, options?: MonitorOptions): T
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `client` | `T` | Any supported AI client (OpenAI, Anthropic, fal, etc.) |
+| `options` | `MonitorOptions` | Optional configuration |
+
+### Returns
+
+The same type `T` as the input client, with API calls instrumented for cost tracking.
+
+### Example
+
+```typescript
+import OpenAI from 'openai';
+import { monitor } from 'tokenmeter';
+
+const openai = monitor(new OpenAI());
+
+// Use exactly as before
+const response = await openai.chat.completions.create({
+  model: 'gpt-4o',
+  messages: [{ role: 'user', content: 'Hello!' }],
+});
+```
+
+See [Monitor Options](/api/monitor-options) for configuration details.
+
+---
+
+## withAttributes
+
+Sets context attributes for all AI calls within the callback.
+
+```typescript
+function withAttributes<T>(
+  attributes: Record<string, string | number | boolean>,
+  fn: () => Promise<T>
+): Promise<T>
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `attributes` | `Record<string, string \| number \| boolean>` | Key-value pairs to attach to spans |
+| `fn` | `() => Promise<T>` | Async function containing AI calls |
+
+### Returns
+
+The return value of `fn`.
+
+### Example
+
+```typescript
+import { withAttributes } from 'tokenmeter';
+
+await withAttributes({ 'user.id': 'user_123', 'org.id': 'acme' }, async () => {
+  // All AI calls here have user.id and org.id attributes
+  await openai.chat.completions.create({ ... });
+});
+```
+
+---
+
+## withAttributesSync
+
+Synchronous version of `withAttributes`.
+
+```typescript
+function withAttributesSync<T>(
+  attributes: Record<string, string | number | boolean>,
+  fn: () => T
+): T
+```
+
+---
+
+## withCost
+
+Captures cost data from AI calls within the callback.
+
+```typescript
+function withCost<T>(
+  fn: () => Promise<T>,
+  options?: { onCostUpdate?: (update: StreamingCostUpdate) => void }
+): Promise<WithCostResult<T>>
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `fn` | `() => Promise<T>` | Async function containing AI calls |
+| `options.onCostUpdate` | `(update) => void` | Optional callback for real-time cost updates |
+
+### Returns
+
+```typescript
+interface WithCostResult<T> {
+  result: T;                      // Return value of fn
+  cost: number;                   // Total cost in USD
+  usage: ProviderUsageData;       // Usage data from provider
+}
+```
+
+### Example
+
+```typescript
+import { withCost } from 'tokenmeter';
+
+const { result, cost, usage } = await withCost(() =>
+  openai.chat.completions.create({
+    model: 'gpt-4o',
+    messages: [{ role: 'user', content: 'Hello!' }],
+  })
+);
+
+console.log(`Cost: $${cost.toFixed(6)}`);
+```
+
+---
+
+## getCurrentAttributes
+
+Returns the current context attributes.
+
+```typescript
+function getCurrentAttributes(): Record<string, string | number | boolean>
+```
+
+### Example
+
+```typescript
+import { getCurrentAttributes, withAttributes } from 'tokenmeter';
+
+await withAttributes({ 'user.id': 'user_123' }, async () => {
+  const attrs = getCurrentAttributes();
+  console.log(attrs['user.id']); // 'user_123'
+});
+```
+
+---
+
+## getAttribute
+
+Returns a specific attribute from the current context.
+
+```typescript
+function getAttribute(key: string): string | number | boolean | undefined
+```
+
+### Example
+
+```typescript
+import { getAttribute, withAttributes } from 'tokenmeter';
+
+await withAttributes({ 'user.id': 'user_123' }, async () => {
+  const userId = getAttribute('user.id');
+  console.log(userId); // 'user_123'
+});
+```
+
+---
+
+## extractTraceHeaders
+
+Returns HTTP headers for trace context propagation.
+
+```typescript
+function extractTraceHeaders(): Record<string, string>
+```
+
+### Returns
+
+Object containing W3C Trace Context headers:
+- `traceparent` — Trace ID and span ID
+- `tracestate` — Vendor-specific trace data
+- `baggage` — Key-value pairs (attributes)
+
+### Example
+
+```typescript
+import { extractTraceHeaders } from 'tokenmeter';
+
+const headers = extractTraceHeaders();
+
+await fetch('https://other-service.example.com/api', {
+  headers: {
+    'Content-Type': 'application/json',
+    ...headers,
+  },
+});
+```
+
+---
+
+## withExtractedContext
+
+Restores trace context from HTTP headers.
+
+```typescript
+function withExtractedContext<T>(
+  headers: Record<string, string | undefined>,
+  fn: () => Promise<T>
+): Promise<T>
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `headers` | `Record<string, string \| undefined>` | HTTP headers containing trace context |
+| `fn` | `() => Promise<T>` | Async function to run with restored context |
+
+### Example
+
+```typescript
+import { withExtractedContext } from 'tokenmeter';
+
+app.post('/api/process', async (req, res) => {
+  await withExtractedContext(req.headers, async () => {
+    // AI calls are linked to the caller's trace
+    await openai.chat.completions.create({ ... });
+  });
+});
+```
+
+---
+
+## contextFromHeaders
+
+Creates an OpenTelemetry Context from HTTP headers without running a function.
+
+```typescript
+function contextFromHeaders(
+  headers: Record<string, string | undefined>
+): Context
+```
+
+### Example
+
+```typescript
+import { contextFromHeaders } from 'tokenmeter';
+import { context } from '@opentelemetry/api';
+
+const ctx = contextFromHeaders(req.headers);
+context.with(ctx, () => {
+  // Run code with this context
+});
+```
+
+---
+
+## configureLogger
+
+Configures Tokenmeter's internal logger.
+
+```typescript
+function configureLogger(config: LoggerConfig): void
+
+interface LoggerConfig {
+  level: 'debug' | 'info' | 'warn' | 'error' | 'silent';
+}
+```
+
+### Example
+
+```typescript
+import { configureLogger } from 'tokenmeter';
+
+// Enable debug logging
+configureLogger({ level: 'debug' });
+
+// Silence all logs
+configureLogger({ level: 'silent' });
+```
+
+---
+
+## getLoggerConfig
+
+Returns the current logger configuration.
+
+```typescript
+function getLoggerConfig(): LoggerConfig
+```
+
+---
+
+## resetLogger
+
+Resets logger to default configuration.
+
+```typescript
+function resetLogger(): void
+```
+

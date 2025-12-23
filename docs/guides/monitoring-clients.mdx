@@ -1,0 +1,173 @@
+---
+title: "Monitoring Clients"
+description: "How monitor() wraps AI clients for cost tracking"
+---
+
+The `monitor()` function is the core of Tokenmeter. It wraps any supported AI client with a JavaScript Proxy that intercepts API calls, extracts usage data, and creates OpenTelemetry spans with cost attributes.
+
+## Basic Usage
+
+```typescript
+import OpenAI from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
+import { fal } from '@fal-ai/client';
+import { monitor } from 'tokenmeter';
+
+const openai = monitor(new OpenAI());
+const anthropic = monitor(new Anthropic());
+const trackedFal = monitor(fal);
+```
+
+That's all the setup needed. Your API calls work exactly as before:
+
+```typescript
+// Types are fully preserved—no changes to your code
+const response = await openai.chat.completions.create({
+  model: 'gpt-4o',
+  messages: [{ role: 'user', content: 'Hello!' }],
+});
+```
+
+## Type Preservation
+
+`monitor()` returns the exact same type as the input. TypeScript autocomplete, type checking, and IDE features work unchanged.
+
+```typescript
+import OpenAI from 'openai';
+import { monitor } from 'tokenmeter';
+
+const openai = monitor(new OpenAI());
+
+// openai has type OpenAI, not MonitoredClient<OpenAI> or similar
+// All methods, properties, and nested clients are available
+const embedding = await openai.embeddings.create({
+  model: 'text-embedding-3-small',
+  input: 'Hello world',
+});
+```
+
+## Span Attributes
+
+Every API call through a monitored client creates an OpenTelemetry span with these attributes:
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| `tokenmeter.cost_usd` | number | Calculated cost in USD |
+| `tokenmeter.provider` | string | Provider name (openai, anthropic, etc.) |
+| `tokenmeter.model` | string | Model identifier |
+| `gen_ai.usage.input_tokens` | number | Input token count |
+| `gen_ai.usage.output_tokens` | number | Output token count |
+
+Plus any attributes set via `withAttributes()`.
+
+## Supported Methods
+
+Tokenmeter automatically detects and tracks these API methods:
+
+<Tabs>
+  <Tab title="OpenAI">
+    - `chat.completions.create()`
+    - `completions.create()`
+    - `embeddings.create()`
+    - `images.generate()`
+    - `audio.transcriptions.create()`
+    - `audio.translations.create()`
+    - `audio.speech.create()`
+  </Tab>
+  <Tab title="Anthropic">
+    - `messages.create()`
+    - `messages.stream()`
+  </Tab>
+  <Tab title="Google">
+    - `generateContent()`
+    - `generateContentStream()`
+  </Tab>
+  <Tab title="fal.ai">
+    - `subscribe()`
+    - `run()`
+  </Tab>
+  <Tab title="ElevenLabs">
+    - `textToSpeech.convert()`
+    - `textToSpeech.stream()`
+  </Tab>
+</Tabs>
+
+## Monitor Options
+
+You can pass options when creating a monitored client:
+
+```typescript
+const openai = monitor(new OpenAI(), {
+  name: 'my-openai',           // Custom name for span naming
+  provider: 'openai',          // Override provider detection
+  attributes: {                // Custom attributes for all spans
+    'service.name': 'my-api',
+  },
+});
+```
+
+See [Monitor Options](/api/monitor-options) for the full options reference.
+
+## Hooks
+
+Monitor hooks let you observe requests and responses without modifying them:
+
+```typescript
+const openai = monitor(new OpenAI(), {
+  beforeRequest: (ctx) => {
+    console.log(`Starting: ${ctx.spanName}`);
+  },
+  afterResponse: (ctx) => {
+    console.log(`Cost: $${ctx.cost.toFixed(6)}`);
+    console.log(`Tokens: ${ctx.usage?.inputUnits} in, ${ctx.usage?.outputUnits} out`);
+  },
+  onError: (ctx) => {
+    console.error(`Failed: ${ctx.error.message}`);
+  },
+});
+```
+
+Hooks are read-only—they observe but cannot modify request arguments. For real-time cost access, see [Getting Cost Data](/guides/getting-cost-data).
+
+## Multiple Clients
+
+You can monitor multiple clients independently:
+
+```typescript
+const openai = monitor(new OpenAI());
+const anthropic = monitor(new Anthropic());
+
+// Each has its own spans and cost tracking
+await openai.chat.completions.create({ ... });
+await anthropic.messages.create({ ... });
+```
+
+## Unmonitored Calls
+
+If you need to make an API call without monitoring:
+
+```typescript
+const rawOpenai = new OpenAI();
+const monitoredOpenai = monitor(new OpenAI());
+
+// This call is not tracked
+await rawOpenai.chat.completions.create({ ... });
+
+// This call is tracked
+await monitoredOpenai.chat.completions.create({ ... });
+```
+
+## What Happens Without OTel
+
+If OpenTelemetry isn't configured, `monitor()` still works—spans are just no-ops. Your code runs normally without cost tracking.
+
+```typescript
+// No OTel setup
+const openai = monitor(new OpenAI());
+
+// Still works, no errors, no cost data
+await openai.chat.completions.create({ ... });
+```
+
+This means you can add Tokenmeter to libraries without requiring consumers to use OpenTelemetry.
+

@@ -1,0 +1,227 @@
+---
+title: "FAQ"
+description: "Frequently asked questions about Tokenmeter"
+---
+
+## Integration
+
+### What's the integration effort?
+
+One line per client. Wrap with `monitor()`, and you're done.
+
+```typescript
+// Before
+const openai = new OpenAI();
+
+// After
+const openai = monitor(new OpenAI());
+```
+
+No changes to your API calls, no middleware, no schema migrations. TypeScript types are fully preserved—autocomplete works exactly as before.
+
+### Does it work with my existing OpenTelemetry setup?
+
+Yes. Tokenmeter uses standard OpenTelemetry APIs. If you already have a tracer provider configured, Tokenmeter's spans flow through your existing exporters.
+
+```typescript
+// Your existing OTel setup
+const provider = new NodeTracerProvider();
+provider.addSpanProcessor(new BatchSpanProcessor(myExporter));
+provider.register();
+
+// Just add monitor() - works with your setup
+const openai = monitor(new OpenAI());
+```
+
+### Can I use this without OpenTelemetry?
+
+Partially. The `monitor()` function still calculates costs and makes them available via hooks and `withCost()`. But without OTel, there are no spans to attach cost attributes to.
+
+```typescript
+const openai = monitor(new OpenAI(), {
+  afterResponse: (ctx) => {
+    console.log(`Cost: $${ctx.cost}`); // Still works
+  },
+});
+```
+
+---
+
+## Performance
+
+### What's the performance overhead?
+
+Near-zero. The hot path is:
+
+1. A JavaScript Proxy intercepts the method call
+2. An OTel span is created (microseconds)
+3. Cost lookup happens synchronously from bundled pricing data
+
+No network calls block your AI requests. Pricing manifest refresh happens in the background on startup.
+
+### Does it add latency to API calls?
+
+Span creation adds microseconds. Cost calculation is a synchronous lookup in a pre-loaded pricing table. Network calls to AI providers dominate latency—Tokenmeter's overhead is not measurable in practice.
+
+---
+
+## Reliability
+
+### What happens if something fails?
+
+Graceful degradation everywhere:
+
+| Scenario | Behavior |
+|----------|----------|
+| Pricing data unavailable | Uses bundled fallback (works offline) |
+| Unknown model | Logs warning, `cost_usd = 0`, doesn't throw |
+| OTel not configured | Spans are no-ops, your code still works |
+| Stream interrupted | Partial cost still recorded |
+| Database export fails | Logged, doesn't crash your app |
+
+### What if a model isn't in the pricing manifest?
+
+Tokenmeter logs a warning and sets `cost_usd = 0`. Your code continues working.
+
+To fix:
+1. Check for typos in the model name
+2. Add a model alias with `setModelAliases()`
+3. If it's a new model, [contribute an update](/resources/contributing)
+
+```typescript
+import { setModelAliases } from 'tokenmeter';
+
+setModelAliases({
+  'my-custom-model': 'openai/gpt-4o', // Map to known pricing
+});
+```
+
+---
+
+## Streaming
+
+### Does it work with streaming responses?
+
+Yes, automatically. Tokenmeter wraps async iterators and calculates cost when the stream completes.
+
+### Why is my streaming cost $0?
+
+For OpenAI, add `stream_options: { include_usage: true }`. Without it, OpenAI doesn't return token counts in streaming mode.
+
+```typescript
+const stream = await openai.chat.completions.create({
+  model: 'gpt-4o',
+  messages: [{ role: 'user', content: 'Hello!' }],
+  stream: true,
+  stream_options: { include_usage: true }, // Required!
+});
+```
+
+---
+
+## Attribution
+
+### How do I attribute costs to users/orgs?
+
+Wrap your request handler with `withAttributes()`. All nested AI calls inherit the context:
+
+```typescript
+await withAttributes({ 'user.id': userId, 'org.id': orgId }, async () => {
+  await openai.chat.completions.create({ ... });
+  await anthropic.messages.create({ ... }); // Also tagged
+});
+```
+
+### Can I attribute costs across services?
+
+Yes. Use `extractTraceHeaders()` and `withExtractedContext()` to propagate context:
+
+```typescript
+// Service A
+const headers = extractTraceHeaders();
+await fetch('https://service-b/api', { headers });
+
+// Service B
+await withExtractedContext(req.headers, async () => {
+  await openai.chat.completions.create({ ... }); // Linked to Service A's trace
+});
+```
+
+---
+
+## Pricing
+
+### How accurate/up-to-date is the pricing?
+
+- **Bundled pricing** is compiled from official provider pricing pages at build time
+- **Remote refresh** fetches updates from our Pricing API on startup (5-minute cache)
+- **Model matching** handles version suffixes (e.g., `gpt-4o-2024-05-13` → `gpt-4o`)
+
+If you notice outdated pricing, please [open an issue](https://github.com/lminne/tokenmeter/issues).
+
+### Can I use custom pricing?
+
+Yes. Use model aliases to map custom model names to known pricing:
+
+```typescript
+setModelAliases({
+  'my-fine-tuned-model': 'openai/gpt-4o',
+});
+```
+
+Or configure a custom pricing API:
+
+```typescript
+configurePricing({
+  apiUrl: 'https://your-api.com/pricing',
+});
+```
+
+### Can I run fully offline?
+
+Yes. Enable offline mode to use only bundled pricing:
+
+```typescript
+configurePricing({ offlineMode: true });
+```
+
+---
+
+## Storage
+
+### Can I use this without PostgreSQL?
+
+Yes. PostgreSQL is optional—only needed if you want to persist and query costs. The core `monitor()` and `withAttributes()` work with any OTel-compatible exporter (Datadog, Honeycomb, Jaeger, console, etc.) or no exporter at all.
+
+### What databases are supported?
+
+Currently, only PostgreSQL has a dedicated exporter. For other databases, use the standard OTel OTLP exporter to send to your observability platform.
+
+---
+
+## Providers
+
+### What if my provider isn't supported?
+
+Use `registerProvider()` to add custom providers without forking:
+
+```typescript
+registerProvider({
+  name: 'my-provider',
+  detect: (client) => 'myMethod' in client,
+  extractUsage: (response) => ({
+    inputUnits: response.usage?.input,
+    outputUnits: response.usage?.output,
+  }),
+  extractModel: (args) => args[0]?.model || 'default',
+});
+```
+
+### Does it support AWS Bedrock?
+
+Yes. Bedrock models accessed through the Anthropic SDK (Claude models) are supported. Direct Bedrock API support is in progress.
+
+### Does it support Azure OpenAI?
+
+Yes. Azure OpenAI uses the same API as OpenAI, so it works with the OpenAI SDK and `monitor()`.
+

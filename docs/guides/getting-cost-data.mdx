@@ -1,0 +1,211 @@
+---
+title: "Getting Cost Data"
+description: "Access cost and usage data immediately after API calls"
+---
+
+Sometimes you need the cost right after an API call—not later in a span exporter. Tokenmeter provides two ways to access cost data immediately: `withCost()` and hooks.
+
+## Using withCost()
+
+The `withCost()` function captures cost data from any AI calls in its scope:
+
+```typescript
+import { monitor, withCost } from 'tokenmeter';
+
+const openai = monitor(new OpenAI());
+
+const { result, cost, usage } = await withCost(() =>
+  openai.chat.completions.create({
+    model: 'gpt-4o',
+    messages: [{ role: 'user', content: 'Hello!' }],
+  })
+);
+
+console.log(`Response: ${result.choices[0].message.content}`);
+console.log(`Cost: $${cost.toFixed(6)}`);
+console.log(`Tokens: ${usage?.inputUnits} in, ${usage?.outputUnits} out`);
+```
+
+### Return Value
+
+`withCost()` returns an object with:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `result` | `T` | The return value of your function |
+| `cost` | `number` | Total cost in USD |
+| `usage` | `ProviderUsageData \| undefined` | Provider-specific usage data |
+
+### Multiple Calls
+
+If your function makes multiple AI calls, costs are summed:
+
+```typescript
+const { cost } = await withCost(async () => {
+  await openai.chat.completions.create({ ... }); // $0.001
+  await openai.chat.completions.create({ ... }); // $0.002
+  await anthropic.messages.create({ ... });      // $0.003
+});
+
+console.log(cost); // 0.006 (total of all three)
+```
+
+### Real-Time Updates
+
+For long-running operations, you can get costs as they happen:
+
+```typescript
+const { result, cost } = await withCost(
+  async () => {
+    // Multiple operations...
+  },
+  {
+    onCostUpdate: (update) => {
+      console.log(`Current total: $${update.totalCost.toFixed(6)}`);
+    },
+  }
+);
+```
+
+## Using Hooks
+
+Hooks are configured when creating the monitored client and are called for every API call:
+
+```typescript
+const openai = monitor(new OpenAI(), {
+  beforeRequest: (ctx) => {
+    console.log(`Calling ${ctx.spanName}`);
+  },
+  afterResponse: (ctx) => {
+    console.log(`Cost: $${ctx.cost.toFixed(6)}`);
+    console.log(`Model: ${ctx.model}`);
+    console.log(`Duration: ${ctx.durationMs}ms`);
+    
+    // Track in your billing system
+    recordUsage(ctx.usage, ctx.cost);
+  },
+  onError: (ctx) => {
+    console.error(`Error: ${ctx.error.message}`);
+    alertOncall(ctx.error);
+  },
+});
+```
+
+### Hook Context
+
+Each hook receives a context object:
+
+**beforeRequest context:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `spanName` | `string` | Name of the operation |
+| `provider` | `string` | Provider name |
+| `args` | `unknown[]` | Arguments to the API call |
+
+**afterResponse context:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `spanName` | `string` | Name of the operation |
+| `provider` | `string` | Provider name |
+| `model` | `string` | Model used |
+| `cost` | `number` | Cost in USD |
+| `usage` | `ProviderUsageData` | Usage data |
+| `durationMs` | `number` | Duration in milliseconds |
+| `response` | `unknown` | Raw API response |
+
+**onError context:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `spanName` | `string` | Name of the operation |
+| `provider` | `string` | Provider name |
+| `error` | `Error` | The error that occurred |
+| `durationMs` | `number` | Duration before error |
+
+### Rate Limiting with beforeRequest
+
+Throw an error in `beforeRequest` to abort the request:
+
+```typescript
+const openai = monitor(new OpenAI(), {
+  beforeRequest: (ctx) => {
+    if (isRateLimited(getCurrentUser())) {
+      throw new Error('Rate limit exceeded');
+    }
+  },
+});
+```
+
+## Provider-Specific Usage Data
+
+Use type guards to access provider-specific fields:
+
+```typescript
+import { 
+  withCost, 
+  isOpenAIUsage, 
+  isAnthropicUsage 
+} from 'tokenmeter';
+
+const { usage } = await withCost(() => 
+  openai.chat.completions.create({ ... })
+);
+
+if (isOpenAIUsage(usage)) {
+  console.log(`Total tokens: ${usage.totalTokens}`);
+  console.log(`Prompt tokens: ${usage.promptTokens}`);
+  console.log(`Completion tokens: ${usage.completionTokens}`);
+}
+
+if (isAnthropicUsage(usage)) {
+  console.log(`Input tokens: ${usage.inputTokens}`);
+  console.log(`Output tokens: ${usage.outputTokens}`);
+  if (usage.cacheCreationTokens) {
+    console.log(`Cache creation: ${usage.cacheCreationTokens}`);
+  }
+}
+```
+
+Available type guards:
+- `isOpenAIUsage()`
+- `isAnthropicUsage()`
+- `isGoogleUsage()`
+- `isBedrockUsage()`
+- `isFalUsage()`
+- `isElevenLabsUsage()`
+- `isBFLUsage()`
+- `isVercelAIUsage()`
+
+See [Type Guards API](/api/type-guards) for the full reference.
+
+## Combining with withAttributes
+
+`withCost()` and `withAttributes()` work together:
+
+```typescript
+await withAttributes({ 'user.id': userId }, async () => {
+  const { result, cost } = await withCost(() =>
+    openai.chat.completions.create({ ... })
+  );
+  
+  // The span has both user.id and cost
+  // You also have cost available here for immediate use
+  await updateUserBalance(userId, cost);
+  
+  return result;
+});
+```
+
+## withCost vs Hooks
+
+| | withCost() | Hooks |
+|---|---|---|
+| **Scope** | Single call or block | All calls through client |
+| **Setup** | Call-site | Client creation |
+| **Use case** | Ad-hoc cost capture | Centralized tracking |
+| **Multiple calls** | Aggregates cost | Called per-call |
+
+Use `withCost()` when you need cost for a specific operation. Use hooks when you want to track all operations through a client (e.g., for billing middleware).
+

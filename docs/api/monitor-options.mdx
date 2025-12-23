@@ -1,0 +1,257 @@
+---
+title: "Monitor Options"
+description: "Configuration options for monitor()"
+---
+
+The `monitor()` function accepts an optional configuration object.
+
+```typescript
+const client = monitor(new OpenAI(), {
+  name: 'my-openai',
+  provider: 'openai',
+  attributes: { 'service.name': 'api' },
+  beforeRequest: (ctx) => { ... },
+  afterResponse: (ctx) => { ... },
+  onError: (ctx) => { ... },
+});
+```
+
+## Options Reference
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `name` | `string` | Auto-detected | Custom name for span naming |
+| `provider` | `string` | Auto-detected | Override provider detection |
+| `attributes` | `Attributes` | `{}` | Custom attributes for all spans |
+| `beforeRequest` | `(ctx: RequestContext) => void` | - | Hook called before each API call |
+| `afterResponse` | `(ctx: ResponseContext) => void` | - | Hook called after successful response |
+| `onError` | `(ctx: ErrorContext) => void` | - | Hook called on errors |
+
+---
+
+## name
+
+Custom name used in span naming.
+
+```typescript
+const openai = monitor(new OpenAI(), {
+  name: 'my-openai',
+});
+
+// Spans will be named: my-openai.chat.completions.create
+```
+
+If not provided, the provider name is used (e.g., `openai.chat.completions.create`).
+
+---
+
+## provider
+
+Override automatic provider detection.
+
+```typescript
+const client = monitor(customClient, {
+  provider: 'custom-llm',
+});
+
+// tokenmeter.provider attribute will be 'custom-llm'
+```
+
+Useful when:
+- Using a custom client that isn't auto-detected
+- Wrapping a provider behind a proxy
+- Using multiple instances with different names
+
+---
+
+## attributes
+
+Custom attributes added to all spans from this client.
+
+```typescript
+const openai = monitor(new OpenAI(), {
+  attributes: {
+    'service.name': 'chat-api',
+    'deployment.environment': 'production',
+  },
+});
+```
+
+These are in addition to the standard Tokenmeter attributes (`tokenmeter.cost_usd`, etc.) and any attributes from `withAttributes()`.
+
+---
+
+## beforeRequest
+
+Hook called before each API call. Use for logging, rate limiting, or aborting requests.
+
+```typescript
+const openai = monitor(new OpenAI(), {
+  beforeRequest: (ctx) => {
+    console.log(`Starting: ${ctx.spanName}`);
+    console.log(`Provider: ${ctx.provider}`);
+    console.log(`Args:`, ctx.args);
+    
+    // Throw to abort the request
+    if (shouldBlock()) {
+      throw new Error('Request blocked');
+    }
+  },
+});
+```
+
+### RequestContext
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `spanName` | `string` | Name of the operation |
+| `provider` | `string` | Provider name |
+| `args` | `unknown[]` | Arguments passed to the API call |
+
+<Note>
+  Hooks are read-only. You cannot modify the request arguments.
+</Note>
+
+---
+
+## afterResponse
+
+Hook called after a successful API response. Use for logging, billing, or custom tracking.
+
+```typescript
+const openai = monitor(new OpenAI(), {
+  afterResponse: (ctx) => {
+    console.log(`Completed: ${ctx.spanName}`);
+    console.log(`Model: ${ctx.model}`);
+    console.log(`Cost: $${ctx.cost.toFixed(6)}`);
+    console.log(`Duration: ${ctx.durationMs}ms`);
+    console.log(`Tokens: ${ctx.usage?.inputUnits} in, ${ctx.usage?.outputUnits} out`);
+    
+    // Track in your billing system
+    billing.track({
+      cost: ctx.cost,
+      model: ctx.model,
+      userId: getCurrentUserId(),
+    });
+  },
+});
+```
+
+### ResponseContext
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `spanName` | `string` | Name of the operation |
+| `provider` | `string` | Provider name |
+| `model` | `string` | Model used |
+| `cost` | `number` | Cost in USD |
+| `usage` | `ProviderUsageData` | Provider-specific usage data |
+| `durationMs` | `number` | Duration in milliseconds |
+| `response` | `unknown` | Raw API response |
+
+---
+
+## onError
+
+Hook called when an API call fails. Use for error tracking, alerting, or logging.
+
+```typescript
+const openai = monitor(new OpenAI(), {
+  onError: (ctx) => {
+    console.error(`Failed: ${ctx.spanName}`);
+    console.error(`Error: ${ctx.error.message}`);
+    console.error(`Duration before failure: ${ctx.durationMs}ms`);
+    
+    // Alert on critical errors
+    if (ctx.error.status === 429) {
+      alertOncall('Rate limit exceeded');
+    }
+  },
+});
+```
+
+### ErrorContext
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `spanName` | `string` | Name of the operation |
+| `provider` | `string` | Provider name |
+| `error` | `Error` | The error that occurred |
+| `durationMs` | `number` | Duration before error |
+| `args` | `unknown[]` | Original arguments |
+
+---
+
+## Complete Example
+
+```typescript
+import { monitor } from 'tokenmeter';
+import OpenAI from 'openai';
+import { metrics, logger, billing } from './observability';
+
+const openai = monitor(new OpenAI(), {
+  name: 'chat-openai',
+  
+  attributes: {
+    'service.name': 'chat-api',
+    'service.version': process.env.VERSION,
+  },
+  
+  beforeRequest: (ctx) => {
+    logger.debug(`Starting ${ctx.spanName}`, { args: ctx.args });
+    
+    // Rate limit check
+    const userId = getCurrentUserId();
+    if (userId && isRateLimited(userId)) {
+      throw new Error('Rate limit exceeded');
+    }
+  },
+  
+  afterResponse: (ctx) => {
+    logger.info(`Completed ${ctx.spanName}`, {
+      model: ctx.model,
+      cost: ctx.cost,
+      durationMs: ctx.durationMs,
+    });
+    
+    // Track metrics
+    metrics.recordHistogram('ai.request.duration', ctx.durationMs, {
+      model: ctx.model,
+    });
+    metrics.recordCounter('ai.cost.total', ctx.cost, {
+      model: ctx.model,
+    });
+    
+    // Update billing
+    const userId = getCurrentUserId();
+    if (userId) {
+      billing.recordUsage(userId, ctx.cost);
+    }
+  },
+  
+  onError: (ctx) => {
+    logger.error(`Failed ${ctx.spanName}`, {
+      error: ctx.error.message,
+      durationMs: ctx.durationMs,
+    });
+    
+    metrics.recordCounter('ai.request.errors', 1, {
+      errorType: ctx.error.name,
+    });
+  },
+});
+```
+
+---
+
+## TypeScript Types
+
+```typescript
+import type { 
+  MonitorOptions,
+  RequestContext,
+  ResponseContext,
+  ErrorContext,
+} from 'tokenmeter';
+```
+

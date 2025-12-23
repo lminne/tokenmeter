@@ -1,0 +1,206 @@
+---
+title: "Contributing"
+description: "How to contribute to Tokenmeter"
+---
+
+Contributions are welcome! Whether it's fixing a bug, adding a feature, or updating pricing data.
+
+## Getting Started
+
+### Clone and install
+
+```bash
+git clone https://github.com/lminne/tokenmeter.git
+cd tokenmeter
+pnpm install
+```
+
+### Run tests
+
+```bash
+pnpm test
+```
+
+### Build
+
+```bash
+pnpm build
+```
+
+### Type check
+
+```bash
+pnpm check-types
+```
+
+## Project Structure
+
+```
+tokenmeter/
+├── src/
+│   ├── index.ts              # Main exports
+│   ├── instrumentation/      # Proxy and strategies
+│   │   ├── proxy.ts          # monitor() implementation
+│   │   └── strategies/       # Provider-specific extraction
+│   ├── integrations/         # Framework integrations
+│   │   ├── inngest/
+│   │   ├── next/
+│   │   └── vercel-ai/
+│   ├── pricing/              # Pricing manifest and calculation
+│   │   ├── manifest.ts       # Manifest loading/caching
+│   │   ├── manifest.json     # Bundled pricing data
+│   │   └── providers/        # Provider-specific pricing
+│   ├── exporter/             # PostgresExporter
+│   ├── processor/            # TokenMeterProcessor
+│   ├── query/                # Query client
+│   └── __tests__/            # Tests
+├── docs/                     # Documentation (Mintlify)
+└── prisma/                   # Database schema
+```
+
+## Common Contributions
+
+### Updating Pricing
+
+Pricing data is in `src/pricing/manifest.json`. To update:
+
+1. Find current pricing on the provider's pricing page
+2. Update the relevant section in `manifest.json`
+3. Run `pnpm build:manifest` to validate
+4. Submit a PR
+
+Example:
+
+```json
+{
+  "providers": {
+    "openai": {
+      "gpt-4o": {
+        "input": 2.50,
+        "output": 10.00,
+        "unit": "1M_tokens"
+      }
+    }
+  }
+}
+```
+
+### Adding a Provider
+
+To add support for a new AI provider:
+
+1. Create an extraction strategy in `src/instrumentation/strategies/`
+2. Add to the strategy list in `src/instrumentation/strategies/index.ts`
+3. Add pricing data to `src/pricing/manifest.json`
+4. Add tests in `src/__tests__/`
+
+Example strategy:
+
+```typescript
+// src/instrumentation/strategies/my-provider.ts
+import type { ExtractionStrategy } from '../types';
+
+export const myProviderStrategy: ExtractionStrategy = {
+  name: 'my-provider',
+  
+  detect: (client) => {
+    return 'myProviderMethod' in client;
+  },
+  
+  extractUsage: (response) => ({
+    inputUnits: response.usage?.input,
+    outputUnits: response.usage?.output,
+    provider: 'my-provider',
+  }),
+  
+  extractModel: (args) => {
+    return args[0]?.model || 'unknown';
+  },
+};
+```
+
+### Adding a Framework Integration
+
+Framework integrations live in `src/integrations/`. Each integration:
+
+1. Has its own directory
+2. Exports from a single `index.ts`
+3. Is added to `package.json` exports
+
+### Improving Documentation
+
+Docs are in the `docs/` folder using Mintlify. To preview:
+
+```bash
+cd docs
+npx mintlify dev
+```
+
+## Pull Request Guidelines
+
+1. **One thing per PR** — Keep PRs focused on a single change
+2. **Add tests** — New features should have tests
+3. **Update docs** — If behavior changes, update the docs
+4. **Run checks** — `pnpm test && pnpm check-types && pnpm lint`
+
+## Code Style
+
+- TypeScript with strict mode
+- ESM only
+- No `any` types (use `unknown` instead)
+- Prefer functions over classes
+- Meaningful variable names
+
+## Testing
+
+Tests use Vitest:
+
+```bash
+# Run all tests
+pnpm test
+
+# Run specific test file
+pnpm test src/__tests__/proxy.test.ts
+
+# Watch mode
+pnpm test:watch
+```
+
+## Commit Messages
+
+Use conventional commits:
+
+- `feat:` New feature
+- `fix:` Bug fix
+- `docs:` Documentation only
+- `chore:` Maintenance
+- `refactor:` Code change that neither fixes nor adds
+
+Examples:
+
+```
+feat: add support for Mistral AI
+fix: handle streaming responses with no usage data
+docs: add troubleshooting guide for SSL errors
+```
+
+## Reporting Issues
+
+When opening an issue, include:
+
+- Tokenmeter version
+- Node.js version
+- Minimal reproduction code
+- Expected vs actual behavior
+- Error messages and stack traces
+
+## Questions
+
+For questions:
+- Check existing [GitHub Issues](https://github.com/lminne/tokenmeter/issues)
+- Open a new issue with the `question` label
+
+## License
+
+By contributing, you agree that your contributions will be licensed under the MIT License.
+

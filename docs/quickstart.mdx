@@ -1,0 +1,154 @@
+---
+title: "Quick Start"
+description: "Get cost tracking working in 5 minutes"
+---
+
+This guide gets you from zero to seeing cost data in your spans.
+
+## Prerequisites
+
+- Node.js 18+
+- An OpenAI API key (or any supported provider)
+- Tokenmeter installed ([Installation](/installation))
+
+## Step 1: Set Up OpenTelemetry
+
+Create a file to initialize tracing. This runs before your application code.
+
+```typescript tracing.ts
+import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
+import { SimpleSpanProcessor, ConsoleSpanExporter } from '@opentelemetry/sdk-trace-base';
+
+const provider = new NodeTracerProvider();
+provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()));
+provider.register();
+
+console.log('Tracing initialized');
+```
+
+<Note>
+  `ConsoleSpanExporter` prints spans to stdout. For production, use a real exporter like OTLP. See [Observability Platforms](/guides/observability).
+</Note>
+
+## Step 2: Wrap Your Client
+
+Import `monitor` and wrap your AI client. That's the only code change.
+
+```typescript app.ts
+import './tracing.js'; // Must be first import
+import OpenAI from 'openai';
+import { monitor } from 'tokenmeter';
+
+const openai = monitor(new OpenAI());
+
+async function main() {
+  const response = await openai.chat.completions.create({
+    model: 'gpt-4o',
+    messages: [{ role: 'user', content: 'Say hello in one word.' }],
+  });
+
+  console.log(response.choices[0].message.content);
+}
+
+main();
+```
+
+## Step 3: Run It
+
+```bash
+npx tsx app.ts
+```
+
+You'll see output like:
+
+```
+Tracing initialized
+Hello
+{
+  traceId: 'abc123...',
+  name: 'openai.chat.completions.create',
+  attributes: {
+    'tokenmeter.cost_usd': 0.000045,
+    'tokenmeter.provider': 'openai',
+    'tokenmeter.model': 'gpt-4o',
+    'gen_ai.usage.input_tokens': 12,
+    'gen_ai.usage.output_tokens': 1
+  }
+}
+```
+
+The span includes the calculated cost in USD.
+
+## Step 4: Add User Attribution
+
+Wrap your request handler with `withAttributes()` to tag costs to users:
+
+```typescript
+import { monitor, withAttributes } from 'tokenmeter';
+
+const openai = monitor(new OpenAI());
+
+async function handleRequest(userId: string, prompt: string) {
+  return withAttributes({ 'user.id': userId }, async () => {
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: [{ role: 'user', content: prompt }],
+    });
+    return response.choices[0].message.content;
+  });
+}
+
+// All spans from handleRequest now include user.id
+await handleRequest('user_123', 'Hello!');
+```
+
+Now your spans include both the cost and the user who incurred it.
+
+## Complete Example
+
+Here's everything together:
+
+```typescript
+import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
+import { SimpleSpanProcessor, ConsoleSpanExporter } from '@opentelemetry/sdk-trace-base';
+import OpenAI from 'openai';
+import { monitor, withAttributes } from 'tokenmeter';
+
+// 1. Initialize OpenTelemetry
+const provider = new NodeTracerProvider();
+provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()));
+provider.register();
+
+// 2. Wrap your client
+const openai = monitor(new OpenAI());
+
+// 3. Use with attribution
+async function main() {
+  await withAttributes({ 'user.id': 'user_123', 'org.id': 'acme' }, async () => {
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: [{ role: 'user', content: 'Hello!' }],
+    });
+    console.log(response.choices[0].message.content);
+  });
+}
+
+main();
+```
+
+## What's Next
+
+<CardGroup cols={2}>
+  <Card title="Monitoring Clients" icon="radar" href="/guides/monitoring-clients">
+    Learn how monitor() works with different providers
+  </Card>
+  <Card title="Cost Attribution" icon="users" href="/guides/cost-attribution">
+    Tag costs to users, orgs, and workflows
+  </Card>
+  <Card title="Getting Cost Data" icon="dollar-sign" href="/guides/getting-cost-data">
+    Access costs immediately after API calls
+  </Card>
+  <Card title="PostgreSQL Storage" icon="database" href="/guides/postgresql">
+    Persist costs for querying and billing
+  </Card>
+</CardGroup>

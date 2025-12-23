@@ -1,0 +1,193 @@
+---
+title: "Vercel AI SDK"
+description: "Cost tracking with experimental_telemetry"
+---
+
+The Vercel AI SDK has built-in OpenTelemetry support via `experimental_telemetry`. Tokenmeter provides a `telemetry()` helper that configures it for cost tracking without wrapping your client.
+
+## When to Use This
+
+Use the Vercel AI SDK integration when:
+- You're using the AI SDK's `generateText`, `streamText`, etc.
+- You don't want to wrap the provider with `monitor()`
+- You want to use the SDK's streaming and structured output features
+
+Use `monitor()` directly when:
+- You're using provider SDKs directly (OpenAI, Anthropic)
+- You need hooks or `withCost()`
+- You want more control over span creation
+
+## Installation
+
+```bash
+npm install tokenmeter @opentelemetry/api @opentelemetry/sdk-trace-node
+```
+
+## Basic Usage
+
+Pass `telemetry()` to any Vercel AI SDK function:
+
+```typescript
+import { generateText } from 'ai';
+import { openai } from '@ai-sdk/openai';
+import { telemetry } from 'tokenmeter/vercel-ai';
+
+const { text } = await generateText({
+  model: openai('gpt-4o'),
+  prompt: 'Hello!',
+  experimental_telemetry: telemetry(),
+});
+```
+
+The SDK creates spans with usage data, and Tokenmeter calculates costs.
+
+## User Attribution
+
+Pass user and org IDs to the telemetry helper:
+
+```typescript
+import { telemetry } from 'tokenmeter/vercel-ai';
+
+const { text } = await generateText({
+  model: openai('gpt-4o'),
+  prompt: 'Hello!',
+  experimental_telemetry: telemetry({
+    userId: 'user_123',
+    orgId: 'org_456',
+  }),
+});
+```
+
+## Streaming
+
+Works with streaming functions too:
+
+```typescript
+import { streamText } from 'ai';
+import { openai } from '@ai-sdk/openai';
+import { telemetry } from 'tokenmeter/vercel-ai';
+
+const { textStream } = await streamText({
+  model: openai('gpt-4o'),
+  prompt: 'Tell me a story',
+  experimental_telemetry: telemetry({
+    userId: currentUser.id,
+  }),
+});
+
+for await (const chunk of textStream) {
+  process.stdout.write(chunk);
+}
+```
+
+## Structured Output
+
+Works with `generateObject` and other structured output functions:
+
+```typescript
+import { generateObject } from 'ai';
+import { openai } from '@ai-sdk/openai';
+import { telemetry } from 'tokenmeter/vercel-ai';
+import { z } from 'zod';
+
+const { object } = await generateObject({
+  model: openai('gpt-4o'),
+  schema: z.object({
+    name: z.string(),
+    age: z.number(),
+  }),
+  prompt: 'Generate a person',
+  experimental_telemetry: telemetry({
+    userId: 'user_123',
+  }),
+});
+```
+
+## Custom Attributes
+
+Add custom attributes alongside user info:
+
+```typescript
+experimental_telemetry: telemetry({
+  userId: 'user_123',
+  attributes: {
+    'workflow.id': 'summarization',
+    'feature.flag': 'new-model',
+  },
+}),
+```
+
+## OpenTelemetry Setup
+
+Set up OpenTelemetry as usual:
+
+```typescript tracing.ts
+import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
+import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
+
+const provider = new NodeTracerProvider();
+provider.addSpanProcessor(
+  new BatchSpanProcessor(
+    new OTLPTraceExporter({
+      url: process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
+    })
+  )
+);
+provider.register();
+```
+
+## Complete Example
+
+```typescript
+import './tracing.js';
+import { generateText, streamText } from 'ai';
+import { openai } from '@ai-sdk/openai';
+import { anthropic } from '@ai-sdk/anthropic';
+import { telemetry } from 'tokenmeter/vercel-ai';
+
+async function handleRequest(userId: string, prompt: string) {
+  // Works with any provider
+  const { text } = await generateText({
+    model: openai('gpt-4o'),
+    prompt,
+    experimental_telemetry: telemetry({ userId }),
+  });
+  
+  // Streaming works too
+  const { textStream } = await streamText({
+    model: anthropic('claude-3-5-sonnet-20240620'),
+    prompt: `Expand on: ${text}`,
+    experimental_telemetry: telemetry({ userId }),
+  });
+  
+  let expanded = '';
+  for await (const chunk of textStream) {
+    expanded += chunk;
+  }
+  
+  return { summary: text, expanded };
+}
+```
+
+## Span Attributes
+
+The Vercel AI SDK creates spans with these attributes (among others):
+
+| Attribute | Description |
+|-----------|-------------|
+| `ai.model.id` | Model identifier |
+| `ai.model.provider` | Provider name |
+| `ai.usage.promptTokens` | Input tokens |
+| `ai.usage.completionTokens` | Output tokens |
+| `gen_ai.usage.input_tokens` | Input tokens (semantic convention) |
+| `gen_ai.usage.output_tokens` | Output tokens (semantic convention) |
+
+Tokenmeter reads these to calculate `tokenmeter.cost_usd`.
+
+## Limitations
+
+- **No hooks** — The Vercel AI SDK integration doesn't support `beforeRequest`, `afterResponse`, or `onError` hooks. Use `monitor()` if you need hooks.
+- **No withCost** — `withCost()` captures costs from `monitor()` calls, not from the SDK's telemetry. Track costs in your exporter instead.
+- **Experimental** — The `experimental_telemetry` API may change in future SDK versions.
+

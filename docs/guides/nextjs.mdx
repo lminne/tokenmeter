@@ -1,0 +1,198 @@
+---
+title: "Next.js"
+description: "Cost tracking for Next.js App Router"
+---
+
+Tokenmeter provides a `withTokenmeter()` wrapper for Next.js App Router handlers. It sets up tracing context and extracts user information from requests.
+
+## Installation
+
+```bash
+npm install tokenmeter @opentelemetry/api @opentelemetry/sdk-trace-node
+```
+
+## Basic Usage
+
+Wrap your route handlers with `withTokenmeter()`:
+
+```typescript app/api/chat/route.ts
+import { NextResponse } from 'next/server';
+import { withTokenmeter } from 'tokenmeter/next';
+import { monitor } from 'tokenmeter';
+import OpenAI from 'openai';
+
+const openai = monitor(new OpenAI());
+
+async function handler(request: Request) {
+  const { message } = await request.json();
+  
+  const response = await openai.chat.completions.create({
+    model: 'gpt-4o',
+    messages: [{ role: 'user', content: message }],
+  });
+  
+  return NextResponse.json({ 
+    reply: response.choices[0].message.content 
+  });
+}
+
+export const POST = withTokenmeter(handler);
+```
+
+## User Attribution
+
+Pass a function to extract user information from the request:
+
+```typescript app/api/chat/route.ts
+export const POST = withTokenmeter(handler, (request) => ({
+  userId: request.headers.get('x-user-id') || undefined,
+  orgId: request.headers.get('x-org-id') || undefined,
+}));
+```
+
+These become span attributes (`user.id`, `org.id`).
+
+## With Auth
+
+If you're using authentication middleware:
+
+```typescript app/api/chat/route.ts
+import { auth } from '@/lib/auth';
+
+export const POST = withTokenmeter(handler, async (request) => {
+  const session = await auth();
+  return {
+    userId: session?.user?.id,
+    orgId: session?.user?.orgId,
+  };
+});
+```
+
+## OpenTelemetry Setup
+
+Create an instrumentation file that runs at startup:
+
+```typescript instrumentation.ts
+import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
+import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
+
+export function register() {
+  const provider = new NodeTracerProvider();
+  
+  provider.addSpanProcessor(
+    new BatchSpanProcessor(
+      new OTLPTraceExporter({
+        url: process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
+      })
+    )
+  );
+  
+  provider.register();
+}
+```
+
+Configure Next.js to use it:
+
+```javascript next.config.js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    instrumentationHook: true,
+  },
+};
+
+module.exports = nextConfig;
+```
+
+## Server Actions
+
+For Server Actions, use `withAttributes()` directly:
+
+```typescript app/actions.ts
+'use server';
+
+import { withAttributes } from 'tokenmeter';
+import { auth } from '@/lib/auth';
+
+export async function generateSummary(text: string) {
+  const session = await auth();
+  
+  return withAttributes({ 
+    'user.id': session?.user?.id 
+  }, async () => {
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: [{ role: 'user', content: `Summarize: ${text}` }],
+    });
+    return response.choices[0].message.content;
+  });
+}
+```
+
+## Edge Runtime
+
+Tokenmeter works with Edge Runtime, but OpenTelemetry support is limited. The basic `monitor()` and `withAttributes()` functions work; span export depends on your exporter's edge compatibility.
+
+```typescript app/api/edge/route.ts
+export const runtime = 'edge';
+
+import { withTokenmeter } from 'tokenmeter/next';
+
+async function handler(request: Request) {
+  // Works in edge
+  const response = await openai.chat.completions.create({ ... });
+  return Response.json({ ... });
+}
+
+export const POST = withTokenmeter(handler);
+```
+
+## Complete Example
+
+```typescript app/api/chat/route.ts
+import { NextResponse } from 'next/server';
+import { withTokenmeter } from 'tokenmeter/next';
+import { monitor, withCost } from 'tokenmeter';
+import OpenAI from 'openai';
+import { auth } from '@/lib/auth';
+import { db } from '@/lib/db';
+
+const openai = monitor(new OpenAI());
+
+async function handler(request: Request) {
+  const { message } = await request.json();
+  
+  const { result, cost } = await withCost(() =>
+    openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: [{ role: 'user', content: message }],
+    })
+  );
+  
+  // Track usage in your database
+  const session = await auth();
+  if (session?.user?.id) {
+    await db.usage.create({
+      data: {
+        userId: session.user.id,
+        cost,
+        model: 'gpt-4o',
+      },
+    });
+  }
+  
+  return NextResponse.json({ 
+    reply: result.choices[0].message.content 
+  });
+}
+
+export const POST = withTokenmeter(handler, async (request) => {
+  const session = await auth();
+  return {
+    userId: session?.user?.id,
+    orgId: session?.user?.orgId,
+  };
+});
+```
+

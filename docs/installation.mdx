@@ -1,0 +1,98 @@
+---
+title: "Installation"
+description: "Install tokenmeter and configure OpenTelemetry"
+---
+
+## Package Installation
+
+<CodeGroup>
+```bash npm
+npm install tokenmeter @opentelemetry/api @opentelemetry/sdk-trace-node
+```
+
+```bash pnpm
+pnpm add tokenmeter @opentelemetry/api @opentelemetry/sdk-trace-node
+```
+
+```bash yarn
+yarn add tokenmeter @opentelemetry/api @opentelemetry/sdk-trace-node
+```
+</CodeGroup>
+
+## Peer Dependencies
+
+Tokenmeter requires OpenTelemetry packages. The core dependencies are:
+
+| Package | Required | Purpose |
+|---------|----------|---------|
+| `@opentelemetry/api` | Yes | OpenTelemetry API for spans and context |
+| `@opentelemetry/sdk-trace-node` | Yes | Node.js tracing SDK |
+
+## Optional Dependencies
+
+Install these based on your use case:
+
+<AccordionGroup>
+  <Accordion title="PostgreSQL Storage">
+    If you want to persist costs to PostgreSQL for querying:
+
+    ```bash
+    npm install pg
+    ```
+
+    See [PostgreSQL Storage](/guides/postgresql) for setup.
+  </Accordion>
+
+  <Accordion title="Inngest Integration">
+    If you use Inngest for background jobs:
+
+    ```bash
+    npm install inngest
+    ```
+
+    See [Inngest Integration](/guides/inngest) for setup.
+  </Accordion>
+
+  <Accordion title="OTLP Exporter">
+    If you want to export to Datadog, Honeycomb, or other OTLP-compatible backends:
+
+    ```bash
+    npm install @opentelemetry/exporter-trace-otlp-http
+    ```
+
+    See [Observability Platforms](/guides/observability) for configuration.
+  </Accordion>
+</AccordionGroup>
+
+## TypeScript
+
+Tokenmeter is written in TypeScript and ships with type definitions. No additional `@types/*` packages needed.
+
+The `monitor()` function preserves the original client type—autocomplete and type checking work exactly as before.
+
+```typescript
+import OpenAI from 'openai';
+import { monitor } from 'tokenmeter';
+
+const openai = monitor(new OpenAI());
+// openai is still typed as OpenAI, not a wrapper type
+```
+
+## ESM Only
+
+Tokenmeter is published as ESM only. Your `package.json` should have:
+
+```json
+{
+  "type": "module"
+}
+```
+
+Or use `.mjs` file extensions.
+
+## Next Steps
+
+<Card title="Quick Start" icon="rocket" href="/quickstart">
+  Set up OpenTelemetry and see your first cost-tracked span
+</Card>
+

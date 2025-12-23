@@ -1,0 +1,258 @@
+---
+title: "Query Client"
+description: "Query cost data from PostgreSQL"
+---
+
+The query client provides typed access to cost data stored in PostgreSQL. Use it to build dashboards, generate reports, and implement billing.
+
+## Installation
+
+```bash
+npm install tokenmeter pg
+```
+
+## Setup
+
+Create a query client with your database connection:
+
+```typescript
+import { createQueryClient } from 'tokenmeter/client';
+
+const client = createQueryClient({
+  connectionString: process.env.DATABASE_URL,
+});
+```
+
+## Get User Costs
+
+Query total costs for a specific user:
+
+```typescript
+const { totalCost, requestCount } = await client.getCostByUser('user_123');
+
+console.log(`User spent $${totalCost.toFixed(4)} across ${requestCount} requests`);
+```
+
+With a date range:
+
+```typescript
+const { totalCost } = await client.getCostByUser('user_123', {
+  from: new Date('2024-01-01'),
+  to: new Date('2024-01-31'),
+});
+```
+
+## Get Organization Costs
+
+Query costs for an organization:
+
+```typescript
+const { totalCost, requestCount } = await client.getCostByOrg('org_acme', {
+  from: new Date('2024-01-01'),
+});
+```
+
+## Get Workflow Costs
+
+Query costs for a specific workflow:
+
+```typescript
+const { totalCost, requestCount, avgCost } = await client.getWorkflowCost(
+  'document-analysis'
+);
+
+console.log(`Workflow averages $${avgCost.toFixed(4)} per run`);
+```
+
+## Flexible Queries
+
+Use `getCosts()` for complex queries:
+
+```typescript
+const results = await client.getCosts({
+  from: new Date('2024-01-01'),
+  to: new Date('2024-01-31'),
+  userId: 'user_123',
+  groupBy: ['model'],
+});
+
+// Returns: [
+//   { model: 'gpt-4o', totalCost: 12.50, requestCount: 500 },
+//   { model: 'claude-3-5-sonnet', totalCost: 8.20, requestCount: 300 },
+// ]
+```
+
+### Filtering Options
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `from` | `Date` | Start of date range |
+| `to` | `Date` | End of date range |
+| `userId` | `string` | Filter by user |
+| `orgId` | `string` | Filter by organization |
+| `workflowId` | `string` | Filter by workflow |
+| `provider` | `string` | Filter by provider |
+| `model` | `string` | Filter by model |
+
+### Grouping Options
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `groupBy` | `string[]` | Fields to group by |
+
+Valid groupBy values: `user`, `org`, `workflow`, `provider`, `model`, `day`, `week`, `month`
+
+## Examples
+
+### Daily Cost Trend
+
+```typescript
+const dailyCosts = await client.getCosts({
+  from: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // 30 days ago
+  groupBy: ['day'],
+});
+
+// Returns: [
+//   { day: '2024-01-01', totalCost: 45.20, requestCount: 1200 },
+//   { day: '2024-01-02', totalCost: 52.10, requestCount: 1350 },
+//   ...
+// ]
+```
+
+### Cost by Model per User
+
+```typescript
+const breakdown = await client.getCosts({
+  userId: 'user_123',
+  groupBy: ['model'],
+});
+
+for (const row of breakdown) {
+  console.log(`${row.model}: $${row.totalCost.toFixed(2)}`);
+}
+```
+
+### Monthly Organization Report
+
+```typescript
+const monthlyReport = await client.getCosts({
+  orgId: 'org_acme',
+  from: new Date('2024-01-01'),
+  to: new Date('2024-02-01'),
+  groupBy: ['user', 'model'],
+});
+
+// Group by user for invoice
+const byUser = new Map();
+for (const row of monthlyReport) {
+  const current = byUser.get(row.userId) || 0;
+  byUser.set(row.userId, current + row.totalCost);
+}
+```
+
+### Top Spenders
+
+```typescript
+const topSpenders = await client.getCosts({
+  from: new Date('2024-01-01'),
+  groupBy: ['user'],
+  orderBy: 'totalCost',
+  order: 'desc',
+  limit: 10,
+});
+```
+
+## Building a Dashboard
+
+```typescript
+import { createQueryClient } from 'tokenmeter/client';
+
+const client = createQueryClient({
+  connectionString: process.env.DATABASE_URL,
+});
+
+async function getDashboardData(orgId: string) {
+  const now = new Date();
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  
+  const [
+    monthTotal,
+    dailyTrend,
+    byModel,
+    byUser,
+  ] = await Promise.all([
+    client.getCostByOrg(orgId, { from: startOfMonth }),
+    client.getCosts({ orgId, from: startOfMonth, groupBy: ['day'] }),
+    client.getCosts({ orgId, from: startOfMonth, groupBy: ['model'] }),
+    client.getCosts({ orgId, from: startOfMonth, groupBy: ['user'] }),
+  ]);
+  
+  return {
+    totalSpend: monthTotal.totalCost,
+    requestCount: monthTotal.requestCount,
+    dailyTrend,
+    modelBreakdown: byModel,
+    userBreakdown: byUser,
+  };
+}
+```
+
+## Connection Management
+
+The query client manages its own connection pool. Close it when done:
+
+```typescript
+const client = createQueryClient({
+  connectionString: process.env.DATABASE_URL,
+});
+
+try {
+  const costs = await client.getCostByUser('user_123');
+  // ... use costs
+} finally {
+  await client.close();
+}
+```
+
+For long-running applications, create the client once and reuse it.
+
+## Custom Queries
+
+For complex queries not covered by the client, use the underlying pool:
+
+```typescript
+const client = createQueryClient({
+  connectionString: process.env.DATABASE_URL,
+});
+
+const { rows } = await client.query(`
+  SELECT 
+    DATE(started_at) as date,
+    model,
+    SUM(cost_usd) as cost,
+    COUNT(*) as requests,
+    AVG(output_tokens) as avg_output
+  FROM tokenmeter_costs
+  WHERE org_id = $1
+    AND started_at >= $2
+  GROUP BY DATE(started_at), model
+  ORDER BY date, cost DESC
+`, [orgId, startDate]);
+```
+
+## Error Handling
+
+```typescript
+try {
+  const costs = await client.getCostByUser('user_123');
+} catch (error) {
+  if (error.code === 'ECONNREFUSED') {
+    console.error('Database connection failed');
+  } else if (error.code === '42P01') {
+    console.error('Table does not exist - run migrations');
+  } else {
+    throw error;
+  }
+}
+```
+
