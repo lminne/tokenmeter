@@ -69,5 +69,10 @@
         "pages": ["faq", "troubleshooting", "contributing", "changelog"]
       }
     ]
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/lminne/tokenmeter"
+    }
   }
 }
