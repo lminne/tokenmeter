@@ -1,0 +1,125 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Tokenmeter",
+  "colors": {
+    "primary": "#10b981",
+    "light": "#34d399",
+    "dark": "#059669"
+  },
+  "favicon": "docs/favicon.svg",
+  "logo": {
+    "light": "docs/logo/light.svg",
+    "dark": "docs/logo/dark.svg"
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Getting Started",
+        "groups": [
+          {
+            "group": "",
+            "pages": [
+              "docs/introduction",
+              "docs/installation",
+              "docs/quickstart"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Core Concepts",
+            "pages": [
+              "docs/guides/monitoring-clients",
+              "docs/guides/cost-attribution",
+              "docs/guides/getting-cost-data",
+              "docs/guides/streaming"
+            ]
+          },
+          {
+            "group": "Framework Integrations",
+            "pages": [
+              "docs/guides/nextjs",
+              "docs/guides/vercel-ai",
+              "docs/guides/inngest"
+            ]
+          },
+          {
+            "group": "Data Export",
+            "pages": [
+              "docs/guides/observability",
+              "docs/guides/postgresql",
+              "docs/guides/query-client"
+            ]
+          },
+          {
+            "group": "Advanced",
+            "pages": [
+              "docs/guides/custom-providers",
+              "docs/guides/distributed-tracing",
+              "docs/guides/pricing-config"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "",
+            "pages": [
+              "docs/api/core",
+              "docs/api/monitor-options",
+              "docs/api/type-guards",
+              "docs/api/processor-exporter",
+              "docs/api/query-client"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Resources",
+        "groups": [
+          {
+            "group": "",
+            "pages": [
+              "docs/resources/faq",
+              "docs/resources/troubleshooting",
+              "docs/resources/contributing"
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "GitHub",
+          "href": "https://github.com/lminne/tokenmeter",
+          "icon": "github"
+        },
+        {
+          "anchor": "npm",
+          "href": "https://www.npmjs.com/package/tokenmeter",
+          "icon": "npm"
+        }
+      ]
+    }
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/lminne/tokenmeter"
+      }
+    ]
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/lminne/tokenmeter"
+    }
+  }
+}
