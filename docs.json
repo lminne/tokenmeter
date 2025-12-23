@@ -3,71 +3,115 @@
   "theme": "mint",
   "name": "Tokenmeter",
   "colors": {
-    "primary": "#10b981"
+    "primary": "#10b981",
+    "light": "#34d399",
+    "dark": "#059669"
+  },
+  "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
   },
   "navigation": {
-    "groups": [
+    "tabs": [
       {
-        "group": "Getting Started",
-        "pages": ["introduction", "installation", "quickstart"]
-      },
-      {
-        "group": "Core Concepts",
-        "pages": [
-          "core/monitor",
-          "core/with-attributes",
-          "core/cost-attribution",
-          "core/type-guards",
-          "core/span-attributes"
+        "tab": "Getting Started",
+        "groups": [
+          {
+            "group": "",
+            "pages": ["introduction", "installation", "quickstart"]
+          }
         ]
       },
       {
-        "group": "Providers",
-        "pages": [
-          "providers/supported-providers",
-          "providers/custom-providers",
-          "providers/pricing-configuration"
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Core Concepts",
+            "pages": [
+              "guides/monitoring-clients",
+              "guides/cost-attribution",
+              "guides/getting-cost-data",
+              "guides/streaming"
+            ]
+          },
+          {
+            "group": "Framework Integrations",
+            "pages": ["guides/nextjs", "guides/vercel-ai", "guides/inngest"]
+          },
+          {
+            "group": "Data Export",
+            "pages": [
+              "guides/observability",
+              "guides/postgresql",
+              "guides/query-client"
+            ]
+          },
+          {
+            "group": "Advanced",
+            "pages": [
+              "guides/custom-providers",
+              "guides/distributed-tracing",
+              "guides/pricing-config"
+            ]
+          }
         ]
       },
       {
-        "group": "Framework Integrations",
-        "pages": [
-          "integrations/nextjs",
-          "integrations/inngest",
-          "integrations/vercel-ai"
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "",
+            "pages": [
+              "api/core",
+              "api/monitor-options",
+              "api/type-guards",
+              "api/processor-exporter",
+              "api/query-client"
+            ]
+          }
         ]
       },
       {
-        "group": "Data & Storage",
-        "pages": [
-          "storage/postgresql",
-          "storage/query-client",
-          "storage/export-destinations"
+        "tab": "Resources",
+        "groups": [
+          {
+            "group": "",
+            "pages": [
+              "resources/faq",
+              "resources/troubleshooting",
+              "resources/contributing"
+            ]
+          }
         ]
-      },
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "GitHub",
+          "href": "https://github.com/lminne/tokenmeter",
+          "icon": "github"
+        },
+        {
+          "anchor": "npm",
+          "href": "https://www.npmjs.com/package/tokenmeter",
+          "icon": "npm"
+        }
+      ]
+    }
+  },
+  "navbar": {
+    "links": [
       {
-        "group": "Advanced",
-        "pages": [
-          "advanced/streaming",
-          "advanced/cross-service-propagation",
-          "advanced/processor"
-        ]
-      },
-      {
-        "group": "API Reference",
-        "pages": [
-          "api/core",
-          "api/monitor-options",
-          "api/type-guards",
-          "api/processor-exporter",
-          "api/query-client",
-          "api/integrations"
-        ]
-      },
-      {
-        "group": "Resources",
-        "pages": ["faq", "troubleshooting", "contributing", "changelog"]
+        "label": "GitHub",
+        "href": "https://github.com/lminne/tokenmeter"
       }
     ]
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/lminne/tokenmeter"
+    }
   }
 }
