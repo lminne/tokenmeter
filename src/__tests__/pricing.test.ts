@@ -415,6 +415,244 @@ describe("Pricing Manifest", () => {
     });
   });
 
+  describe("calculateCost - flexible multi-modal pricing (usageByType + pricesByType)", () => {
+    it("should use pricesByType for exact key matching", () => {
+      const pricing: ModelPricing = {
+        output: 0.15, // Legacy fallback
+        unit: "image",
+        pricesByType: {
+          output_images: 0.04,
+          output_images_4k: 0.10,
+        },
+      };
+
+      // When resolution is specified, extraction strategy only emits the specific key
+      const cost = calculateCost(
+        {
+          outputUnits: 4,
+          usageByType: {
+            output_images_4k: 4,  // Only the specific key (resolution known)
+          },
+        },
+        pricing,
+      );
+
+      // 4 images at 4K = 4 * 0.10 = 0.40
+      expect(cost).toBeCloseTo(0.40, 6);
+    });
+
+    it("should calculate cost for resolution-specific image pricing", () => {
+      const pricing: ModelPricing = {
+        unit: "image",
+        pricesByType: {
+          output_images: 0.04,
+          output_images_1k: 0.04,
+          output_images_2k: 0.06,
+          output_images_4k: 0.10,
+        },
+      };
+
+      // 4K resolution - extraction strategy only emits the specific key
+      const cost4k = calculateCost(
+        {
+          usageByType: {
+            output_images_4k: 2,  // Only the resolution-specific key
+          },
+        },
+        pricing,
+      );
+
+      // 2 images at 4K = 2 * 0.10 = 0.20
+      expect(cost4k).toBeCloseTo(0.20, 6);
+    });
+
+    it("should calculate cost for video with audio variant", () => {
+      const pricing: ModelPricing = {
+        output: 0.40, // Legacy fallback (video + audio)
+        unit: "second",
+        pricesByType: {
+          output_seconds: 0.20,
+          output_seconds_with_audio: 0.40,
+        },
+      };
+
+      // Video with audio - extraction strategy only emits the specific key
+      const costWithAudio = calculateCost(
+        {
+          usageByType: {
+            output_seconds_with_audio: 8,  // Only the specific key (audio enabled)
+          },
+        },
+        pricing,
+      );
+
+      // 8 seconds with audio = 8 * 0.40 = 3.20
+      expect(costWithAudio).toBeCloseTo(3.20, 6);
+    });
+
+    it("should calculate cost for video without audio", () => {
+      const pricing: ModelPricing = {
+        unit: "second",
+        pricesByType: {
+          output_seconds: 0.20,
+          output_seconds_with_audio: 0.40,
+        },
+      };
+
+      // Video only (no audio)
+      const costNoAudio = calculateCost(
+        {
+          usageByType: {
+            output_seconds: 8,
+            // No output_seconds_with_audio key
+          },
+        },
+        pricing,
+      );
+
+      // output_seconds: 8 * 0.20 = 1.60
+      expect(costNoAudio).toBeCloseTo(1.60, 6);
+    });
+
+    it("should calculate cost for TTS characters", () => {
+      // Note: pricesByType values use SAME units as legacy pricing.
+      // For unit "1k_characters", prices are per 1k characters.
+      const pricing: ModelPricing = {
+        input: 0.30, // Legacy: $0.30 per 1k characters
+        unit: "1k_characters",
+        pricesByType: {
+          input_characters: 0.30, // Also $0.30 per 1k characters
+        },
+      };
+
+      const cost = calculateCost(
+        {
+          usageByType: {
+            input_characters: 5000, // 5000 characters
+          },
+        },
+        pricing,
+      );
+
+      // 5000 characters / 1000 (divisor) * $0.30/1k = 5 * 0.30 = $1.50
+      expect(cost).toBeCloseTo(1.50, 6);
+    });
+
+    it("should fall back to legacy pricing when no pricesByType keys match", () => {
+      const pricing: ModelPricing = {
+        input: 2.5,
+        output: 10.0,
+        unit: "1m_tokens",
+        pricesByType: {
+          unrelated_key: 100.0, // No matching usage key
+        },
+      };
+
+      const cost = calculateCost(
+        {
+          inputUnits: 1000,
+          outputUnits: 500,
+          usageByType: {
+            some_other_key: 50, // Doesn't match pricesByType
+          },
+        },
+        pricing,
+      );
+
+      // Falls back to legacy: (1000/1M)*2.5 + (500/1M)*10 = 0.0025 + 0.005 = 0.0075
+      expect(cost).toBeCloseTo(0.0075, 6);
+    });
+
+    it("should fall back to legacy pricing when usageByType is empty", () => {
+      const pricing: ModelPricing = {
+        input: 2.5,
+        output: 10.0,
+        unit: "1m_tokens",
+        pricesByType: {
+          output_images: 0.04,
+        },
+      };
+
+      const cost = calculateCost(
+        {
+          inputUnits: 1000,
+          outputUnits: 500,
+          usageByType: {}, // Empty usageByType
+        },
+        pricing,
+      );
+
+      // Falls back to legacy
+      expect(cost).toBeCloseTo(0.0075, 6);
+    });
+
+    it("should use legacy pricing when pricesByType is not defined", () => {
+      const pricing: ModelPricing = {
+        input: 2.5,
+        output: 10.0,
+        unit: "1m_tokens",
+        // No pricesByType
+      };
+
+      const cost = calculateCost(
+        {
+          inputUnits: 1000,
+          outputUnits: 500,
+          usageByType: {
+            input: 1000,
+            output: 500,
+          },
+        },
+        pricing,
+      );
+
+      // Uses legacy since no pricesByType
+      expect(cost).toBeCloseTo(0.0075, 6);
+    });
+
+    it("should handle zero values in usageByType", () => {
+      const pricing: ModelPricing = {
+        unit: "image",
+        pricesByType: {
+          output_images: 0.04,
+          output_images_4k: 0.10,
+        },
+      };
+
+      const cost = calculateCost(
+        {
+          usageByType: {
+            output_images: 0,
+            output_images_4k: 0,
+          },
+        },
+        pricing,
+      );
+
+      expect(cost).toBe(0);
+    });
+
+    it("should handle negative values in usageByType by treating as zero", () => {
+      const pricing: ModelPricing = {
+        unit: "image",
+        pricesByType: {
+          output_images: 0.04,
+        },
+      };
+
+      const cost = calculateCost(
+        {
+          usageByType: {
+            output_images: -5,
+          },
+        },
+        pricing,
+      );
+
+      expect(cost).toBe(0);
+    });
+  });
+
   describe("configurePricing validation", () => {
     it("should reject invalid URLs", () => {
       expect(() =>

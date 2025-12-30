@@ -19,7 +19,10 @@
         {
           "effectiveDate": "2024-10-01",
           "output": 0.06,
-          "notes": "Per image generated, up to 4 megapixels"
+          "notes": "Per image generated, up to 4 megapixels",
+          "pricesByType": {
+            "output_images": 0.06
+          }
         }
       ]
     },
@@ -36,7 +39,10 @@
         {
           "effectiveDate": "2024-08-01",
           "output": 0.04,
-          "notes": "Per image generated"
+          "notes": "Per image generated",
+          "pricesByType": {
+            "output_images": 0.04
+          }
         }
       ]
     },

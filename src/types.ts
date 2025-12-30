@@ -54,6 +54,28 @@ export interface ModelPricing {
   cacheWrite?: number;
   /** Cost for cache read operations */
   cacheRead?: number;
+
+  /**
+   * Per-type pricing for flexible multi-modal cost calculation.
+   * Keys must match exactly with usageByType keys from UsageData.
+   *
+   * Follows Langfuse conventions applied to multi-modal workflows:
+   * - For images: "output_images", "output_images_4k", "output_images_hd"
+   * - For video: "output_seconds", "output_seconds_with_audio"
+   * - For audio: "input_characters", "output_audio_seconds"
+   * - For LLMs: "input", "output", "input_cached"
+   *
+   * @example
+   * ```typescript
+   * pricesByType: {
+   *   "output_images": 0.04,      // Base rate
+   *   "output_images_4k": 0.10,   // Higher resolution
+   *   "output_seconds": 0.20,     // Video seconds
+   *   "output_seconds_with_audio": 0.40  // Video with audio
+   * }
+   * ```
+   */
+  pricesByType?: Record<string, number>;
 }
 
 /**
@@ -234,21 +256,57 @@ export interface ErrorContext extends RequestContext {
 }
 
 /**
- * Usage data extracted from API responses
+ * Usage data extracted from API responses.
+ *
+ * usageByType follows Langfuse conventions applied to multi-modal workflows:
+ * - Keys are arbitrary strings describing the usage type
+ * - For images: "output_images", "output_images_4k", "output_images_hd"
+ * - For video: "output_seconds", "output_seconds_with_audio"
+ * - For audio: "input_characters", "output_audio_seconds"
+ * - For LLMs: "input", "output", "input_cached" (backwards compat)
+ *
+ * Keys must match exactly with pricesByType keys in ModelPricing for cost calculation.
  */
 export interface UsageData {
   /** Provider name */
   provider: string;
   /** Model identifier */
   model: string;
-  /** Input units (tokens, characters, etc.) */
+  /** Input units (tokens, characters, etc.) - legacy field for backwards compat */
   inputUnits?: number;
-  /** Output units (tokens, characters, images, seconds, etc.) */
+  /** Output units (tokens, characters, images, seconds, etc.) - legacy field for backwards compat */
   outputUnits?: number;
   /** Cached input units */
   cachedInputUnits?: number;
   /** Raw cost if provided by the API */
   rawCost?: number;
+
+  /**
+   * Flexible usage breakdown by type (Langfuse-style, multi-modal).
+   * Keys are arbitrary strings that must match pricesByType keys exactly.
+   *
+   * @example
+   * ```typescript
+   * // Image generation with resolution
+   * usageByType: {
+   *   "output_images": 4,      // Total images generated
+   *   "output_images_4k": 4    // All at 4K resolution
+   * }
+   *
+   * // Video generation with audio
+   * usageByType: {
+   *   "output_seconds": 8,              // Total video duration
+   *   "output_seconds_with_audio": 8    // With audio generation
+   * }
+   *
+   * // Text-to-speech
+   * usageByType: {
+   *   "input_characters": 5000
+   * }
+   * ```
+   */
+  usageByType?: Record<string, number>;
+
   /** Additional metadata */
   metadata?: Record<string, unknown>;
 }

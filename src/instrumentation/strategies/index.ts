@@ -132,6 +132,14 @@ export const anthropicStrategy: ExtractionStrategy = {
 
 /**
  * fal.ai extraction strategy
+ *
+ * Extracts usage data from fal.ai responses including:
+ * - Image generation: count and resolution
+ * - Video generation: duration and audio flag
+ *
+ * Emits usageByType for flexible multi-modal pricing:
+ * - "output_images", "output_images_1k", "output_images_2k", "output_images_4k"
+ * - "output_seconds", "output_seconds_with_audio"
  */
 export const falStrategy: ExtractionStrategy = {
   provider: PROVIDERS.FAL,
@@ -169,27 +177,74 @@ export const falStrategy: ExtractionStrategy = {
       model = args[0].replace("fal-ai/", "");
     }
 
-    const data = r.data || r;
-    let outputUnits = 1; // Default to 1 for request-based pricing
+    // Extract request parameters from second arg (input object)
+    let resolution: string | undefined;
+    let generateAudio: boolean | undefined;
 
-    // Image generation: count images
-    if ("images" in data && Array.isArray(data.images)) {
-      outputUnits = data.images.length;
-    } else if ("image" in data && data.image) {
-      outputUnits = 1;
+    if (args.length > 1 && typeof args[1] === "object" && args[1] !== null) {
+      const inputWrapper = args[1] as { input?: Record<string, unknown> };
+      const input = inputWrapper.input;
+      if (input) {
+        // Resolution: "1K", "2K", "4K" (lowercase for key matching)
+        if (typeof input.resolution === "string") {
+          resolution = input.resolution.toLowerCase();
+        }
+        // Audio flag for video generation
+        if (typeof input.generate_audio === "boolean") {
+          generateAudio = input.generate_audio;
+        }
+      }
     }
 
-    // Video generation: use duration in seconds
+    const data = r.data || r;
+    let outputUnits = 1; // Default to 1 for request-based pricing
+    const usageByType: Record<string, number> = {};
+
+    // Image generation: count images and build usage keys
+    // Only emit the most specific key to avoid double-charging
+    if ("images" in data && Array.isArray(data.images)) {
+      const imageCount = data.images.length;
+      outputUnits = imageCount;
+
+      // Use resolution-specific key if available, otherwise base key
+      if (resolution) {
+        usageByType[`output_images_${resolution}`] = imageCount;
+      } else {
+        usageByType["output_images"] = imageCount;
+      }
+    } else if ("image" in data && data.image) {
+      outputUnits = 1;
+
+      if (resolution) {
+        usageByType[`output_images_${resolution}`] = 1;
+      } else {
+        usageByType["output_images"] = 1;
+      }
+    }
+
+    // Video generation: duration in seconds with optional audio flag
+    // Only emit the most specific key to avoid double-charging
     if ("video" in data && data.video && "duration" in data) {
-      outputUnits = (data as { duration?: number }).duration || 1;
+      const seconds = (data as { duration?: number }).duration || 1;
+      outputUnits = seconds;
+
+      // Use audio variant key if audio was requested, otherwise base key
+      if (generateAudio) {
+        usageByType["output_seconds_with_audio"] = seconds;
+      } else {
+        usageByType["output_seconds"] = seconds;
+      }
     }
 
     return {
       provider: PROVIDERS.FAL,
       model,
       outputUnits,
+      usageByType: Object.keys(usageByType).length > 0 ? usageByType : undefined,
       metadata: {
         requestId: r.requestId || r.request_id,
+        resolution,
+        generateAudio,
       },
     };
   },
@@ -197,6 +252,10 @@ export const falStrategy: ExtractionStrategy = {
 
 /**
  * ElevenLabs extraction strategy
+ *
+ * Extracts character count from TTS requests.
+ * Emits usageByType for flexible pricing:
+ * - "input_characters": total character count
  */
 export const elevenlabsStrategy: ExtractionStrategy = {
   provider: PROVIDERS.ELEVENLABS,
@@ -246,12 +305,17 @@ export const elevenlabsStrategy: ExtractionStrategy = {
       }
     }
 
+    const characterCount = text.length;
+
     return {
       provider: PROVIDERS.ELEVENLABS,
       model,
-      inputUnits: text.length, // Character count
+      inputUnits: characterCount,
+      usageByType: {
+        input_characters: characterCount,
+      },
       metadata: {
-        characterCount: text.length,
+        characterCount,
       },
     };
   },
@@ -552,6 +616,9 @@ export const googleAIStudioStrategy: ExtractionStrategy = {
  *
  * Note: BFL responses are similar to fal.ai but use "id" (not "requestId")
  * and have "sample" field for images. fal.ai uses "requestId" (camelCase).
+ *
+ * Emits usageByType for flexible multi-modal pricing:
+ * - "output_images": count of generated images
  */
 export const bflStrategy: ExtractionStrategy = {
   provider: PROVIDERS.BFL,
@@ -612,6 +679,9 @@ export const bflStrategy: ExtractionStrategy = {
       provider: PROVIDERS.BFL,
       model,
       outputUnits,
+      usageByType: {
+        output_images: outputUnits,
+      },
       metadata: {
         requestId: r.id || r.request_id,
       },
@@ -701,17 +771,123 @@ export const vercelAIStrategy: ExtractionStrategy = {
 };
 
 /**
+ * Vertex AI Veo (Video Generation) extraction strategy
+ *
+ * Handles video generation responses from Google Vertex AI Veo models.
+ * Extracts duration and audio flag for flexible pricing.
+ *
+ * Emits usageByType:
+ * - "output_seconds": video duration in seconds
+ * - "output_seconds_with_audio": same, when audio was generated
+ */
+export const vertexVeoStrategy: ExtractionStrategy = {
+  provider: PROVIDERS.GOOGLE_VERTEX,
+
+  canHandle(methodPath: string[], result: unknown): boolean {
+    if (!result || typeof result !== "object") return false;
+
+    const r = result as Record<string, unknown>;
+
+    // Veo responses have generatedSamples with video data
+    // or a video field in the response
+    return (
+      ("generatedSamples" in r &&
+        Array.isArray(r.generatedSamples) &&
+        r.generatedSamples.length > 0) ||
+      ("video" in r && typeof r.video === "object")
+    );
+  },
+
+  extract(
+    methodPath: string[],
+    result: unknown,
+    args: unknown[]
+  ): UsageData | null {
+    const r = result as {
+      generatedSamples?: Array<{
+        video?: {
+          uri?: string;
+          duration?: number;
+        };
+      }>;
+      video?: {
+        uri?: string;
+        duration?: number;
+      };
+    };
+
+    // Extract model from args
+    let model = "veo-3.1"; // Default Veo model
+    let durationSeconds = 8; // Default duration
+    let generateAudio = false;
+
+    if (args.length > 0) {
+      const params = args[0] as {
+        model?: string;
+        durationSeconds?: number;
+        duration_seconds?: number;
+        generateAudio?: boolean;
+        generate_audio?: boolean;
+      } | undefined;
+
+      if (params?.model) {
+        model = params.model;
+      }
+      if (params?.durationSeconds !== undefined) {
+        durationSeconds = params.durationSeconds;
+      } else if (params?.duration_seconds !== undefined) {
+        durationSeconds = params.duration_seconds;
+      }
+      if (params?.generateAudio !== undefined) {
+        generateAudio = params.generateAudio;
+      } else if (params?.generate_audio !== undefined) {
+        generateAudio = params.generate_audio;
+      }
+    }
+
+    // Try to get duration from response if available
+    if (r.generatedSamples?.[0]?.video?.duration) {
+      durationSeconds = r.generatedSamples[0].video.duration;
+    } else if (r.video?.duration) {
+      durationSeconds = r.video.duration;
+    }
+
+    // Only emit the most specific key to avoid double-charging
+    const usageByType: Record<string, number> = {};
+
+    if (generateAudio) {
+      usageByType["output_seconds_with_audio"] = durationSeconds;
+    } else {
+      usageByType["output_seconds"] = durationSeconds;
+    }
+
+    return {
+      provider: PROVIDERS.GOOGLE_VERTEX,
+      model,
+      outputUnits: durationSeconds,
+      usageByType,
+      metadata: {
+        durationSeconds,
+        generateAudio,
+      },
+    };
+  },
+};
+
+/**
  * All registered strategies
  *
  * Note: Order matters! More specific strategies should come before general ones.
- * googleAIStudioStrategy checks for wrapped response format and must come
- * before vertexAIStrategy which handles the unwrapped format.
+ * - vertexVeoStrategy must come before vertexAIStrategy (video vs LLM)
+ * - googleAIStudioStrategy checks for wrapped response format and must come
+ *   before vertexAIStrategy which handles the unwrapped format.
  */
 export const strategies: ExtractionStrategy[] = [
   openaiStrategy,
   anthropicStrategy,
   bedrockStrategy,
   googleAIStudioStrategy, // Must come before vertexAIStrategy (more specific wrapped response)
+  vertexVeoStrategy, // Must come before vertexAIStrategy (video generation)
   vertexAIStrategy,
   falStrategy,
   bflStrategy,

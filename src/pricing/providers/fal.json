@@ -2754,7 +2754,13 @@
         {
           "effectiveDate": "2025-12-21",
           "output": 0.15,
-          "notes": "0.15 USD per images"
+          "notes": "0.15 USD per images. Resolution-based pricing: 1K=$0.04, 2K=$0.06, 4K=$0.10",
+          "pricesByType": {
+            "output_images": 0.15,
+            "output_images_1k": 0.04,
+            "output_images_2k": 0.06,
+            "output_images_4k": 0.10
+          }
         }
       ]
     },
@@ -5842,7 +5848,13 @@
         {
           "effectiveDate": "2025-12-21",
           "output": 0.0398,
-          "notes": "0.0398 USD per images"
+          "notes": "0.0398 USD per images. Resolution-based pricing available.",
+          "pricesByType": {
+            "output_images": 0.0398,
+            "output_images_1k": 0.02,
+            "output_images_2k": 0.03,
+            "output_images_4k": 0.05
+          }
         }
       ]
     },

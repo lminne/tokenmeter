@@ -37,6 +37,7 @@ export function calculateUsageCost(usage: UsageData): number {
       inputUnits: usage.inputUnits,
       outputUnits: usage.outputUnits,
       cachedInputUnits: usage.cachedInputUnits,
+      usageByType: usage.usageByType,
     },
     pricing,
   );

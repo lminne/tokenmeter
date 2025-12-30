@@ -15,7 +15,10 @@
         {
           "effectiveDate": "2024-01-01",
           "input": 0.3,
-          "notes": "High quality, 29 languages, 1 credit per character. ~$0.20-0.30/1K chars depending on plan"
+          "notes": "High quality, 29 languages, 1 credit per character. ~$0.20-0.30/1K chars depending on plan",
+          "pricesByType": {
+            "input_characters": 0.3
+          }
         }
       ]
     },
@@ -32,7 +35,10 @@
         {
           "effectiveDate": "2025-01-01",
           "input": 0.15,
-          "notes": "Ultra-low latency, 32 languages, 0.5 credits per character"
+          "notes": "Ultra-low latency, 32 languages, 0.5 credits per character",
+          "pricesByType": {
+            "input_characters": 0.15
+          }
         }
       ]
     },
@@ -49,7 +55,10 @@
         {
           "effectiveDate": "2024-06-01",
           "input": 0.18,
-          "notes": "Low latency, 32 languages, optimized for real-time"
+          "notes": "Low latency, 32 languages, optimized for real-time",
+          "pricesByType": {
+            "input_characters": 0.18
+          }
         }
       ]
     },
@@ -62,7 +71,10 @@
         {
           "effectiveDate": "2024-01-01",
           "input": 0.15,
-          "notes": "Low latency English, 0.5 credits per character"
+          "notes": "Low latency English, 0.5 credits per character",
+          "pricesByType": {
+            "input_characters": 0.15
+          }
         }
       ]
     },

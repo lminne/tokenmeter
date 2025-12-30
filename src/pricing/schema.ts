@@ -45,6 +45,30 @@ export interface CatalogPricingEntry {
 
   /** Notes about this pricing change */
   notes?: string;
+
+  /**
+   * Per-type pricing for flexible multi-modal cost calculation.
+   * Keys must match exactly with usageByType keys from extraction strategies.
+   *
+   * Follows Langfuse conventions applied to multi-modal workflows:
+   * - For images: "output_images", "output_images_1k", "output_images_2k", "output_images_4k"
+   * - For video: "output_seconds", "output_seconds_with_audio"
+   * - For audio: "input_characters", "output_audio_seconds"
+   * - For LLMs: "input", "output", "input_cached"
+   *
+   * @example
+   * ```json
+   * {
+   *   "pricesByType": {
+   *     "output_images": 0.04,
+   *     "output_images_4k": 0.10,
+   *     "output_seconds": 0.20,
+   *     "output_seconds_with_audio": 0.40
+   *   }
+   * }
+   * ```
+   */
+  pricesByType?: Record<string, number>;
 }
 
 /**

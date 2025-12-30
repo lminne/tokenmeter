@@ -558,14 +558,21 @@ function normalizePricing(value: number | undefined): number | undefined {
 /**
  * Calculate cost based on usage and pricing
  *
- * Handles two pricing models:
- * 1. Request-based: Flat cost per request/image (uses `pricing.cost`)
- *    - For image generation, multiplied by outputUnits (number of images)
- * 2. Unit-based: Cost per input/output unit (uses `pricing.input`/`pricing.output`)
- *    - Divided by unit size (1M for tokens, 1K for characters)
+ * Handles three pricing models (in priority order):
  *
- * @param usage - Usage data with input/output units
- * @param pricing - Pricing configuration for the model
+ * 1. Flexible multi-modal (usageByType + pricesByType):
+ *    Uses exact key matching between usage types and prices.
+ *    Follows Langfuse conventions for multi-modal workflows.
+ *    Example: { "output_images_4k": 4 } × { "output_images_4k": 0.10 }
+ *
+ * 2. Request-based: Flat cost per request/image (uses `pricing.cost`)
+ *    For image generation, multiplied by outputUnits (number of images)
+ *
+ * 3. Unit-based: Cost per input/output unit (uses `pricing.input`/`pricing.output`)
+ *    Divided by unit size (1M for tokens, 1K for characters)
+ *
+ * @param usage - Usage data with input/output units and optional usageByType
+ * @param pricing - Pricing configuration with optional pricesByType
  * @returns Calculated cost in USD (always non-negative)
  */
 export function calculateCost(
@@ -573,8 +580,83 @@ export function calculateCost(
     inputUnits?: number;
     outputUnits?: number;
     cachedInputUnits?: number;
+    usageByType?: Record<string, number>;
   },
   pricing: ModelPricing,
+): number {
+  // Get the divisor based on unit
+  const divisor = UNIT_DIVISORS[pricing.unit] ?? 1;
+
+  // Priority 1: If we have usageByType and pricesByType, use flexible calculation
+  if (usage.usageByType && pricing.pricesByType) {
+    const flexCost = calculateFlexibleCost(
+      usage.usageByType,
+      pricing.pricesByType,
+      divisor,
+    );
+    // If we got a valid cost from flexible pricing, use it
+    if (flexCost > 0) {
+      return flexCost;
+    }
+    // Otherwise fall through to legacy calculation
+  }
+
+  // Priority 2 & 3: Legacy calculation (flat cost + input/output based)
+  return calculateLegacyCost(usage, pricing, divisor);
+}
+
+/**
+ * Calculate cost using flexible usageByType and pricesByType matching.
+ *
+ * Uses exact key matching (Langfuse behavior):
+ * - Each key in usageByType is looked up in pricesByType
+ * - If a match is found, cost = units × price / divisor
+ * - Only matching keys contribute to total cost
+ *
+ * @param usageByType - Usage breakdown by type (e.g., { "output_images_4k": 4 })
+ * @param pricesByType - Per-type pricing (e.g., { "output_images_4k": 0.10 })
+ * @param divisor - Unit divisor for the pricing unit
+ * @returns Calculated cost in USD (always non-negative)
+ *
+ * @internal
+ */
+function calculateFlexibleCost(
+  usageByType: Record<string, number>,
+  pricesByType: Record<string, number>,
+  divisor: number,
+): number {
+  let cost = 0;
+
+  for (const [usageKey, units] of Object.entries(usageByType)) {
+    const normalizedUnits = normalizeUnits(units);
+    if (normalizedUnits <= 0) continue;
+
+    // Exact key match (Langfuse behavior)
+    const price = pricesByType[usageKey];
+    if (price !== undefined) {
+      const normalizedPrice = normalizePricing(price);
+      if (normalizedPrice !== undefined) {
+        cost += (normalizedUnits / divisor) * normalizedPrice;
+      }
+    }
+  }
+
+  return Math.max(0, cost);
+}
+
+/**
+ * Calculate cost using legacy input/output/flat pricing.
+ *
+ * @internal
+ */
+function calculateLegacyCost(
+  usage: {
+    inputUnits?: number;
+    outputUnits?: number;
+    cachedInputUnits?: number;
+  },
+  pricing: ModelPricing,
+  divisor: number,
 ): number {
   let cost = 0;
 
@@ -588,9 +670,6 @@ export function calculateCost(
   const outputPrice = normalizePricing(pricing.output);
   const cachedInputPrice = normalizePricing(pricing.cachedInput);
   const flatCost = normalizePricing(pricing.cost);
-
-  // Get the divisor based on unit
-  const divisor = UNIT_DIVISORS[pricing.unit] ?? 1;
 
   // Flat cost (request-based pricing for images, etc.)
   // For image generation: cost per image * number of images

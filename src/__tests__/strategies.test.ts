@@ -8,6 +8,7 @@ import {
   anthropicStrategy,
   bedrockStrategy,
   vertexAIStrategy,
+  vertexVeoStrategy,
   falStrategy,
   bflStrategy,
   elevenlabsStrategy,
@@ -397,6 +398,118 @@ describe("Extraction Strategies", () => {
     });
   });
 
+  describe("Google Vertex AI Veo (Video) Strategy", () => {
+    const veoResponse = {
+      generatedSamples: [
+        {
+          video: {
+            uri: "gs://bucket/video.mp4",
+            duration: 8,
+          },
+        },
+      ],
+    };
+
+    it("should detect Veo responses with generatedSamples", () => {
+      expect(vertexVeoStrategy.canHandle(["generateVideo"], veoResponse)).toBe(
+        true,
+      );
+    });
+
+    it("should detect Veo responses with video field", () => {
+      const simpleResponse = {
+        video: { uri: "gs://bucket/video.mp4" },
+      };
+      expect(vertexVeoStrategy.canHandle([], simpleResponse)).toBe(true);
+    });
+
+    it("should not detect LLM responses (usageMetadata)", () => {
+      const llmResponse = {
+        usageMetadata: {
+          promptTokenCount: 100,
+          candidatesTokenCount: 50,
+        },
+      };
+      expect(vertexVeoStrategy.canHandle([], llmResponse)).toBe(false);
+    });
+
+    it("should extract video duration", () => {
+      const usage = vertexVeoStrategy.extract(["generateVideo"], veoResponse, [
+        { model: "veo-3.1" },
+      ]);
+
+      expect(usage).not.toBeNull();
+      expect(usage?.provider).toBe("google-vertex");
+      expect(usage?.model).toBe("veo-3.1");
+      expect(usage?.outputUnits).toBe(8);
+    });
+
+    it("should extract duration from request args", () => {
+      const simpleResponse = {
+        video: { uri: "gs://bucket/video.mp4" },
+      };
+
+      const usage = vertexVeoStrategy.extract([], simpleResponse, [
+        { model: "veo-3.1-fast", durationSeconds: 5 },
+      ]);
+
+      expect(usage?.outputUnits).toBe(5);
+      expect(usage?.metadata?.durationSeconds).toBe(5);
+    });
+
+    describe("usageByType extraction", () => {
+      it("should emit output_seconds for video", () => {
+        const usage = vertexVeoStrategy.extract(
+          ["generateVideo"],
+          veoResponse,
+          [{ model: "veo-3.1" }],
+        );
+
+        expect(usage?.usageByType).toBeDefined();
+        expect(usage?.usageByType?.["output_seconds"]).toBe(8);
+      });
+
+      it("should emit only output_seconds_with_audio when generateAudio is true", () => {
+        const usage = vertexVeoStrategy.extract(
+          ["generateVideo"],
+          veoResponse,
+          [{ model: "veo-3.1", durationSeconds: 8, generateAudio: true }],
+        );
+
+        // Should only emit the specific key, not both (to avoid double-charging)
+        expect(usage?.usageByType?.["output_seconds"]).toBeUndefined();
+        expect(usage?.usageByType?.["output_seconds_with_audio"]).toBe(8);
+        expect(usage?.metadata?.generateAudio).toBe(true);
+      });
+
+      it("should not emit output_seconds_with_audio when generateAudio is false", () => {
+        const usage = vertexVeoStrategy.extract(
+          ["generateVideo"],
+          veoResponse,
+          [{ model: "veo-3.1", generateAudio: false }],
+        );
+
+        expect(usage?.usageByType?.["output_seconds"]).toBe(8);
+        expect(usage?.usageByType?.["output_seconds_with_audio"]).toBeUndefined();
+      });
+
+      it("should handle snake_case args (generate_audio, duration_seconds)", () => {
+        const simpleResponse = {
+          video: { uri: "gs://bucket/video.mp4" },
+        };
+
+        const usage = vertexVeoStrategy.extract([], simpleResponse, [
+          { model: "veo-3.1", duration_seconds: 10, generate_audio: true },
+        ]);
+
+        expect(usage?.outputUnits).toBe(10);
+        // Should only emit the specific key when audio is requested
+        expect(usage?.usageByType?.["output_seconds"]).toBeUndefined();
+        expect(usage?.usageByType?.["output_seconds_with_audio"]).toBe(10);
+      });
+    });
+  });
+
   describe("BFL (Black Forest Labs) Strategy", () => {
     const bflResponse = {
       id: "task_abc123",
@@ -496,6 +609,41 @@ describe("Extraction Strategies", () => {
       ]);
       expect(usage?.model).toBe("flux-schnell");
     });
+
+    describe("usageByType extraction", () => {
+      it("should emit output_images for single image", () => {
+        const usage = bflStrategy.extract([], bflResponse, [
+          { model: "flux-pro-1.1" },
+        ]);
+
+        expect(usage?.usageByType).toBeDefined();
+        expect(usage?.usageByType?.["output_images"]).toBe(1);
+      });
+
+      it("should emit output_images for multiple images", () => {
+        const multiImageResponse = {
+          id: "task_abc123",
+          images: [
+            { url: "https://1..." },
+            { url: "https://2..." },
+            { url: "https://3..." },
+          ],
+        };
+
+        const usage = bflStrategy.extract([], multiImageResponse, []);
+        expect(usage?.usageByType?.["output_images"]).toBe(3);
+      });
+
+      it("should emit output_images for multiple samples", () => {
+        const multiSampleResponse = {
+          id: "task_abc123",
+          sample: ["base64_1", "base64_2", "base64_3", "base64_4"],
+        };
+
+        const usage = bflStrategy.extract([], multiSampleResponse, []);
+        expect(usage?.usageByType?.["output_images"]).toBe(4);
+      });
+    });
   });
 
   describe("fal.ai Strategy", () => {
@@ -540,6 +688,105 @@ describe("Extraction Strategies", () => {
 
       expect(usage?.outputUnits).toBe(1);
     });
+
+    describe("usageByType extraction", () => {
+      it("should emit output_images for image generation", () => {
+        const usage = falStrategy.extract(["subscribe"], falResponse, [
+          "fal-ai/flux-pro",
+        ]);
+
+        expect(usage?.usageByType).toBeDefined();
+        expect(usage?.usageByType?.["output_images"]).toBe(2);
+      });
+
+      it("should emit only resolution-specific key when resolution is provided", () => {
+        const usage = falStrategy.extract(["subscribe"], falResponse, [
+          "fal-ai/gemini-3-pro-image-preview",
+          { input: { resolution: "4K" } },
+        ]);
+
+        expect(usage?.usageByType).toBeDefined();
+        // Should only emit the specific key, not both (to avoid double-charging)
+        expect(usage?.usageByType?.["output_images"]).toBeUndefined();
+        expect(usage?.usageByType?.["output_images_4k"]).toBe(2);
+        expect(usage?.metadata?.resolution).toBe("4k");
+      });
+
+      it("should emit output_seconds for video generation", () => {
+        const videoResponse = {
+          requestId: "req_video123",
+          data: {
+            video: { url: "https://..." },
+            duration: 8,
+          },
+        };
+
+        const usage = falStrategy.extract(["subscribe"], videoResponse, [
+          "fal-ai/veo2/image-to-video",
+        ]);
+
+        expect(usage?.usageByType).toBeDefined();
+        expect(usage?.usageByType?.["output_seconds"]).toBe(8);
+        expect(usage?.outputUnits).toBe(8);
+      });
+
+      it("should emit only output_seconds_with_audio when generate_audio is true", () => {
+        const videoResponse = {
+          requestId: "req_video123",
+          data: {
+            video: { url: "https://..." },
+            duration: 5,
+          },
+        };
+
+        const usage = falStrategy.extract(["subscribe"], videoResponse, [
+          "fal-ai/veo-3.1",
+          { input: { generate_audio: true } },
+        ]);
+
+        expect(usage?.usageByType).toBeDefined();
+        // Should only emit the specific key, not both (to avoid double-charging)
+        expect(usage?.usageByType?.["output_seconds"]).toBeUndefined();
+        expect(usage?.usageByType?.["output_seconds_with_audio"]).toBe(5);
+        expect(usage?.metadata?.generateAudio).toBe(true);
+      });
+
+      it("should not emit output_seconds_with_audio when generate_audio is false", () => {
+        const videoResponse = {
+          requestId: "req_video123",
+          data: {
+            video: { url: "https://..." },
+            duration: 5,
+          },
+        };
+
+        const usage = falStrategy.extract(["subscribe"], videoResponse, [
+          "fal-ai/veo-3.1",
+          { input: { generate_audio: false } },
+        ]);
+
+        expect(usage?.usageByType?.["output_seconds"]).toBe(5);
+        expect(usage?.usageByType?.["output_seconds_with_audio"]).toBeUndefined();
+      });
+
+      it("should handle single image with resolution", () => {
+        const singleImageResponse = {
+          requestId: "req_abc123",
+          data: {
+            image: { url: "https://..." },
+          },
+        };
+
+        const usage = falStrategy.extract([], singleImageResponse, [
+          "fal-ai/gemini-25-flash-image",
+          { input: { resolution: "2k" } },
+        ]);
+
+        // Should only emit the resolution-specific key
+        expect(usage?.usageByType?.["output_images"]).toBeUndefined();
+        expect(usage?.usageByType?.["output_images_2k"]).toBe(1);
+      });
+    });
   });
 
   describe("ElevenLabs Strategy", () => {
@@ -579,6 +826,29 @@ describe("Extraction Strategies", () => {
       );
 
       expect(usage?.model).toBe("eleven_multilingual_v2");
+    });
+
+    describe("usageByType extraction", () => {
+      it("should emit input_characters for TTS", () => {
+        const usage = elevenlabsStrategy.extract(
+          ["textToSpeech", "convert"],
+          Buffer.from([]),
+          ["voice_id", { text: "Hello, world!", modelId: "eleven_turbo_v2_5" }],
+        );
+
+        expect(usage?.usageByType).toBeDefined();
+        expect(usage?.usageByType?.["input_characters"]).toBe(13);
+      });
+
+      it("should emit input_characters for empty text", () => {
+        const usage = elevenlabsStrategy.extract(
+          ["textToSpeech", "convert"],
+          Buffer.from([]),
+          ["voice_id", { text: "" }],
+        );
+
+        expect(usage?.usageByType?.["input_characters"]).toBe(0);
+      });
     });
   });
 

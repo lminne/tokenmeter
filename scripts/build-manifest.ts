@@ -25,6 +25,7 @@ interface ModelPricing {
   cachedOutput?: number;
   cacheWrite?: number;
   cacheRead?: number;
+  pricesByType?: Record<string, number>;
 }
 
 interface ProviderPricing {
@@ -56,6 +57,7 @@ interface ProviderJSON {
         cacheWrite?: number;
         cacheRead?: number;
         cost?: number;
+        pricesByType?: Record<string, number>;
       }>;
     }
   >;
@@ -141,6 +143,8 @@ function convertProvider(
       modelPricing.cacheRead = currentPricing.cacheRead;
     if (currentPricing.cost !== undefined)
       modelPricing.cost = currentPricing.cost;
+    if (currentPricing.pricesByType !== undefined)
+      modelPricing.pricesByType = currentPricing.pricesByType;
 
     pricing[modelId] = modelPricing;
 

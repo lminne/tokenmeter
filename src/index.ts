@@ -142,6 +142,7 @@ export {
   anthropicStrategy,
   bedrockStrategy,
   vertexAIStrategy,
+  vertexVeoStrategy,
   googleAIStudioStrategy,
   falStrategy,
   bflStrategy,
