@@ -78,9 +78,18 @@ Tokenmeter automatically detects and tracks these API methods:
     - `messages.create()`
     - `messages.stream()`
   </Tab>
-  <Tab title="Google">
-    - `generateContent()`
+  <Tab title="Google AI Studio">
+    - `generateContent()` (via @google/generative-ai SDK)
     - `generateContentStream()`
+    
+    Uses API key authentication. Provider ID: `google-ai-studio`
+  </Tab>
+  <Tab title="Google Vertex AI">
+    - `generateContent()` (via @google-cloud/vertexai SDK)
+    - `generateContentStream()`
+    - Video generation (Veo models)
+    
+    Uses Google Cloud authentication. Provider ID: `google-vertex`
   </Tab>
   <Tab title="fal.ai">
     - `subscribe()`

@@ -56,9 +56,13 @@ await withAttributes({ 'user.id': 'user_123' }, async () => {
 |----------|--------|--------------|
 | **OpenAI** | GPT-4o, GPT-4-turbo, o1, o3, GPT-3.5, embeddings, DALL-E, Whisper | per 1M tokens |
 | **Anthropic** | Claude 4, Claude 3.5, Claude 3 | per 1M tokens |
-| **Google** | Gemini 2.0, Gemini 1.5 | per 1M tokens |
+| **Google AI Studio** | Gemini 2.5, 2.0, 1.5 (via @google/generative-ai) | per 1M tokens |
+| **Google Vertex AI** | Gemini models + Veo video generation (via @google-cloud/vertexai) | per 1M tokens / per second |
+| **AWS Bedrock** | Claude, Llama, Titan models | per 1M tokens |
 | **fal.ai** | 900+ models (Flux, SDXL, Kling, Runway, etc.) | per request/megapixel/second |
+| **Black Forest Labs** | Flux Pro, Flux Schnell | per image |
 | **ElevenLabs** | All TTS models | per 1K characters |
+| **Vercel AI SDK** | All supported providers via unified SDK | varies by provider |
 
 ## Core Concepts
 

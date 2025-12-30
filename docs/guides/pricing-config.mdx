@@ -43,7 +43,7 @@ Point to your own pricing API:
 
 ```typescript
 configurePricing({
-  apiUrl: 'https://your-api.com/pricing/manifest.json',
+  apiUrl: 'https://your-api.com/pricing',
 });
 ```
 
@@ -58,12 +58,22 @@ The API should return a manifest in this format:
       "gpt-4o": {
         "input": 2.50,
         "output": 10.00,
-        "unit": "1M_tokens"
+        "unit": "1m_tokens"
       }
     }
   }
 }
 ```
+
+Valid `unit` values are:
+- `1m_tokens` — per million tokens (most LLMs)
+- `1k_tokens` — per thousand tokens (legacy)
+- `1k_characters` — per thousand characters (TTS)
+- `request` — flat per-request
+- `megapixel` — per megapixel (some image models)
+- `second` — per second (video/audio)
+- `minute` — per minute (transcription)
+- `image` — per image generated
 
 ## Force Refresh
 
@@ -79,21 +89,35 @@ This bypasses the cache and fetches fresh data.
 
 ## Model Aliases
 
-Map custom model names to known models:
+Map custom model names to known models for pricing lookup:
 
 ```typescript
-import { setModelAliases } from 'tokenmeter';
+import { setModelAliases, configurePricing } from 'tokenmeter';
 
+// Option 1: Using setModelAliases (simpler for basic cases)
 setModelAliases({
-  // Fine-tuned models
-  'ft:gpt-4o:my-org:custom:abc123': 'openai/gpt-4o',
+  // Fine-tuned models -> map to canonical pricing
+  'ft:gpt-4o:my-org:custom:abc123': { provider: 'openai', model: 'gpt-4o' },
   
   // Custom deployment names
-  'azure-gpt4': 'openai/gpt-4o',
-  'bedrock-claude': 'anthropic/claude-3-5-sonnet-20240620',
+  'azure-gpt4': { provider: 'openai', model: 'gpt-4o' },
+  'bedrock-claude': { provider: 'bedrock', model: 'anthropic.claude-sonnet-4-5' },
   
   // Internal model registry
-  'llm-prod-v2': 'openai/gpt-4o',
+  'llm-prod-v2': { provider: 'openai', model: 'gpt-4o' },
+});
+
+// Option 2: Provider-specific aliases (when same name used across providers)
+setModelAliases({
+  'openai:my-model': { provider: 'openai', model: 'gpt-4o-realtime' },
+  'azure:my-model': { provider: 'azure', model: 'gpt-4o-azure' },
+});
+
+// Option 3: Using configurePricing (for validation at startup)
+configurePricing({
+  modelAliases: {
+    'my-custom-model': { provider: 'openai', model: 'gpt-4o' },
+  },
 });
 ```
 
@@ -118,7 +142,7 @@ import { getModelAliases } from 'tokenmeter';
 
 const aliases = getModelAliases();
 console.log(aliases);
-// { 'ft:gpt-4o:...': 'openai/gpt-4o', ... }
+// { 'ft:gpt-4o:...': { provider: 'openai', model: 'gpt-4o' }, ... }
 ```
 
 ## Checking Pricing
@@ -143,17 +167,50 @@ if (pricing) {
 Calculate cost from usage data:
 
 ```typescript
-import { calculateCost } from 'tokenmeter';
+import { calculateCost, getModelPricing, getCachedManifest } from 'tokenmeter';
 
-const cost = calculateCost({
-  provider: 'openai',
-  model: 'gpt-4o',
-  inputUnits: 1500,  // tokens
-  outputUnits: 500,
-});
+// Get pricing for a model
+const manifest = getCachedManifest();
+const pricing = getModelPricing('openai', 'gpt-4o', manifest);
 
-console.log(`Cost: $${cost.toFixed(6)}`);
+if (pricing) {
+  // Calculate cost with usage data
+  const cost = calculateCost(
+    {
+      inputUnits: 1500,  // tokens
+      outputUnits: 500,
+    },
+    pricing
+  );
+
+  console.log(`Cost: $${cost.toFixed(6)}`);
+}
 ```
+
+### Multi-Modal Pricing (Images, Video, Audio)
+
+For models with per-type pricing (like image generation with resolution variants):
+
+```typescript
+const pricing = getModelPricing('fal', 'gemini-3-pro-image-preview', manifest);
+
+if (pricing) {
+  const cost = calculateCost(
+    {
+      outputUnits: 4,
+      usageByType: {
+        'output_images_4k': 4,  // 4 images at 4K resolution
+      },
+    },
+    pricing
+  );
+}
+```
+
+Common `usageByType` keys:
+- `output_images`, `output_images_1k`, `output_images_2k`, `output_images_4k` — image generation
+- `output_seconds`, `output_seconds_with_audio` — video generation
+- `input_characters` — text-to-speech
 
 ## Cache Management
 

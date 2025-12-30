@@ -100,21 +100,26 @@ setModelAliases({
 });
 ```
 
-Or configure custom pricing:
+For multi-modal models (images, video, audio), you can track resolution or audio variants using the flexible `usageByType` system. The extraction strategy can emit usage keys that match `pricesByType` in the pricing manifest:
 
 ```typescript
-import { configurePricing } from 'tokenmeter';
-
-configurePricing({
-  customPricing: {
-    'llm-gateway': {
-      'custom-model': {
-        input: 0.002,  // per 1K tokens
-        output: 0.006,
-        unit: 'tokens',
+registerProvider({
+  name: 'my-image-provider',
+  
+  extractUsage: (response, args) => {
+    const resolution = args[0]?.resolution || '1k';
+    const imageCount = response.images.length;
+    
+    return {
+      provider: 'my-image-provider',
+      model: args[0]?.model || 'default',
+      outputUnits: imageCount,
+      usageByType: {
+        [`output_images_${resolution}`]: imageCount,
       },
-    },
+    };
   },
+  // ... other config
 });
 ```
 

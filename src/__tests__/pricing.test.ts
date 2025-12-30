@@ -42,7 +42,9 @@ describe("Pricing Manifest", () => {
       // Should have major providers
       expect(manifest.providers.openai).toBeDefined();
       expect(manifest.providers.anthropic).toBeDefined();
-      expect(manifest.providers.google).toBeDefined();
+      // Google is split into two providers
+      expect(manifest.providers["google-ai-studio"]).toBeDefined();
+      expect(manifest.providers["google-vertex"]).toBeDefined();
 
       // Should have common models
       expect(manifest.providers.openai["gpt-4o"]).toBeDefined();
